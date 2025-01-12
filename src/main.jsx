@@ -3,13 +3,6 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 
-// PRIMEREACT
-import "primeicons/primeicons.css";
-import { PrimeReactProvider } from "primereact/api";
-import "primeflex/primeflex.css";
-import "primereact/resources/primereact.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-
 // I18
 import i18next from "i18next";
 import { I18nextProvider } from "react-i18next";
@@ -40,10 +33,8 @@ i18next.init({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <PrimeReactProvider>
-      <I18nextProvider i18n={i18next}>
-        <App />
-      </I18nextProvider>{" "}
-    </PrimeReactProvider>{" "}
+    <I18nextProvider i18n={i18next}>
+      <App />
+    </I18nextProvider>{" "}
   </StrictMode>
 );
