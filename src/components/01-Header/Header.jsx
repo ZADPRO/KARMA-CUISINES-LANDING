@@ -27,7 +27,7 @@ export default function Header() {
 
   return (
     <div>
-      <nav className="fixed top-0 left-0 w-full bg-white shadow-md">
+      <nav className="fixed bg-white z-10 top-0 left-0 w-full shadow-sm">
         <div className="container flex justify-between items-center">
           {/* Logo */}
           <div className="flex text-2xl items-center gap-2 font-bold py-5">
@@ -41,7 +41,7 @@ export default function Header() {
                 <li key={item.id}>
                   <a
                     href={item.link}
-                    className="inline-block text-[20px] py-1 px-3 hover:text-[#f95005] font-bold"
+                    className="inline-block text-[20px] py-1 px-3 hover:text-[#db5b2d] font-semibold"
                   >
                     {item.title}
                   </a>
@@ -54,7 +54,7 @@ export default function Header() {
                 onMouseLeave={() => setLanguageOpen(false)}
                 className="relative"
               >
-                <button className="inline-block text-[20px] py-1 px-3 hover:text-[#f95005] font-bold">
+                <button className="inline-block text-[20px] py-1 px-3 hover:text-[#db5b2d] font-semibold">
                   Translate
                 </button>
                 <AnimatePresence>
@@ -89,13 +89,13 @@ export default function Header() {
 
           {/* Cart and Login */}
           <div className="flex items-center gap-4">
-            <button className="text-2xl hover:bg-[#f95005] hover:text-white rounded-full p-2 duration-200">
+            <button className="text-2xl hover:bg-[#db5b2d] hover:text-white rounded-full p-2 duration-200">
               <Search />
             </button>
-            <button className="text-2xl hover:bg-[#f95005] hover:text-white rounded-full p-2 duration-200">
+            <button className="text-2xl hover:bg-[#db5b2d] hover:text-white rounded-full p-2 duration-200">
               <ShoppingCart />
             </button>
-            <button className="hover:bg-[#f95005] text-[#f95005] font-semibold hover:text-white rounded-md border-2 border-[#f95005] px-6 py-2 duration-200 hidden md:block">
+            <button className="hover:bg-[#db5b2d] text-[#db5b2d] font-semibold hover:text-white rounded-md border-2 border-[#db5b2d] px-6 py-2 duration-200 hidden md:block">
               Login
             </button>
           </div>

@@ -1,0 +1,92 @@
+.homePageIntroCont {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../assets/home/bg.png");
+  /* background-color: #211f1f; */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100dvh;
+  width: 100%;
+}
+
+/* Change background image for mobile view */
+@media (max-width: 768px) {
+  .homePageIntroCont {
+    background-image: url("../../assets/home/bg.png");
+    background-attachment: fixed;
+    text-align: center;
+    justify-content: start;
+    padding-top: 20vh;
+    height: 100vh;
+  }
+  .homePageIntroCont::before {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  .homePageIntroCont {
+    background-attachment: fixed;
+  }
+}
+
+.homePageIntroCont::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  z-index: 1;
+}
+
+.homePageIntroCont > * {
+  position: relative;
+  z-index: 2;
+}
+
+.homePageCont p {
+  font-family: "Elsie", serif;
+}
+
+/* CARDS */
+.foodCards {
+  width: 250px;
+  padding: 30px;
+  border-radius: 20px;
+  position: relative;
+  background-color: #f8e5d9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.foodImage {
+  position: absolute;
+  right: 10px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 6px solid #e85557;
+  object-fit: cover;
+}
+
+.textContent {
+  margin-top: 100px;
+}
+
+.foodCards button {
+  background-color: #f95005;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.foodCards button:hover {
+  background-color: #d84004;
+}

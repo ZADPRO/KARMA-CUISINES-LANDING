@@ -33,7 +33,7 @@ export default function ResponsiveMenu({ open }) {
           transition={{ duration: 0.1 }}
           className="absolute top-20 left-0 w-full h-screen z-20"
         >
-          <div className="text-xl font-semibold uppercase bg-[#f95005] text-white py-6 m-2 rounded-xl">
+          <div className="text-xl font-semibold uppercase bg-[#db5b2d] text-white py-6 m-2 rounded-xl">
             <ul className="flex flex-col justify-start items-start gap-5 px-8">
               <li>Home</li>
               <li>About</li>
@@ -42,24 +42,32 @@ export default function ResponsiveMenu({ open }) {
 
               <li onClick={() => setLanguageOpen(!languageOpen)} className="">
                 Translate
-                {languageOpen && (
-                  <div className="mt-4 w-60 bg-white text-black rounded-lg p-3 shadow-lg">
-                    {languages.map((lang) => (
-                      <div
-                        key={lang.id}
-                        onClick={() => onSelectLanguage(lang.id)}
-                        className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-100 rounded-lg"
-                      >
-                        <img
-                          src={lang.flag}
-                          alt={lang.label}
-                          className="w-6 h-6"
-                        />
-                        <span>{lang.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {languageOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="mt-4 w-60 bg-white text-black rounded-lg p-3 shadow-lg"
+                    >
+                      {languages.map((lang) => (
+                        <div
+                          key={lang.id}
+                          onClick={() => onSelectLanguage(lang.id)}
+                          className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-100 rounded-lg"
+                        >
+                          <img
+                            src={lang.flag}
+                            alt={lang.label}
+                            className="w-6 h-6"
+                          />
+                          <span>{lang.label}</span>
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </li>
             </ul>
           </div>
