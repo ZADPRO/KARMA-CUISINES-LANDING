@@ -24,7 +24,7 @@ export default function Menu() {
       id: 1,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 1",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -33,7 +33,7 @@ export default function Menu() {
       id: 2,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 2",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -42,7 +42,7 @@ export default function Menu() {
       id: 3,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 3",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -51,7 +51,7 @@ export default function Menu() {
       id: 4,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 1",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -60,7 +60,7 @@ export default function Menu() {
       id: 5,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 2",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -69,7 +69,7 @@ export default function Menu() {
       id: 6,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 3",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -78,7 +78,7 @@ export default function Menu() {
       id: 7,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 1",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -87,7 +87,7 @@ export default function Menu() {
       id: 8,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 2",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -96,7 +96,7 @@ export default function Menu() {
       id: 9,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "10.99",
       name: "Food Name 3",
       count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -231,7 +231,7 @@ function FoodCard({ item, setCartItems }) {
         </div>
         <p>{item.desc}</p>
         <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold">{item.price}</p>
+          <p className="text-lg font-semibold">$ {item.price}</p>
           <button
             className={`border-2 rounded-md px-3 py-1 transition duration-300 ${
               isAddedToCart

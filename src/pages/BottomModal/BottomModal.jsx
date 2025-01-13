@@ -103,8 +103,11 @@ export default function BottomModal({ isOpen, onClose }) {
             </div>
           </div>
           <div className="cartItemsDisplay grid grid-cols-1 md:grid-cols-3 gap-4">
-            {cartItems.length > 0 ? (
-              cartItems.map((item) => (
+            {cartItems.map((item) => {
+              const unitPrice = parseFloat(item.price); // Convert price to a float
+              const totalPrice = (unitPrice * item.count).toFixed(2); // Calculate total and round to 2 decimal places
+
+              return (
                 <div
                   key={item.id}
                   className="flex items-center justify-between shadow-md p-3 m-2"
@@ -117,8 +120,9 @@ export default function BottomModal({ isOpen, onClose }) {
                     />
                     <div className="flex flex-col">
                       <p>{item.name}</p>
-                      <p>{item.price}</p>
-                      <p>{item.rating}</p>
+                      <p>Unit Price: $ {unitPrice.toFixed(2)}</p>
+                      <p>Total: $ {totalPrice}</p>
+                      <p>Rating: {item.rating}</p>
                     </div>
                   </div>
                   <div className="addItems flex items-center gap-2">
@@ -137,10 +141,8 @@ export default function BottomModal({ isOpen, onClose }) {
                     </button>
                   </div>
                 </div>
-              ))
-            ) : (
-              <p className="text-center mt-4">No items in the cart</p>
-            )}
+              );
+            })}
           </div>
         </div>
       </motion.div>
