@@ -1,7 +1,7 @@
 import { Menu, Search, ShoppingCart } from "lucide-react";
 import { NavMenu } from "./data";
 import ResponsiveMenu from "./ResponsiveMenu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import english from "../../assets/language/english.svg";
 import german from "../../assets/language/german.svg";
@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const languages = [
     { id: "en", label: "English", flag: english },
@@ -25,9 +26,26 @@ export default function Header() {
     console.log(`Language selected: ${languageId}`);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div>
-      <nav className="fixed bg-white z-10 top-0 left-0 w-full shadow-sm">
+      <nav
+        className={`fixed z-10 top-0 left-0 w-full shadow-sm duration-300 ${
+          scrolled ? "bg-white text-black" : "bg-transparent text-white"
+        }`}
+      >
         <div className="container flex justify-between items-center">
           {/* Logo */}
           <div className="flex text-2xl items-center gap-2 font-bold py-5">
@@ -36,12 +54,14 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <div className="hidden md:block">
-            <ul className="flex items-center gap-6 text-black">
+            <ul className="flex items-center gap-6">
               {NavMenu.map((item) => (
                 <li key={item.id}>
                   <a
                     href={item.link}
-                    className="inline-block text-[20px] py-1 px-3 hover:text-[#db5b2d] font-semibold"
+                    className={`inline-block text-[20px] py-1 px-3 font-semibold duration-200 ${
+                      scrolled ? "hover:text-[#db5b2d]" : "hover:text-gray-300"
+                    }`}
                   >
                     {item.title}
                   </a>
@@ -54,7 +74,11 @@ export default function Header() {
                 onMouseLeave={() => setLanguageOpen(false)}
                 className="relative"
               >
-                <button className="inline-block text-[20px] py-1 px-3 hover:text-[#db5b2d] font-semibold">
+                <button
+                  className={`inline-block text-[20px] py-1 px-3 font-semibold duration-200 ${
+                    scrolled ? "hover:text-[#db5b2d]" : "hover:text-gray-300"
+                  }`}
+                >
                   Translate
                 </button>
                 <AnimatePresence>
@@ -89,13 +113,31 @@ export default function Header() {
 
           {/* Cart and Login */}
           <div className="flex items-center gap-4">
-            <button className="text-2xl hover:bg-[#db5b2d] hover:text-white rounded-full p-2 duration-200">
+            <button
+              className={`text-2xl rounded-full p-2 duration-200 ${
+                scrolled
+                  ? "hover:bg-gray-300 hover:text-black"
+                  : "hover:bg-gray-300"
+              }`}
+            >
               <Search />
             </button>
-            <button className="text-2xl hover:bg-[#db5b2d] hover:text-white rounded-full p-2 duration-200">
+            <button
+              className={`text-2xl rounded-full p-2 duration-200 ${
+                scrolled
+                  ? "hover:bg-gray-300 hover:text-black"
+                  : "hover:bg-gray-300"
+              }`}
+            >
               <ShoppingCart />
             </button>
-            <button className="hover:bg-[#db5b2d] text-[#db5b2d] font-semibold hover:text-white rounded-md border-2 border-[#db5b2d] px-6 py-2 duration-200 hidden md:block">
+            <button
+              className={`font-semibold rounded-md border-2 px-6 py-2 duration-200 hidden md:block ${
+                scrolled
+                  ? "hover:bg-[#db5b2d] text-[#db5b2d] border-[#db5b2d] hover:text-white"
+                  : "hover:bg-white text-white border-white hover:text-black"
+              }`}
+            >
               Login
             </button>
           </div>

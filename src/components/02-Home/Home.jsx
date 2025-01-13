@@ -3,21 +3,27 @@ import "./Home.css";
 import foodImg from "../../assets/home/thandoori.jpg";
 
 export default function Home() {
-  const foodItems = [
+  const FoodData = [
     {
-      id: 1,
-      name: "Tandoori Chicken",
-      stars: "12.8 K",
-      amount: "$12",
-      img: foodImg,
+      image: foodImg,
+      rating: "⭐⭐⭐⭐⭐",
+      price: "$10.99",
+      name: "Food Name 1",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
-    { id: 2, name: "Butter Naan", stars: "100 K", amount: "$5", img: foodImg },
     {
-      id: 3,
-      name: "Paneer Tikka",
-      stars: "15.4 K",
-      amount: "$10",
-      img: foodImg,
+      image: foodImg,
+      rating: "⭐⭐⭐⭐⭐",
+      price: "$10.99",
+      name: "Food Name 2",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    },
+    {
+      image: foodImg,
+      rating: "⭐⭐⭐⭐⭐",
+      price: "$10.99",
+      name: "Food Name 3",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
   ];
 
@@ -37,45 +43,41 @@ export default function Home() {
         {/* Right Section */}
         <div className="flex-1 p-4"></div>
       </div>
-      <div className="flex flex-col pt-20 items-center justify-center ">
-        <div className="foodHeader flex justify-between items-center w-full w-10/12 mx-auto">
-          <p className="lg:text-5xl text-2xl font-bold">Our Regular Menu</p>
-          <p>See All</p>
-        </div>
-
-        <div className="foodContentsCard pt-20 pb-20 flex lg:flex-row flex-col gap-20">
-          {foodItems.map((food) => (
-            <div
-              key={food.id}
-              className="foodCards relative p-6 bg-[#f8e5d9] rounded-2xl shadow-lg"
-            >
-              {/* Image */}
-              <img
-                src={food.img}
-                alt={food.name}
-                className="foodImage absolute -top-10 right-4 w-28 h-28 object-cover rounded-full border-4 border-[#e85557]"
-              />
-
-              {/* Text Content */}
-              <div className="textContent mt-16 text-justify">
-                <p className="text-xl font-semibold">{food.name}</p>
-                <p className="text-yellow-500 mt-1">
-                  ⭐⭐⭐⭐⭐ ({food.stars})
-                </p>
+      <div className="h-screen">
+        <div className="container py-14">
+          {/* header section */}
+          <div className="flex mb-12 items-center justify-between headerSection">
+            <h1 className="text-5xl font-semibold">Top List</h1>
+            <p className="text-xl">Our Menu</p>
+          </div>
+          {/* card section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+            {FoodData.map((item, index) => (
+              <div
+                key={index}
+                className="bg-[#f8e5d9] ms-8 me-8 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
+              >
+                <img
+                  src={item.image}
+                  alt=""
+                  className="object-cover rounded-t-xl"
+                />
+                <div className="space-y-2 p-5">
+                  <div className="flex items-center justify-between">
+                    <p className="text-lg font-semibold">{item.name}</p>
+                    <p className="text-red-500">{item.rating}</p>
+                  </div>
+                  <p>{item.desc}</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-lg font-semibold">{item.price}</p>
+                    <button>Add To Cart</button>
+                  </div>
+                </div>
               </div>
-
-              {/* Amount and Button */}
-              <div className="flex items-center gap-6 mt-4">
-                <p className="font-medium">{food.amount}</p>
-                <button className="text-white bg-[#f95005] px-4 py-1 rounded-md hover:bg-[#d84004] transition duration-300">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="h-screen">asdf</div>{" "}
+      </div>{" "}
     </div>
   );
 }

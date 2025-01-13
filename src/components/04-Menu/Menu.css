@@ -1,0 +1,51 @@
+.menuPageIntro {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../assets/menu/bg2.jpg");
+  /* background-color: #211f1f; */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 70dvh;
+  width: 100%;
+}
+
+/* Change background image for mobile view */
+@media (max-width: 768px) {
+  .menuPageIntro {
+    background-image: url("../../assets/menu/bg2.jpg");
+    background-attachment: fixed;
+    text-align: center;
+    justify-content: start;
+    padding-top: 20vh;
+    height: 100vh;
+  }
+  .menuPageIntro::before {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  .menuPageIntro {
+    background-attachment: fixed;
+  }
+}
+
+.menuPageIntro::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  z-index: 1;
+}
+
+.menuPageIntro > * {
+  position: relative;
+  z-index: 2;
+}

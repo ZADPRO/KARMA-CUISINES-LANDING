@@ -50,7 +50,8 @@
   z-index: 2;
 }
 
-.homePageCont p {
+.homePageCont p,
+.headerSection h1 {
   font-family: "Elsie", serif;
 }
 
