@@ -19,9 +19,9 @@
     background-image: url("../../assets/menu/bg2.jpg");
     background-attachment: fixed;
     text-align: center;
-    justify-content: start;
-    padding-top: 20vh;
-    height: 100vh;
+    justify-content: center;
+    /* padding-top: 20vh; */
+    height: 40vh;
   }
   .menuPageIntro::before {
     background-color: rgba(0, 0, 0, 0.6);
