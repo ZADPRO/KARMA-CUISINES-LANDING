@@ -26,6 +26,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 1",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -34,6 +35,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 2",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -42,6 +44,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 3",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -50,6 +53,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 1",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -58,6 +62,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 2",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -66,6 +71,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 3",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -74,6 +80,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 1",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -82,6 +89,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 2",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
@@ -90,6 +98,7 @@ export default function Menu() {
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
       name: "Food Name 3",
+      count: 1,
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
   ];
