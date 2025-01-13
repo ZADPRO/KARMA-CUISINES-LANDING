@@ -52,11 +52,11 @@ export default function BottomModal({ isOpen, onClose }) {
       .map((item) => {
         if (item.id === id) {
           const updatedCount = item.count + delta;
-          return { ...item, count: updatedCount > 0 ? updatedCount : 0 }; // Prevent negative count
+          return { ...item, count: updatedCount > 0 ? updatedCount : 0 };
         }
         return item;
       })
-      .filter((item) => item.count > 0); // Remove items with count 0
+      .filter((item) => item.count > 0);
 
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -102,7 +102,7 @@ export default function BottomModal({ isOpen, onClose }) {
               <X size={15} />
             </div>
           </div>
-          <div className="cartItemsDisplay flex flex-col">
+          <div className="cartItemsDisplay grid grid-cols-1 md:grid-cols-3 gap-4">
             {cartItems.length > 0 ? (
               cartItems.map((item) => (
                 <div

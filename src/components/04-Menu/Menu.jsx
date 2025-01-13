@@ -161,6 +161,20 @@ function FoodCard({ item, setCartItems }) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
+  useEffect(() => {
+    const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const savedWishlistItems =
+      JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    const isInCart = savedCartItems.some((cartItem) => cartItem.id === item.id);
+    const isInWishlist = savedWishlistItems.some(
+      (wishlistItem) => wishlistItem.id === item.id
+    );
+
+    setIsAddedToCart(isInCart);
+    setIsWishlisted(isInWishlist);
+  }, [item.id]);
+
   const toggleWishlist = () => {
     setIsWishlisted((prev) => {
       const updatedWishlisted = !prev;
