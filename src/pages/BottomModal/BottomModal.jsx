@@ -91,8 +91,8 @@ export default function BottomModal({ isOpen, onClose }) {
         dragListener={false}
         dragConstraints={{ top: -100, bottom: 0 }}
       >
-        <div className="w-full h-full overflow-auto p-4">
-          <div className="flex items-center justify-between">
+        <div className="w-full h-full overflow-auto ps-4 pe-4 pb-[70px]">
+          <div className="flex items-center justify-between sticky top-0 pt-4 bg-white z-10">
             <h2>Cart Items</h2>
             <div
               className="flex items-center clearAllBtn gap-2 cursor-pointer"
@@ -104,8 +104,8 @@ export default function BottomModal({ isOpen, onClose }) {
           </div>
           <div className="cartItemsDisplay grid grid-cols-1 md:grid-cols-3 gap-4">
             {cartItems.map((item) => {
-              const unitPrice = parseFloat(item.price); // Convert price to a float
-              const totalPrice = (unitPrice * item.count).toFixed(2); // Calculate total and round to 2 decimal places
+              const unitPrice = parseFloat(item.price);
+              const totalPrice = (unitPrice * item.count).toFixed(2);
 
               return (
                 <div
@@ -144,6 +144,13 @@ export default function BottomModal({ isOpen, onClose }) {
               );
             })}
           </div>
+        </div>
+
+        <div
+          className="placeOrderBtn fixed bottom-[10px] left-[1rem] right-[1rem] bg-green-500 text-white text-center py-3 rounded-lg cursor-pointer"
+          onClick={() => console.log("Place Order Clicked")}
+        >
+          Place Order
         </div>
       </motion.div>
     </motion.div>
