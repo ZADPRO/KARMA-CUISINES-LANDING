@@ -4,29 +4,20 @@ import { Heart } from "lucide-react";
 import PropTypes from "prop-types";
 import "./Menu.css";
 import foodImg from "../../assets/home/thandoori.jpg";
+import BottomModal from "../../pages/BottomModal/BottomModal";
 
 export default function Menu() {
   const handleAnimationComplete = () => {
     console.log("All letters have animated!");
   };
 
-  const [cartDetails, setCartDetails] = useState({ count: 0, totalPrice: 0 });
+  const [cartItems, setCartItems] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalCount = cartItems.length;
-    const totalPrice = cartItems
-      .reduce((acc, item) => acc + parseFloat(item.price.replace("$", "")), 0)
-      .toFixed(2);
-
-    setCartDetails({ count: totalCount, totalPrice: `$${totalPrice}` });
+    const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(savedCartItems);
   }, []);
-
-  // Function that checks if item is in cart
-  const checkIfItemInCart = (id) => {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    return cartItems.some((item) => item.id === id);
-  };
 
   const FoodData = [
     {
@@ -103,6 +94,10 @@ export default function Menu() {
     },
   ];
 
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
     <div>
       <div className="menuPageIntro">
@@ -121,21 +116,22 @@ export default function Menu() {
       <div className="container py-14 px-10 mb-[80px]">
         {/* card section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-          {FoodData.map((item, index) => (
-            <FoodCard
-              key={item.id}
-              item={item}
-              setCartDetails={setCartDetails}
-              checkIfItemInCart={checkIfItemInCart}
-            />
+          {FoodData.map((item) => (
+            <FoodCard key={item.id} item={item} setCartItems={setCartItems} />
           ))}
         </div>
       </div>
-      <div className="footerBuyProducts cursor-pointer">
-        {cartDetails.count > 0 ? (
+      <div className="footerBuyProducts cursor-pointer" onClick={toggleModal}>
+        {cartItems.length > 0 ? (
           <p className="text-lg font-semibold">
-            {cartDetails.count} items in cart - {cartDetails.totalPrice} to
-            continue
+            {cartItems.length} items in cart -{" "}
+            {cartItems
+              .reduce(
+                (acc, item) => acc + parseFloat(item.price.replace("$", "")),
+                0
+              )
+              .toFixed(2)}{" "}
+            to continue
           </p>
         ) : (
           <p className="text-lg font-semibold text-gray-500">
@@ -143,15 +139,18 @@ export default function Menu() {
           </p>
         )}
       </div>
+      <BottomModal
+        isOpen={isModalOpen}
+        onClose={toggleModal}
+        cartItems={cartItems}
+      />
     </div>
   );
 }
 
-function FoodCard({ item, setCartDetails, checkIfItemInCart }) {
+function FoodCard({ item, setCartItems }) {
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const [isAddedToCart, setIsAddedToCart] = useState(() =>
-    checkIfItemInCart(item.id)
-  );
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   const toggleWishlist = () => {
     setIsWishlisted((prev) => {
@@ -177,18 +176,8 @@ function FoodCard({ item, setCartDetails, checkIfItemInCart }) {
       cartItems.push(item);
       localStorage.setItem("cart", JSON.stringify(cartItems));
 
-      updateCartDetails(); // Immediately update cart details
+      setCartItems(cartItems); // Update the cartItems state with the new cart
     }
-  };
-
-  const updateCartDetails = () => {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalCount = cartItems.length;
-    const totalPrice = cartItems
-      .reduce((acc, item) => acc + parseFloat(item.price.replace("$", "")), 0)
-      .toFixed(2);
-
-    setCartDetails({ count: totalCount, totalPrice: `$${totalPrice}` });
   };
 
   return (
@@ -246,6 +235,5 @@ FoodCard.propTypes = {
     price: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
   }).isRequired,
-  setCartDetails: PropTypes.func.isRequired,
-  checkIfItemInCart: PropTypes.func.isRequired,
+  setCartItems: PropTypes.func.isRequired, // This will be used to update the cartItems
 };
