@@ -1,9 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SplitText from "../../pages/SplitText/SplitText";
 import { Heart } from "lucide-react";
-
 import PropTypes from "prop-types";
-
 import "./Menu.css";
 import foodImg from "../../assets/home/thandoori.jpg";
 
@@ -12,8 +10,27 @@ export default function Menu() {
     console.log("All letters have animated!");
   };
 
+  const [cartDetails, setCartDetails] = useState({ count: 0, totalPrice: 0 });
+
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalCount = cartItems.length;
+    const totalPrice = cartItems
+      .reduce((acc, item) => acc + parseFloat(item.price.replace("$", "")), 0)
+      .toFixed(2);
+
+    setCartDetails({ count: totalCount, totalPrice: `$${totalPrice}` });
+  }, []);
+
+  // Function that checks if item is in cart
+  const checkIfItemInCart = (id) => {
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    return cartItems.some((item) => item.id === id);
+  };
+
   const FoodData = [
     {
+      id: 1,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -21,6 +38,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 2,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -28,6 +46,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 3,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -35,6 +54,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 4,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -42,6 +62,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 5,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -49,6 +70,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 6,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -56,6 +78,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 7,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -63,6 +86,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 8,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -70,6 +94,7 @@ export default function Menu() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 9,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -93,37 +118,77 @@ export default function Menu() {
           onLetterAnimationComplete={handleAnimationComplete}
         />
       </div>
-
-      <div className="container py-14 px-10">
+      <div className="container py-14 px-10 mb-[80px]">
         {/* card section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           {FoodData.map((item, index) => (
-            <FoodCard key={index} item={item} />
+            <FoodCard
+              key={item.id}
+              item={item}
+              setCartDetails={setCartDetails}
+              checkIfItemInCart={checkIfItemInCart}
+            />
           ))}
         </div>
+      </div>
+      <div className="footerBuyProducts cursor-pointer">
+        {cartDetails.count > 0 ? (
+          <p className="text-lg font-semibold">
+            {cartDetails.count} items in cart - {cartDetails.totalPrice} to
+            continue
+          </p>
+        ) : (
+          <p className="text-lg font-semibold text-gray-500">
+            No items in the cart
+          </p>
+        )}
       </div>
     </div>
   );
 }
 
-function FoodCard({ item }) {
+function FoodCard({ item, setCartDetails, checkIfItemInCart }) {
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [isAddedToCart, setIsAddedToCart] = useState(() =>
+    checkIfItemInCart(item.id)
+  );
 
   const toggleWishlist = () => {
-    setIsWishlisted((prev) => !prev);
-    console.log(
-      `${item.name} has been ${
-        !isWishlisted ? "added to" : "removed from"
-      } the wishlist.`
-    );
+    setIsWishlisted((prev) => {
+      const updatedWishlisted = !prev;
+      const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
+      if (updatedWishlisted) {
+        wishlistItems.push(item);
+      } else {
+        const index = wishlistItems.findIndex((i) => i.id === item.id);
+        if (index !== -1) wishlistItems.splice(index, 1);
+      }
+      localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
+
+      console.log("Wishlist Items:", wishlistItems);
+      return updatedWishlisted;
+    });
   };
 
   const handleAddToCart = () => {
     if (!isAddedToCart) {
       setIsAddedToCart(true);
-      console.log(`${item.name} added to cart successfully!`);
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      cartItems.push(item);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+
+      updateCartDetails(); // Immediately update cart details
     }
+  };
+
+  const updateCartDetails = () => {
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalCount = cartItems.length;
+    const totalPrice = cartItems
+      .reduce((acc, item) => acc + parseFloat(item.price.replace("$", "")), 0)
+      .toFixed(2);
+
+    setCartDetails({ count: totalCount, totalPrice: `$${totalPrice}` });
   };
 
   return (
@@ -142,7 +207,11 @@ function FoodCard({ item }) {
         />
       </div>
 
-      <img src={item.image} alt="" className="object-cover rounded-t-xl" />
+      <img
+        src={item.image}
+        alt=""
+        className="object-cover rounded-t-xl w-full h-[200px]"
+      />
       <div className="space-y-2 p-5">
         <div className="flex items-center justify-between">
           <p className="text-lg font-semibold">{item.name}</p>
@@ -170,10 +239,13 @@ function FoodCard({ item }) {
 
 FoodCard.propTypes = {
   item: PropTypes.shape({
+    id: PropTypes.string.isRequired, // Ensure that item has a unique 'id'
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     rating: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
   }).isRequired,
+  setCartDetails: PropTypes.func.isRequired,
+  checkIfItemInCart: PropTypes.func.isRequired,
 };
