@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import { X } from "lucide-react";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function BottomModal({ isOpen, onClose }) {
   const [scope, animate] = useAnimate();
@@ -58,19 +59,58 @@ export default function BottomModal({ isOpen, onClose }) {
       })
       .filter((item) => item.count > 0);
 
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (updatedCart.length === 0) {
+      Swal.fire({
+        title: "Remove all items?",
+        text: "The cart will be empty if you remove this item. Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, clear the cart!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setCartItems([]);
+          localStorage.removeItem("cart");
+          Swal.fire(
+            "Cart Cleared!",
+            "All items have been removed from your cart.",
+            "success"
+          );
+        }
+      });
+    } else {
+      setCartItems(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
   };
 
   if (!isOpen) return null;
 
   const removeCartItem = (id) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to remove this item from the cart?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#22c55e",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedCart = cartItems.filter((item) => item.id !== id);
 
-    setCartItems(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+        // Update state and local storage
+        setCartItems(updatedCart);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-    console.log(`Item with ID ${id} has been removed.`);
+        Swal.fire(
+          "Removed!",
+          "The item has been removed from your cart.",
+          "success"
+        );
+      }
+    });
   };
 
   return (
