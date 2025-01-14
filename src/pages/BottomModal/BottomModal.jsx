@@ -64,6 +64,15 @@ export default function BottomModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
+  const removeCartItem = (id) => {
+    const updatedCart = cartItems.filter((item) => item.id !== id);
+
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    console.log(`Item with ID ${id} has been removed.`);
+  };
+
   return (
     <motion.div
       ref={scope}
@@ -110,8 +119,15 @@ export default function BottomModal({ isOpen, onClose }) {
               return (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between shadow-md p-3 m-2"
+                  className="relative flex items-center rounded-lg justify-between shadow-md p-3 m-2"
                 >
+                  <button
+                    onClick={() => removeCartItem(item.id)}
+                    className="absolute top-1 text-[22px] right-1 text-red-500 hover:text-red-700"
+                  >
+                    &times;
+                  </button>
+
                   <div className="flex gap-3">
                     <img
                       className="w-[100px] rounded"
