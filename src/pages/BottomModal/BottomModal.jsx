@@ -42,10 +42,30 @@ export default function BottomModal({ isOpen, onClose }) {
   };
 
   const clearAllCartItems = () => {
-    localStorage.removeItem("cart");
-    setCartItems([]);
-    console.log("All cart items have been cleared.");
-    handleClose();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to clear all items from your cart?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, clear it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("cart");
+        setCartItems([]);
+        console.log("All cart items have been cleared.");
+        handleClose();
+
+        Swal.fire(
+          "Cart Cleared!",
+          "All items have been removed from your cart.",
+          "success"
+        );
+      } else {
+        handleClose();
+      }
+    });
   };
 
   const updateCartItemCount = (id, delta) => {
