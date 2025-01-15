@@ -1,10 +1,14 @@
 import "./Home.css";
 
 import foodImg from "../../assets/home/thandoori.jpg";
+import { useState } from "react";
 
 export default function Home() {
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+
   const FoodData = [
     {
+      id: 1,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -12,6 +16,7 @@ export default function Home() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 2,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -19,6 +24,7 @@ export default function Home() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
+      id: 3,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
       price: "$10.99",
@@ -26,6 +32,15 @@ export default function Home() {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
   ];
+
+  const handleAddToCart = () => {
+    if (!isAddedToCart) {
+      setIsAddedToCart(true);
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      // cartItems.push(item);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
+  };
 
   return (
     <div>
@@ -70,7 +85,17 @@ export default function Home() {
                   <p>{item.desc}</p>
                   <div className="flex items-center justify-between">
                     <p className="text-lg font-semibold">{item.price}</p>
-                    <button>Add To Cart</button>
+                    <button
+                      className={`border-2 rounded-md px-3 py-1 transition duration-300 ${
+                        isAddedToCart
+                          ? "bg-green-500 text-white border-green-500"
+                          : "border-[#6b463a] hover:bg-[#6b463a] hover:text-white"
+                      }`}
+                      onClick={handleAddToCart}
+                      disabled={isAddedToCart}
+                    >
+                      {isAddedToCart ? "Added" : "Add To Cart"}
+                    </button>{" "}
                   </div>
                 </div>
               </div>

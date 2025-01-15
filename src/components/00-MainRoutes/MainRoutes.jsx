@@ -9,6 +9,7 @@ import Cart from "../06-Cart/Cart";
 import Login from "../07-Login/Login";
 import Footer from "../08-Footer/Footer";
 import NotFound from "../09-NotFound/NotFound";
+import Orders from "../10-Orders/Orders";
 
 export default function MainRoutes() {
   return (
@@ -22,6 +23,7 @@ export default function MainRoutes() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
         <Footer />

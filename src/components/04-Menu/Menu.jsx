@@ -32,7 +32,7 @@ export default function Menu() {
     {
       id: 2,
       image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
+      rating: "⭐⭐⭐⭐",
       price: "10.99",
       name: "Food Name 2",
       count: 1,
@@ -50,7 +50,7 @@ export default function Menu() {
     {
       id: 4,
       image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
+      rating: "⭐⭐⭐",
       price: "10.99",
       name: "Food Name 1",
       count: 1,
@@ -68,7 +68,7 @@ export default function Menu() {
     {
       id: 6,
       image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
+      rating: "⭐⭐⭐⭐",
       price: "10.99",
       name: "Food Name 3",
       count: 1,
@@ -86,7 +86,7 @@ export default function Menu() {
     {
       id: 8,
       image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
+      rating: "⭐⭐⭐⭐",
       price: "10.99",
       name: "Food Name 2",
       count: 1,
@@ -95,7 +95,7 @@ export default function Menu() {
     {
       id: 9,
       image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
+      rating: "⭐⭐⭐⭐",
       price: "10.99",
       name: "Food Name 3",
       count: 1,
