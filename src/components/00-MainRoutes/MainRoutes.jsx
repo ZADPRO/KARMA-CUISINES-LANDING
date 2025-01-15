@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import Header from "../01-Header/Header";
 import Home from "../02-Home/Home";
@@ -11,23 +16,35 @@ import Footer from "../08-Footer/Footer";
 import NotFound from "../09-NotFound/NotFound";
 import Orders from "../10-Orders/Orders";
 
-export default function MainRoutes() {
+function AppRoutes() {
+  const location = useLocation();
+
+  // Define routes where the header should be shown
+  const headerRoutes = ["/", "/about", "/menu", "/contact"];
+  const showHeader = headerRoutes.includes(location.pathname);
+
   return (
     <div>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </Router>
+      {showHeader && <Header />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+      <Footer />
     </div>
+  );
+}
+
+export default function MainRoutes() {
+  return (
+    <Router>
+      <AppRoutes />
+    </Router>
   );
 }

@@ -9,11 +9,13 @@ import {
 import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function BottomModal({ isOpen, onClose }) {
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
 
   const y = useMotionValue(0);
   const controls = useDragControls();
@@ -224,7 +226,7 @@ export default function BottomModal({ isOpen, onClose }) {
 
         <div
           className="placeOrderBtn fixed bottom-[10px] left-[1rem] right-[1rem] bg-green-500 text-white text-center py-3 rounded-lg cursor-pointer"
-          onClick={() => console.log("Place Order Clicked")}
+          onClick={() => navigate("/orders", { state: { orders: cartItems } })}
         >
           Place Order
         </div>
