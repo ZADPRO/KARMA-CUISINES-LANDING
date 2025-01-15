@@ -65,6 +65,7 @@ export default function Login() {
   const handleLoginSuccess = () => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems"));
     const fromPlaceOrder = localStorage.getItem("fromPlaceOrder");
+    localStorage.setItem("loginStatus", true);
 
     if (fromPlaceOrder === "true") {
       navigate("/orders", { state: { orders: cartItems } });
