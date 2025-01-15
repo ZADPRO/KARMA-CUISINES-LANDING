@@ -107,6 +107,7 @@ export default function Login() {
                       onChange={(e) => handleChange(e, index)}
                       className="w-12 h-12 text-center text-2xl border border-slate-200 rounded focus:border-emerald-500 focus:outline-none"
                       pattern="[0-9]*"
+                      inputMode="numeric" // This makes the mobile keyboard numeric
                       required
                     />
                   ))}
