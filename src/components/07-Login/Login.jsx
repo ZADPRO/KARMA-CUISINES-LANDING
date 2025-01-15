@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate(); // Hook to navigate after login
+
   const [state, setState] = useState({
     email: "",
     otp: ["", "", "", "", "", ""],
@@ -56,6 +59,21 @@ export default function Login() {
       icon: "success",
       confirmButtonText: "OK",
     });
+    handleLoginSuccess();
+  };
+
+  const handleLoginSuccess = () => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    const fromPlaceOrder = localStorage.getItem("fromPlaceOrder");
+
+    if (fromPlaceOrder === "true") {
+      navigate("/orders", { state: { orders: cartItems } });
+
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("fromPlaceOrder");
+    } else {
+      navigate("/home");
+    }
   };
 
   return (

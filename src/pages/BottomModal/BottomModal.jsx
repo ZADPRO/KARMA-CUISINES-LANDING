@@ -135,6 +135,25 @@ export default function BottomModal({ isOpen, onClose }) {
     });
   };
 
+  // New check before navigating to orders
+  const handlePlaceOrder = () => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    const loginType = localStorage.getItem("loginType");
+
+    // Check if the user is logged in
+    if (!jwtToken || loginType !== "true") {
+      // Store the cart items and source flag in localStorage
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      localStorage.setItem("fromPlaceOrder", "true");
+
+      // Redirect to the login page
+      navigate("/login");
+    } else {
+      // If logged in, navigate to the orders page
+      navigate("/orders", { state: { orders: cartItems } });
+    }
+  };
+
   return (
     <motion.div
       ref={scope}
@@ -226,7 +245,7 @@ export default function BottomModal({ isOpen, onClose }) {
 
         <div
           className="placeOrderBtn fixed bottom-[10px] left-[1rem] right-[1rem] bg-green-500 text-white text-center py-3 rounded-lg cursor-pointer"
-          onClick={() => navigate("/orders", { state: { orders: cartItems } })}
+          onClick={handlePlaceOrder} // Modified to handle check for JWT and loginType
         >
           Place Order
         </div>
