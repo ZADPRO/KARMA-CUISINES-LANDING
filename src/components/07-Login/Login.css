@@ -6,15 +6,13 @@
   height: 100%;
 }
 
-
 input[type="text"] {
-    width: 2.5rem; /* Adjust the width of each input box */
-    height: 2.5rem; /* Adjust the height of each input box */
-    text-align: center;
-    font-size: 1.5rem; /* Adjust the font size */
-  }
-  
-  input[type="text"]:focus {
-    border-color: #34D399; /* Green border on focus */
-  }
-  
+  width: 2.5rem; /* Adjust the width of each input box */
+  height: 2.5rem; /* Adjust the height of each input box */
+  text-align: center;
+  font-size: 1.5rem; /* Adjust the font size */
+}
+
+input[type="text"]:focus {
+  border-color: #34d399; /* Green border on focus */
+}

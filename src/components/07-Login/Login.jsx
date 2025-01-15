@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2";
 import "./Login.css";
 
 export default function Login() {
   const [state, setState] = useState({
     email: "",
-    otp: ["", "", "", "", "", ""], // Array to hold 6 digits for OTP
+    otp: ["", "", "", "", "", ""],
   });
   const [otpSent, setOtpSent] = useState(false);
 
@@ -15,7 +15,7 @@ export default function Login() {
     if (/[^0-9]/.test(value)) return;
 
     const newOtp = [...state.otp];
-    newOtp[index] = value.slice(0, 1); // Update the specific digit
+    newOtp[index] = value.slice(0, 1);
     setState({
       ...state,
       otp: newOtp,
@@ -40,13 +40,13 @@ export default function Login() {
       confirmButtonText: "OK",
     });
 
-    setOtpSent(true); // Set OTP as sent
+    setOtpSent(true);
   };
 
   const handleVerifyOtp = (e) => {
     e.preventDefault();
     const { email, otp } = state;
-    const otpCode = otp.join(""); // Join the OTP digits as a single string
+    const otpCode = otp.join("");
     console.log(`Verifying OTP ${otpCode} for email: ${email}`);
 
     // Show SweetAlert for OTP verification
@@ -65,7 +65,15 @@ export default function Login() {
         <div className="flex-1 loginFunctionalities flex flex-col items-center justify-between p-6">
           <div className="flex flex-col items-center p-3">
             <p>Europe's #1 Food Delivery App</p>
-            <p>Login with Email</p>
+            <div className="text-center my-6 min-w-full">
+              <div className="flex items-center justify-center">
+                <hr className="flex-1 border-t-2 border-slate-300" />
+                <h1 className="mx-4 text-xl font-semibold text-gray-700">
+                  Login
+                </h1>
+                <hr className="flex-1 border-t-2 border-slate-300" />
+              </div>
+            </div>
 
             <form
               onSubmit={otpSent ? handleVerifyOtp : handleRequestOtp}
@@ -84,7 +92,7 @@ export default function Login() {
                     setState({ ...state, email: e.target.value })
                   }
                   required
-                  disabled={otpSent} // Disable email input after OTP is sent
+                  disabled={otpSent}
                 />
                 <label
                   htmlFor="email"
@@ -124,7 +132,7 @@ export default function Login() {
             </form>
           </div>
           <div className="flex">
-            <p className="w-full w-10/12 mx-auto text-center">
+            <p className="w-10/12 mx-auto text-center text-[12px]">
               By continuing, you agree to our{" "}
               <span>Terms of Service, Privacy Policy, Content Policy</span>
             </p>
