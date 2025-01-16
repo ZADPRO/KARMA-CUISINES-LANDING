@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SplitText from "../../pages/SplitText/SplitText";
-import { Heart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import PropTypes from "prop-types";
 import "./Menu.css";
 import foodImg from "../../assets/home/thandoori.jpg";
@@ -132,20 +132,47 @@ export default function Menu() {
       </div>
       <div className="footerBuyProducts cursor-pointer" onClick={toggleModal}>
         {cartItems.length > 0 ? (
-          <p className="text-lg font-semibold">
-            {cartItems.length} items in cart -{" "}
-            {cartItems
-              .reduce(
-                (acc, item) => acc + parseFloat(item.price.replace("$", "")),
-                0
-              )
-              .toFixed(2)}{" "}
-            to continue
-          </p>
+          <>
+            <p className="text-lg font-semibold md:hidden">
+              {cartItems.length} items in cart -{" "}
+              {cartItems
+                .reduce(
+                  (acc, item) => acc + parseFloat(item.price.replace("$", "")),
+                  0
+                )
+                .toFixed(2)}{" "}
+              to continue
+            </p>
+
+            <p className="hidden md:block relative">
+              <a
+                href="#"
+                className="relative inline-flex h-12 w-12 items-center justify-center text-lg text-white"
+              >
+                <ShoppingCart />
+                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-white px-1.5 text-sm text-black">
+                  {cartItems.length}
+                </span>
+              </a>
+            </p>
+          </>
         ) : (
-          <p className="text-lg font-semibold text-gray-500">
-            No items in the cart
-          </p>
+          <>
+            <p className="text-lg font-semibold text-gray-500 md:hidden">
+              No items in the cart
+            </p>
+            <p className="hidden md:block relative">
+              <a
+                href="#"
+                className="relative inline-flex h-12 w-12 items-center justify-center text-lg text-white"
+              >
+                <ShoppingCart />
+                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-white px-1.5 text-sm text-black">
+                  {cartItems.length}
+                </span>
+              </a>
+            </p>
+          </>
         )}
       </div>
       <BottomModal

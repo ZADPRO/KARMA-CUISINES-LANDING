@@ -13,6 +13,7 @@
     "@glidejs/glide": "^3.7.1",
     "@react-spring/web": "^9.7.5",
     "aos": "^2.3.4",
+    "axios": "^1.7.9",
     "framer-motion": "^11.17.0",
     "i18next": "^24.2.1",
     "landing": "file:",

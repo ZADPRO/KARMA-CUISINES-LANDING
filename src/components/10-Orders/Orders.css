@@ -1,0 +1,11 @@
+.address input {
+  height: 2.8rem;
+  width: 14rem !important;
+  text-align: start;
+  font-size: 1rem;
+}
+
+.inputBoxRadio input {
+  height: 16px !important;
+  width: 16px !important;
+}

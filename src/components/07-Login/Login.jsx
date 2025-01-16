@@ -83,7 +83,7 @@ export default function Login() {
         <div className="flex-1 loginScreen"></div>
         <div className="flex-1 loginFunctionalities flex flex-col items-center justify-between p-6">
           <div className="flex flex-col items-center p-3">
-            <p>Europe's #1 Food Delivery App</p>
+            <p>Europe #1 Food Delivery App</p>
             <div className="text-center my-6 min-w-full">
               <div className="flex items-center justify-center">
                 <hr className="flex-1 border-t-2 border-slate-300" />

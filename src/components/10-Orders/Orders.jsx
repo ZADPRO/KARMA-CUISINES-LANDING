@@ -1,19 +1,33 @@
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ReceiptEuro, TimerReset } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
+import "./Orders.css";
+import AddressBottomModal from "../../pages/AddressBottomModal/AddressBottomModal";
+import { useNavigate } from "react-router-dom";
+
 export default function Orders() {
   const [cartItems, setCartItems] = useState([]);
-  const [isEditing, setIsEditing] = useState(false); // Track if editing is enabled
+  const [isEditing, setIsEditing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [savedAddress, setSavedAddress] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate("/menu"); // Navigate to /menu route
+  };
 
   useEffect(() => {
-    // Set initial cart items from localStorage if available
+    const address = localStorage.getItem("address");
+    if (address) {
+      setSavedAddress(address); // Set saved address if found
+    }
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
   }, []);
 
   const updateCartItemCount = (id, delta) => {
-    // Update the count of a cart item by delta
     const updatedCart = cartItems
       .map((item) => {
         if (item.id === id) {
@@ -22,9 +36,8 @@ export default function Orders() {
         }
         return item;
       })
-      .filter((item) => item.count > 0); // Remove items with count 0
+      .filter((item) => item.count > 0);
 
-    // Handle clearing the cart when no items are left
     if (updatedCart.length === 0) {
       Swal.fire({
         title: "Remove all items?",
@@ -36,7 +49,7 @@ export default function Orders() {
         confirmButtonText: "Yes, clear the cart!",
       }).then((result) => {
         if (result.isConfirmed) {
-          setCartItems([]); // Clear the cart
+          setCartItems([]);
           localStorage.removeItem("cart");
           Swal.fire(
             "Cart Cleared!",
@@ -46,8 +59,8 @@ export default function Orders() {
         }
       });
     } else {
-      setCartItems(updatedCart); // Update the cart with new counts
-      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Save to localStorage
+      setCartItems(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
   };
 
@@ -55,22 +68,28 @@ export default function Orders() {
     .reduce((total, item) => total + item.price * item.count, 0)
     .toFixed(2);
 
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
     <div className="relative h-screen">
-      <div className="headerContents flex items-center pt-2 pb-2">
+      <div
+        className="headerContents cursor-pointer flex items-center pt-2 pb-2"
+        onClick={handleBackClick}
+      >
         <ChevronLeft />
         <p>Back</p>
       </div>
       <div className="flex flex-col p-3">
         <h1>Orders Page</h1>
-        <div className="flex flex-col">
+        <div className="flex flex-col border-2 border-dashed rounded-lg surface-ground flex-auto p-4 m-3">
           <div className="relative flex flex-wrap items-center">
-            {/* Toggle the editing mode */}
             <input
               className="peer relative h-4 w-8 cursor-pointer appearance-none rounded-lg bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full after:bg-slate-500 after:transition-all checked:bg-emerald-200 checked:after:left-4 checked:after:bg-emerald-500 hover:bg-slate-400 after:hover:bg-slate-600 checked:hover:bg-emerald-300 checked:after:hover:bg-emerald-600 focus:outline-none checked:focus:bg-emerald-400 checked:after:focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:after:bg-slate-300"
               type="checkbox"
               checked={isEditing}
-              onChange={() => setIsEditing((prev) => !prev)} // Toggle editing mode
+              onChange={() => setIsEditing((prev) => !prev)}
               id="id-c01"
             />
             <label
@@ -87,11 +106,10 @@ export default function Orders() {
                   <>
                     <div
                       key={item.id}
-                      className="flex items-center justify-between"
+                      className="flex items-center justify-between p-1"
                     >
                       <p>{item.name}</p>
                       <div className="addItems flex items-center gap-2">
-                        {/* Only allow editing if 'isEditing' is true */}
                         {isEditing ? (
                           <>
                             <button
@@ -109,13 +127,13 @@ export default function Orders() {
                             </button>
                           </>
                         ) : (
-                          <p>Quantity: {item.count}</p>
+                          <p className="pt-1 pb-1">Quantity: {item.count}</p>
                         )}
                       </div>
                     </div>
-                    <div className="items flex items-center justify-between">
+                    <div className="items flex items-center justify-between p-1">
                       <p>{item.price}</p>
-                      <p>Total: ${item.price * item.count}</p>
+                      <p>${item.price * item.count}</p>
                     </div>
                   </>
                 ))}
@@ -126,13 +144,43 @@ export default function Orders() {
           </div>
         </div>
       </div>
-      <div className="flex justify-between p-4 border-t">
-        <p className="text-lg font-semibold">Grand Total:</p>
-        <p className="text-lg font-semibold">${grandTotal}</p>
-      </div>
+      <div className="p-4">
+        <div className="flex items-center justify-between ps-2 pt-2 pe-2 border-t">
+          <p className="text-lg font-semibold">Total:</p>
+          <p className="text-lg font-semibold">${grandTotal}</p>
+        </div>
+        <div className="flex ps-2 pe-2 items-center">
+          <p>Tax: </p>
+        </div>
 
-      {/* Fixed pay button */}
-      <div className="payButton footerBuyProducts">Proceed to Pay</div>
+        <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
+          <div className="flex">
+            <ReceiptEuro />
+            <p>Total Bill : </p>
+          </div>
+          <div className="flex">
+            <TimerReset />
+            <p>Expected Delivery in 15 mins</p>
+          </div>
+        </div>
+
+        <div className="addAddressTabCall p-2">
+          {savedAddress ? (
+            <>
+              <p>Use Address: {savedAddress}</p>
+              <button onClick={toggleModal} className="useAnotherAddressButton">
+                Use Another Address
+              </button>
+            </>
+          ) : (
+            <button onClick={toggleModal} className="addAddressButton">
+              Add Address
+            </button>
+          )}
+          <AddressBottomModal isOpen={isModalOpen} onClose={toggleModal} />
+        </div>
+      </div>
+      <div className="payButton">Proceed to Pay</div>
     </div>
   );
 }
