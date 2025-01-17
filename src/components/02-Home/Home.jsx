@@ -1,11 +1,10 @@
 import "./Home.css";
 
 import foodImg from "../../assets/home/thandoori.jpg";
-import { useState } from "react";
+
+import image from "../../assets/home/home2.png";
 
 export default function Home() {
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
-
   const FoodData = [
     {
       id: 1,
@@ -31,26 +30,25 @@ export default function Home() {
       name: "Food Name 3",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
+    {
+      id: 4,
+      image: foodImg,
+      rating: "⭐⭐⭐⭐⭐",
+      price: "$10.99",
+      name: "Food Name 4",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    },
   ];
-
-  const handleAddToCart = () => {
-    if (!isAddedToCart) {
-      setIsAddedToCart(true);
-      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      // cartItems.push(item);
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-    }
-  };
 
   return (
     <div>
       <div className="homePageIntroCont flex lg:flex-row flex-col lg:p-7">
         {/* Left Section */}
-        <div className="flex-1 homePageCont p-4">
-          <p className="lg:text-8xl text-5xl text-[#ddd9a5]">
+        <div className="flex-1 homePageCont p-4 mt-8">
+          <p className="lg:text-7xl text-5xl text-[#FFF5E4]">
             The Taste That Makes You Feel Awesome
           </p>
-          <button className="text-[#ddd9a5] text-[24px] border border-[#ddd9a5] px-6 py-2 mt-6 rounded-md hover:bg-[#ddd9a5] hover:text-black transition duration-300">
+          <button className="text-white text-[24px] rounded-3xl bg-[#cd5c08] border border-[#cd5c08] px-6 py-2 mt-6 transition duration-300">
             Explore Now
           </button>{" "}
         </div>
@@ -58,19 +56,22 @@ export default function Home() {
         {/* Right Section */}
         <div className="flex-1 p-4"></div>
       </div>
-      <div className="h-screen">
+      <div className="bg-[#FFF5E4]">
         <div className="container py-14">
           {/* header section */}
           <div className="flex mb-12 items-center justify-between headerSection">
-            <h1 className="text-5xl font-semibold">Top List</h1>
-            <p className="text-xl">Our Menu</p>
+            <p></p>
+            <h1 className="text-4xl font-semibold">Top List</h1>
+            <p className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl">
+              Our Menu
+            </p>
           </div>
           {/* card section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
             {FoodData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#f8e5d9] ms-8 me-8 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
+                className="bg-[#deac80] ms-2 me-2 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
               >
                 <img
                   src={item.image}
@@ -79,28 +80,43 @@ export default function Home() {
                 />
                 <div className="space-y-2 p-5">
                   <div className="flex items-center justify-between">
-                    <p className="text-lg font-semibold">{item.name}</p>
-                    <p className="text-red-500">{item.rating}</p>
+                    <p className="text-lg font-semibold text-white">
+                      {item.name}
+                    </p>
                   </div>
-                  <p>{item.desc}</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-lg font-semibold">{item.price}</p>
-                    <button
-                      className={`border-2 rounded-md px-3 py-1 transition duration-300 ${
-                        isAddedToCart
-                          ? "bg-green-500 text-white border-green-500"
-                          : "border-[#6b463a] hover:bg-[#6b463a] hover:text-white"
-                      }`}
-                      onClick={handleAddToCart}
-                      disabled={isAddedToCart}
-                    >
-                      {isAddedToCart ? "Added" : "Add To Cart"}
-                    </button>{" "}
+                    <p className="text-red-500">{item.rating}</p>
+                    <p className="text-lg font-semibold text-white">
+                      {item.price}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+      </div>{" "}
+      <div className="aboutMeCont lg:h-[75vh] items-center bg-[#cd5c08] justify-center flex lg:flex-row flex-col lg:p-7">
+        {/* Left Section */}
+        <div className="flex-1 homePageCont p-10 mt-8">
+          <p className="lg:text-5xl text-3xl text-white">
+            Welcome to Karma Cuisine - A Fusion of Exotic Flavors{" "}
+          </p>
+          <h4 className="text-[20px]">
+            Welcome to Karma Cuisine, where exotic culinary traditions come
+            together to create an unforgettable dining experience. Located in
+            the heart of Switzerland, we bring you a diverse menu brand that
+            blends the finest flavors of exotic cuisine all under one roof.
+          </h4>
+        </div>
+
+        {/* Right Section */}
+        <div
+          className="flex-1 p-4"
+          data-aos="zoom-in-left"
+          data-aos-delay="200"
+        >
+          <img src={image} alt="" className="rotate-image" />
         </div>
       </div>{" "}
     </div>

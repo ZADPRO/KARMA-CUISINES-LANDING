@@ -1,0 +1,51 @@
+.aboutUsIntroCont {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../assets/about/about1.jpg");
+  /* background-color: #211f1f; */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100dvh;
+  width: 100%;
+}
+
+/* Change background image for mobile view */
+@media (max-width: 768px) {
+  .aboutUsIntroCont {
+    background-image: url("../../assets/about/mobileAbout.jpg");
+    background-attachment: fixed;
+    text-align: start;
+    justify-content: start;
+    padding-top: 10vh;
+    height: 100vh;
+  }
+  .aboutUsIntroCont::before {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  .aboutUsIntroCont {
+    background-attachment: fixed;
+  }
+}
+
+.aboutUsIntroCont::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100%;
+  z-index: 1;
+}
+
+.aboutUsIntroCont > * {
+  position: relative;
+  z-index: 2;
+}

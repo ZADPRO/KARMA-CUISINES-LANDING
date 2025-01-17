@@ -43,7 +43,7 @@ export default function Header() {
     <div>
       <nav
         className={`fixed z-10 top-0 left-0 w-full shadow-sm duration-300 ${
-          scrolled ? "bg-white text-black" : "bg-transparent text-white"
+          scrolled ? "bg-[#CD5C08] text-[white]" : "bg-transparent text-white"
         }`}
       >
         <div className="container flex justify-between items-center">
@@ -132,11 +132,7 @@ export default function Header() {
               <ShoppingCart />
             </button>
             <button
-              className={`font-semibold rounded-md border-2 px-6 py-2 duration-200 hidden md:block ${
-                scrolled
-                  ? "hover:bg-[#db5b2d] text-[#db5b2d] border-[#db5b2d] hover:text-white"
-                  : "hover:bg-white text-white border-white hover:text-black"
-              }`}
+              className={`font-semibold  bg-[#cd5c08] rounded-3xl px-6 py-2 duration-200 hidden md:block ${scrolled}`}
             >
               Login
             </button>

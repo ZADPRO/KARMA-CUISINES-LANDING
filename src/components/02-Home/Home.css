@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("../../assets/home/bg.png");
+  background-image: url("../../assets/home/home1.jpg");
   /* background-color: #211f1f; */
   background-size: cover;
   background-position: center;
@@ -16,7 +16,7 @@
 /* Change background image for mobile view */
 @media (max-width: 768px) {
   .homePageIntroCont {
-    background-image: url("../../assets/home/bg.png");
+    background-image: url("../../assets/home/mobileHome.jpg");
     background-attachment: fixed;
     text-align: center;
     justify-content: start;
@@ -40,7 +40,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.1);
   height: 100%;
   z-index: 1;
 }
@@ -90,4 +90,19 @@
 
 .foodCards button:hover {
   background-color: #d84004;
+}
+
+@keyframes rotateImage {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-80deg);
+  }
+}
+
+.rotate-image {
+  animation: rotateImage 1.5s ease-in-out forwards;
+  transform-origin: center;
+  padding: 70px;
 }
