@@ -7,7 +7,8 @@ import {
   motion,
 } from "framer-motion";
 import PropTypes from "prop-types";
-import { ChevronDown, House, MapPin } from "lucide-react";
+import { ChevronDown, CircleCheckBig, House, MapPin } from "lucide-react";
+import Swal from "sweetalert2";
 
 export default function AddressBottomModal({ isOpen, onClose }) {
   const [scope, animate] = useAnimate();
@@ -15,6 +16,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
   const y = useMotionValue(0);
   const controls = useDragControls();
   const [addresses, setAddresses] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [formData, setFormData] = useState({
     mode: "",
     room: "",
@@ -23,6 +25,23 @@ export default function AddressBottomModal({ isOpen, onClose }) {
     country: "",
     mobile: "",
   });
+
+  const handleAddressClick = (index) => {
+    console.log("index", index);
+    setSelectedIndex(index);
+    const selectedAddress = addresses[index];
+    if (selectedAddress) {
+      localStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
+      window.dispatchEvent(new Event("storage"));
+      Swal.fire({
+        icon: "success",
+        title: "Address Selected",
+        text: "Address Selected Successfully",
+      }).then(() => {
+        handleClose();
+      });
+    }
+  };
 
   const handleClose = async () => {
     animate(scope.current, {
@@ -66,7 +85,11 @@ export default function AddressBottomModal({ isOpen, onClose }) {
     const { mode, room, postalCode, zone, country, mobile } = formData;
 
     if (!mode || !room || !postalCode || !zone || !country || !mobile) {
-      alert("Please fill all fields.");
+      Swal.fire({
+        icon: "error",
+        title: "Missing Fields",
+        text: "Please fill all fields.",
+      });
       return;
     }
 
@@ -77,16 +100,21 @@ export default function AddressBottomModal({ isOpen, onClose }) {
       mobile,
     };
 
-    // Fetch existing addresses from localStorage
     const existingAddresses =
       JSON.parse(localStorage.getItem("addresses")) || {};
     const nextIndex = Object.keys(existingAddresses).length + 1;
 
-    // Add the new address
     existingAddresses[nextIndex] = newAddress;
     localStorage.setItem("addresses", JSON.stringify(existingAddresses));
 
-    alert("Address saved successfully!");
+    setAddresses(Object.values(existingAddresses));
+
+    Swal.fire({
+      icon: "success",
+      title: "Address Saved",
+      text: "Your address has been saved successfully!",
+    });
+
     setFormData({
       mode: "",
       room: "",
@@ -261,17 +289,25 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                 addresses.map((address, index) => (
                   <div
                     key={index}
-                    className="addAddressContents rounded-lg flex items-start gap-3 mt-3 mb-3 border p-3"
+                    className={`addAddressContents rounded-lg flex items-start justify-between gap-3 mt-3 mb-3 border p-3 cursor-pointer ${
+                      selectedIndex === index ? "border-green-500" : ""
+                    }`}
+                    onClick={() => handleAddressClick(index)}
                   >
-                    <House />
-                    <div className="address">
-                      <p>
-                        {address.mode.charAt(0).toUpperCase() +
-                          address.mode.slice(1)}
-                      </p>
-                      <p>Address: {address.address}</p>
-                      <p>Phone Number: {address.mobile}</p>
+                    <div className="flex gap-3">
+                      <House />
+                      <div className="address">
+                        <p>
+                          {address.mode.charAt(0).toUpperCase() +
+                            address.mode.slice(1)}
+                        </p>
+                        <p>Address: {address.address}</p>
+                        <p>Phone Number: {address.mobile}</p>
+                      </div>
                     </div>
+                    {selectedIndex === index && (
+                      <CircleCheckBig className="text-green-500" />
+                    )}{" "}
                   </div>
                 ))
               ) : (

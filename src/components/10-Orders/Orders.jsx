@@ -1,4 +1,4 @@
-import { ChevronLeft, ReceiptEuro, TimerReset } from "lucide-react";
+import { ChevronLeft, House, ReceiptEuro, TimerReset } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -15,13 +15,14 @@ export default function Orders() {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/menu"); // Navigate to /menu route
+    navigate("/menu");
   };
 
   useEffect(() => {
-    const address = localStorage.getItem("address");
+    const address = localStorage.getItem("selectedAddress");
     if (address) {
-      setSavedAddress(address); // Set saved address if found
+      console.log("address", address);
+      setSavedAddress(address);
     }
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
@@ -71,6 +72,17 @@ export default function Orders() {
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      const address = localStorage.getItem("selectedAddress");
+      if (address) {
+        console.log("address", address);
+        const parsedAddress = JSON.parse(address);
+        setSavedAddress(parsedAddress);
+      }
+    }
+  }, [isModalOpen]);
 
   return (
     <div className="relative h-screen">
@@ -169,7 +181,13 @@ export default function Orders() {
         <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           {savedAddress ? (
             <>
-              <p>Use Address: {savedAddress}</p>
+              <div className="flex gap-3">
+                <House />
+                <div className="address">
+                  <p>Address: {savedAddress.address}</p>
+                  <p>Phone Number: {savedAddress.mobile}</p>
+                </div>
+              </div>
               <button onClick={toggleModal} className="useAnotherAddressButton">
                 Use Another Address
               </button>
