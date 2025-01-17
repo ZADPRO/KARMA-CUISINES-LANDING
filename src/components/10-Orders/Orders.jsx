@@ -81,23 +81,22 @@ export default function Orders() {
         <ChevronLeft />
         <p>Back</p>
       </div>
-      <div className="flex flex-col p-3">
-        <h1>Orders Page</h1>
+      <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="flex flex-col border-2 border-dashed rounded-lg surface-ground flex-auto p-4 m-3">
-          <div className="relative flex flex-wrap items-center">
+          <div className="relative flex flex-wrap items-center justify-end mb-4">
+            <label
+              className="cursor-pointer text-slate-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400"
+              htmlFor="id-c01"
+            >
+              Edit Orders
+            </label>
             <input
-              className="peer relative h-4 w-8 cursor-pointer appearance-none rounded-lg bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full after:bg-slate-500 after:transition-all checked:bg-emerald-200 checked:after:left-4 checked:after:bg-emerald-500 hover:bg-slate-400 after:hover:bg-slate-600 checked:hover:bg-emerald-300 checked:after:hover:bg-emerald-600 focus:outline-none checked:focus:bg-emerald-400 checked:after:focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:after:bg-slate-300"
+              className="peer relative h-4 w-8 ml-3 cursor-pointer appearance-none rounded-lg bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full after:bg-slate-500 after:transition-all checked:bg-emerald-200 checked:after:left-4 checked:after:bg-emerald-500 hover:bg-slate-400 after:hover:bg-slate-600 checked:hover:bg-emerald-300 checked:after:hover:bg-emerald-600 focus:outline-none checked:focus:bg-emerald-400 checked:after:focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:after:bg-slate-300"
               type="checkbox"
               checked={isEditing}
               onChange={() => setIsEditing((prev) => !prev)}
               id="id-c01"
             />
-            <label
-              className="cursor-pointer pl-2 text-slate-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400"
-              htmlFor="id-c01"
-            >
-              Edit Orders
-            </label>
           </div>
           <div className="contents">
             {cartItems.length > 0 ? (
@@ -144,27 +143,30 @@ export default function Orders() {
           </div>
         </div>
       </div>
-      <div className="p-4">
-        <div className="flex items-center justify-between ps-2 pt-2 pe-2 border-t">
-          <p className="text-lg font-semibold">Total:</p>
-          <p className="text-lg font-semibold">${grandTotal}</p>
-        </div>
-        <div className="flex ps-2 pe-2 items-center">
-          <p>Tax: </p>
-        </div>
-
-        <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
-          <div className="flex">
-            <ReceiptEuro />
-            <p>Total Bill : </p>
+      <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
+        <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+          <div className="flex items-center justify-between ps-2 pt-2 pe-2">
+            <p className="text-lg font-semibold">Total:</p>
+            <p className="text-lg font-semibold">${grandTotal}</p>
           </div>
-          <div className="flex">
-            <TimerReset />
-            <p>Expected Delivery in 15 mins</p>
+          <div className="flex ps-2 pe-2 items-center">
+            <p>Tax: </p>
+          </div>
+
+          <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
+            <div className="flex">
+              <ReceiptEuro />
+              <p>Total Bill : </p>
+            </div>
+            <div className="flex">
+              <TimerReset />
+              <p>Expected Delivery in 15 mins</p>
+            </div>
           </div>
         </div>
-
-        <div className="addAddressTabCall p-2">
+      </div>
+      <div className="addAddressTabCall flex flex-col p-3 w-full md:w-10/12 mx-auto">
+        <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           {savedAddress ? (
             <>
               <p>Use Address: {savedAddress}</p>
@@ -178,6 +180,11 @@ export default function Orders() {
             </button>
           )}
           <AddressBottomModal isOpen={isModalOpen} onClose={toggleModal} />
+        </div>
+      </div>
+      <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto">
+        <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+          <p>Mode of Payment</p>
         </div>
       </div>
       <div className="payButton">Proceed to Pay</div>

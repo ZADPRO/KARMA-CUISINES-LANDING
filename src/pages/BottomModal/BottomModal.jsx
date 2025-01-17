@@ -245,7 +245,7 @@ export default function BottomModal({ isOpen, onClose }) {
 
         <div
           className="placeOrderBtn shadow-lg fixed bottom-[10px] left-[1rem] right-[1rem] bg-green-500 text-white text-center py-3 rounded-lg cursor-pointer"
-          onClick={handlePlaceOrder} // Modified to handle check for JWT and loginType
+          onClick={handlePlaceOrder}
         >
           Place Order
         </div>

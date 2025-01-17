@@ -14,12 +14,15 @@ export default function AddressBottomModal({ isOpen, onClose }) {
   const [drawerRef, { height }] = useMeasure();
   const y = useMotionValue(0);
   const controls = useDragControls();
-  const [selectedOption, setSelectedOption] = useState(null);
-  console.log("selectedOption", selectedOption);
-
-  const onValueChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
+  const [addresses, setAddresses] = useState([]);
+  const [formData, setFormData] = useState({
+    mode: "",
+    room: "",
+    postalCode: "",
+    zone: "",
+    country: "",
+    mobile: "",
+  });
 
   const handleClose = async () => {
     animate(scope.current, {
@@ -41,7 +44,71 @@ export default function AddressBottomModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    const storedAddresses = localStorage.getItem("addresses");
+    if (storedAddresses) {
+      console.log("storedAddresses raw data:", storedAddresses);
+      const parsedAddresses = JSON.parse(storedAddresses);
+      const addressArray = Object.values(parsedAddresses);
+      console.log("Parsed Addresses:", addressArray);
+      setAddresses(addressArray);
+    }
+  }, []);
+
   if (!isOpen) return null;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const onSaveAddress = () => {
+    const { mode, room, postalCode, zone, country, mobile } = formData;
+
+    if (!mode || !room || !postalCode || !zone || !country || !mobile) {
+      alert("Please fill all fields.");
+      return;
+    }
+
+    const address = `${room}, ${zone}, ${country}`;
+    const newAddress = {
+      mode,
+      address,
+      mobile,
+    };
+
+    // Fetch existing addresses from localStorage
+    const existingAddresses =
+      JSON.parse(localStorage.getItem("addresses")) || {};
+    const nextIndex = Object.keys(existingAddresses).length + 1;
+
+    // Add the new address
+    existingAddresses[nextIndex] = newAddress;
+    localStorage.setItem("addresses", JSON.stringify(existingAddresses));
+
+    alert("Address saved successfully!");
+    setFormData({
+      mode: "",
+      room: "",
+      postalCode: "",
+      zone: "",
+      country: "",
+      mobile: "",
+    });
+  };
+
+  const onClearAll = () => {
+    setFormData({
+      mode: "",
+      room: "",
+      postalCode: "",
+      zone: "",
+      country: "",
+      mobile: "",
+    });
+    localStorage.removeItem("addresses");
+    alert("All addresses cleared!");
+  };
 
   return (
     <motion.div
@@ -71,178 +138,145 @@ export default function AddressBottomModal({ isOpen, onClose }) {
         dragConstraints={{ top: -100, bottom: 0 }}
       >
         <div className="w-full h-full overflow-auto pt-3 ps-4 pe-4 pb-[70px]">
-          <p>Select an Address</p>
+          <p className="pt-2 pb-2 text-[18px] font-bold">Select an Address</p>
 
-          <section className="w-full divide-slate-200 rounded">
-            <details className="group p-4">
-              <summary className="relative flex items-center justify-between cursor-pointer list-none gap-4 font-medium text-slate-700 transition-colors duration-300 focus-visible:outline-none group-hover:text-slate-900  [&::-webkit-details-marker]:hidden">
-                <div className="flex items-center gap-2">
-                  <MapPin />
-                  <p>Add New Address</p>
-                </div>
-                <ChevronDown />
-              </summary>
-              <div className="addAddressContents flex gap-3 mt-3 mb-3 border p-3">
+          <div className="w-full md:w-8/12 mx-auto">
+            <section className="w-full divide-slate-200 rounded">
+              <details className="group p-4">
+                <summary className="relative rounded flex items-center justify-between gap-3 mt-3 mb-3 border p-3 cursor-pointer">
+                  <div className="flex items-center gap-2">
+                    <MapPin />
+                    <p>Add New Address</p>
+                  </div>
+                  <ChevronDown />
+                </summary>
                 <div className="address flex flex-col w-full">
                   <fieldset className="flex gap-10">
                     <p>Location:</p>
                     <div className="relative inputBoxRadio flex items-center">
                       <input
-                        className="w-4 h-4 transition-colors bg-white border-2 rounded-full appearance-none cursor-pointer peer border-slate-500 checked:border-emerald-500 checked:bg-emerald-500 checked:hover:border-emerald-600 checked:hover:bg-emerald-600 focus:outline-none checked:focus:border-emerald-700 checked:focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-50"
                         type="radio"
                         value="home"
                         id="home"
-                        name="drone"
-                        onChange={onValueChange}
+                        name="mode"
+                        onChange={handleChange}
+                        checked={formData.mode === "home"}
                       />
-                      <label className="pl-2 cursor-pointer text-slate-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400">
+                      <label className="pl-2 cursor-pointer text-slate-500">
                         Home
                       </label>
-                      <svg
-                        className="absolute left-0 w-4 h-4 transition-all duration-300 scale-50 opacity-0 pointer-events-none fill-white peer-checked:scale-100 peer-checked:opacity-100 peer-disabled:cursor-not-allowed"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-labelledby="title-1 description-1"
-                        role="graphics-symbol"
-                      >
-                        <circle cx="8" cy="8" r="4" />
-                      </svg>
                     </div>
                     <div className="relative inputBoxRadio flex items-center">
                       <input
-                        className="w-4 h-4 transition-colors bg-white border-2 rounded-full appearance-none cursor-pointer peer border-slate-500 checked:border-emerald-500 checked:bg-emerald-500 checked:hover:border-emerald-600 checked:hover:bg-emerald-600 focus:outline-none checked:focus:border-emerald-700 checked:focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-50"
                         type="radio"
                         value="work"
                         id="work"
-                        name="drone"
-                        onChange={onValueChange}
+                        name="mode"
+                        onChange={handleChange}
+                        checked={formData.mode === "work"}
                       />
-                      <label className="pl-2 cursor-pointer text-slate-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400">
+                      <label className="pl-2 cursor-pointer text-slate-500">
                         Work
                       </label>
-                      <svg
-                        className="absolute left-0 w-4 h-4 transition-all duration-300 scale-50 opacity-0 pointer-events-none fill-white peer-checked:scale-100 peer-checked:opacity-100 peer-disabled:cursor-not-allowed"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-labelledby="title-2 description-2"
-                        role="graphics-symbol"
-                      >
-                        <circle cx="8" cy="8" r="4" />
-                      </svg>
                     </div>
                   </fieldset>
-                  <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-4 mt-6 items-center">
-                    <div className="relative lg:mt-0 mt-3">
+                  <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-4 mt-6 items-center w-full md:w-10/12 mx-auto">
+                    <div className="relative address lg:mt-0 mt-3">
                       <input
                         id="id-l03"
                         type="text"
-                        name="id-l03"
-                        placeholder="your name"
-                        className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        name="room"
+                        placeholder="Room No, Street Name"
+                        value={formData.room}
+                        onChange={handleChange}
                       />
-                      <label
-                        htmlFor="id-l03"
-                        className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
-                      >
-                        Room No, Street Name
-                      </label>
                     </div>
                     <div className="relative lg:mt-0 mt-3">
                       <input
                         id="id-l04"
                         type="text"
-                        name="id-l04"
-                        placeholder="your name"
-                        className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        name="postalCode"
+                        placeholder="Postal Code"
+                        value={formData.postalCode}
+                        onChange={handleChange}
                       />
-                      <label
-                        htmlFor="id-l04"
-                        className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
-                      >
-                        Postal Code
-                      </label>
                     </div>
                     <div className="relative lg:mt-0 mt-3">
                       <input
                         id="id-l05"
                         type="text"
-                        name="id-l05"
-                        placeholder="your name"
-                        className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        name="zone"
+                        placeholder="Zone"
+                        value={formData.zone}
+                        onChange={handleChange}
                       />
-                      <label
-                        htmlFor="id-l05"
-                        className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
-                      >
-                        Zone
-                      </label>
                     </div>
                     <div className="relative lg:mt-0 mt-3">
                       <input
                         id="id-l06"
                         type="text"
-                        name="id-l06"
-                        placeholder="your name"
-                        className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        name="country"
+                        placeholder="Country"
+                        value={formData.country}
+                        onChange={handleChange}
                       />
-                      <label
-                        htmlFor="id-l06"
-                        className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
-                      >
-                        Country
-                      </label>
                     </div>
                     <div className="relative lg:mt-0 mt-3">
                       <input
                         id="id-l07"
                         type="text"
-                        name="id-l07"
-                        placeholder="your name"
-                        className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        name="mobile"
+                        placeholder="Mobile"
+                        value={formData.mobile}
+                        onChange={handleChange}
                       />
-                      <label
-                        htmlFor="id-l07"
-                        className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
-                      >
-                        Mobile
-                      </label>
                     </div>
                   </div>
+                  <div className="buttonSaveAddress flex items-center justify-between p-4">
+                    <button
+                      className="border-2 pt-1 pb-1 ps-5 pe-5 rounded-lg"
+                      onClick={onClearAll}
+                    >
+                      Clear All
+                    </button>
+                    <button
+                      className="border-2 pt-1 pb-1 ps-5 pe-5 rounded-lg"
+                      onClick={onSaveAddress}
+                    >
+                      Save Address
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </details>
-          </section>
-          <div className="flex items-center justify-center">
-            <hr className="flex-1 border-t-2 border-slate-300" />
-            <h1 className="mx-3 text-md font-semibold text-gray-700">
-              Saved Addresses
-            </h1>
-            <hr className="flex-1 border-t-2 border-slate-300" />
-          </div>
-          <div className="addAddressContents flex gap-3 mt-3 mb-3 border p-3">
-            <House />
-            <div className="address">
-              <p>Home</p>
-              <p>No 1, Logi street, Gugai, Salem</p>
-              <p>Phone Number: +91 9393939393</p>
+              </details>
+            </section>
+            <div className="flex items-center justify-center">
+              <hr className="flex-1 border-t-2 border-slate-300" />
+              <h1 className="mx-3 text-md font-semibold text-gray-700">
+                Saved Addresses
+              </h1>
+              <hr className="flex-1 border-t-2 border-slate-300" />
             </div>
-          </div>
-          <div className="addAddressContents flex gap-3 mt-3 mb-3 border p-3">
-            <House />
-            <div className="address">
-              <p>Home</p>
-              <p>No 1, Logi street, Gugai, Salem</p>
-              <p>Phone Number: +91 9393939393</p>
-            </div>
-          </div>
-          <div className="addAddressContents flex items-start gap-3 mt-3 mb-3 border p-3">
-            <House />
-            <div className="address">
-              <p>Home</p>
-              <p>No 1, Logi street, Gugai, Salem</p>
-              <p>Phone Number: +91 9393939393</p>
+            <div>
+              {addresses.length > 0 ? (
+                addresses.map((address, index) => (
+                  <div
+                    key={index}
+                    className="addAddressContents rounded-lg flex items-start gap-3 mt-3 mb-3 border p-3"
+                  >
+                    <House />
+                    <div className="address">
+                      <p>
+                        {address.mode.charAt(0).toUpperCase() +
+                          address.mode.slice(1)}
+                      </p>
+                      <p>Address: {address.address}</p>
+                      <p>Phone Number: {address.mobile}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No addresses found</p>
+              )}
             </div>
           </div>
         </div>
