@@ -2,6 +2,7 @@ import { Menu, Search, ShoppingCart } from "lucide-react";
 import { NavMenu } from "./data";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import english from "../../assets/language/english.svg";
 import german from "../../assets/language/german.svg";
@@ -14,6 +15,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   const languages = [
     { id: "en", label: "English", flag: english },
@@ -58,7 +60,7 @@ export default function Header() {
               {NavMenu.map((item) => (
                 <li key={item.id}>
                   <a
-                    href={item.link}
+                    onClick={() => navigate(item.link)}
                     className={`inline-block text-[20px] py-1 px-3 font-semibold duration-200 ${
                       scrolled ? "hover:text-[#db5b2d]" : "hover:text-gray-300"
                     }`}
