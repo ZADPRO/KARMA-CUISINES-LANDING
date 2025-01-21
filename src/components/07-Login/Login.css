@@ -6,13 +6,13 @@
   height: 100%;
 }
 
-input[type="text"] {
+.otpValidate input[type="text"] {
   width: 2.5rem;
   height: 2.5rem;
   text-align: center;
   font-size: 1.5rem;
 }
 
-input[type="text"]:focus {
+.otpValidate input[type="text"]:focus {
   border-color: #34d399;
 }

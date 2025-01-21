@@ -123,7 +123,7 @@ export default function Login() {
 
               {/* OTP Grid */}
               {otpSent && (
-                <div className="flex space-x-2 justify-center my-6">
+                <div className="flex space-x-2 otpValidate justify-center my-6">
                   {state.otp.map((digit, index) => (
                     <input
                       key={index}
