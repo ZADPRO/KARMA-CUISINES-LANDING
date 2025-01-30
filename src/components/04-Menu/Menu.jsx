@@ -17,94 +17,12 @@ export default function Menu() {
   const [cartItems, setCartItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [foodData, setFoodData] = useState([]);
+
   useEffect(() => {
     const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCartItems);
   }, []);
-
-  const FoodData = [
-    {
-      id: 1,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 1",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 2,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 2",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 3,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 3",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 4,
-      image: foodImg,
-      rating: "⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 1",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 5,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 2",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 6,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 3",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 7,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 1",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 8,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 2",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 9,
-      image: foodImg,
-      rating: "⭐⭐⭐⭐",
-      price: "10.99",
-      name: "Food Name 3",
-      count: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-  ];
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -112,7 +30,7 @@ export default function Menu() {
 
   useEffect(() => {
     axios
-      .get(import.meta.env.VITE_API_URL + "/vendorRoutes/ViewaddedProduct", {
+      .get(import.meta.env.VITE_API_URL + "/userRoutes/viewProducts", {
         headers: {
           Authorization: localStorage.getItem("JWTtoken"),
         },
@@ -124,6 +42,7 @@ export default function Menu() {
           import.meta.env.VITE_ENCRYPTION_KEY
         );
         console.log("data", data);
+        setFoodData(data.Restroproducts);
       })
       .catch((error) => {
         console.error("Error fetching vendor details:", error);
@@ -148,7 +67,7 @@ export default function Menu() {
       <div className="container py-14 px-10 mb-[80px]">
         {/* card section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-          {FoodData.map((item) => (
+          {foodData.map((item) => (
             <FoodCard key={item.id} item={item} setCartItems={setCartItems} />
           ))}
         </div>
@@ -249,7 +168,7 @@ function FoodCard({ item, setCartItems }) {
       cartItems.push(item);
       localStorage.setItem("cart", JSON.stringify(cartItems));
 
-      setCartItems(cartItems); // Update the cartItems state with the new cart
+      setCartItems(cartItems);
     }
   };
 
@@ -270,18 +189,18 @@ function FoodCard({ item, setCartItems }) {
       </div>
 
       <img
-        src={item.image}
-        alt=""
+        src={`data:${item.foodPic.contentType};base64,${item.foodPic.content}`}
+        alt={foodImg}
         className="object-cover rounded-t-xl w-full h-[200px]"
       />
       <div className="space-y-2 p-5">
         <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold">{item.name}</p>
-          <p className="text-red-500">{item.rating}</p>
+          <p className="text-lg font-semibold">{item.productName}</p>
+          <p className="text-red-500">{item.ratings}</p>
         </div>
-        <p>{item.desc}</p>
+        <p>{item.description}</p>
         <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold">$ {item.price}</p>
+          <p className="text-lg font-semibold">$ {item.productPrice}</p>
           <button
             className={`border-2 rounded-md px-3 py-1 transition duration-300 ${
               isAddedToCart
@@ -301,12 +220,12 @@ function FoodCard({ item, setCartItems }) {
 
 FoodCard.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.string.isRequired, // Ensure that item has a unique 'id'
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    rating: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    desc: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    foodPic: PropTypes.string.isRequired,
+    productName: PropTypes.string.isRequired,
+    ratings: PropTypes.string.isRequired,
+    productPrice: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
   }).isRequired,
-  setCartItems: PropTypes.func.isRequired, // This will be used to update the cartItems
+  setCartItems: PropTypes.func.isRequired,
 };
