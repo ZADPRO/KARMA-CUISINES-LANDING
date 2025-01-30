@@ -5,6 +5,9 @@ import PropTypes from "prop-types";
 import "./Menu.css";
 import foodImg from "../../assets/home/thandoori.jpg";
 import BottomModal from "../../pages/BottomModal/BottomModal";
+import axios from "axios";
+
+import decrypt from "../../helper";
 
 export default function Menu() {
   const handleAnimationComplete = () => {
@@ -106,6 +109,26 @@ export default function Menu() {
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    axios
+      .get(import.meta.env.VITE_API_URL + "/vendorRoutes/ViewaddedProduct", {
+        headers: {
+          Authorization: localStorage.getItem("JWTtoken"),
+        },
+      })
+      .then((res) => {
+        const data = decrypt(
+          res.data[1],
+          res.data[0],
+          import.meta.env.VITE_ENCRYPTION_KEY
+        );
+        console.log("data", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching vendor details:", error);
+      });
+  }, []);
 
   return (
     <div>
