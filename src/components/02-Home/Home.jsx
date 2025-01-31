@@ -3,14 +3,16 @@ import "./Home.css";
 import foodImg from "../../assets/home/thandoori.jpg";
 
 import image from "../../assets/home/home2.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   const FoodData = [
     {
       id: 1,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "€ 14.99",
       name: "Food Name 1",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
@@ -18,7 +20,7 @@ export default function Home() {
       id: 2,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "€ 12.99",
       name: "Food Name 2",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
@@ -26,7 +28,7 @@ export default function Home() {
       id: 3,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "€ 20.99",
       name: "Food Name 3",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
@@ -34,7 +36,7 @@ export default function Home() {
       id: 4,
       image: foodImg,
       rating: "⭐⭐⭐⭐⭐",
-      price: "$10.99",
+      price: "€ 16.99",
       name: "Food Name 4",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
@@ -62,7 +64,10 @@ export default function Home() {
           <div className="flex mb-12 items-center justify-between headerSection">
             <p></p>
             <h1 className="text-4xl font-semibold">Top List</h1>
-            <p className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl">
+            <p
+              className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl cursor-pointer"
+              onClick={() => navigate("/menu")}
+            >
               Our Menu
             </p>
           </div>

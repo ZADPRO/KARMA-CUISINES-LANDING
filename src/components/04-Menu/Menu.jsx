@@ -79,7 +79,8 @@ export default function Menu() {
               {cartItems.length} items in cart -{" "}
               {cartItems
                 .reduce(
-                  (acc, item) => acc + parseFloat(item.price.replace("$", "")),
+                  (acc, item) =>
+                    acc + (parseFloat(item.productPrice) * item.count || 0),
                   0
                 )
                 .toFixed(2)}{" "}
@@ -135,37 +136,35 @@ function FoodCard({ item, setCartItems }) {
     const savedWishlistItems =
       JSON.parse(localStorage.getItem("wishlist")) || [];
 
-    const isInCart = savedCartItems.some((cartItem) => cartItem.id === item.id);
+    // Compare using productId (not item.id)
+    const isInCart = savedCartItems.some(
+      (cartItem) => cartItem.productId === item.productId
+    );
     const isInWishlist = savedWishlistItems.some(
-      (wishlistItem) => wishlistItem.id === item.id
+      (wishlistItem) => wishlistItem.productId === item.productId
     );
 
     setIsAddedToCart(isInCart);
     setIsWishlisted(isInWishlist);
-  }, [item.id]);
-
-  const toggleWishlist = () => {
-    setIsWishlisted((prev) => {
-      const updatedWishlisted = !prev;
-      const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
-      if (updatedWishlisted) {
-        wishlistItems.push(item);
-      } else {
-        const index = wishlistItems.findIndex((i) => i.id === item.id);
-        if (index !== -1) wishlistItems.splice(index, 1);
-      }
-      localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
-
-      console.log("Wishlist Items:", wishlistItems);
-      return updatedWishlisted;
-    });
-  };
+  }, [item.productId]);
 
   const handleAddToCart = () => {
     if (!isAddedToCart) {
       setIsAddedToCart(true);
+
       const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      cartItems.push(item);
+
+      const existingItemIndex = cartItems.findIndex(
+        (cartItem) => cartItem.productId === item.productId
+      );
+
+      if (existingItemIndex === -1) {
+        const itemWithQuantity = { ...item, count: 1 };
+        cartItems.push(itemWithQuantity);
+      } else {
+        cartItems[existingItemIndex].count += 1;
+      }
+
       localStorage.setItem("cart", JSON.stringify(cartItems));
 
       setCartItems(cartItems);
@@ -177,7 +176,7 @@ function FoodCard({ item, setCartItems }) {
       {/* Wishlist heart icon */}
       <div
         className="absolute top-3 right-3 cursor-pointer bg-white p-2 rounded-full"
-        onClick={toggleWishlist}
+        onClick={() => setIsWishlisted(!isWishlisted)}
       >
         <Heart
           className={`${
@@ -190,8 +189,8 @@ function FoodCard({ item, setCartItems }) {
 
       <img
         src={`data:${item.foodPic.contentType};base64,${item.foodPic.content}`}
-        alt={foodImg}
-        className="object-cover rounded-t-xl w-full h-[200px]"
+        alt={item.productName}
+        className="object-cover rounded-t-xl w-full h-[200px] bg-white"
       />
       <div className="space-y-2 p-5">
         <div className="flex items-center justify-between">
@@ -200,7 +199,7 @@ function FoodCard({ item, setCartItems }) {
         </div>
         <p>{item.description}</p>
         <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold">$ {item.productPrice}</p>
+          <p className="text-lg font-semibold">€ {item.productPrice}</p>
           <button
             className={`border-2 rounded-md px-3 py-1 transition duration-300 ${
               isAddedToCart
@@ -220,7 +219,7 @@ function FoodCard({ item, setCartItems }) {
 
 FoodCard.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    productId: PropTypes.string.isRequired,
     foodPic: PropTypes.string.isRequired,
     productName: PropTypes.string.isRequired,
     ratings: PropTypes.string.isRequired,

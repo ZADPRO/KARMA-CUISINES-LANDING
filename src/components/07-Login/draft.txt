@@ -148,11 +148,34 @@ export default function Login() {
               >
                 Login
               </button>
+
+              {/* {otpSent && (
+                <div className="flex space-x-2 otpValidate justify-center my-6">
+                  {state.otp.map((digit, index) => (
+                    <input
+                      key={index}
+                      id={`otp-input-${index}`}
+                      type="text"
+                      maxLength="1"
+                      value={digit}
+                      onChange={(e) => handleChange(e, index)}
+                      className="w-12 h-12 text-center text-2xl border border-slate-200 rounded focus:border-emerald-500 focus:outline-none"
+                      pattern="[0-9]*"
+                      inputMode="numeric"
+                      required
+                    />
+                  ))}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="w-full rounded bg-emerald-500 py-2 text-white hover:bg-emerald-600"
+              >
+                {otpSent ? "Verify OTP" : "Request OTP"}
+              </button> */}
             </form>
           </div>
-          <p className="w-10/12 mx-auto text-center text-[15px]">
-            New to our app? Sign Up
-          </p>
           <div className="flex">
             <p className="w-10/12 mx-auto text-center text-[12px]">
               By continuing, you agree to our{" "}

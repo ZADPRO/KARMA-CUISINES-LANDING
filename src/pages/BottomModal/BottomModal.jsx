@@ -73,7 +73,7 @@ export default function BottomModal({ isOpen, onClose }) {
   const updateCartItemCount = (id, delta) => {
     const updatedCart = cartItems
       .map((item) => {
-        if (item.id === id) {
+        if (item.productId === id) {
           const updatedCount = item.count + delta;
           return { ...item, count: updatedCount > 0 ? updatedCount : 0 };
         }
@@ -120,7 +120,7 @@ export default function BottomModal({ isOpen, onClose }) {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const updatedCart = cartItems.filter((item) => item.id !== id);
+        const updatedCart = cartItems.filter((item) => item.productId !== id);
 
         // Update state and local storage
         setCartItems(updatedCart);
@@ -169,7 +169,7 @@ export default function BottomModal({ isOpen, onClose }) {
         initial={{ y: "100%" }}
         animate={{ y: "0%" }}
         transition={{ ease: "easeInOut" }}
-        className="absolute bottom-0 h-[75vh] w-full overflow-hidden rounded-t-3xl bg-white"
+        className="absolute bottom-0 h-[85vh] w-full overflow-hidden rounded-t-3xl bg-white"
         style={{ y }}
         drag="y"
         dragControls={controls}
@@ -194,48 +194,50 @@ export default function BottomModal({ isOpen, onClose }) {
           </div>
           <div className="cartItemsDisplay grid grid-cols-1 md:grid-cols-3 gap-4">
             {cartItems.map((item) => {
-              const unitPrice = parseFloat(item.price);
+              const unitPrice = parseFloat(item.productPrice);
               const totalPrice = (unitPrice * item.count).toFixed(2);
 
               return (
                 <div
-                  key={item.id}
+                  key={item.productId}
                   className="relative flex items-center rounded-lg justify-between shadow-md p-3 m-2"
                 >
                   <button
-                    onClick={() => removeCartItem(item.id)}
+                    onClick={() => removeCartItem(item.productId)}
                     className="absolute top-1 text-[22px] right-1 text-red-500 hover:text-red-700"
                   >
                     &times;
                   </button>
 
-                  <div className="flex gap-3">
-                    <img
-                      className="w-[100px] rounded"
-                      src={item.image}
-                      alt={item.name}
-                    />
-                    <div className="flex flex-col">
-                      <p>{item.name}</p>
-                      <p>Unit Price: $ {unitPrice.toFixed(2)}</p>
-                      <p>Total: $ {totalPrice}</p>
-                      <p>Rating: {item.rating}</p>
+                  <div className="flex flex-col items-center">
+                    <div className="flex gap-3">
+                      <img
+                        className="w-[100px] rounded"
+                        src={`data:${item.foodPic.contentType};base64,${item.foodPic.content}`}
+                        alt={item.name}
+                      />
+                      <div className="flex flex-col">
+                        <p>{item.name}</p>
+                        <p>Unit Price: € {unitPrice.toFixed(2)}</p>
+                        <p>Total: € {totalPrice}</p>
+                        <p>Rating: {item.ratings}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="addItems flex items-center gap-2">
-                    <button
-                      onClick={() => updateCartItemCount(item.id, -1)}
-                      className="px-2 py-1 border rounded"
-                    >
-                      -
-                    </button>
-                    <p>{item.count}</p>
-                    <button
-                      onClick={() => updateCartItemCount(item.id, 1)}
-                      className="px-2 py-1 border rounded"
-                    >
-                      +
-                    </button>
+                    <div className="addItems items-center justify-end flex gap-2">
+                      <button
+                        onClick={() => updateCartItemCount(item.productId, -1)}
+                        className="px-2 py-1 border rounded"
+                      >
+                        -
+                      </button>
+                      <p>{item.count}</p>
+                      <button
+                        onClick={() => updateCartItemCount(item.productId, 1)}
+                        className="px-2 py-1 border rounded"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
@@ -244,7 +246,7 @@ export default function BottomModal({ isOpen, onClose }) {
         </div>
 
         <div
-          className="placeOrderBtn shadow-lg fixed bottom-[10px] left-[1rem] right-[1rem] bg-green-500 text-white text-center py-3 rounded-lg cursor-pointer"
+          className="placeOrderBtn shadow-lg fixed bottom-[10px] left-[1rem] right-[1rem] bg-[#cd5c08] text-white text-center py-3 rounded-lg cursor-pointer"
           onClick={handlePlaceOrder}
         >
           Place Order
