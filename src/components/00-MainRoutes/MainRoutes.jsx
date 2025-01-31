@@ -36,7 +36,7 @@ function AppRoutes() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
