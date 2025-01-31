@@ -144,6 +144,7 @@ export default function Login() {
 
               <button
                 type="submit"
+                onClick={() => navigate("/orders")}
                 className="w-full rounded bg-emerald-500 py-2 text-white hover:bg-emerald-600"
               >
                 Login

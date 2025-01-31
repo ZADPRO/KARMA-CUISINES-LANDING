@@ -1,16 +1,25 @@
 import "./Contact.css";
 import { useState } from "react";
+import Swal from "sweetalert2";
+
 export default function Contact() {
   const [state, setState] = useState({
-    "id-01": "",
+    "id-l11": "",
+    "id-l12": "",
+    "id-l13": "",
   });
 
-  const handleChange = (evt) => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value,
-    });
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    if (state["id-l11"] && state["id-l12"] && state["id-l13"]) {
+      console.log("Success: Data submitted successfully");
+      Swal.fire("Success", "Data submitted successfully", "success");
+    } else {
+      Swal.fire("Error", "Please fill all fields", "error");
+    }
   };
 
   return (
@@ -52,8 +61,8 @@ export default function Contact() {
               type="text"
               name="id-l11"
               value={state["id-l11"]}
-              placeholder="your name"
-              className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-[#cd5c08] focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+              placeholder="Your Name"
+              className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all focus:border-[#cd5c08]"
               onChange={handleChange}
             />
             <label
@@ -86,15 +95,15 @@ export default function Contact() {
               type="text"
               name="id-l12"
               value={state["id-l12"]}
-              placeholder="your name"
-              className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-[#cd5c08] focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+              placeholder="Your Email"
+              className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all focus:border-[#cd5c08]"
               onChange={handleChange}
             />
             <label
               htmlFor="id-l12"
               className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
             >
-              Your name
+              Your Email
             </label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +119,7 @@ export default function Contact() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
               />
             </svg>
           </div>
@@ -120,15 +129,15 @@ export default function Contact() {
               type="text"
               name="id-l13"
               value={state["id-l13"]}
-              placeholder="your name"
-              className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-[#cd5c08] focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+              placeholder="Your Message"
+              className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all focus:border-[#cd5c08]"
               onChange={handleChange}
             />
             <label
               htmlFor="id-l13"
               className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
             >
-              Your name
+              Your Message
             </label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -144,10 +153,17 @@ export default function Contact() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
               />
             </svg>
           </div>
+          <button
+            className="my-6 w-full md:w-7/12 mx-auto flex justify-center bg-[#cd5c08] p-3 rounded text-white font-semibold uppercase"
+            onClick={handleSubmit}
+          >
+            {" "}
+            Submit Feedback
+          </button>
         </div>
 
         {/* Right Section */}

@@ -31,7 +31,7 @@ export default function Orders() {
   const updateCartItemCount = (id, delta) => {
     const updatedCart = cartItems
       .map((item) => {
-        if (item.id === id) {
+        if (item.productId === id) {
           const updatedCount = item.count + delta;
           return { ...item, count: updatedCount > 0 ? updatedCount : 0 };
         }
@@ -66,7 +66,7 @@ export default function Orders() {
   };
 
   const grandTotal = cartItems
-    .reduce((total, item) => total + item.price * item.count, 0)
+    .reduce((total, item) => total + item.productPrice * item.count, 0)
     .toFixed(2);
 
   const toggleModal = () => {
@@ -116,22 +116,26 @@ export default function Orders() {
                 {cartItems.map((item) => (
                   <>
                     <div
-                      key={item.id}
+                      key={item.productId}
                       className="flex items-center justify-between p-1"
                     >
-                      <p>{item.name}</p>
+                      <p>{item.productName}</p>
                       <div className="addItems flex items-center gap-2">
                         {isEditing ? (
                           <>
                             <button
-                              onClick={() => updateCartItemCount(item.id, -1)}
+                              onClick={() =>
+                                updateCartItemCount(item.productId, -1)
+                              }
                               className="px-2 py-1 border rounded"
                             >
                               -
                             </button>
                             <p>{item.count}</p>
                             <button
-                              onClick={() => updateCartItemCount(item.id, 1)}
+                              onClick={() =>
+                                updateCartItemCount(item.productId, 1)
+                              }
                               className="px-2 py-1 border rounded"
                             >
                               +
@@ -143,8 +147,8 @@ export default function Orders() {
                       </div>
                     </div>
                     <div className="items flex items-center justify-between p-1">
-                      <p>{item.price}</p>
-                      <p>${item.price * item.count}</p>
+                      <p>{item.productPrice}</p>
+                      <p>€{item.productPrice * item.count}</p>
                     </div>
                   </>
                 ))}
@@ -159,16 +163,16 @@ export default function Orders() {
         <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           <div className="flex items-center justify-between ps-2 pt-2 pe-2">
             <p className="text-lg font-semibold">Total:</p>
-            <p className="text-lg font-semibold">${grandTotal}</p>
+            <p className="text-lg font-semibold">€ {grandTotal}</p>
           </div>
           <div className="flex ps-2 pe-2 items-center">
-            <p>Tax: </p>
+            <p>Tax: 5%</p>
           </div>
 
           <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
             <div className="flex">
               <ReceiptEuro />
-              <p>Total Bill : </p>
+              <p>Total Bill : € 1000 </p>
             </div>
             <div className="flex">
               <TimerReset />
