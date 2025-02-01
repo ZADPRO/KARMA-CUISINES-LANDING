@@ -134,11 +134,11 @@ export default function Header() {
             >
               <ShoppingCart />
             </button>
-            <button
+            {/* <button
               className={`font-semibold  bg-[#cd5c08] rounded-3xl px-6 py-2 duration-200 hidden md:block ${scrolled}`}
             >
               Login
-            </button>
+            </button> */}
           </div>
 
           {/* Mobile Menu Icon */}
