@@ -59,17 +59,17 @@ const Section2 = ({ scrollYProgress }) => {
   return (
     <>
       <motion.section
-        style={{ scale, rotate, backgroundImage: `url(${home})` }}
-        className="relative lg:h-screen text-white flex items-center justify-center"
+        style={{ scale, rotate }}
+        className="relative text-white flex items-center bg-white justify-center"
         // className="h-screen w-full bg-cover bg-center bg-fixed hidden lg:block"
       >
         <div className="absolute bottom-0 left-0 right-0 top-0"></div>
-        <article className="container mx-auto relative z-9 ">
+        <article className="container mx-auto relative z-9 pb-10">
           <h1 className="text-4xl leading-[100%] w-full md:w-10/12 mx-auto py-14 font-semibold text-black tracking-tight text-center">
             The Story of Karma Cuisines: Bringing Authentic Exotic Flavors to
             Your Doorstep{" "}
           </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-2">
             <img
               src={story1}
               alt="img"
