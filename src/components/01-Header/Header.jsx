@@ -78,7 +78,7 @@ export default function Header() {
               >
                 <button
                   className={`inline-block text-[20px] py-1 px-3 font-semibold duration-200 ${
-                    scrolled ? "hover:text-[#db5b2d]" : "hover:text-gray-300"
+                    scrolled ? "hover:text-white" : "hover:text-gray-300"
                   }`}
                 >
                   Translate
