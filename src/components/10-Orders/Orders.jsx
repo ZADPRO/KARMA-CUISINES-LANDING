@@ -231,9 +231,9 @@ export default function Orders() {
         </div>
       </div>
       <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto">
-        <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+        {/* <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           <p>Mode of Payment</p>
-        </div>
+        </div> */}
       </div>
 
       <PaymentModel isOpen={paymentModule} onClose={paymentModel} />
