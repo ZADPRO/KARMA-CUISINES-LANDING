@@ -68,7 +68,11 @@ export default function Menu() {
         {/* card section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           {foodData.map((item) => (
-            <FoodCard key={item.id} item={item} setCartItems={setCartItems} />
+            <FoodCard
+              key={item.productId}
+              item={item}
+              setCartItems={setCartItems}
+            />
           ))}
         </div>
       </div>

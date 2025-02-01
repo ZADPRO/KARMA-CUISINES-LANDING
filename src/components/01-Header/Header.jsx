@@ -115,7 +115,7 @@ export default function Header() {
 
           {/* Cart and Login */}
           <div className="flex items-center gap-4">
-            <button
+            {/* <button
               className={`text-2xl rounded-full p-2 duration-200 ${
                 scrolled
                   ? "hover:bg-gray-300 hover:text-black"
@@ -123,13 +123,14 @@ export default function Header() {
               }`}
             >
               <Search />
-            </button>
+            </button> */}
             <button
               className={`text-2xl rounded-full p-2 duration-200 ${
                 scrolled
                   ? "hover:bg-gray-300 hover:text-black"
                   : "hover:bg-gray-300"
               }`}
+              onClick={() => navigate("/menu")}
             >
               <ShoppingCart />
             </button>
@@ -147,7 +148,7 @@ export default function Header() {
         </div>
       </nav>
 
-      <ResponsiveMenu open={open} />
+      <ResponsiveMenu open={open} setOpen={setOpen} />
     </div>
   );
 }

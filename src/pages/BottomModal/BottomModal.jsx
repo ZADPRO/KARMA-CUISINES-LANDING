@@ -137,19 +137,20 @@ export default function BottomModal({ isOpen, onClose }) {
 
   // New check before navigating to orders
   const handlePlaceOrder = () => {
-    const jwtToken = localStorage.getItem("jwtToken");
+    const jwtToken = localStorage.getItem("JWTtoken");
     const loginType = localStorage.getItem("loginType");
 
-    // Check if the user is logged in
-    if (!jwtToken || loginType !== "true") {
-      // Store the cart items and source flag in localStorage
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    if (!jwtToken && loginType !== true) {
+      console.log("jwtToken", jwtToken);
+      console.log("cartItems", cartItems);
+      localStorage.setItem("cartItems", cartItems);
       localStorage.setItem("fromPlaceOrder", "true");
 
       // Redirect to the login page
       navigate("/login");
     } else {
       // If logged in, navigate to the orders page
+      console.log("state false block");
       navigate("/orders", { state: { orders: cartItems } });
     }
   };

@@ -165,20 +165,13 @@ export default function Orders() {
             <p className="text-lg font-semibold">Total:</p>
             <p className="text-lg font-semibold">€ {grandTotal}</p>
           </div>
-          <div className="flex ps-2 pe-2 items-center">
-            <p>Tax: 5%</p>
-          </div>
 
-          <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
-            <div className="flex">
-              <ReceiptEuro />
-              <p>Total Bill : € 1000 </p>
-            </div>
+          {/* <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
             <div className="flex">
               <TimerReset />
               <p>Expected Delivery in 15 mins</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="addAddressTabCall flex flex-col p-3 w-full md:w-10/12 mx-auto">
@@ -192,7 +185,10 @@ export default function Orders() {
                   <p>Phone Number: {savedAddress.mobile}</p>
                 </div>
               </div>
-              <button onClick={toggleModal} className="useAnotherAddressButton">
+              <button
+                onClick={toggleModal}
+                className="useAnotherAddressButton mt-5"
+              >
                 Use Another Address
               </button>
             </>
@@ -205,9 +201,9 @@ export default function Orders() {
         </div>
       </div>
       <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto">
-        <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+        {/* <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           <p>Mode of Payment</p>
-        </div>
+        </div> */}
       </div>
       <div className="payButton">Proceed to Pay</div>
     </div>
