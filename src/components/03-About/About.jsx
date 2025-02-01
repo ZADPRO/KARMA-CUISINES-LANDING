@@ -4,6 +4,8 @@ import story2 from "../../assets/story/two.jpg";
 import story3 from "../../assets/story/three.jpg";
 import story4 from "../../assets/story/four.jpg";
 
+import home from "../../assets/about/bg.jpg";
+
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
 
@@ -57,12 +59,13 @@ const Section2 = ({ scrollYProgress }) => {
   return (
     <>
       <motion.section
-        style={{ scale, rotate }}
-        className="relative lg:h-screen bg-gradient-to-t to-[#fffdfa] from-[#fffdfa] text-white flex items-center justify-center"
+        style={{ scale, rotate, backgroundImage: `url(${home})` }}
+        className="relative lg:h-screen text-white flex items-center justify-center"
+        // className="h-screen w-full bg-cover bg-center bg-fixed hidden lg:block"
       >
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        <div className="absolute bottom-0 left-0 right-0 top-0"></div>
         <article className="container mx-auto relative z-9 ">
-          <h1 className="text-4xl leading-[100%] py-10 font-semibold text-black tracking-tight text-center">
+          <h1 className="text-4xl leading-[100%] w-full md:w-10/12 mx-auto py-14 font-semibold text-black tracking-tight text-center">
             The Story of Karma Cuisines: Bringing Authentic Exotic Flavors to
             Your Doorstep{" "}
           </h1>
@@ -98,7 +101,7 @@ const Section2 = ({ scrollYProgress }) => {
           </div>
         </article>
       </motion.section>
-      <div className="pb-[40px]">
+      <div className="pb-[40px] lg:h-screen flex items-center justify-center">
         <section className="divide-y w-full md:w-10/12 mx-auto divide-slate-200 rounded border border-slate-200 bg-white">
           <details className="group p-4" open>
             <summary className="relative cursor-pointer list-none pr-8 font-medium text-slate-700 transition-colors duration-300 focus-visible:outline-none group-hover:text-slate-900  [&::-webkit-details-marker]:hidden">
