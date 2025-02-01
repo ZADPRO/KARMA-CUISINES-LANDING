@@ -136,6 +136,11 @@ export default function Home() {
 
         <section className="text-white w-full md:w-9/12 mx-auto">
           <div className="flex justify-between px-16">
+            <div className="sticky top-0 h-screen grid place-content-center">
+              <h1 className="text-4xl text-[#000000] px-8 font-medium text-center tracking-tight leading-[120%]">
+                Why Choose <br /> Karma Cuisines?
+              </h1>
+            </div>
             <div className="grid gap-2">
               <figure className="sticky top-0 h-screen grid place-content-center">
                 <article className="bg-[#ff5a00] h-72 w-[30rem] rounded-lg rotate-6 p-4 grid place-content-center gap-4">
@@ -166,7 +171,7 @@ export default function Home() {
                   </h1>
                   <p className="w-full md:w-10/12 mx-auto text-center">
                     We offer a variety of vegetarian, vegan, and gluten-free
-                  options to cater to all dietary preferences.
+                    options to cater to all dietary preferences.
                   </p>
                 </article>
               </figure>
@@ -181,11 +186,6 @@ export default function Home() {
                   </p>
                 </article>
               </figure>
-            </div>
-            <div className="sticky top-0 h-screen grid place-content-center">
-              <h1 className="text-4xl text-[#000000] px-8 font-medium text-center tracking-tight leading-[120%]">
-                Why Choose <br /> Karma Cuisines?
-              </h1>
             </div>
           </div>
         </section>

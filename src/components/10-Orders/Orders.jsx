@@ -6,11 +6,24 @@ import "./Orders.css";
 import AddressBottomModal from "../../pages/AddressBottomModal/AddressBottomModal";
 import { useNavigate } from "react-router-dom";
 
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import PaymentModel from "../../pages/PaymentModel/PaymentModel";
+
+const stripePromise = loadStripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
+
 export default function Orders() {
   const [cartItems, setCartItems] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [paymentModule, setPaymentModule] = useState(false);
   const [savedAddress, setSavedAddress] = useState(null);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -73,6 +86,10 @@ export default function Orders() {
     setIsModalOpen((prev) => !prev);
   };
 
+  const paymentModel = () => {
+    setPaymentModule((prev) => !prev);
+  };
+
   useEffect(() => {
     if (!isModalOpen) {
       const address = localStorage.getItem("selectedAddress");
@@ -82,7 +99,20 @@ export default function Orders() {
         setSavedAddress(parsedAddress);
       }
     }
-  }, [isModalOpen]);
+
+    if (!paymentModule) {
+      const address = localStorage.getItem("selectedAddress");
+      if (address) {
+        console.log("address", address);
+        const parsedAddress = JSON.parse(address);
+        setSavedAddress(parsedAddress);
+      }
+    }
+  }, [isModalOpen, paymentModule]);
+
+  const handleProceedToPay = () => {
+    setIsPaymentOpen(true);
+  };
 
   return (
     <div className="relative h-screen">
@@ -201,11 +231,82 @@ export default function Orders() {
         </div>
       </div>
       <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto">
-        {/* <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+        <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           <p>Mode of Payment</p>
-        </div> */}
+        </div>
       </div>
-      <div className="payButton">Proceed to Pay</div>
+
+      <PaymentModel isOpen={paymentModule} onClose={paymentModel} />
+
+      <div className="payButton" onClick={paymentModel}>
+        Proceed to Pay
+      </div>
+    </div>
+  );
+}
+
+function PaymentForm({ totalAmount }) {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  // State to store additional details
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [billingAddress, setBillingAddress] = useState("");
+
+  const handlePayment = async () => {
+    if (!stripe || !elements) return;
+
+    const cardElement = elements.getElement(CardElement);
+
+    // Create payment token with additional data
+    const { token, error } = await stripe.createToken(cardElement, {
+      name,
+      address_line1: billingAddress,
+      email,
+    });
+
+    if (error) {
+      Swal.fire("Error", error.message, "error");
+    } else {
+      Swal.fire("Payment Successful!", `Paid €${totalAmount}`, "success");
+      console.log("Token:", token);
+    }
+  };
+
+  return (
+    <div className="p-4 border rounded mt-5 pb-[150px]">
+      <h3 className="text-lg font-semibold mb-3">Enter Payment Details</h3>
+
+      <input
+        type="text"
+        className="p-2 border rounded w-full mb-3"
+        placeholder="Cardholder Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="email"
+        className="p-2 border rounded w-full mb-3"
+        placeholder="Email Address"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="text"
+        className="p-2 border rounded w-full mb-3"
+        placeholder="Billing Address"
+        value={billingAddress}
+        onChange={(e) => setBillingAddress(e.target.value)}
+      />
+
+      <CardElement className="p-2 border rounded" />
+      <button
+        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+        onClick={handlePayment}
+      >
+        Pay €{totalAmount}
+      </button>
     </div>
   );
 }
