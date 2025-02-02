@@ -126,7 +126,7 @@ export default function Home() {
             {/* Right Section */}
             <div
               className="flex-1 p-4"
-              data-aos="zoom-in-left"
+              data-aos="zoom-in-right"
               data-aos-delay="200"
             >
               <img src={image} alt="" className="rotate-image" />
@@ -135,15 +135,15 @@ export default function Home() {
         </div>
 
         <section className="text-white w-full md:w-9/12 mx-auto">
-          <div className="flex justify-between px-16">
+          <div className="flex lg:flex-row flex-col justify-between px-16">
             <div className="sticky top-0 h-screen grid place-content-center">
-              <h1 className="text-4xl text-[#000000] px-8 font-medium text-center tracking-tight leading-[120%]">
+              <h1 className="text-4xl text-[#000000] lg:px-8 font-medium text-center tracking-tight leading-[120%]">
                 Why Choose <br /> Karma Cuisines?
               </h1>
             </div>
             <div className="grid gap-2">
               <figure className="sticky top-0 h-screen grid place-content-center">
-                <article className="bg-[#ff5a00] h-72 w-[30rem] rounded-lg rotate-6 p-4 grid place-content-center gap-4">
+                <article className="bg-[#ff5a00] h-72 lg:w-[30rem] w-[18rem] rounded-lg rotate-6 p-4 grid place-content-center gap-4">
                   <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
                     Diverse Global Cuisine:
                   </h1>
@@ -154,7 +154,7 @@ export default function Home() {
                 </article>
               </figure>
               <figure className="sticky top-0 h-screen grid place-content-center">
-                <article className="bg-[#cc3f02] h-72 w-[30rem] rounded-lg p-4 grid place-content-center gap-4">
+                <article className="bg-[#cc3f02] h-72 lg:w-[30rem] w-[18rem] rounded-lg p-4 grid place-content-center gap-4">
                   <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
                     Fresh, Locally Sourced Ingredients:{" "}
                   </h1>
@@ -165,7 +165,7 @@ export default function Home() {
                 </article>
               </figure>
               <figure className="sticky top-0 h-screen grid place-content-center">
-                <article className="bg-orange-400 h-72 w-[30rem] p-4 rounded-lg -rotate-6 grid place-content-center gap-4">
+                <article className="bg-orange-400 h-72 lg:w-[30rem] w-[18rem] p-4 rounded-lg -rotate-6 grid place-content-center gap-4">
                   <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
                     Vegetarian, Vegan, and Gluten-Free Options:{" "}
                   </h1>
@@ -176,7 +176,7 @@ export default function Home() {
                 </article>
               </figure>
               <figure className="sticky top-0 h-screen grid place-content-center">
-                <article className="bg-[#ff740a] h-72 w-[30rem] p-4 rounded-lg grid place-content-center gap-4">
+                <article className="bg-[#ff740a] h-72 lg:w-[30rem] w-[18rem] p-4 rounded-lg grid place-content-center gap-4">
                   <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
                     Friendly & Inviting Atmosphere:{" "}
                   </h1>

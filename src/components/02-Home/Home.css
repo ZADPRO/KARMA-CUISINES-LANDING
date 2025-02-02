@@ -105,4 +105,5 @@
   animation: rotateImage 1.5s ease-in-out forwards;
   transform-origin: center;
   padding: 70px;
+  margin: 0;
 }
