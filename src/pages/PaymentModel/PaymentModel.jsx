@@ -7,8 +7,11 @@ import {
   motion,
 } from "framer-motion";
 import PropTypes from "prop-types";
-import { ChevronDown, CircleCheckBig, House, MapPin } from "lucide-react";
 import Swal from "sweetalert2";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe("your-public-stripe-key");
 
 export default function PaymentModel({ isOpen, onClose }) {
   const [scope, animate] = useAnimate();
@@ -77,68 +80,6 @@ export default function PaymentModel({ isOpen, onClose }) {
   }, []);
 
   if (!isOpen) return null;
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const onSaveAddress = () => {
-    const { mode, room, postalCode, zone, country, mobile } = formData;
-
-    if (!mode || !room || !postalCode || !zone || !country || !mobile) {
-      Swal.fire({
-        icon: "error",
-        title: "Missing Fields",
-        text: "Please fill all fields.",
-      });
-      return;
-    }
-
-    const address = `${room}, ${zone}, ${country}`;
-    const newAddress = {
-      mode,
-      address,
-      mobile,
-    };
-
-    const existingAddresses =
-      JSON.parse(localStorage.getItem("addresses")) || {};
-    const nextIndex = Object.keys(existingAddresses).length + 1;
-
-    existingAddresses[nextIndex] = newAddress;
-    localStorage.setItem("addresses", JSON.stringify(existingAddresses));
-
-    setAddresses(Object.values(existingAddresses));
-
-    Swal.fire({
-      icon: "success",
-      title: "Address Saved",
-      text: "Your address has been saved successfully!",
-    });
-
-    setFormData({
-      mode: "",
-      room: "",
-      postalCode: "",
-      zone: "",
-      country: "",
-      mobile: "",
-    });
-  };
-
-  const onClearAll = () => {
-    setFormData({
-      mode: "",
-      room: "",
-      postalCode: "",
-      zone: "",
-      country: "",
-      mobile: "",
-    });
-    localStorage.removeItem("addresses");
-    alert("All addresses cleared!");
-  };
 
   let totalAmount = "200";
 
