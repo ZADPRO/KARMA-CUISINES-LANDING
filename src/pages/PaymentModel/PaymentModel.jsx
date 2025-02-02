@@ -68,7 +68,7 @@ export default function PaymentModel({ isOpen, totalAmount, onClose }) {
         initial={{ y: "100%" }}
         animate={{ y: "0%" }}
         transition={{ ease: "easeInOut" }}
-        className="absolute bottom-0 h-[75vh] w-full overflow-hidden rounded-t-3xl bg-white"
+        className="absolute bottom-0 h-[75vh] w-full overflow-auto rounded-t-3xl bg-white"
         style={{ y }}
         drag="y"
         dragControls={controls}
@@ -124,7 +124,10 @@ function CardPaymentForm({ totalAmount }) {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
+
+  const isFormValid = name && email && mobile && billingAddress;
 
   const handlePayment = async () => {
     if (!stripe || !elements) return;
@@ -134,6 +137,7 @@ function CardPaymentForm({ totalAmount }) {
     const { token, error } = await stripe.createToken(cardElement, {
       name,
       email,
+      mobile,
       address_line1: billingAddress,
     });
 
@@ -152,29 +156,46 @@ function CardPaymentForm({ totalAmount }) {
       <input
         type="text"
         className="p-2 border rounded w-full mb-3"
-        placeholder="Cardholder Name"
+        placeholder="Cardholder Name *"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="tel"
+        className="p-2 border rounded w-full mb-3"
+        placeholder="Mobile *"
+        value={mobile}
+        onChange={(e) => setMobile(e.target.value)}
+        required
       />
       <input
         type="email"
         className="p-2 border rounded w-full mb-3"
-        placeholder="Email Address"
+        placeholder="Email Address *"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        required
       />
       <input
         type="text"
         className="p-2 border rounded w-full mb-3"
-        placeholder="Billing Address"
+        placeholder="Billing Address *"
         value={billingAddress}
         onChange={(e) => setBillingAddress(e.target.value)}
+        required
       />
 
       <CardElement className="p-2 border rounded" />
+
       <button
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+        className={`mt-4 px-4 py-2 rounded ${
+          isFormValid
+            ? "bg-blue-600 text-white"
+            : "bg-gray-400 cursor-not-allowed"
+        }`}
         onClick={handlePayment}
+        disabled={!isFormValid}
       >
         Pay €{totalAmount}
       </button>
@@ -193,7 +214,10 @@ function TwintPayment({ totalAmount }) {
 
   return (
     <div className="p-4 border rounded mt-5 text-center">
-      <h3 className="text-lg font-semibold mb-3">Scan to Pay with Twint</h3>
+      <h3>
+        Internal Server Error <br />
+      </h3>
+      {/* <h3 className="text-lg font-semibold mb-3">Scan to Pay with Twint</h3>
       <img
         src="https://via.placeholder.com/150"
         alt="Twint QR Code"
@@ -204,7 +228,7 @@ function TwintPayment({ totalAmount }) {
         onClick={handleTwintPayment}
       >
         Pay with Twint (€{totalAmount})
-      </button>
+      </button> */}
     </div>
   );
 }
