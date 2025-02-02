@@ -135,23 +135,29 @@ export default function BottomModal({ isOpen, onClose }) {
     });
   };
 
-  // New check before navigating to orders
   const handlePlaceOrder = () => {
     const jwtToken = localStorage.getItem("JWTtoken");
-    const loginType = localStorage.getItem("loginType");
+    const loginStatus = localStorage.getItem("loginStatus");
 
-    if (!jwtToken && loginType !== true) {
-      console.log("jwtToken", jwtToken);
-      console.log("cartItems", cartItems);
-      localStorage.setItem("cartItems", cartItems);
-      localStorage.setItem("fromPlaceOrder", "true");
-
-      // Redirect to the login page
-      navigate("/login");
-    } else {
-      // If logged in, navigate to the orders page
-      console.log("state false block");
+    if (jwtToken && loginStatus === "true") {
+      console.log("User is authenticated, proceeding to orders page.");
       navigate("/orders", { state: { orders: cartItems } });
+    } else {
+      console.log("User is not authenticated, redirecting to login.");
+
+      const minimizedCart = cartItems.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+      }));
+
+      try {
+        localStorage.setItem("cartItems", JSON.stringify(minimizedCart));
+        localStorage.setItem("fromPlaceOrder", "true");
+      } catch (error) {
+        console.error("Failed to store cart data in localStorage:", error);
+      }
+
+      navigate("/login");
     }
   };
 

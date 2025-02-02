@@ -142,6 +142,7 @@ function CardPaymentForm({ totalAmount }) {
     });
 
     if (error) {
+      console.log("error", error);
       Swal.fire("Error", error.message, "error");
     } else {
       Swal.fire("Payment Successful!", `Paid €${totalAmount}`, "success");
