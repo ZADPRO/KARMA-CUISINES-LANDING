@@ -237,7 +237,11 @@ export default function Orders() {
       </div>
       <Elements stripe={stripePromise}>
         {/* <PaymentModel isOpen={true} onClose={() => {}} /> */}
-        <PaymentModel isOpen={paymentModule} onClose={paymentModel} />
+        <PaymentModel
+          isOpen={paymentModule}
+          totalAmount={grandTotal}
+          onClose={paymentModel}
+        />
       </Elements>
 
       <div className="payButton" onClick={paymentModel}>

@@ -11,42 +11,14 @@ import Swal from "sweetalert2";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe("your-public-stripe-key");
-
-export default function PaymentModel({ isOpen, onClose }) {
+export default function PaymentModel({ isOpen, totalAmount, onClose }) {
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();
   const y = useMotionValue(0);
   const controls = useDragControls();
   const [addresses, setAddresses] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const [formData, setFormData] = useState({
-    mode: "",
-    room: "",
-    postalCode: "",
-    zone: "",
-    country: "",
-    mobile: "",
-  });
 
-  const [paymentMethod, setPaymentMethod] = useState(null); // To store selected payment method
-
-  const handleAddressClick = (index) => {
-    console.log("index", index);
-    setSelectedIndex(index);
-    const selectedAddress = addresses[index];
-    if (selectedAddress) {
-      localStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
-      window.dispatchEvent(new Event("storage"));
-      Swal.fire({
-        icon: "success",
-        title: "Address Selected",
-        text: "Address Selected Successfully",
-      }).then(() => {
-        handleClose();
-      });
-    }
-  };
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const handleClose = async () => {
     animate(scope.current, {
@@ -80,8 +52,6 @@ export default function PaymentModel({ isOpen, onClose }) {
   }, []);
 
   if (!isOpen) return null;
-
-  let totalAmount = "200";
 
   return (
     <motion.div
