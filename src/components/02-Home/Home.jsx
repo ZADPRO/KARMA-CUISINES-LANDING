@@ -7,6 +7,16 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import image from "../../assets/home/home2.png";
 import { useNavigate } from "react-router-dom";
 
+import img1 from "../../assets/gallery/one.png";
+import img2 from "../../assets/gallery/two.png";
+import img3 from "../../assets/gallery/three.png";
+import img4 from "../../assets/gallery/four.png";
+import img5 from "../../assets/gallery/five.png";
+import img6 from "../../assets/gallery/six.png";
+import img7 from "../../assets/gallery/seven.png";
+import img8 from "../../assets/gallery/eight.png";
+import img9 from "../../assets/home/thandoori.jpg";
+
 export default function Home() {
   const navigate = useNavigate();
   const FoodData = [
@@ -65,7 +75,7 @@ export default function Home() {
           {/* header section */}
           <div className="flex mb-12 items-center justify-between headerSection">
             <p></p>
-            <h1 className="text-4xl font-semibold">Top List</h1>
+            <h1 className="text-4xl font-semibold">Top Cuisines</h1>
             <p
               className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl cursor-pointer"
               onClick={() => navigate("/menu")}
@@ -196,21 +206,21 @@ export default function Home() {
           <div className="grid gap-2 col-span-4">
             <figure className=" w-full">
               <img
-                src="https://images.unsplash.com/photo-1718838541476-d04e71caa347?w=500&auto=format&fit=crop"
+                src={img1}
                 alt=""
                 className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className=" w-full">
               <img
-                src="https://images.unsplash.com/photo-1715432362539-6ab2ab480db2?w=500&auto=format&fit=crop"
+                src={img2}
                 alt=""
                 className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className=" w-full">
               <img
-                src="https://images.unsplash.com/photo-1718601980986-0ce75101d52d?w=500&auto=format&fit=crop"
+                src={img3}
                 alt=""
                 className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
               />
@@ -220,21 +230,21 @@ export default function Home() {
           <div className="sticky top-0 h-screen w-full col-span-4 gap-2  grid grid-rows-3">
             <figure className="w-full h-full ">
               <img
-                src="https://images.unsplash.com/photo-1718969604981-de826f44ce15?w=500&auto=format&fit=crop"
+                src={img4}
                 alt=""
                 className="transition-all duration-300 h-full w-full  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className="w-full h-full ">
               <img
-                src="https://images.unsplash.com/photo-1476180814856-a36609db0493?w=500&auto=format&fit=crop"
+                src={img5}
                 alt=""
                 className="transition-all duration-300 h-full w-full align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className="w-full h-full ">
               <img
-                src="https://images.unsplash.com/photo-1595407660626-db35dcd16609?w=500&auto=format&fit=crop"
+                src={img6}
                 alt=""
                 className="transition-all duration-300 h-full w-full  align-bottom object-cover rounded-md "
               />
@@ -244,21 +254,21 @@ export default function Home() {
           <div className="grid gap-2 col-span-4">
             <figure className="w-full">
               <img
-                src="https://images.unsplash.com/photo-1719547907790-f661a88302c2?w=500&auto=format&fit=crop"
+                src={img7}
                 alt=""
                 className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className="w-full">
               <img
-                src="https://images.unsplash.com/photo-1599054799131-4b09c73a63cf?w=500&auto=format&fit=crop"
+                src={img8}
                 alt=""
                 className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className="w-full">
               <img
-                src="https://images.unsplash.com/photo-1719963532023-01b573d1d584?w=500&auto=format&fit=crop"
+                src={img9}
                 alt=""
                 className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
               />
