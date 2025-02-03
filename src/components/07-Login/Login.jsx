@@ -167,6 +167,16 @@ export default function Login() {
             onSubmit={otpSent ? handleVerifyOtp : handleRequestOtp}
             className="w-10/12 mx-auto"
           >
+            <div className="text-center my-6 min-w-full">
+              <div className="flex items-center justify-center">
+                <hr className="flex-1 border-t-2 border-slate-300" />
+                <h1 className="mx-4 text-xl font-semibold text-gray-700">
+                  Sign Up
+                </h1>
+                <hr className="flex-1 border-t-2 border-slate-300" />
+              </div>
+            </div>
+
             <div className="relative my-6 flex items-center">
               {/* Email Input */}
               <input
@@ -213,89 +223,89 @@ export default function Login() {
             <div className="relative my-6 flex items-center">
               {/* Email Input */}
               <input
-                id="temp_lname"
+                id="temp_username"
                 type="text"
-                name="temp_lname"
-                value={signUp.temp_lname}
+                name="temp_username"
+                value={signUp.temp_username}
                 placeholder="Enter Last Name"
                 className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-[#4f391d] invalid:text-[#4f391d] focus:border-emerald-500 focus:outline-none invalid:focus:border-[#4f391d] focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                 onChange={(e) =>
-                  setSignUp({ ...signUp, temp_lname: e.target.value })
+                  setSignUp({ ...signUp, temp_username: e.target.value })
                 }
                 required
                 disabled={otpSent}
               />
               <label
-                htmlFor="email"
+                htmlFor="temp_username"
                 className="absolute left-4 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#4f391d] peer-required:after:content-['\00a0*'] peer-invalid:text-[#4f391d] peer-focus:-top-2 peer-focus:left-4 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-[#4f391d] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
               >
-                Enter Last Name
+                Enter Username
               </label>
             </div>
             <div className="relative my-6 flex items-center">
               {/* Email Input */}
               <input
-                id="temp_lname"
+                id="temp_phone"
                 type="text"
-                name="temp_lname"
-                value={signUp.temp_lname}
+                name="temp_phone"
+                value={signUp.temp_phone}
                 placeholder="Enter Last Name"
                 className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-[#4f391d] invalid:text-[#4f391d] focus:border-emerald-500 focus:outline-none invalid:focus:border-[#4f391d] focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                 onChange={(e) =>
-                  setSignUp({ ...signUp, temp_lname: e.target.value })
+                  setSignUp({ ...signUp, temp_phone: e.target.value })
                 }
                 required
                 disabled={otpSent}
               />
               <label
-                htmlFor="email"
+                htmlFor="temp_phone"
                 className="absolute left-4 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#4f391d] peer-required:after:content-['\00a0*'] peer-invalid:text-[#4f391d] peer-focus:-top-2 peer-focus:left-4 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-[#4f391d] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
               >
-                Enter Last Name
+                Enter Phone
               </label>
             </div>
             <div className="relative my-6 flex items-center">
               {/* Email Input */}
               <input
-                id="temp_lname"
+                id="temp_email"
                 type="text"
-                name="temp_lname"
-                value={signUp.temp_lname}
+                name="temp_email"
+                value={signUp.temp_email}
                 placeholder="Enter Last Name"
                 className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-[#4f391d] invalid:text-[#4f391d] focus:border-emerald-500 focus:outline-none invalid:focus:border-[#4f391d] focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                 onChange={(e) =>
-                  setSignUp({ ...signUp, temp_lname: e.target.value })
+                  setSignUp({ ...signUp, temp_email: e.target.value })
                 }
                 required
                 disabled={otpSent}
               />
               <label
-                htmlFor="email"
+                htmlFor="temp_email"
                 className="absolute left-4 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#4f391d] peer-required:after:content-['\00a0*'] peer-invalid:text-[#4f391d] peer-focus:-top-2 peer-focus:left-4 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-[#4f391d] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
               >
-                Enter Last Name
+                Enter Email
               </label>
             </div>
             <div className="relative my-6 flex items-center">
               {/* Email Input */}
               <input
-                id="temp_lname"
+                id="temp_password"
                 type="text"
-                name="temp_lname"
-                value={signUp.temp_lname}
-                placeholder="Enter Last Name"
+                name="temp_password"
+                value={signUp.temp_password}
+                placeholder="Enter Password"
                 className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-[#4f391d] invalid:text-[#4f391d] focus:border-emerald-500 focus:outline-none invalid:focus:border-[#4f391d] focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                 onChange={(e) =>
-                  setSignUp({ ...signUp, temp_lname: e.target.value })
+                  setSignUp({ ...signUp, temp_password: e.target.value })
                 }
                 required
                 disabled={otpSent}
               />
               <label
-                htmlFor="email"
+                htmlFor="temp_password"
                 className="absolute left-4 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#4f391d] peer-required:after:content-['\00a0*'] peer-invalid:text-[#4f391d] peer-focus:-top-2 peer-focus:left-4 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-[#4f391d] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
               >
-                Enter Last Name
+                Enter Password
               </label>
             </div>
 
