@@ -118,7 +118,7 @@ export default function PaymentModel({ isOpen, totalAmount, onClose }) {
   );
 }
 
-function CardPaymentForm({ totalAmount }) {
+function CardPaymentForm({ totalAmount, onClose }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -147,6 +147,7 @@ function CardPaymentForm({ totalAmount }) {
     } else {
       Swal.fire("Payment Successful!", `Paid €${totalAmount}`, "success");
       console.log("Token:", token);
+      onClose();
     }
   };
 
