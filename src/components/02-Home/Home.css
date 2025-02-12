@@ -17,9 +17,9 @@
   .homePageIntroCont {
     background-image: url("../../assets/home/homeBgImg.jpg");
     background-attachment: fixed;
-    text-align: center;
+    /* text-align: center; */
     justify-content: start;
-    padding-top: 20vh;
+    padding-top: 10vh;
     height: 95vh;
   }
   .homePageIntroCont::before {
