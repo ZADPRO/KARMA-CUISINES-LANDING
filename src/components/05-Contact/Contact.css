@@ -16,9 +16,9 @@
 /* Change background image for mobile view */
 @media (max-width: 768px) {
   .contactPageCont {
-    background-image: url("../../assets/contact/contactUs.jpg");
+    background-image: url("../../assets/contact/contactUsMobile.jpg");
     background-attachment: fixed;
-    text-align: center;
+    /* text-align: center; */
     justify-content: start;
     padding-top: 20vh;
     height: 100vh;

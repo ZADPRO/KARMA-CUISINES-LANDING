@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   background-image: url("../../assets/about/about1.jpg");
-  /* background-color: #211f1f; */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -16,15 +15,24 @@
 /* Change background image for mobile view */
 @media (max-width: 768px) {
   .aboutUsIntroCont {
-    background-image: url("../../assets/about/mobileAbout.jpg");
+    background-image: url("../../assets/about/mobileAbout1.jpg");
     background-attachment: fixed;
-    text-align: start;
+    /* text-align: center; */
     justify-content: start;
     padding-top: 10vh;
-    height: 100vh;
+    height: 95vh;
   }
   .aboutUsIntroCont::before {
     background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 768px) {
+    .aboutUsIntroCont {
+      background-size: auto !important;
+      background-position: top !important;
+    }
   }
 }
 
