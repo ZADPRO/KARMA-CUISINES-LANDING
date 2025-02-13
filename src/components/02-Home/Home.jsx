@@ -1,6 +1,6 @@
 import "./Home.css";
 
-import foodImg from "../../assets/home/thandoori.jpg";
+// import foodImg from "../../assets/home/thandoori.jpg";
 
 import kingsKurry from "../../assets/partners/kingsKurry1.png";
 import banthai from "../../assets/partners/banthai1.png";
@@ -29,7 +29,8 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
 
-  const toggleModal = (foodItem = null) => {
+  const toggleModal = (foodItem) => {
+    console.log("foodItem ------ line 33", foodItem);
     setSelectedFood(foodItem);
     setIsModalOpen((prev) => !prev);
   };
@@ -81,28 +82,28 @@ export default function Home() {
       <div className="bg-[#FFF5E4]">
         <div className="container py-14">
           {/* header section */}
-          <div className="flex mb-12 items-center justify-between headerSection">
+          <div className="flex mb-12 items-center justify-center headerSection">
             <p></p>
             <h1 className="text-4xl font-semibold">Our Brands</h1>
-            <p
+            {/* <p
               className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl cursor-pointer"
               onClick={() => navigate("/menu")}
             >
               Our Menu
-            </p>
+            </p> */}
           </div>
           {/* card section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10">
             {FoodData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#ffffff] lg:ms-2 lg:me-2 ms-5 me-5 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
+                className="lg:ms-2 lg:me-2 ms-5 me-5 rounded-xl hover:scale-110 transition duration-300 flex items-center"
                 onClick={() => toggleModal(item)}
               >
                 <img
                   src={item.image}
                   alt=""
-                  className="object-cover rounded-t-xl py-5 px-3"
+                  className="object-cover cursor-pointer rounded-t-xl py-2 px-2"
                 />
               </div>
             ))}
@@ -205,7 +206,6 @@ export default function Home() {
       </main>
       <section className="text-white w-full">
         <div className="grid grid-cols-12 gap-2">
-          {/* left part */}
           <div className="grid gap-2 col-span-4">
             <figure className=" w-full">
               <img
@@ -229,7 +229,6 @@ export default function Home() {
               />
             </figure>
           </div>
-          {/* sticky part */}
           <div className="sticky top-0 lg:h-screen w-full col-span-4 gap-2  grid grid-rows-3">
             <figure className="w-full h-full">
               <img
@@ -253,7 +252,6 @@ export default function Home() {
               />
             </figure>
           </div>
-          {/* right part */}
           <div className="grid gap-2 col-span-4">
             <figure className="w-full">
               <img

@@ -9,7 +9,7 @@ import german from "../../assets/language/german.svg";
 import french from "../../assets/language/french.svg";
 import italian from "../../assets/language/italian.svg";
 
-import logo from "../../assets/logo/logo1.png";
+import logo from "../../assets/logo/logo4.png";
 
 import { AnimatePresence, motion } from "framer-motion";
 
