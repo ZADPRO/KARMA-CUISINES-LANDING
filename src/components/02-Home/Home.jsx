@@ -29,10 +29,15 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
 
-  const toggleModal = (foodItem) => {
-    console.log("foodItem ------ line 33", foodItem);
-    setSelectedFood(foodItem);
-    setIsModalOpen((prev) => !prev);
+  const toggleModal = (foodItem = null) => {
+    if (foodItem) {
+      console.log("Opening modal with foodItem:", foodItem);
+      setSelectedFood(foodItem);
+      setIsModalOpen(true);
+    } else {
+      console.log("Closing modal");
+      setIsModalOpen(false);
+    }
   };
 
   const FoodData = [
@@ -80,11 +85,11 @@ export default function Home() {
         <div className="flex-1 p-4"></div>
       </div>
       <div className="bg-[#FFF5E4]">
-        <div className="container py-14">
+        <div className="container lg:h-[70vh] flex flex-col items-center justify-center py-14">
           {/* header section */}
           <div className="flex mb-12 items-center justify-center headerSection">
             <p></p>
-            <h1 className="text-4xl font-semibold">Our Brands</h1>
+            <h1 className="lg:text-5xl text-4xl font-semibold">Our Brands</h1>
             {/* <p
               className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl cursor-pointer"
               onClick={() => navigate("/menu")}
@@ -97,14 +102,17 @@ export default function Home() {
             {FoodData.map((item, index) => (
               <div
                 key={index}
-                className="lg:ms-2 lg:me-2 ms-5 me-5 rounded-xl hover:scale-110 transition duration-300 flex items-center"
+                className="lg:ms-2 lg:me-2 ms-6 me-9 rounded-xl hover:scale-110 transition duration-300 flex flex-col items-center"
                 onClick={() => toggleModal(item)}
               >
                 <img
                   src={item.image}
                   alt=""
-                  className="object-cover cursor-pointer rounded-t-xl py-2 px-2"
+                  className="object-cover cursor-pointer rounded-t-xl lg:py-2 lg:px-2 border-2 border-[#cd5c08]"
                 />
+                <p className="bg-[#cd5c08] text-white w-full cursor-pointer text-center py-2 rounded-ee-xl rounded-es-xl">
+                  Keep Explore
+                </p>
               </div>
             ))}
           </div>

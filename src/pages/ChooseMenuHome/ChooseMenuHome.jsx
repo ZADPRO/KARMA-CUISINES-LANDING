@@ -9,9 +9,10 @@ import {
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 
-import karmaCuisineLogo from "../../assets/logo/logo.png";
+import karmaCuisineLogo from "../../assets/logo/logo6.png";
 import justEats from "../../assets/logo/justEat.png";
 import uberEats from "../../assets/logo/uberEats.png";
+import { useNavigate } from "react-router-dom";
 
 export default function ChooseMenuHome({ isOpen, onClose, foodItem }) {
   console.log("foodItem", foodItem);
@@ -19,6 +20,17 @@ export default function ChooseMenuHome({ isOpen, onClose, foodItem }) {
   const [drawerRef, { height }] = useMeasure();
   const y = useMotionValue(0);
   const controls = useDragControls();
+  const navigate = useNavigate();
+
+  const handleNavigation = (type) => {
+    if (type === "karma") {
+      navigate("/menu");
+    } else if (type === "justEats") {
+      window.open("https://www.justeats.com", "_blank");
+    } else if (type === "uberEats") {
+      window.open("https://www.ubereats.com", "_blank");
+    }
+  };
 
   const handleClose = async () => {
     animate(scope.current, {
@@ -31,7 +43,9 @@ export default function ChooseMenuHome({ isOpen, onClose, foodItem }) {
       y: [yStart, height],
     });
 
-    onClose();
+    setTimeout(() => {
+      onClose();
+    }, 100);
   };
 
   useEffect(() => {
@@ -80,17 +94,26 @@ export default function ChooseMenuHome({ isOpen, onClose, foodItem }) {
             </p>
           )}
           <div className="flex flex-col gap-5">
-            <div className="chooseContents w-full flex items-center justify-center gap-3 border p-3 rounded-xl">
-              <img className="w-[30px]" src={karmaCuisineLogo} alt="" />
-              <p>Continue with Karma Cuisines</p>
+            <div
+              className="chooseContents w-full flex items-center justify-center gap-1 border p-3 rounded-xl cursor-pointer"
+              onClick={() => handleNavigation("karma")}
+            >
+              <p>Continue with </p>
+              <img className="w-[130px]" src={karmaCuisineLogo} alt="" />
             </div>
-            <div className="chooseContents w-full flex items-center justify-center gap-3 border p-3 rounded-xl">
+            <div
+              className="chooseContents w-full flex items-center justify-center gap-1 border p-3 rounded-xl cursor-pointer"
+              onClick={() => handleNavigation("uberEats")}
+            >
+              <p>Continue with </p>
               <img className="w-[80px]" src={uberEats} alt="" />
-              <p>Continue with Uber Eats</p>
             </div>
-            <div className="chooseContents w-full flex items-center justify-center gap-3 border p-3 rounded-xl">
+            <div
+              className="chooseContents w-full flex items-center justify-center gap-1 border p-3 rounded-xl cursor-pointer"
+              onClick={() => handleNavigation("justEats")}
+            >
+              <p>Continue with </p>
               <img className="w-[80px]" src={justEats} alt="" />
-              <p>Continue with Just Eats</p>
             </div>
           </div>
         </div>
