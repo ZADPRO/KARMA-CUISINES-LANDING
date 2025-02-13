@@ -2,6 +2,11 @@ import "./Home.css";
 
 import foodImg from "../../assets/home/thandoori.jpg";
 
+import kingsKurry from "../../assets/partners/kingsKurry1.png";
+import banthai from "../../assets/partners/banthai1.png";
+import fajitha from "../../assets/partners/fajithafriends1.png";
+import sushiheaven from "../../assets/partners/sushiheaven1.png";
+
 import { ReactLenis } from "@studio-freight/react-lenis";
 
 import image from "../../assets/home/home2.png";
@@ -22,7 +27,7 @@ export default function Home() {
   const FoodData = [
     {
       id: 1,
-      image: foodImg,
+      image: kingsKurry,
       rating: "⭐⭐⭐⭐⭐",
       price: "€ 14.99",
       name: "Food Name 1",
@@ -30,7 +35,7 @@ export default function Home() {
     },
     {
       id: 2,
-      image: foodImg,
+      image: banthai,
       rating: "⭐⭐⭐⭐⭐",
       price: "€ 12.99",
       name: "Food Name 2",
@@ -38,7 +43,7 @@ export default function Home() {
     },
     {
       id: 3,
-      image: foodImg,
+      image: fajitha,
       rating: "⭐⭐⭐⭐⭐",
       price: "€ 20.99",
       name: "Food Name 3",
@@ -46,7 +51,15 @@ export default function Home() {
     },
     {
       id: 4,
-      image: foodImg,
+      image: sushiheaven,
+      rating: "⭐⭐⭐⭐⭐",
+      price: "€ 16.99",
+      name: "Food Name 4",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    },
+    {
+      id: 5,
+      image: sushiheaven,
       rating: "⭐⭐⭐⭐⭐",
       price: "€ 16.99",
       name: "Food Name 4",
@@ -75,7 +88,7 @@ export default function Home() {
           {/* header section */}
           <div className="flex mb-12 items-center justify-between headerSection">
             <p></p>
-            <h1 className="text-4xl font-semibold">Top Cuisines</h1>
+            <h1 className="text-4xl font-semibold">Our Brands</h1>
             <p
               className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl cursor-pointer"
               onClick={() => navigate("/menu")}
@@ -84,18 +97,18 @@ export default function Home() {
             </p>
           </div>
           {/* card section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10">
             {FoodData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#deac80] ms-2 me-2 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
+                className="bg-[#ffffff] ms-2 me-2 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
               >
                 <img
                   src={item.image}
                   alt=""
-                  className="object-cover rounded-t-xl"
+                  className="object-cover rounded-t-xl py-5 px-3"
                 />
-                <div className="space-y-2 p-5">
+                {/* <div className="space-y-2 p-5">
                   <div className="flex items-center justify-between">
                     <p className="text-lg font-semibold text-white">
                       {item.name}
@@ -107,7 +120,7 @@ export default function Home() {
                       {item.price}
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             ))}
           </div>
@@ -200,7 +213,7 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <section className="text-white   w-full bg-slate-950  ">
+      <section className="text-white w-full">
         <div className="grid grid-cols-12 gap-2">
           {/* left part */}
           <div className="grid gap-2 col-span-4">
@@ -208,45 +221,45 @@ export default function Home() {
               <img
                 src={img1}
                 alt=""
-                className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className=" w-full">
               <img
                 src={img2}
                 alt=""
-                className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className=" w-full">
               <img
                 src={img3}
                 alt=""
-                className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
               />
             </figure>
           </div>
           {/* sticky part */}
-          <div className="sticky top-0 h-screen w-full col-span-4 gap-2  grid grid-rows-3">
-            <figure className="w-full h-full ">
+          <div className="sticky top-0 lg:h-screen w-full col-span-4 gap-2  grid grid-rows-3">
+            <figure className="w-full h-full">
               <img
                 src={img4}
                 alt=""
-                className="transition-all duration-300 h-full w-full  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 lg:h-full w-full  align-bottom object-cover rounded-md "
               />
             </figure>
-            <figure className="w-full h-full ">
+            <figure className="w-full lg:h-full">
               <img
                 src={img5}
                 alt=""
-                className="transition-all duration-300 h-full w-full align-bottom object-cover rounded-md "
+                className="transition-all duration-300 lg:h-full w-full align-bottom object-cover rounded-md "
               />
             </figure>
-            <figure className="w-full h-full ">
+            <figure className="w-full lg:h-full">
               <img
                 src={img6}
                 alt=""
-                className="transition-all duration-300 h-full w-full  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 lg:h-full w-full  align-bottom object-cover rounded-md "
               />
             </figure>
           </div>
@@ -256,21 +269,21 @@ export default function Home() {
               <img
                 src={img7}
                 alt=""
-                className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className="w-full">
               <img
                 src={img8}
                 alt=""
-                className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
               />
             </figure>
             <figure className="w-full">
               <img
                 src={img9}
                 alt=""
-                className="transition-all duration-300 w-full h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
               />
             </figure>
           </div>
