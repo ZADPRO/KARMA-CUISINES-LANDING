@@ -135,6 +135,11 @@ export default function BottomModal({ isOpen, onClose }) {
     });
   };
 
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.count, 0);
+  const totalPrice = cartItems
+    .reduce((sum, item) => sum + parseFloat(item.productPrice) * item.count, 0)
+    .toFixed(2);
+
   const handlePlaceOrder = () => {
     const jwtToken = localStorage.getItem("JWTtoken");
     const loginStatus = localStorage.getItem("loginStatus");
@@ -225,25 +230,35 @@ export default function BottomModal({ isOpen, onClose }) {
                       />
                       <div className="flex flex-col">
                         <p>{item.name}</p>
-                        <p>Unit Price: € {unitPrice.toFixed(2)}</p>
-                        <p>Total: € {totalPrice}</p>
-                        <p>Rating: {item.ratings}</p>
+                        <p>
+                          <b>Unit Price:</b> € {unitPrice.toFixed(2)}
+                        </p>
+                        <p>
+                          <b>Total:</b> € {totalPrice}
+                        </p>
+                        <p>
+                          <b>Rating:</b> {item.ratings}
+                        </p>
+                        <div className="addItems mt-2 items-center justify-end flex gap-2">
+                          <button
+                            onClick={() =>
+                              updateCartItemCount(item.productId, -1)
+                            }
+                            className="px-2 py-1 border rounded"
+                          >
+                            -
+                          </button>
+                          <p>{item.count}</p>
+                          <button
+                            onClick={() =>
+                              updateCartItemCount(item.productId, 1)
+                            }
+                            className="px-2 py-1 border rounded"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <div className="addItems items-center justify-end flex gap-2">
-                      <button
-                        onClick={() => updateCartItemCount(item.productId, -1)}
-                        className="px-2 py-1 border rounded"
-                      >
-                        -
-                      </button>
-                      <p>{item.count}</p>
-                      <button
-                        onClick={() => updateCartItemCount(item.productId, 1)}
-                        className="px-2 py-1 border rounded"
-                      >
-                        +
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -256,7 +271,7 @@ export default function BottomModal({ isOpen, onClose }) {
           className="placeOrderBtn shadow-lg fixed bottom-[10px] left-[1rem] right-[1rem] bg-[#cd5c08] text-white text-center py-3 rounded-lg cursor-pointer"
           onClick={handlePlaceOrder}
         >
-          Place Order
+          Quantity: {totalQuantity}, Total Price: € {totalPrice}
         </div>
       </motion.div>
     </motion.div>

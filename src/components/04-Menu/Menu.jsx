@@ -64,8 +64,8 @@ export default function Menu() {
           onLetterAnimationComplete={handleAnimationComplete}
         />
       </div>
-      <div className="flex gap-3 w-full md:w-6/12 mx-auto">
-        <div className="relative my-6 w-full md:w-7/12 mx-auto">
+      <div className="flex lg:flex-row flex-col gap-3 w-full md:w-6/12 mx-auto">
+        <div className="relative lg:my-6 my-3 mx-3 lg:w-full md:w-7/12 lg:mx-auto">
           <input
             id="id-l11"
             type="text"
@@ -103,16 +103,16 @@ export default function Menu() {
             />
           </svg>
         </div>
-        <div className="relative my-6 w-full md:w-7/12 mx-auto">
+        <div className="relative lg:my-6 my-3 mx-3 lg:w-full md:w-7/12 lg:mx-auto">
           <input
-            id="id-l11"
+            id="id-l12"
             type="text"
-            name="id-l11"
+            name="id-l12"
             placeholder="Your Name"
             className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all focus:border-[#cd5c08]"
           />
           <label
-            htmlFor="id-l11"
+            htmlFor="id-l12"
             className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
           >
             Search Food
@@ -213,7 +213,6 @@ function FoodCard({ item, setCartItems }) {
     const savedWishlistItems =
       JSON.parse(localStorage.getItem("wishlist")) || [];
 
-    // Compare using productId (not item.id)
     const isInCart = savedCartItems.some(
       (cartItem) => cartItem.productId === item.productId
     );
@@ -225,27 +224,21 @@ function FoodCard({ item, setCartItems }) {
     setIsWishlisted(isInWishlist);
   }, [item.productId]);
 
-  const handleAddToCart = () => {
-    if (!isAddedToCart) {
-      setIsAddedToCart(true);
+  const handleToggleCart = () => {
+    let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
-      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-
-      const existingItemIndex = cartItems.findIndex(
-        (cartItem) => cartItem.productId === item.productId
+    if (isAddedToCart) {
+      cartItems = cartItems.filter(
+        (cartItem) => cartItem.productId !== item.productId
       );
-
-      if (existingItemIndex === -1) {
-        const itemWithQuantity = { ...item, count: 1 };
-        cartItems.push(itemWithQuantity);
-      } else {
-        cartItems[existingItemIndex].count += 1;
-      }
-
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-
-      setCartItems(cartItems);
+      setIsAddedToCart(false);
+    } else {
+      cartItems.push({ ...item, count: 1 });
+      setIsAddedToCart(true);
     }
+
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    setCartItems(cartItems);
   };
 
   return (
@@ -280,13 +273,12 @@ function FoodCard({ item, setCartItems }) {
           <button
             className={`border-2 rounded-md px-3 py-1 transition duration-300 ${
               isAddedToCart
-                ? "bg-green-500 text-white border-green-500"
+                ? "bg-red-500 text-white border-red-500"
                 : "border-[#6b463a] hover:bg-[#6b463a] hover:text-white"
             }`}
-            onClick={handleAddToCart}
-            disabled={isAddedToCart}
+            onClick={handleToggleCart}
           >
-            {isAddedToCart ? "Added" : "Add To Cart"}
+            {isAddedToCart ? "Remove" : "Add To Cart"}
           </button>
         </div>
       </div>
