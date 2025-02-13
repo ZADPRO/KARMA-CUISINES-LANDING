@@ -21,49 +21,44 @@ import img6 from "../../assets/gallery/six.png";
 import img7 from "../../assets/gallery/seven.png";
 import img8 from "../../assets/gallery/eight.png";
 import img9 from "../../assets/home/thandoori.jpg";
+import ChooseMenuHome from "../../pages/ChooseMenuHome/ChooseMenuHome";
+import { useState } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFood, setSelectedFood] = useState(null);
+
+  const toggleModal = (foodItem = null) => {
+    setSelectedFood(foodItem);
+    setIsModalOpen((prev) => !prev);
+  };
+
   const FoodData = [
     {
       id: 1,
       image: kingsKurry,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "€ 14.99",
-      name: "Food Name 1",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      name: "King's Kurry",
     },
     {
       id: 2,
       image: banthai,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "€ 12.99",
-      name: "Food Name 2",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      name: "Ban Thai",
     },
     {
       id: 3,
       image: fajitha,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "€ 20.99",
-      name: "Food Name 3",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      name: "Fajitha Friends",
     },
     {
       id: 4,
       image: sushiheaven,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "€ 16.99",
-      name: "Food Name 4",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      name: "Sushi Heaven",
     },
     {
       id: 5,
       image: sushiheaven,
-      rating: "⭐⭐⭐⭐⭐",
-      price: "€ 16.99",
-      name: "Food Name 4",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      name: "O'Momos",
     },
   ];
 
@@ -101,31 +96,26 @@ export default function Home() {
             {FoodData.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#ffffff] ms-2 me-2 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
+                className="bg-[#ffffff] lg:ms-2 lg:me-2 ms-5 me-5 rounded-xl hover:scale-110 transition duration-300 shadow-lg"
+                onClick={() => toggleModal(item)}
               >
                 <img
                   src={item.image}
                   alt=""
                   className="object-cover rounded-t-xl py-5 px-3"
                 />
-                {/* <div className="space-y-2 p-5">
-                  <div className="flex items-center justify-between">
-                    <p className="text-lg font-semibold text-white">
-                      {item.name}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <p className="text-red-500">{item.rating}</p>
-                    <p className="text-lg font-semibold text-white">
-                      {item.price}
-                    </p>
-                  </div>
-                </div> */}
               </div>
             ))}
           </div>
         </div>
       </div>{" "}
+      {isModalOpen && (
+        <ChooseMenuHome
+          isOpen={isModalOpen}
+          onClose={toggleModal}
+          foodItem={selectedFood}
+        />
+      )}
       <main className="">
         <div className="wrapper">
           <div className="aboutMeCont lg:h-[75vh] items-center bg-[#cd5c08] justify-center flex lg:flex-row flex-col lg:p-7">
