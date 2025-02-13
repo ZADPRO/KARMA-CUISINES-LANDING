@@ -64,6 +64,79 @@ export default function Menu() {
           onLetterAnimationComplete={handleAnimationComplete}
         />
       </div>
+      <div className="flex gap-3 w-full md:w-6/12 mx-auto">
+        <div className="relative my-6 w-full md:w-7/12 mx-auto">
+          <input
+            id="id-l11"
+            type="text"
+            name="id-l11"
+            placeholder="Your Name"
+            className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all focus:border-[#cd5c08]"
+          />
+          <label
+            htmlFor="id-l11"
+            className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+          >
+            Enter Postal Code To Filter
+          </label>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-3 left-4 h-6 w-6 stroke-slate-400 peer-disabled:cursor-not-allowed"
+            fill="none"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-labelledby="title-7 description-7"
+            role="graphics-symbol"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+            />
+          </svg>
+        </div>
+        <div className="relative my-6 w-full md:w-7/12 mx-auto">
+          <input
+            id="id-l11"
+            type="text"
+            name="id-l11"
+            placeholder="Your Name"
+            className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all focus:border-[#cd5c08]"
+          />
+          <label
+            htmlFor="id-l11"
+            className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+          >
+            Search Food
+          </label>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute top-3 left-4 h-6 w-6 stroke-slate-400 peer-disabled:cursor-not-allowed"
+            fill="none"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            aria-labelledby="title-7 description-7"
+            role="graphics-symbol"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+        </div>
+      </div>
+
       <div className="container py-14 px-10 mb-[80px]">
         {/* card section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
@@ -201,9 +274,9 @@ function FoodCard({ item, setCartItems }) {
           <p className="text-lg font-semibold">{item.productName}</p>
           <p className="text-red-500">{item.ratings}</p>
         </div>
-        <p>{item.description}</p>
+        <p className="line-clamp-2 text-justify">{item.description}</p>
         <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold">€ {item.productPrice}</p>
+          <p className="text-lg font-semibold">CHF {item.productPrice}</p>
           <button
             className={`border-2 rounded-md px-3 py-1 transition duration-300 ${
               isAddedToCart
