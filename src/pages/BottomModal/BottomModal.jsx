@@ -231,10 +231,10 @@ export default function BottomModal({ isOpen, onClose }) {
                       <div className="flex flex-col">
                         <p>{item.name}</p>
                         <p>
-                          <b>Unit Price:</b> € {unitPrice.toFixed(2)}
+                          <b>Unit Price:</b> CHF {unitPrice.toFixed(2)}
                         </p>
                         <p>
-                          <b>Total:</b> € {totalPrice}
+                          <b>Total:</b> CHF {totalPrice}
                         </p>
                         <p>
                           <b>Rating:</b> {item.ratings}
@@ -271,7 +271,7 @@ export default function BottomModal({ isOpen, onClose }) {
           className="placeOrderBtn shadow-lg fixed bottom-[10px] left-[1rem] right-[1rem] bg-[#cd5c08] text-white text-center py-3 rounded-lg cursor-pointer"
           onClick={handlePlaceOrder}
         >
-          Quantity: {totalQuantity}, Total Price: € {totalPrice}
+          Quantity: {totalQuantity}, Total Price: CHF {totalPrice}
         </div>
       </motion.div>
     </motion.div>

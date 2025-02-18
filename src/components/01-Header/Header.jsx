@@ -9,7 +9,7 @@ import german from "../../assets/language/german.svg";
 import french from "../../assets/language/french.svg";
 import italian from "../../assets/language/italian.svg";
 
-import logo from "../../assets/logo/logo4.png";
+import logo from "../../assets/logo/logo7.png";
 
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -52,7 +52,7 @@ export default function Header() {
       >
         <div className="container flex justify-between items-center">
           {/* Logo */}
-          <div className="w-[50%] lg:w-[18%] flex justify-start ms-[30px]">
+          <div className="w-[50%] lg:w-[18%] flex justify-start ms-[30px] py-3">
             <img src={logo} alt="Karma Cuisines" />
           </div>
 

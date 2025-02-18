@@ -6,6 +6,7 @@ import kingsKurry from "../../assets/partners/kingsKurry1.png";
 import banthai from "../../assets/partners/banthai1.png";
 import fajitha from "../../assets/partners/fajithafriends1.png";
 import sushiheaven from "../../assets/partners/sushiheaven1.png";
+import momos from "../../assets/partners/momos.png";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
 
@@ -63,7 +64,7 @@ export default function Home() {
     },
     {
       id: 5,
-      image: sushiheaven,
+      image: momos,
       name: "O'Momos",
     },
   ];

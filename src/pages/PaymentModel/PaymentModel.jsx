@@ -145,7 +145,7 @@ function CardPaymentForm({ totalAmount, onClose }) {
       console.log("error", error);
       Swal.fire("Error", error.message, "error");
     } else {
-      Swal.fire("Payment Successful!", `Paid €${totalAmount}`, "success");
+      Swal.fire("Payment Successful!", `Paid CHF${totalAmount}`, "success");
       console.log("Token:", token);
       onClose();
     }
@@ -199,7 +199,7 @@ function CardPaymentForm({ totalAmount, onClose }) {
         onClick={handlePayment}
         disabled={!isFormValid}
       >
-        Pay €{totalAmount}
+        Pay CHF{totalAmount}
       </button>
     </div>
   );
@@ -229,7 +229,7 @@ function TwintPayment({ totalAmount }) {
         className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
         onClick={handleTwintPayment}
       >
-        Pay with Twint (€{totalAmount})
+        Pay with Twint (CHF{totalAmount})
       </button> */}
     </div>
   );

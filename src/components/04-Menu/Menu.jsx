@@ -3,7 +3,7 @@ import SplitText from "../../pages/SplitText/SplitText";
 import { Heart, ShoppingCart } from "lucide-react";
 import PropTypes from "prop-types";
 import "./Menu.css";
-import foodImg from "../../assets/home/thandoori.jpg";
+// import foodImg from "../../assets/home/thandoori.jpg";
 import BottomModal from "../../pages/BottomModal/BottomModal";
 import axios from "axios";
 
@@ -18,6 +18,11 @@ export default function Menu() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [foodData, setFoodData] = useState([]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const filteredFoodData = foodData.filter((item) =>
+    item.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -108,6 +113,8 @@ export default function Menu() {
             id="id-l12"
             type="text"
             name="id-l12"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Your Name"
             className="peer relative h-12 w-full rounded border border-slate-200 px-4 pl-12 text-slate-500 placeholder-transparent outline-none transition-all focus:border-[#cd5c08]"
           />
@@ -140,13 +147,19 @@ export default function Menu() {
       <div className="container py-14 px-10 mb-[80px]">
         {/* card section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-          {foodData.map((item) => (
-            <FoodCard
-              key={item.productId}
-              item={item}
-              setCartItems={setCartItems}
-            />
-          ))}
+          {filteredFoodData.length > 0 ? (
+            filteredFoodData.map((item) => (
+              <FoodCard
+                key={item.productId}
+                item={item}
+                setCartItems={setCartItems}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-500 col-span-4">
+              No matching food found.
+            </p>
+          )}
         </div>
       </div>
       <div className="footerBuyProducts cursor-pointer" onClick={toggleModal}>
@@ -288,8 +301,11 @@ function FoodCard({ item, setCartItems }) {
 
 FoodCard.propTypes = {
   item: PropTypes.shape({
-    productId: PropTypes.string.isRequired,
-    foodPic: PropTypes.string.isRequired,
+    productId: PropTypes.number.isRequired,
+    foodPic: PropTypes.shape({
+      contentType: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+    }).isRequired,
     productName: PropTypes.string.isRequired,
     ratings: PropTypes.string.isRequired,
     productPrice: PropTypes.string.isRequired,

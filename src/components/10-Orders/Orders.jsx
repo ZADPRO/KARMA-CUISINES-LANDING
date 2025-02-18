@@ -1,4 +1,4 @@
-import { ChevronLeft, House, ReceiptEuro, TimerReset } from "lucide-react";
+import { ChevronLeft, House } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -7,12 +7,7 @@ import AddressBottomModal from "../../pages/AddressBottomModal/AddressBottomModa
 import { useNavigate } from "react-router-dom";
 
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import PaymentModel from "../../pages/PaymentModel/PaymentModel";
 
 const stripePromise = loadStripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
@@ -24,6 +19,7 @@ export default function Orders() {
   const [paymentModule, setPaymentModule] = useState(false);
   const [savedAddress, setSavedAddress] = useState(null);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [isAddressAvailable, setIsAddressAvailable] = useState(false);
 
   const navigate = useNavigate();
 
@@ -87,26 +83,22 @@ export default function Orders() {
   };
 
   const paymentModel = () => {
-    setPaymentModule((prev) => !prev);
+    const address = localStorage.getItem("selectedAddress");
+    if (address) {
+      setPaymentModule((prev) => !prev);
+    } else {
+      alert("Please select an address before proceeding to payment.");
+    }
   };
 
   useEffect(() => {
-    if (!isModalOpen) {
-      const address = localStorage.getItem("selectedAddress");
-      if (address) {
-        console.log("address", address);
-        const parsedAddress = JSON.parse(address);
-        setSavedAddress(parsedAddress);
-      }
-    }
-
-    if (!paymentModule) {
-      const address = localStorage.getItem("selectedAddress");
-      if (address) {
-        console.log("address", address);
-        const parsedAddress = JSON.parse(address);
-        setSavedAddress(parsedAddress);
-      }
+    const address = localStorage.getItem("selectedAddress");
+    if (address) {
+      setIsAddressAvailable(true);
+      const parsedAddress = JSON.parse(address);
+      setSavedAddress(parsedAddress);
+    } else {
+      setIsAddressAvailable(false);
     }
   }, [isModalOpen, paymentModule]);
 
@@ -178,7 +170,7 @@ export default function Orders() {
                     </div>
                     <div className="items flex items-center justify-between p-1">
                       <p>{item.productPrice}</p>
-                      <p>€{item.productPrice * item.count}</p>
+                      <p>CHF{item.productPrice * item.count}</p>
                     </div>
                   </>
                 ))}
@@ -193,7 +185,7 @@ export default function Orders() {
         <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           <div className="flex items-center justify-between ps-2 pt-2 pe-2">
             <p className="text-lg font-semibold">Total:</p>
-            <p className="text-lg font-semibold">€ {grandTotal}</p>
+            <p className="text-lg font-semibold">CHF {grandTotal}</p>
           </div>
 
           {/* <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
@@ -244,7 +236,14 @@ export default function Orders() {
         />
       </Elements>
 
-      <div className="payButton" onClick={paymentModel}>
+      <div
+        className={`payButton ${!isAddressAvailable ? "disabled" : ""}`}
+        onClick={isAddressAvailable ? paymentModel : null}
+        style={{
+          cursor: isAddressAvailable ? "pointer" : "not-allowed",
+          opacity: isAddressAvailable ? 1 : 0.5,
+        }}
+      >
         Proceed to Pay
       </div>
     </div>
