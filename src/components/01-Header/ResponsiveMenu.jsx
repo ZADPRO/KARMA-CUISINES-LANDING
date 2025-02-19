@@ -39,7 +39,7 @@ export default function ResponsiveMenu({ open, setOpen }) {
           transition={{ duration: 0.1 }}
           className="fixed top-20 left-0 w-full h-screen z-20"
         >
-          <div className="text-xl font-semibold uppercase bg-[#db5b2d] text-white py-6 m-2 rounded-xl">
+          <div className="text-xl font-semibold uppercase bg-[#cd5c08] text-white py-6 m-2 rounded-xl">
             <ul className="flex flex-col justify-start items-start gap-5 px-8">
               <li onClick={() => handleNavigation("/")}>Home</li>
               <li onClick={() => handleNavigation("/about")}>About</li>

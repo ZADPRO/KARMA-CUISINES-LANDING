@@ -97,15 +97,12 @@ export default function Login() {
                 </div>
               </div>
 
-              <form
-                onSubmit={otpSent ? handleVerifyOtp : handleRequestOtp}
-                className="w-full max-w-md"
-              >
+              <form className="w-full max-w-md">
                 <div className="relative my-6 flex items-center">
                   {/* Email Input */}
                   <input
                     id="login"
-                    type="email"
+                    type="text"
                     name="login"
                     value={state.login}
                     placeholder="Enter Email ID"
@@ -124,13 +121,12 @@ export default function Login() {
                   </label>
                 </div>
                 <div className="relative mt-6 mb-2 flex items-center">
-                  {/* Email Input */}
                   <input
                     id="password"
                     type="password"
                     name="password"
                     value={state.password}
-                    placeholder="Enter Email ID"
+                    placeholder="Enter Password"
                     className="peer relative h-12 w-full rounded border border-slate-200 px-4 text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-[#4f391d] invalid:text-[#4f391d] focus:border-emerald-500 focus:outline-none invalid:focus:border-[#4f391d] focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                     onChange={(e) =>
                       setState({ ...state, password: e.target.value })
@@ -139,7 +135,7 @@ export default function Login() {
                     disabled={otpSent}
                   />
                   <label
-                    htmlFor="email"
+                    htmlFor="password"
                     className="absolute left-4 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#4f391d] peer-required:after:content-['\00a0*'] peer-invalid:text-[#4f391d] peer-focus:-top-2 peer-focus:left-4 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-[#4f391d] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
                   >
                     Enter Password
@@ -152,7 +148,14 @@ export default function Login() {
 
                 <button
                   type="submit"
-                  onClick={() => navigate("/orders")}
+                  onClick={() => {
+                    if (!state.login || !state.password) {
+                      alert("Fill the login details to continue");
+                      return;
+                    } else {
+                      navigate("/orders");
+                    }
+                  }}
                   className="w-full rounded bg-emerald-500 py-2 text-white hover:bg-emerald-600"
                 >
                   Login
@@ -160,7 +163,7 @@ export default function Login() {
               </form>
 
               <p className="mt-3 mx-auto text-center text-[15px]">
-                
+                Login As Guest
               </p>
               <p className="mt-3 mx-auto text-center text-[15px]">
                 <p className="toggleText" onClick={handleToggle}>

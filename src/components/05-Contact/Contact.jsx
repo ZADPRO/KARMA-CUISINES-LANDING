@@ -2,6 +2,10 @@ import "./Contact.css";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
+import location from "../../assets/contact/location.png";
+import phone from "../../assets/contact/phone.png";
+import email from "../../assets/contact/email.png";
+
 export default function Contact() {
   const [state, setState] = useState({
     "id-l11": "",
@@ -48,10 +52,40 @@ export default function Contact() {
         <div className="flex-1 p-4"></div>
       </div>
 
+      <div className="contactIconImages flex w-full md:w-8/12 mx-auto py-5 items-center justify-between">
+        <div className="flex flex-col items-center text-center justify-center gap-2">
+          <img
+            src={location}
+            alt=""
+            className="w-[100px] h-[100px] object-contain"
+          />
+          <p>Schaffhausserstrasse 550</p>
+          <p>8052 Zürich, Switzerland</p>
+        </div>
+        <div className="flex flex-col items-center text-center justify-center gap-2">
+          <img
+            src={email}
+            alt=""
+            className="w-[100px] h-[100px] object-contain"
+          />
+          <p>Email</p>
+          <p>reinhold.klug@karmacuisine.ch</p>
+        </div>
+        <div className="flex flex-col items-center text-center justify-center gap-2">
+          <img
+            src={phone}
+            alt=""
+            className="w-[100px] h-[100px] object-contain"
+          />
+          <p>Reinhold Klug</p>
+          <p>+41 76 837 11 18</p>
+        </div>
+      </div>
+
       <div className="flex lg:flex-row flex-col lg:p-7 overflow-hidden">
         {/* Left Section */}
         <div
-          className="flex-1 homePageCont p-4 mt-8"
+          className="flex-1 homePageCont"
           data-aos="fade-right"
           data-aos-delay="100"
         >

@@ -83,7 +83,7 @@ export default function Header() {
                     scrolled ? "hover:text-white" : "hover:text-gray-300"
                   }`}
                 >
-                  Translate
+                  Language
                 </button>
                 <AnimatePresence>
                   {languageOpen && (
