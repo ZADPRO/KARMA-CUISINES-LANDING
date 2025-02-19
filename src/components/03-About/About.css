@@ -15,7 +15,7 @@
 /* Change background image for mobile view */
 @media (max-width: 768px) {
   .aboutUsIntroCont {
-    background-image: url("../../assets/about/mobileAbout2.jpg");
+    background-image: url("../../assets/about/mobileAbout1.jpg");
     background-attachment: fixed;
     /* text-align: center; */
     justify-content: start;
