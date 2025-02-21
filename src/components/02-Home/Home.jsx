@@ -112,7 +112,7 @@ export default function Home() {
                   className="object-cover cursor-pointer rounded-t-xl lg:py-2 lg:px-2 border-2 border-[#cd5c08]"
                 />
                 <p className="bg-[#cd5c08] text-white w-full cursor-pointer text-center py-2 rounded-ee-xl rounded-es-xl">
-                  Keep Explore
+                  Keep Exploring
                 </p>
               </div>
             ))}
