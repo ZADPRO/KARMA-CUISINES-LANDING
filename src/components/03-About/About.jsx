@@ -66,7 +66,7 @@ const Section2 = ({ scrollYProgress }) => {
         <div className="absolute bottom-0 left-0 right-0 top-0"></div>
         <article className="container mx-auto relative z-9 pb-10">
           <h1 className="text-4xl leading-[100%] w-full md:w-10/12 mx-auto py-14 font-semibold text-black tracking-tight text-center">
-            The Story of Karma Cuisines: Bringing Authentic Exotic Flavors to
+            The Story of Karma Cuisine: Bringing Authentic Exotic Flavors to
             Your Doorstep{" "}
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-2">

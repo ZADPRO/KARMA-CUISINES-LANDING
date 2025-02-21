@@ -43,7 +43,7 @@ export default function Contact() {
             data-aos="fade-right"
             data-aos-delay="200"
           >
-            At Karma Cuisines, your feedback, queries, <br />
+            At Karma Cuisine, your feedback, queries, <br />
             and suggestions mean the world to us.{" "}
           </h4>
         </div>

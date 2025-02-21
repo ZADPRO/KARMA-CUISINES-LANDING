@@ -132,17 +132,25 @@ export default function Home() {
             {/* Left Section */}
             <div className="flex-1 homePageCont p-10 mt-8">
               <p className="lg:text-5xl text-3xl text-white">
-                Welcome to Karma Cuisine - A Fusion of Exotic Flavors{" "}
+                Welcome to Karma Cuisine - Authentic Flavors, Anytime, Anywhere
               </p>
               <h4
                 className="text-[20px] text-[#fff5e4] pt-3 font-semibold text-justify"
                 style={{ textIndent: "2rem" }}
               >
-                Welcome to Karma Cuisine, where exotic culinary traditions come
-                together to create an unforgettable dining experience. Located
-                in the heart of Switzerland, we bring you a diverse menu brand
-                that blends the finest flavors of exotic cuisine all under one
-                roof.
+                At Karma Cuisine, we redefine culinary excellence by curating a
+                rich tapestry of authentic and exotic flavors. As a premium food
+                brand, we are committed to delivering high-quality, globally
+                inspired cuisine through our strategic Cloud Kitchen
+                Partnerships, ensuring a seamless and elevated dining experience
+                wherever you are.
+                <br />
+              </h4>
+              <h4
+                className="text-[20px] text-[#fff5e4] pt-3 font-semibold text-justify"
+                style={{ textIndent: "2rem" }}
+              >
+                That's "Karma Cuisine"
               </h4>
             </div>
 
@@ -161,7 +169,7 @@ export default function Home() {
           <div className="flex lg:flex-row flex-col justify-between px-16">
             <div className="sticky top-0 h-screen grid place-content-center">
               <h1 className="text-4xl text-[#000000] lg:px-8 font-medium text-center tracking-tight leading-[120%]">
-                Why Choose <br /> Karma Cuisines?
+                Why Choose <br /> Karma Cuisine?
               </h1>
             </div>
             <div className="grid gap-2">

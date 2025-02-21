@@ -1,4 +1,4 @@
-import { Menu, Search, ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart } from "lucide-react";
 import { NavMenu } from "./data";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { useState, useEffect } from "react";
@@ -53,7 +53,7 @@ export default function Header() {
         <div className="container flex justify-between items-center">
           {/* Logo */}
           <div className="w-[50%] lg:w-[18%] flex justify-start ms-[30px] py-3">
-            <img src={logo} alt="Karma Cuisines" />
+            <img src={logo} alt="Karma Cuisine" />
           </div>
 
           {/* Desktop Menu */}
