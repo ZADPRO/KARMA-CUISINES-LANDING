@@ -52,7 +52,7 @@ export default function Contact() {
         <div className="flex-1 p-4"></div>
       </div>
 
-      <div className="contactIconImages flex w-full md:w-8/12 mx-auto py-5 items-center justify-between">
+      <div className="contactIconImages flex lg:flex-row flex-col w-full md:w-8/12 mx-auto py-5 items-center justify-between">
         <div className="flex flex-col items-center text-center justify-center gap-2">
           <img
             src={location}
