@@ -28,6 +28,12 @@
   }
 }
 
+@media (max-width: 768px) and (orientation: landscape) {
+  .contactPageCont {
+    background-image: url("../../assets/contact/contactUs.jpg");
+  }
+}
+
 @supports (-webkit-overflow-scrolling: touch) {
   .contactPageCont {
     background-attachment: fixed;

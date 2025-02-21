@@ -28,6 +28,12 @@
   }
 }
 
+@media (max-width: 768px) and (orientation: landscape) {
+  .menuPageIntro {
+    background-image: url("../../assets/menu/bg2.jpg");
+  }
+}
+
 @supports (-webkit-overflow-scrolling: touch) {
   .menuPageIntro {
     background-attachment: fixed;

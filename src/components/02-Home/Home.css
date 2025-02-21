@@ -6,7 +6,7 @@
   background-image: url("../../assets/home/home1.jpg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-repeat: no-repeat;
   height: 100dvh;
   width: 100%;
@@ -16,14 +16,19 @@
 @media (max-width: 768px) {
   .homePageIntroCont {
     background-image: url("../../assets/home/homeBgImg.jpg");
-    background-attachment: fixed;
-    /* text-align: center; */
+    background-attachment: scroll;
     justify-content: start;
     padding-top: 10vh;
     height: 95vh;
   }
   .homePageIntroCont::before {
     background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .homePageIntroCont {
+    background-image: url("../../assets/home/home1.jpg");
   }
 }
 
