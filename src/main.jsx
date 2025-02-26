@@ -14,7 +14,7 @@ import global_it from "./translation/italian/global.json";
 
 i18next.init({
   interpolation: { escapeValue: false },
-  lng: "en",
+  lng: "de",
   resources: {
     de: {
       global: global_de,

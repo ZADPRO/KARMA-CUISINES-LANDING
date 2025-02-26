@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("../../assets/about/about1.jpg");
+  background-image: url("../../assets/about/about2.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: scroll;
@@ -15,12 +15,12 @@
 /* Change background image for mobile view */
 @media (max-width: 768px) {
   .aboutUsIntroCont {
-    background-image: url("../../assets/about/mobileAbout1.jpg");
+    background-image: url("../../assets/about/aboutMobile3.jpg");
     background-attachment: scroll;
     /* text-align: center; */
     justify-content: start;
     padding-top: 10vh;
-    height: 95vh;
+    height: 100vh;
   }
   .aboutUsIntroCont::before {
     background-color: rgba(0, 0, 0, 0.6);
@@ -29,7 +29,7 @@
 
 @media (max-width: 768px) and (orientation: landscape) {
   .aboutUsIntroCont {
-    background-image: url("../../assets/about/about1.jpg");
+    background-image: url("../../assets/about/about2.jpg");
   }
 }
 

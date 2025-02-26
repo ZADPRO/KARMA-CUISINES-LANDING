@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import location from "../../assets/contact/location.png";
 import phone from "../../assets/contact/phone.png";
 import email from "../../assets/contact/email.png";
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
   const [state, setState] = useState({
@@ -12,6 +13,7 @@ export default function Contact() {
     "id-l12": "",
     "id-l13": "",
   });
+  const { t } = useTranslation("global");
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -36,15 +38,14 @@ export default function Contact() {
             data-aos="fade-right"
             data-aos-delay="100"
           >
-            We had Love to Hear From You!{" "}
+            {t("contact.welcomeCont")}
           </p>
           <h4
             className="text-white text-[22px] mt-6"
             data-aos="fade-right"
             data-aos-delay="200"
           >
-            At Karma Cuisine, your feedback, queries, <br />
-            and suggestions mean the world to us.{" "}
+            {t("contact.contactUsCont")}
           </h4>
         </div>
 

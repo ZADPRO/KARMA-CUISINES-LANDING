@@ -8,11 +8,13 @@ import BottomModal from "../../pages/BottomModal/BottomModal";
 import axios from "axios";
 
 import decrypt from "../../helper";
+import { useTranslation } from "react-i18next";
 
 export default function Menu() {
   const handleAnimationComplete = () => {
     console.log("All letters have animated!");
   };
+  const { t } = useTranslation("global");
 
   const [cartItems, setCartItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +59,12 @@ export default function Menu() {
   return (
     <div>
       <div className="menuPageIntro">
-        <SplitText
+        <div className="flex-1 homePageCont p-4 mt-8">
+          <p className="lg:text-7xl text-5xl text-[#FFF5E4] text-center">
+            {t("menu.menu")} !!
+          </p>
+        </div>
+        {/* <SplitText
           text="Our Menu!!"
           className="lg:text-7xl text-4xl font-semibold text-white text-center"
           delay={50}
@@ -67,7 +74,7 @@ export default function Menu() {
           threshold={0.2}
           rootMargin="-50px"
           onLetterAnimationComplete={handleAnimationComplete}
-        />
+        /> */}
       </div>
       <div className="flex lg:flex-row flex-col gap-3 w-full md:w-6/12 mx-auto">
         <div className="relative lg:my-6 my-3 mx-3 lg:w-full md:w-7/12 lg:mx-auto">

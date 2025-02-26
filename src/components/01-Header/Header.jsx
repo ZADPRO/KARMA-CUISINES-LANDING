@@ -1,8 +1,7 @@
 import { Menu, ShoppingCart } from "lucide-react";
-import { NavMenu } from "./data";
-import ResponsiveMenu from "./ResponsiveMenu";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import english from "../../assets/language/english.svg";
 import german from "../../assets/language/german.svg";
@@ -12,8 +11,10 @@ import italian from "../../assets/language/italian.svg";
 import logo from "../../assets/logo/logo7.png";
 
 import { AnimatePresence, motion } from "framer-motion";
+import ResponsiveMenu from "./ResponsiveMenu";
 
 export default function Header() {
+  const { t, i18n } = useTranslation("global");
   const [open, setOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -26,17 +27,15 @@ export default function Header() {
     { id: "it", label: "Italian", flag: italian },
   ];
 
-  const onSelectLanguage = (languageId) => {
-    console.log(`Language selected: ${languageId}`);
+  const handleChangeLang = (lang) => {
+    setTimeout(() => {
+      i18n.changeLanguage(lang);
+    });
   };
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -62,12 +61,15 @@ export default function Header() {
               {NavMenu.map((item) => (
                 <li key={item.id}>
                   <a
-                    onClick={() => navigate(item.link)}
+                    onClick={() => {
+                      navigate(item.link);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
                     className={`inline-block cursor-pointer text-[20px] py-1 px-3 font-semibold duration-200 ${
                       scrolled ? "hover:text-white" : "hover:text-gray-300"
                     }`}
                   >
-                    {item.title}
+                    {t(`nav.${item.id}`)}
                   </a>
                 </li>
               ))}
@@ -97,7 +99,7 @@ export default function Header() {
                       {languages.map((lang) => (
                         <div
                           key={lang.id}
-                          onClick={() => onSelectLanguage(lang.id)}
+                          onClick={() => handleChangeLang(lang.id)}
                           className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-100 rounded-lg"
                         >
                           <img
@@ -115,17 +117,8 @@ export default function Header() {
             </ul>
           </div>
 
-          {/* Cart and Login */}
+          {/* Cart and Menu Icons */}
           <div className="flex items-center gap-4">
-            {/* <button
-              className={`text-2xl rounded-full p-2 duration-200 ${
-                scrolled
-                  ? "hover:bg-gray-300 hover:text-black"
-                  : "hover:bg-gray-300"
-              }`}
-            >
-              <Search />
-            </button> */}
             <button
               className={`text-2xl rounded-full p-2 duration-200 ${
                 scrolled
@@ -136,11 +129,6 @@ export default function Header() {
             >
               <ShoppingCart />
             </button>
-            {/* <button
-              className={`font-semibold  bg-[#cd5c08] rounded-3xl px-6 py-2 duration-200 hidden md:block ${scrolled}`}
-            >
-              Login
-            </button> */}
           </div>
 
           {/* Mobile Menu Icon */}
@@ -154,3 +142,11 @@ export default function Header() {
     </div>
   );
 }
+
+// Navigation Menu with Translation Keys
+export const NavMenu = [
+  { id: "home", link: "/" },
+  { id: "about", link: "/about" },
+  { id: "menu", link: "/menu" },
+  { id: "contact", link: "/contact" },
+];

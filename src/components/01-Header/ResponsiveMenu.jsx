@@ -1,16 +1,18 @@
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import english from "../../assets/language/english.svg";
 import german from "../../assets/language/german.svg";
 import french from "../../assets/language/french.svg";
 import italian from "../../assets/language/italian.svg";
-import { useNavigate } from "react-router-dom";
 
 export default function ResponsiveMenu({ open, setOpen }) {
   const [languageOpen, setLanguageOpen] = useState(false);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation("global");
 
   const languages = [
     { id: "en", label: "English", flag: english },
@@ -19,14 +21,22 @@ export default function ResponsiveMenu({ open, setOpen }) {
     { id: "it", label: "Italian", flag: italian },
   ];
 
+  useEffect(() => {
+    const storedLang = localStorage.getItem("selectedLanguage");
+    if (storedLang) {
+      i18n.changeLanguage(storedLang);
+    }
+  }, [i18n]);
+
   const onSelectLanguage = (languageId) => {
-    console.log(`Language selected: ${languageId}`);
-    setLanguageOpen(false); // Close the dropdown after selection
+    i18n.changeLanguage(languageId);
+    localStorage.setItem("selectedLanguage", languageId);
+    setLanguageOpen(false);
   };
 
   const handleNavigation = (path) => {
     navigate(path);
-    setOpen(false); // Close menu after clicking
+    setOpen(false);
   };
 
   return (
@@ -41,13 +51,17 @@ export default function ResponsiveMenu({ open, setOpen }) {
         >
           <div className="text-xl font-semibold uppercase bg-[#cd5c08] text-white py-6 m-2 rounded-xl">
             <ul className="flex flex-col justify-start items-start gap-5 px-8">
-              <li onClick={() => handleNavigation("/")}>Home</li>
-              <li onClick={() => handleNavigation("/about")}>About</li>
-              <li onClick={() => handleNavigation("/menu")}>Menu</li>
-              <li onClick={() => handleNavigation("/contact")}>Contact</li>
+              <li onClick={() => handleNavigation("/")}>{t("nav.home")}</li>
+              <li onClick={() => handleNavigation("/about")}>
+                {t("nav.about")}
+              </li>
+              <li onClick={() => handleNavigation("/menu")}>{t("nav.menu")}</li>
+              <li onClick={() => handleNavigation("/contact")}>
+                {t("nav.contact")}
+              </li>
 
-              <li onClick={() => setLanguageOpen(!languageOpen)} className="">
-                Translate
+              <li onClick={() => setLanguageOpen(!languageOpen)}>
+                Language
                 <AnimatePresence>
                   {languageOpen && (
                     <motion.div

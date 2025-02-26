@@ -2,7 +2,41 @@
     "nav": {
         "home": "Startseite",
         "about": "Über uns",
-        "menu": "Speisekarte",
+        "menu": "Menü",
         "contact": "Kontakt"
+    },
+    "home": {
+        "title": "Der Geschmack, der dich großartig fühlen lässt",
+        "exploreNow": "Jetzt entdecken",
+        "ourBrands": "Unsere Marken",
+        "explore": "Weiter erkunden",
+        "welcomeKarma": "Willkommen bei Karma Cuisine - Authentische Aromen, jederzeit und überall",
+        "karmaCuisineCont": "Bei Karma Cuisine definieren wir kulinarische Exzellenz neu, indem wir eine reiche Vielfalt an authentischen und exotischen Aromen zusammenstellen. Als Premium-Food-Marke sind wir bestrebt, durch unsere strategischen Cloud-Küchen-Partnerschaften hochwertige, global inspirierte Küche zu liefern und so ein nahtloses und gehobenes kulinarisches Erlebnis zu gewährleisten – egal, wo du bist.",
+        "thatsKarma": "Das ist Karma Cuisine",
+        "whyChooseKarma": "Warum Karma wählen",
+        "whyChooseHead1": "Vielfältige globale Küche:",
+        "whyChooseCont1": "Genieße die besten exotischen Gerichte, alle mit authentischen Zutaten und traditionellen Kochtechniken zubereitet.",
+        "whyChooseHead2": "Frische, lokal bezogene Zutaten:",
+        "whyChooseCont2": "Wir verwenden nur die frischesten Zutaten, um sicherzustellen, dass jedes Gericht vor Geschmack explodiert.",
+        "whyChooseHead3": "Vegetarische, vegane und glutenfreie Optionen:",
+        "whyChooseCont3": "Wir bieten eine Vielzahl an vegetarischen, veganen und glutenfreien Optionen, um alle Ernährungspräferenzen zu berücksichtigen."
+    },
+    "about": {
+        "aboutCont": "Großartiges Essen, gutes Karma. Erlebe den Geschmack mit uns.",
+        "aboutUsCont": "Bei Karma Cuisine glauben wir, dass großartiges Essen mehr als nur eine Mahlzeit ist – es ist ein Erlebnis.",
+        "storyHead": "Die Geschichte von Karma Cuisine: Authentische exotische Aromen direkt zu Ihnen nach Hause",
+        "faq1Qn": "Was ist eine Ghost Kitchen?",
+        "faq1Ans": "Eine Ghost Kitchen, auch bekannt als Dark Kitchen, virtuelle Küche oder Cloud Kitchen, ist eine kommerzielle Küche, die ausschließlich für die Erfüllung von Online-Bestellungen betrieben wird. Diese Küchen haben in der Regel kein physisches Geschäft oder Speisebereich für Kunden. Stattdessen bereiten sie Mahlzeiten nur für die Lieferung oder zum Mitnehmen zu und arbeiten oft mit Lieferplattformen wie Uber Eats und Just Eats zusammen.",
+        "faq2Qn": "Warum eine Cloud Kitchen wählen?",
+        "faq2Ans": "Cloud Kitchens bieten Kunden die Bequemlichkeit, aus mehreren Marken zu bestellen, ohne das Haus zu verlassen. Für Unternehmen bieten sie eine erschwingliche und skalierbare Möglichkeit, in die Gastronomie einzusteigen. Egal, ob Sie eine Mahlzeit bestellen oder Innovationen in der Gastronomie anstreben, Cloud Kitchens bieten eine schnelle und kostengünstige Lösung.",
+        "faq3Qn": "Was sind die Vorteile einer Cloud Kitchen?",
+        "faq3Ans": "Cloud Kitchens bieten zahlreiche Vorteile, darunter reduzierte Betriebskosten, keine Notwendigkeit für erstklassige Immobilien und die Möglichkeit, schnell zu skalieren. Mit dem Fokus auf Online-Bestellungen und Lieferung können Unternehmen ihre Reichweite erweitern, Lieferzeiten optimieren und die Rentabilität mit minimalen Gemeinkosten steigern."
+    },
+    "menu": {
+        "menu": "Unser Menü"
+    },
+    "contact": {
+        "welcomeCont": "Wir würden uns freuen, von Ihnen zu hören!",
+        "contactUsCont": "Bei Karma Cuisine sind Ihr Feedback, Ihre Fragen und Ihre Anregungen für uns von großer Bedeutung."
     }
 }

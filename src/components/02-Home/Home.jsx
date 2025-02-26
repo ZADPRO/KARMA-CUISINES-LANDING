@@ -9,6 +9,7 @@ import sushiheaven from "../../assets/partners/sushiheaven1.png";
 import momos from "../../assets/partners/momos.png";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
+import { useTranslation } from "react-i18next";
 
 import image from "../../assets/home/home2.png";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +27,8 @@ import ChooseMenuHome from "../../pages/ChooseMenuHome/ChooseMenuHome";
 import { useState } from "react";
 
 export default function Home() {
+  const { t } = useTranslation("global");
+
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
@@ -75,10 +78,13 @@ export default function Home() {
         {/* Left Section */}
         <div className="flex-1 homePageCont p-4 mt-8">
           <p className="lg:text-7xl text-5xl text-[#FFF5E4]">
-            The Taste That Makes You Feel Awesome
+            {t("home.title")}
           </p>
-          <button className="text-white text-[24px] rounded-3xl bg-[#cd5c08] border border-[#cd5c08] px-6 py-2 mt-6 transition duration-300">
-            Explore Now
+          <button
+            className="text-white text-[24px] rounded-3xl bg-[#cd5c08] border border-[#cd5c08] px-6 py-2 mt-6 transition duration-300"
+            onClick={() => navigate("/menu")}
+          >
+            {t("home.exploreNow")}
           </button>{" "}
         </div>
 
@@ -90,7 +96,9 @@ export default function Home() {
           {/* header section */}
           <div className="flex mb-12 items-center justify-center headerSection">
             <p></p>
-            <h1 className="lg:text-5xl text-4xl font-semibold">Our Brands</h1>
+            <h1 className="lg:text-5xl text-4xl font-semibold">
+              {t("home.ourBrands")}
+            </h1>
             {/* <p
               className="text-[17px] bg-[#cd5c08] text-white p-2 rounded-xl cursor-pointer"
               onClick={() => navigate("/menu")}
@@ -111,8 +119,11 @@ export default function Home() {
                   alt=""
                   className="object-cover cursor-pointer rounded-t-xl lg:py-2 lg:px-2 border-2 border-[#cd5c08]"
                 />
-                <p className="bg-[#cd5c08] text-white w-full cursor-pointer text-center py-2 rounded-ee-xl rounded-es-xl">
-                  Keep Exploring
+                <p
+                  className="bg-[#cd5c08] text-white w-full cursor-pointer text-center py-2 rounded-ee-xl rounded-es-xl"
+                  onClick={() => navigate("/menu")}
+                >
+                  {t("home.explore")}
                 </p>
               </div>
             ))}
@@ -132,25 +143,19 @@ export default function Home() {
             {/* Left Section */}
             <div className="flex-1 homePageCont p-10 mt-8">
               <p className="lg:text-5xl text-3xl text-white">
-                Welcome to Karma Cuisine - Authentic Flavors, Anytime, Anywhere
+                {t("home.welcomeKarma")}
               </p>
               <h4
                 className="text-[20px] text-[#fff5e4] pt-3 font-semibold text-justify"
                 style={{ textIndent: "2rem" }}
               >
-                At Karma Cuisine, we redefine culinary excellence by curating a
-                rich tapestry of authentic and exotic flavors. As a premium food
-                brand, we are committed to delivering high-quality, globally
-                inspired cuisine through our strategic Cloud Kitchen
-                Partnerships, ensuring a seamless and elevated dining experience
-                wherever you are.
-                <br />
+                {t("home.karmaCuisineCont")}
               </h4>
               <h4
                 className="text-[20px] text-[#fff5e4] pt-3 font-semibold text-justify"
                 style={{ textIndent: "2rem" }}
               >
-                That's "Karma Cuisine"
+                {t("home.thatsKarma")}
               </h4>
             </div>
 
@@ -169,51 +174,40 @@ export default function Home() {
           <div className="flex lg:flex-row flex-col justify-between px-16">
             <div className="sticky top-0 h-screen grid place-content-center">
               <h1 className="text-4xl text-[#000000] lg:px-8 font-medium text-center tracking-tight leading-[120%]">
-                Why Choose <br /> Karma Cuisine?
+                {t("home.whyChooseKarma")}
+              </h1>
+              <h1 className="text-4xl text-[#000000] lg:px-8 font-medium text-center tracking-tight leading-[120%]">
+                Karma Cuisine?
               </h1>
             </div>
             <div className="grid gap-2">
               <figure className="sticky top-0 h-screen grid place-content-center">
                 <article className="bg-[#ff5a00] h-72 lg:w-[30rem] w-[18rem] rounded-lg rotate-6 p-4 grid place-content-center gap-4">
                   <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
-                    Diverse Global Cuisine:
+                    {t("home.whyChooseHead1")}
                   </h1>
                   <p className="w-full md:w-10/12 mx-auto text-center">
-                    Savor the best of exotic cuisine, all crafted with authentic
-                    ingredients and traditional cooking techniques.
+                    {t("home.whyChooseCont1")}
                   </p>
                 </article>
               </figure>
               <figure className="sticky top-0 h-screen grid place-content-center">
                 <article className="bg-[#cc3f02] h-72 lg:w-[30rem] w-[18rem] rounded-lg p-4 grid place-content-center gap-4">
                   <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
-                    Fresh, Locally Sourced Ingredients:{" "}
+                    {t("home.whyChooseHead2")}
                   </h1>
                   <p className="w-full md:w-10/12 mx-auto text-center">
-                    We use only the freshest ingredients to ensure every dish
-                    bursts with flavor.
+                    {t("home.whyChooseCont2")}
                   </p>
                 </article>
               </figure>
               <figure className="sticky top-0 h-screen grid place-content-center">
                 <article className="bg-orange-400 h-72 lg:w-[30rem] w-[18rem] p-4 rounded-lg -rotate-6 grid place-content-center gap-4">
                   <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
-                    Vegetarian, Vegan, and Gluten-Free Options:{" "}
+                    {t("home.whyChooseHead3")}
                   </h1>
                   <p className="w-full md:w-10/12 mx-auto text-center">
-                    We offer a variety of vegetarian, vegan, and gluten-free
-                    options to cater to all dietary preferences.
-                  </p>
-                </article>
-              </figure>
-              <figure className="sticky top-0 h-screen grid place-content-center">
-                <article className="bg-[#ff740a] h-72 lg:w-[30rem] w-[18rem] p-4 rounded-lg grid place-content-center gap-4">
-                  <h1 className="text-2xl font-semibold w-full md:w-10/12 mx-auto text-center">
-                    Friendly & Inviting Atmosphere:{" "}
-                  </h1>
-                  <p className="w-full md:w-10/12 mx-auto text-center">
-                    Whether you're dining with family and friends or hosting an
-                    event, we create an environment where everyone feels at home
+                    {t("home.whyChooseCont3")}
                   </p>
                 </article>
               </figure>

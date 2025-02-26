@@ -5,12 +5,14 @@ import story3 from "../../assets/story/three.jpg";
 import story4 from "../../assets/story/four.jpg";
 
 import home from "../../assets/about/bg.jpg";
+import { useTranslation } from "react-i18next";
 
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
 
 export default function About() {
   const container = useRef();
+
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start start", "end end"],
@@ -28,6 +30,8 @@ export default function About() {
 const Section1 = ({ scrollYProgress }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -5]);
+  const { t } = useTranslation("global");
+
   return (
     <motion.section
       style={{ scale, rotate }}
@@ -36,12 +40,11 @@ const Section1 = ({ scrollYProgress }) => {
       <div className="aboutUsIntroCont flex lg:flex-row flex-col lg:p-7">
         {/* Left Section */}
         <div className="flex-1 homePageCont p-4 mt-8">
-          <p className="lg:text-7xl text-5xl text-[#FFF5E4]">
-            Great food, good karma. Elevate your taste with Us{" "}
+          <p className="lg:text-6xl text-5xl text-[#FFF5E4]">
+            {t("about.aboutCont")}
           </p>
           <h2 className="text-white text-[20px] mt-6">
-            At Karma Cuisine, we believe that great food is more than <br />
-            just a meal - it's an experience.
+            {t("about.aboutUsCont")}
           </h2>
         </div>
 
@@ -55,6 +58,7 @@ const Section1 = ({ scrollYProgress }) => {
 const Section2 = ({ scrollYProgress }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
   const rotate = useTransform(scrollYProgress, [0, 1], [5, 0]);
+  const { t } = useTranslation("global");
 
   return (
     <>
@@ -66,8 +70,7 @@ const Section2 = ({ scrollYProgress }) => {
         <div className="absolute bottom-0 left-0 right-0 top-0"></div>
         <article className="container mx-auto relative z-9 pb-10">
           <h1 className="text-4xl leading-[100%] w-full md:w-10/12 mx-auto py-14 font-semibold text-black tracking-tight text-center">
-            The Story of Karma Cuisine: Bringing Authentic Exotic Flavors to
-            Your Doorstep{" "}
+            {t("about.storyHead")}
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-2">
             <img
@@ -105,7 +108,7 @@ const Section2 = ({ scrollYProgress }) => {
         <section className="divide-y w-full md:w-10/12 mx-auto divide-slate-200 rounded border border-slate-200 bg-white">
           <details className="group p-4" open>
             <summary className="relative cursor-pointer list-none pr-8 font-medium text-slate-700 transition-colors duration-300 focus-visible:outline-none group-hover:text-slate-900  [&::-webkit-details-marker]:hidden">
-              What is a Ghost Kitchen?{" "}
+              {t("about.faq1Qn")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute right-0 top-1 h-4 w-4 shrink-0 stroke-slate-700 transition duration-300 group-open:rotate-45"
@@ -122,19 +125,11 @@ const Section2 = ({ scrollYProgress }) => {
                 />
               </svg>
             </summary>
-            <p className="mt-4 text-slate-500">
-              A ghost kitchen, also known as a dark kitchen, virtual kitchen, or
-              cloud kitchen, is a commercial kitchen that operates exclusively
-              for fulfilling online food orders. These kitchens typically don't
-              have a physical storefront or dining area where customers can eat.
-              Instead, they prepare meals for delivery or takeout only, often
-              partnering with food delivery platforms like Uber Eats and Just
-              Eats.
-            </p>
+            <p className="mt-4 text-slate-500">{t("about.faq1Ans")}</p>
           </details>
           <details className="group p-4">
             <summary className="relative cursor-pointer list-none pr-8 font-medium text-slate-700 transition-colors duration-300 focus-visible:outline-none group-hover:text-slate-900  [&::-webkit-details-marker]:hidden">
-              Why Choose a Cloud Kitchen?{" "}
+              {t("about.faq2Qn")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute right-0 top-1 h-4 w-4 shrink-0 stroke-slate-700 transition duration-300 group-open:rotate-45"
@@ -151,17 +146,11 @@ const Section2 = ({ scrollYProgress }) => {
                 />
               </svg>
             </summary>
-            <p className="mt-4 text-slate-500">
-              Cloud kitchens offer customers the convenience of ordering from
-              multiple brands without leaving home. For businesses, they provide
-              an affordable and scalable way to enter the food service industry.
-              Whether you're craving a meal or seeking to innovate in food,
-              cloud kitchens offer a fast, cost-effective solution.
-            </p>
+            <p className="mt-4 text-slate-500">{t("about.faq2Ans")}</p>
           </details>
           <details className="group p-4">
             <summary className="relative cursor-pointer list-none pr-8 font-medium text-slate-700 transition-colors duration-300 focus-visible:outline-none group-hover:text-slate-900  [&::-webkit-details-marker]:hidden">
-              What are the Advantages of Cloud Kitchen?{" "}
+              {t("about.faq3Qn")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute right-0 top-1 h-4 w-4 shrink-0 stroke-slate-700 transition duration-300 group-open:rotate-45"
@@ -178,13 +167,7 @@ const Section2 = ({ scrollYProgress }) => {
                 />
               </svg>
             </summary>
-            <p className="mt-4 text-slate-500">
-              Cloud kitchens provide numerous benefits, including reduced
-              operational costs, no need for prime real estate, and the ability
-              to scale quickly. With a focus on online orders and delivery,
-              businesses can expand their reach, optimize delivery times, and
-              increase profitability with minimal overhead.
-            </p>
+            <p className="mt-4 text-slate-500">{t("about.faq3Ans")}</p>
           </details>
         </section>
       </div>

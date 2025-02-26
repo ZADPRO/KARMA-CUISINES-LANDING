@@ -4,5 +4,39 @@
         "about": "About",
         "menu": "Menu",
         "contact": "Contact"
+    },
+    "home": {
+        "title": "The Taste That Makes You Feel Awesome",
+        "exploreNow": "Explore Now",
+        "ourBrands": "Our Brands",
+        "explore": "Keep Exploring",
+        "welcomeKarma": "Welcome to Karma Cuisine - Authentic Flavors, Anytime, Anywhere",
+        "karmaCuisineCont": " At Karma Cuisine, we redefine culinary excellence by curating a rich tapestry of authentic and exotic flavors. As a premium food brand, we are committed to delivering high-quality, globally inspired cuisine through our strategic Cloud Kitchen Partnerships, ensuring a seamless and elevated dining experience wherever you are.",
+        "thatsKarma": "That's Karma Cuisine",
+        "whyChooseKarma": "Why Choose",
+        "whyChooseHead1": "Diverse Global Cuisine:",
+        "whyChooseCont1": "Savor the best of exotic cuisine, all crafted with authentic ingredients and traditional cooking techniques.",
+        "whyChooseHead2": "Fresh, Locally Sourced Ingredients:",
+        "whyChooseCont2": "We use only the freshest ingredients to ensure every dish bursts with flavor.",
+        "whyChooseHead3": "Vegetarian, Vegan, and Gluten-Free Options:",
+        "whyChooseCont3": "We offer a variety of vegetarian, vegan, and gluten-free options to cater to all dietary preferences."
+    },
+    "about": {
+        "aboutCont": "Great food, good karma. Elevate your taste with Us",
+        "aboutUsCont": " At Karma Cuisine, we believe that great food is more than just a meal - it's an experience.",
+        "storyHead": "  The Story of Karma Cuisine: Bringing Authentic Exotic Flavors to Your Doorste",
+        "faq1Qn": "What is a Ghost Kitchen?",
+        "faq1Ans": " A ghost kitchen, also known as a dark kitchen, virtual kitchen, or cloud kitchen, is a commercial kitchen that operates exclusively for fulfilling online food orders. These kitchens typically don't have a physical storefront or dining area where customers can eat. Instead, they prepare meals for delivery or takeout only, often partnering with food delivery platforms like Uber Eats and Just Eats.",
+        "faq2Qn": " Why Choose a Cloud Kitchen?",
+        "faq2Ans": "Cloud kitchens offer customers the convenience of ordering from multiple brands without leaving home. For businesses, they provide an affordable and scalable way to enter the food service industry. Whether you're craving a meal or seeking to innovate in food, cloud kitchens offer a fast, cost-effective solution.",
+        "faq3Qn": "What are the Advantages of Cloud Kitchen?",
+        "faq3Ans": "Cloud kitchens provide numerous benefits, including reduced operational costs, no need for prime real estate, and the ability to scale quickly. With a focus on online orders and delivery, businesses can expand their reach, optimize delivery times, and increase profitability with minimal overhead."
+    },
+    "menu": {
+        "menu": "Our Menu"
+    },
+    "contact": {
+        "welcomeCont": "We had Love to Hear From You!",
+        "contactUsCont": " At Karma Cuisine, your feedback, queries, and suggestions mean the world to us."
     }
 }
