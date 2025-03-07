@@ -12,15 +12,29 @@ import Menu from "../04-Menu/Menu";
 import Contact from "../05-Contact/Contact";
 import Cart from "../06-Cart/Cart";
 import Login from "../07-Login/Login";
-import Footer from "../08-Footer/Footer";
+// import Footer from "../08-Footer/Footer";
 import NotFound from "../09-NotFound/NotFound";
 import Orders from "../10-Orders/Orders";
+import OurBrands from "../11-OurBrands/OurBrands";
+import OurPartners from "../12-BeOurPartner/OurPartners";
+import Career from "../13-Career/Career";
+import RestroMenu from "../14-RestroMenu/RestroMenu";
+import GuestLogin from "../15-GuestLogin/GuestLogin";
 
 function AppRoutes() {
   const location = useLocation();
 
   // Define routes where the header should be shown
-  const headerRoutes = ["/", "/about", "/menu", "/contact"];
+  const headerRoutes = [
+    "/",
+    "/about",
+    "/menu",
+    "/contact",
+    "/restroMenu",
+    "/ourBrand",
+    "/beOurPartner",
+    "/career",
+  ];
   const showHeader = headerRoutes.includes(location.pathname);
 
   return (
@@ -31,9 +45,14 @@ function AppRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/ourBrand" element={<OurBrands />} />
+        <Route path="/beOurPartner" element={<OurPartners />} />
+        <Route path="/career" element={<Career />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/restroMenu" element={<RestroMenu />} />
+        <Route path="/guestLogin" element={<GuestLogin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       {/* <Footer /> */}

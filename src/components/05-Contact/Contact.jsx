@@ -3,7 +3,6 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 import location from "../../assets/contact/location.png";
-import phone from "../../assets/contact/phone.png";
 import email from "../../assets/contact/email.png";
 import { useTranslation } from "react-i18next";
 
@@ -53,7 +52,7 @@ export default function Contact() {
         <div className="flex-1 p-4"></div>
       </div>
 
-      <div className="contactIconImages flex lg:flex-row flex-col w-full md:w-8/12 mx-auto py-5 items-center justify-between">
+      <div className="contactIconImages flex lg:flex-row flex-col w-full md:w-8/12 mx-auto py-14 gap-6 items-center justify-around">
         <div className="flex flex-col items-center text-center justify-center gap-2">
           <img
             src={location}
@@ -70,16 +69,7 @@ export default function Contact() {
             className="w-[100px] h-[100px] object-contain"
           />
           <p>Email</p>
-          <p>reinhold.klug@karmacuisine.ch</p>
-        </div>
-        <div className="flex flex-col items-center text-center justify-center gap-2">
-          <img
-            src={phone}
-            alt=""
-            className="w-[100px] h-[100px] object-contain"
-          />
-          <p>Reinhold Klug</p>
-          <p>+41 76 837 11 18</p>
+          <p>info@karmacuisine.ch</p>
         </div>
       </div>
 
@@ -205,7 +195,7 @@ export default function Contact() {
         <div className="flex-1 p-4" data-aos="fade-left" data-aos-delay="100">
           <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2042.5112651615448!2d8.62023!3d47.413665!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa1bb95280375%3A0x360b5d7b30bcc208!2sIndustriestrasse%2024%2C%208305%20Dietlikon%2C%20Switzerland!5e1!3m2!1sen!2sin!4v1737358050988!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.6217703675643!2d8.5530385!3d47.4239437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47900a9f40c2c38b%3A0x58d20a2d0dcd1d76!2sSchaffhauserstrasse%20550%2C%208052%20Z%C3%BCrich%2C%20Switzerland!5e1!3m2!1sen!2sin!4v1741076011405!5m2!1sen!2sin"
               className="absolute top-0 left-0 w-full h-full"
               style={{ border: "0" }}
               allowFullScreen=""

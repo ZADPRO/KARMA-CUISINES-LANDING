@@ -18,20 +18,19 @@ export default function Orders() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentModule, setPaymentModule] = useState(false);
   const [savedAddress, setSavedAddress] = useState(null);
-  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [isAddressAvailable, setIsAddressAvailable] = useState(false);
 
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/menu");
+    navigate("/ourBrand");
   };
 
   useEffect(() => {
     const address = localStorage.getItem("selectedAddress");
     if (address) {
       console.log("address", address);
-      setSavedAddress(address);
+      setSavedAddress(JSON.parse(address)); // Parse the address
     }
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
@@ -40,13 +39,14 @@ export default function Orders() {
   const updateCartItemCount = (id, delta) => {
     const updatedCart = cartItems
       .map((item) => {
-        if (item.productId === id) {
-          const updatedCount = item.count + delta;
-          return { ...item, count: updatedCount > 0 ? updatedCount : 0 };
+        if (item.id === id) {
+          // Change productId to id
+          const updatedCount = item.quantity + delta; // Change count to quantity
+          return { ...item, quantity: updatedCount > 0 ? updatedCount : 0 }; // Change count to quantity
         }
         return item;
       })
-      .filter((item) => item.count > 0);
+      .filter((item) => item.quantity > 0); // Change count to quantity
 
     if (updatedCart.length === 0) {
       Swal.fire({
@@ -75,7 +75,7 @@ export default function Orders() {
   };
 
   const grandTotal = cartItems
-    .reduce((total, item) => total + item.productPrice * item.count, 0)
+    .reduce((total, item) => total + parseFloat(item.price) * item.quantity, 0) // Change productPrice to price and count to quantity
     .toFixed(2);
 
   const toggleModal = () => {
@@ -101,10 +101,6 @@ export default function Orders() {
       setIsAddressAvailable(false);
     }
   }, [isModalOpen, paymentModule]);
-
-  const handleProceedToPay = () => {
-    setIsPaymentOpen(true);
-  };
 
   return (
     <div className="relative h-screen">
@@ -136,43 +132,38 @@ export default function Orders() {
             {cartItems.length > 0 ? (
               <ul>
                 {cartItems.map((item) => (
-                  <>
-                    <div
-                      key={item.productId}
-                      className="flex items-center justify-between p-1"
-                    >
-                      <p>{item.productName}</p>
-                      <div className="addItems flex items-center gap-2">
-                        {isEditing ? (
-                          <>
-                            <button
-                              onClick={() =>
-                                updateCartItemCount(item.productId, -1)
-                              }
-                              className="px-2 py-1 border rounded"
-                            >
-                              -
-                            </button>
-                            <p>{item.count}</p>
-                            <button
-                              onClick={() =>
-                                updateCartItemCount(item.productId, 1)
-                              }
-                              className="px-2 py-1 border rounded"
-                            >
-                              +
-                            </button>
-                          </>
-                        ) : (
-                          <p className="pt-1 pb-1">Quantity: {item.count}</p>
-                        )}
-                      </div>
+                  <div
+                    key={item.id} // Change productId to id
+                    className="flex items-center justify-between p-1"
+                  >
+                    <p>{item.name}</p> {/* Change productName to name */}
+                    <div className="addItems flex items-center gap-2">
+                      {isEditing ? (
+                        <>
+                          <button
+                            onClick={
+                              () => updateCartItemCount(item.id, -1) // Change productId to id
+                            }
+                            className="px-2 py-1 border rounded"
+                          >
+                            -
+                          </button>
+                          <p>{item.quantity}</p>{" "}
+                          {/* Change count to quantity */}
+                          <button
+                            onClick={
+                              () => updateCartItemCount(item.id, 1) // Change productId to id
+                            }
+                            className="px-2 py-1 border rounded"
+                          >
+                            +
+                          </button>
+                        </>
+                      ) : (
+                        <p className="pt-1 pb-1">Quantity: {item.quantity}</p>
+                      )}
                     </div>
-                    <div className="items flex items-center justify-between p-1">
-                      <p>{item.productPrice}</p>
-                      <p>CHF{item.productPrice * item.count}</p>
-                    </div>
-                  </>
+                  </div>
                 ))}
               </ul>
             ) : (
@@ -187,13 +178,6 @@ export default function Orders() {
             <p className="text-lg font-semibold">Total:</p>
             <p className="text-lg font-semibold">CHF {grandTotal}</p>
           </div>
-
-          {/* <div className="overallReceipt p-2 flex lg:flex-row flex-col gap-3 lg:justify-between">
-            <div className="flex">
-              <TimerReset />
-              <p>Expected Delivery in 15 mins</p>
-            </div>
-          </div> */}
         </div>
       </div>
       <div className="addAddressTabCall flex flex-col p-3 w-full md:w-10/12 mx-auto">
@@ -222,13 +206,8 @@ export default function Orders() {
           <AddressBottomModal isOpen={isModalOpen} onClose={toggleModal} />
         </div>
       </div>
-      <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto">
-        {/* <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
-          <p>Mode of Payment</p>
-        </div> */}
-      </div>
+      <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto"></div>
       <Elements stripe={stripePromise}>
-        {/* <PaymentModel isOpen={true} onClose={() => {}} /> */}
         <PaymentModel
           isOpen={paymentModule}
           totalAmount={grandTotal}

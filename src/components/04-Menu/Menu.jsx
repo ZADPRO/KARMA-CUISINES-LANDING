@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SplitText from "../../pages/SplitText/SplitText";
+// import SplitText from "../../pages/SplitText/SplitText";
 import { Heart, ShoppingCart } from "lucide-react";
 import PropTypes from "prop-types";
 import "./Menu.css";
@@ -11,9 +11,6 @@ import decrypt from "../../helper";
 import { useTranslation } from "react-i18next";
 
 export default function Menu() {
-  const handleAnimationComplete = () => {
-    console.log("All letters have animated!");
-  };
   const { t } = useTranslation("global");
 
   const [cartItems, setCartItems] = useState([]);

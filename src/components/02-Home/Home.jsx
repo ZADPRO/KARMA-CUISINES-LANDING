@@ -2,11 +2,11 @@ import "./Home.css";
 
 // import foodImg from "../../assets/home/thandoori.jpg";
 
-import kingsKurry from "../../assets/partners/kingsKurry1.png";
-import banthai from "../../assets/partners/banthai1.png";
-import fajitha from "../../assets/partners/fajithafriends1.png";
-import sushiheaven from "../../assets/partners/sushiheaven1.png";
-import momos from "../../assets/partners/momos.png";
+import kingsKurry from "../../assets/logoNew/king01.png";
+import banthai from "../../assets/logoNew/banThai01.png";
+import fajitha from "../../assets/logoNew/fajitha01.png";
+import sushiheaven from "../../assets/logoNew/sushi01.png";
+import momos from "../../assets/logoNew/momos01.png";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { useTranslation } from "react-i18next";

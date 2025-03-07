@@ -163,9 +163,6 @@ export default function Login() {
               </form>
 
               <p className="mt-3 mx-auto text-center text-[15px]">
-                Login As Guest
-              </p>
-              <p className="mt-3 mx-auto text-center text-[15px]">
                 <p className="toggleText" onClick={handleToggle}>
                   {isLogin
                     ? "New to our app? Sign Up"

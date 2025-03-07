@@ -24,11 +24,11 @@ export default function ChooseMenuHome({ isOpen, onClose, foodItem }) {
 
   const handleNavigation = (type) => {
     if (type === "karma") {
-      navigate("/menu");
+      navigate("/ourBrand");
     } else if (type === "justEats") {
-      window.open("https://www.justeats.com", "_blank");
+      window.open("https://www.just-eat.ie/", "_blank");
     } else if (type === "uberEats") {
-      window.open("https://www.ubereats.com", "_blank");
+      window.open("https://www.ubereats.com/", "_blank");
     }
   };
 

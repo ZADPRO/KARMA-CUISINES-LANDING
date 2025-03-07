@@ -2,6 +2,9 @@
     "nav": {
         "home": "Home",
         "about": "About",
+        "ourBrand": "Our Brand",
+        "beOurPartner": "Be Our Partner",
+        "career": "Career",
         "menu": "Menu",
         "contact": "Contact"
     },
@@ -38,5 +41,25 @@
     "contact": {
         "welcomeCont": "We had Love to Hear From You!",
         "contactUsCont": " At Karma Cuisine, your feedback, queries, and suggestions mean the world to us."
+    },
+    "career": {
+        "careerIntro": "Are you ready to take the next step in your career? ",
+        "careerDesc": "Join our dynamic team and be part of an innovative, growth-driven environment where your skills and ideas matter."
+    },
+    "ourPartners": {
+        "beOurPartner": "Be Our Partners !!!",
+        "howItWorks": "How It Works",
+        "step1": "Step 1",
+        "step1Head": "Apply Online",
+        "step1Cont": "Submit your details through our simple partnership form.",
+        "step2": "Step 2",
+        "step2Head": "Onboarding & Setup",
+        "step2Cont": "Our team will guide you through the onboarding process, from menu integration to branding.",
+        "step3": "Step 3",
+        "step3Head": "Go Live & Start Serving",
+        "step3Cont": "Once set up, your dishes will be available on our platform, ready to be enjoyed by customers.",
+        "step4": "Step 4",
+        "step4Head": "Grow with Us",
+        "step4Cont": "Benefit from our continuous support, insights, and marketing efforts to drive sales and customer engagement."
     }
 }

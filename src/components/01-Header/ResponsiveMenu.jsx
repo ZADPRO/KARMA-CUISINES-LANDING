@@ -15,8 +15,8 @@ export default function ResponsiveMenu({ open, setOpen }) {
   const { t, i18n } = useTranslation("global");
 
   const languages = [
-    { id: "en", label: "English", flag: english },
     { id: "de", label: "German", flag: german },
+    { id: "en", label: "English", flag: english },
     { id: "fr", label: "French", flag: french },
     { id: "it", label: "Italian", flag: italian },
   ];
@@ -37,6 +37,7 @@ export default function ResponsiveMenu({ open, setOpen }) {
   const handleNavigation = (path) => {
     navigate(path);
     setOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -55,7 +56,17 @@ export default function ResponsiveMenu({ open, setOpen }) {
               <li onClick={() => handleNavigation("/about")}>
                 {t("nav.about")}
               </li>
-              <li onClick={() => handleNavigation("/menu")}>{t("nav.menu")}</li>
+              <li onClick={() => handleNavigation("/ourBrand")}>
+                {t("nav.ourBrand")}
+              </li>
+              <li onClick={() => handleNavigation("/beOurPartner")}>
+                {t("nav.beOurPartner")}
+              </li>
+              <li onClick={() => handleNavigation("/career")}>
+                {t("nav.career")}
+              </li>
+
+              {/* <li onClick={() => handleNavigation("/menu")}>{t("nav.menu")}</li> */}
               <li onClick={() => handleNavigation("/contact")}>
                 {t("nav.contact")}
               </li>
