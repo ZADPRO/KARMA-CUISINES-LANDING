@@ -16,7 +16,7 @@
 /* Change background image for mobile view */
 @media (max-width: 768px) {
   .ourPartnersIntroCont {
-    background-image: url("../../assets/home/homeMobile01.jpg");
+    background-image: url("../../assets/partners/ourPartners.jpg");
     background-attachment: fixed;
     justify-content: start;
     padding-top: 10vh;
