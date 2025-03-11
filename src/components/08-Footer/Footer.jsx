@@ -116,18 +116,17 @@ export default function Footer() {
                   </li>
                 </ul>
               </nav>
-              <nav
-                className="col-span-2 md:col-span-4 lg:col-span-3"
-                aria-labelledby="footer-product-4-sub"
-              >
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.291166356684!2d8.558529576446725!3d47.43025907117414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa009eb4c02d5%3A0x733e539db9ff57ca!2sSchaffhauserstrasse%2056%2C%208152%20Opfikon%2C%20Switzerland!5e1!3m2!1sen!2sin!4v1741676206584!5m2!1sen!2sin"
-                  className="absolute w-full h-full"
-                  style={{ border: "0", maxHeight: "200px", maxWidth: "300px" }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
+              <nav className="col-span-2 md:col-span-4 lg:col-span-3">
+                <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-[200px]">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.291166356684!2d8.558529576446725!3d47.43025907117414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa009eb4c02d5%3A0x733e539db9ff57ca!2sSchaffhauserstrasse%2056%2C%208152%20Opfikon%2C%20Switzerland!5e1!3m2!1sen!2sin!4v1741676206584!5m2!1sen!2sin"
+                    className="lg:w-full h-full"
+                    style={{ border: "0" }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
               </nav>
             </div>
           </div>
