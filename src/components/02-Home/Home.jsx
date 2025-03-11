@@ -319,72 +319,73 @@ export default function Home() {
       </main>
       <section className="text-white w-full">
         <div className="grid grid-cols-12 gap-2">
-          <div className="grid gap-2 col-span-4">
-            <figure className=" w-full">
+          <div className="grid gap-2 col-span-12 md:col-span-4">
+            <figure className="w-full">
               <img
                 src={img1}
                 alt=""
-                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-cover rounded-md"
               />
             </figure>
-            <figure className=" w-full">
+            <figure className="w-full">
               <img
                 src={img2}
                 alt=""
-                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-cover rounded-md"
               />
             </figure>
-            <figure className=" w-full">
+            <figure className="w-full">
               <img
                 src={img3}
                 alt=""
-                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-cover rounded-md"
               />
             </figure>
           </div>
-          <div className="sticky top-0 lg:h-screen w-full col-span-4 gap-2  grid grid-rows-3">
-            <figure className="w-full h-full">
+          {/* Sticky Section - Only Sticky on Larger Screens */}
+          <div className="md:sticky top-0 md:h-screen w-full col-span-12 md:col-span-4 gap-2 grid grid-rows-3">
+            <figure className="w-full">
               <img
                 src={img4}
                 alt=""
-                className="transition-all duration-300 lg:h-full w-full  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-full object-cover rounded-md"
               />
             </figure>
-            <figure className="w-full lg:h-full">
+            <figure className="w-full">
               <img
                 src={img5}
                 alt=""
-                className="transition-all duration-300 lg:h-full w-full align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-full object-cover rounded-md"
               />
             </figure>
-            <figure className="w-full lg:h-full">
+            <figure className="w-full">
               <img
                 src={img6}
                 alt=""
-                className="transition-all duration-300 lg:h-full w-full  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-full object-cover rounded-md"
               />
             </figure>
           </div>
-          <div className="grid gap-2 col-span-4">
+          <div className="grid gap-2 col-span-12 md:col-span-4">
             <figure className="w-full">
               <img
                 src={img7}
                 alt=""
-                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-cover rounded-md"
               />
             </figure>
             <figure className="w-full">
               <img
                 src={img8}
                 alt=""
-                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-cover rounded-md"
               />
             </figure>
             <figure className="w-full">
               <img
                 src={img9}
                 alt=""
-                className="transition-all duration-300 w-full lg:h-96  align-bottom object-cover rounded-md "
+                className="transition-all duration-300 w-full h-auto sm:h-64 md:h-80 lg:h-96 object-cover rounded-md"
               />
             </figure>
           </div>
