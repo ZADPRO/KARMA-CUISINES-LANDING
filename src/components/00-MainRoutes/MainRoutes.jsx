@@ -12,7 +12,7 @@ import Menu from "../04-Menu/Menu";
 import Contact from "../05-Contact/Contact";
 import Cart from "../06-Cart/Cart";
 import Login from "../07-Login/Login";
-// import Footer from "../08-Footer/Footer";
+import Footer from "../08-Footer/Footer";
 import NotFound from "../09-NotFound/NotFound";
 import Orders from "../10-Orders/Orders";
 import OurBrands from "../11-OurBrands/OurBrands";
@@ -55,7 +55,7 @@ function AppRoutes() {
         <Route path="/guestLogin" element={<GuestLogin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

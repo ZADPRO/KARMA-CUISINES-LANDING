@@ -1,4 +1,4 @@
-import { Menu, UserRound } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -159,6 +159,46 @@ export default function Header() {
               </AnimatePresence>
             </li>
           </div>
+
+          <li
+            onMouseEnter={() => setLanguageOpen(true)}
+            onMouseLeave={() => setLanguageOpen(false)}
+            className="relative list-none lg:hidden block"
+          >
+            <button className="inline-block w-6 h-6 mt-2">
+              <img
+                src={currentLang.flag}
+                alt={currentLang.label}
+                className="w-full h-full object-cover rounded-full"
+              />
+            </button>
+            <AnimatePresence>
+              {languageOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2"
+                >
+                  {languages.map((lang) => (
+                    <div
+                      key={lang.id}
+                      onClick={() => handleChangeLang(lang.id)}
+                      className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-100 rounded-lg"
+                    >
+                      <img
+                        src={lang.flag}
+                        alt={lang.label}
+                        className="w-6 h-6 rounded-full"
+                      />
+                      <span>{lang.label}</span>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </li>
 
           <div className="md:hidden" onClick={() => setOpen(!open)}>
             <Menu className="text-4xl" />

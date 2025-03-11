@@ -11,20 +11,42 @@ import momos from "../../assets/logoNew/momos01.png";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { useTranslation } from "react-i18next";
 
-import image from "../../assets/home/home2.png";
 import { useNavigate } from "react-router-dom";
 
-import img1 from "../../assets/gallery/one.png";
-import img2 from "../../assets/gallery/two.png";
-import img3 from "../../assets/gallery/three.png";
-import img4 from "../../assets/gallery/four.png";
-import img5 from "../../assets/gallery/five.png";
-import img6 from "../../assets/gallery/six.png";
-import img7 from "../../assets/gallery/seven.png";
-import img8 from "../../assets/gallery/eight.png";
-import img9 from "../../assets/home/thandoori.jpg";
+import h1 from "../../assets/home/homeBg02.jpg";
+import h2 from "../../assets/homeBannerImages/h2.jpg";
+import h3 from "../../assets/homeBannerImages/h3.jpg";
+import h4 from "../../assets/homeBannerImages/h4.jpg";
+import h5 from "../../assets/homeBannerImages/h5.jpg";
+
+import s1 from "../../assets/bestSellingProducts/s1.jpg";
+import s2 from "../../assets/bestSellingProducts/s2.jpg";
+import s3 from "../../assets/bestSellingProducts/s3.jpg";
+import s4 from "../../assets/bestSellingProducts/s4.jpg";
+import s5 from "../../assets/bestSellingProducts/s5.jpg";
+
+// import img1 from "../../assets/gallery/one.png";
+// import img2 from "../../assets/gallery/two.png";
+// import img3 from "../../assets/gallery/three.png";
+// import img4 from "../../assets/gallery/four.png";
+// import img5 from "../../assets/gallery/five.png";
+// import img6 from "../../assets/gallery/six.png";
+// import img7 from "../../assets/gallery/seven.png";
+// import img8 from "../../assets/gallery/eight.png";
+// import img9 from "../../assets/home/thandoori.jpg";
 import ChooseMenuHome from "../../pages/ChooseMenuHome/ChooseMenuHome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Glide from "@glidejs/glide";
+
+import img1 from "../../assets/collage/1.jpg";
+import img2 from "../../assets/collage/12.jpg";
+import img3 from "../../assets/collage/3.jpg";
+import img4 from "../../assets/collage/4.jpg";
+import img5 from "../../assets/collage/5.jpg";
+import img6 from "../../assets/collage/6.jpg";
+import img7 from "../../assets/collage/7.jpg";
+import img8 from "../../assets/collage/13.jpg";
+import img9 from "../../assets/collage/9.jpg";
 
 export default function Home() {
   const { t } = useTranslation("global");
@@ -43,6 +65,46 @@ export default function Home() {
       setIsModalOpen(false);
     }
   };
+
+  useEffect(() => {
+    const slider = new Glide(".glide-04", {
+      type: "slider",
+      focusAt: "center",
+      perView: 1,
+      autoplay: 2000,
+      animationDuration: 700,
+      gap: 0,
+      classes: {
+        nav: {
+          active: "[&>*]:bg-wuiSlate-700",
+        },
+      },
+    }).mount();
+
+    return () => {
+      slider.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    const slider = new Glide(".glide-05", {
+      type: "slider",
+      focusAt: "center",
+      perView: 1,
+      autoplay: 2000,
+      animationDuration: 700,
+      gap: 0,
+      classes: {
+        nav: {
+          active: "[&>*]:bg-wuiSlate-700",
+        },
+      },
+    }).mount();
+
+    return () => {
+      slider.destroy();
+    };
+  }, []);
 
   const FoodData = [
     {
@@ -74,22 +136,49 @@ export default function Home() {
 
   return (
     <ReactLenis root>
-      <div className="homePageIntroCont flex lg:flex-row flex-col lg:p-7">
-        {/* Left Section */}
-        <div className="flex-1 homePageCont p-4 mt-8">
-          <p className="lg:text-7xl text-5xl text-[#FFF5E4]">
-            {t("home.title")}
-          </p>
-          <button
-            className="text-white text-[24px] rounded-3xl bg-[#cd5c08] border border-[#cd5c08] px-6 py-2 mt-6 transition duration-300"
-            onClick={() => navigate("/menu")}
-          >
-            {t("home.exploreNow")}
-          </button>{" "}
+      <div className="relative w-full h-screen">
+        {/* Background Slider */}
+        <div className="absolute inset-0 w-full h-full glide-04">
+          <div className="overflow-hidden h-full" data-glide-el="track">
+            <ul className="whitespace-no-wrap flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform] relative flex w-full h-full overflow-hidden p-0">
+              <li className="w-full h-full">
+                <img src={h1} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={h2} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={h3} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={h4} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={h5} className="w-full h-full object-cover" />
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Right Section */}
-        <div className="flex-1 p-4"></div>
+        {/* Static Content */}
+        <div className="relative flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-50 text-white">
+          <div className="flex lg:flex-row flex-col lg:p-7 w-full max-w-screen-xl mx-auto">
+            {/* Left Section */}
+            <div className="flex-1 homePageCont p-4 mt-8">
+              <p className="lg:text-7xl text-5xl text-[#FFF5E4]">
+                {t("home.title")}
+              </p>
+              <button
+                className="text-white text-[24px] rounded-3xl bg-[#cd5c08] border border-[#cd5c08] px-6 py-2 mt-6 transition duration-300"
+                onClick={() => navigate("/ourBrand")}
+              >
+                {t("home.exploreNow")}
+              </button>
+            </div>
+            {/* Right Section */}
+            <div className="flex-1 p-4"></div>
+          </div>
+        </div>
       </div>
       <div className="bg-[#FFF5E4]">
         <div className="container lg:h-[70vh] flex flex-col items-center justify-center py-14">
@@ -117,7 +206,7 @@ export default function Home() {
                 <img
                   src={item.image}
                   alt=""
-                  className="object-cover cursor-pointer rounded-t-xl lg:py-2 lg:px-2 border-2 border-[#cd5c08]"
+                  className="object-cover cursor-pointer rounded-t-xl lg:py-4 lg:px-4 border-2 border-[#cd5c08]"
                 />
                 <p
                   className="bg-[#cd5c08] text-white w-full cursor-pointer text-center py-2 rounded-ee-xl rounded-es-xl"
@@ -140,7 +229,6 @@ export default function Home() {
       <main className="">
         <div className="wrapper">
           <div className="aboutMeCont lg:h-[75vh] items-center bg-[#cd5c08] justify-center flex lg:flex-row flex-col lg:p-7">
-            {/* Left Section */}
             <div className="flex-1 homePageCont p-10 mt-8">
               <p className="lg:text-5xl text-3xl text-white">
                 {t("home.welcomeKarma")}
@@ -158,16 +246,30 @@ export default function Home() {
                 {t("home.thatsKarma")}
               </h4>
             </div>
-
-            {/* Right Section */}
-            <div
-              className="flex-1 p-4"
-              data-aos="zoom-in-right"
-              data-aos-delay="200"
-            >
-              <img src={image} alt="" className="rotate-image" />
+            <div className="flex-1 p-4 w-full md:w-4/12 mx-auto">
+              <div className="relative w-full h-full glide-05">
+                <div className="overflow-hidden h-full" data-glide-el="track">
+                  <ul className="whitespace-no-wrap flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform] relative flex w-full h-full overflow-hidden p-0">
+                    <li className="w-full lg:h-[500px]">
+                      <img src={s1} className="w-full h-full object-cover" />
+                    </li>
+                    <li className="w-full lg:h-[500px]">
+                      <img src={s2} className="w-full h-full object-cover" />
+                    </li>
+                    <li className="w-full lg:h-[500px]">
+                      <img src={s3} className="w-full h-full object-cover" />
+                    </li>
+                    <li className="w-full lg:h-[500px]">
+                      <img src={s4} className="w-full h-full object-cover" />
+                    </li>
+                    <li className="w-full lg:h-[500px]">
+                      <img src={s5} className="w-full h-full object-cover" />
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>{" "}
+          </div>
         </div>
 
         <section className="text-white w-full md:w-9/12 mx-auto">

@@ -19,24 +19,79 @@ import fajithaFriends02 from "../../assets/brands/fajitha02.jpg";
 import momos01 from "../../assets/brands/momo01.jpg";
 import momos02 from "../../assets/brands/momo02.jpg";
 
+import b1 from "../../assets/partners/ourBrands.jpg";
+import b2 from "../../assets/brandsBannerImages/b2.jpg";
+import b3 from "../../assets/brandsBannerImages/b3.jpg";
+import b4 from "../../assets/brandsBannerImages/b4.jpg";
+import b5 from "../../assets/brandsBannerImages/b5.jpg";
+
 import "./ourBrands.css";
+import { useEffect } from "react";
+import Glide from "@glidejs/glide";
 
 export default function OurBrands() {
   const { t } = useTranslation("global");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const slider = new Glide(".glide-04", {
+      type: "slider",
+      focusAt: "center",
+      perView: 1,
+      autoplay: 2000,
+      animationDuration: 700,
+      gap: 0,
+      classes: {
+        nav: {
+          active: "[&>*]:bg-wuiSlate-700",
+        },
+      },
+    }).mount();
+
+    return () => {
+      slider.destroy();
+    };
+  }, []);
+
   return (
     <div className="bg-[#f9edde]">
-      <div className="ourBrandsIntroCont flex lg:flex-row flex-col lg:p-7">
-        <div className="flex-1 ourBrandsCont p-4 mt-8">
-          <p
-            className="lg:text-7xl text-5xl text-[#FFF5E4] text-center"
-            data-aos="fade-up"
-          >
-            Our Brands !!!
-          </p>
+      <div className="relative w-full h-screen">
+        {/* Background Slider */}
+        <div className="absolute inset-0 w-full h-full glide-04">
+          <div className="overflow-hidden h-full" data-glide-el="track">
+            <ul className="whitespace-no-wrap flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform] relative flex w-full h-full overflow-hidden p-0">
+              <li className="w-full h-full">
+                <img src={b1} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={b2} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={b3} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={b4} className="w-full h-full object-cover" />
+              </li>
+              <li className="w-full h-full">
+                <img src={b5} className="w-full h-full object-cover" />
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="flex-1 p-4"></div>
+
+        {/* Static Content */}
+        <div className="relative flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-50 text-white">
+          <div className="flex lg:flex-row flex-col lg:p-7 w-full max-w-screen-xl mx-auto">
+            {/* Left Section */}
+            <div className="flex-1 homePageCont p-4 mt-8">
+              <p className="lg:text-7xl text-4xl text-[#FFF5E4]">
+                {t("ourBrands.ourBrandsHeader")}
+              </p>
+            </div>
+            {/* Right Section */}
+            <div className="flex-1 p-4"></div>
+          </div>
+        </div>
       </div>
 
       {[

@@ -195,7 +195,7 @@ export default function Contact() {
         <div className="flex-1 p-4" data-aos="fade-left" data-aos-delay="100">
           <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.6217703675643!2d8.5530385!3d47.4239437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47900a9f40c2c38b%3A0x58d20a2d0dcd1d76!2sSchaffhauserstrasse%20550%2C%208052%20Z%C3%BCrich%2C%20Switzerland!5e1!3m2!1sen!2sin!4v1741076011405!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2755.291166356684!2d8.558529576446725!3d47.43025907117414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa009eb4c02d5%3A0x733e539db9ff57ca!2sSchaffhauserstrasse%2056%2C%208152%20Opfikon%2C%20Switzerland!5e1!3m2!1sen!2sin!4v1741676206584!5m2!1sen!2sin"
               className="absolute top-0 left-0 w-full h-full"
               style={{ border: "0" }}
               allowFullScreen=""

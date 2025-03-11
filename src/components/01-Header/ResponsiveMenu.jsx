@@ -1,25 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import english from "../../assets/language/english.svg";
-import german from "../../assets/language/german.svg";
-import french from "../../assets/language/french.svg";
-import italian from "../../assets/language/italian.svg";
-
 export default function ResponsiveMenu({ open, setOpen }) {
-  const [languageOpen, setLanguageOpen] = useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation("global");
-
-  const languages = [
-    { id: "de", label: "German", flag: german },
-    { id: "en", label: "English", flag: english },
-    { id: "fr", label: "French", flag: french },
-    { id: "it", label: "Italian", flag: italian },
-  ];
 
   useEffect(() => {
     const storedLang = localStorage.getItem("selectedLanguage");
@@ -27,12 +14,6 @@ export default function ResponsiveMenu({ open, setOpen }) {
       i18n.changeLanguage(storedLang);
     }
   }, [i18n]);
-
-  const onSelectLanguage = (languageId) => {
-    i18n.changeLanguage(languageId);
-    localStorage.setItem("selectedLanguage", languageId);
-    setLanguageOpen(false);
-  };
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -50,7 +31,7 @@ export default function ResponsiveMenu({ open, setOpen }) {
           transition={{ duration: 0.1 }}
           className="fixed top-20 left-0 w-full h-screen z-20"
         >
-          <div className="text-xl font-semibold uppercase bg-[#cd5c08] text-white py-6 m-2 rounded-xl">
+          <div className="text-xl font-semibold uppercase h-[85vh] bg-[#cd5c08] text-white py-6 m-2 rounded-xl">
             <ul className="flex flex-col justify-start items-start gap-5 px-8">
               <li onClick={() => handleNavigation("/")}>{t("nav.home")}</li>
               <li onClick={() => handleNavigation("/about")}>
@@ -71,7 +52,7 @@ export default function ResponsiveMenu({ open, setOpen }) {
                 {t("nav.contact")}
               </li>
 
-              <li onClick={() => setLanguageOpen(!languageOpen)}>
+              {/* <li onClick={() => setLanguageOpen(!languageOpen)}>
                 Language
                 <AnimatePresence>
                   {languageOpen && (
@@ -99,7 +80,7 @@ export default function ResponsiveMenu({ open, setOpen }) {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </li>
+              </li> */}
             </ul>
           </div>
         </motion.div>
