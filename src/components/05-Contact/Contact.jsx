@@ -59,8 +59,8 @@ export default function Contact() {
             alt=""
             className="w-[100px] h-[100px] object-contain"
           />
-          <p>Schaffhausserstrasse 550</p>
-          <p>8052 Zürich, Switzerland</p>
+          <p>Schaffhausserstrasse 56,</p>
+          <p>8152 Glattbrugg, Zürich, Switzerland</p>
         </div>
         <div className="flex flex-col items-center text-center justify-center gap-2">
           <img
