@@ -1,6 +1,7 @@
 import logo from "../../assets/logoNew/kcWhite1.png";
 
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { RiTiktokLine } from "react-icons/ri";
 
 export default function Footer() {
   return (
@@ -117,7 +118,7 @@ export default function Footer() {
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 items-center">
                       <a
                         href="https://www.instagram.com/karmacuisine2025?igsh=bG55Z3B0NnZkcTBv"
                         target="_blank"
@@ -134,14 +135,14 @@ export default function Footer() {
                       >
                         <Facebook size={28} />
                       </a>
-                      {/* <a
-                        href="https://www.instagram.com/karmacuisine2025?igsh=bG55Z3B0NnZkcTBv"
+                      <a
+                        href="https://www.facebook.com/profile.php?id=61573924657122"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="transition-colors duration-300 text-white hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
                       >
-                        <Linkedin size={28} />
-                      </a> */}
+                        <RiTiktokLine size={28} />
+                      </a>
                     </div>
                   </li>
                 </ul>
