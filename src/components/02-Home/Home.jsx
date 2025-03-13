@@ -161,7 +161,7 @@ export default function Home() {
         </div>
 
         {/* Static Content */}
-        <div className="relative flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-50 text-white">
+        <div className="relative flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-0 text-white">
           <div className="flex lg:flex-row flex-col lg:p-7 w-full max-w-screen-xl mx-auto">
             {/* Left Section */}
             <div className="flex-1 homePageCont p-4 mt-8">

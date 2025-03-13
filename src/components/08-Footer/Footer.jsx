@@ -136,12 +136,20 @@ export default function Footer() {
                         <Facebook size={28} />
                       </a>
                       <a
-                        href="https://www.facebook.com/profile.php?id=61573924657122"
+                        href="https://www.tiktok.com/@karma.cuisine?_t=ZN-8ue2ontAWL0&_r=1"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="transition-colors duration-300 text-white hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
                       >
                         <RiTiktokLine size={28} />
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/in/karma-cuisine-a79987355/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors duration-300 text-white hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                      >
+                        <Linkedin size={28} />
                       </a>
                     </div>
                   </li>
