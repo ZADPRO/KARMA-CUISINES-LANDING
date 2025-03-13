@@ -25,6 +25,12 @@ import b3 from "../../assets/brandsBannerImages/b3.jpg";
 import b4 from "../../assets/brandsBannerImages/b4.jpg";
 import b5 from "../../assets/brandsBannerImages/b5.jpg";
 
+import kingsKurry from "../../assets/logoNew/king01.png";
+import banthai from "../../assets/logoNew/banThai01.png";
+import fajitha from "../../assets/logoNew/fajitha01.png";
+import sushiheaven from "../../assets/logoNew/sushi01.png";
+import momos from "../../assets/logoNew/momos01.png";
+
 import "./ourBrands.css";
 import { useEffect } from "react";
 import Glide from "@glidejs/glide";
@@ -103,6 +109,7 @@ export default function OurBrands() {
           routePath: "kingsKurry",
           mainImage: kingsKurry01,
           subImage: kingsKurry02,
+          logoImage: kingsKurry,
         },
         {
           name: "Ban Thai",
@@ -113,15 +120,17 @@ export default function OurBrands() {
           routePath: "banThai",
           mainImage: banThai01,
           subImage: banThai02,
+          logoImage: banthai,
         },
         {
           name: "Sushi Heaven",
           description:
             "The Art of Japanese Cuisine - Sushi Haven Our chefs craft each sushi roll with the freshest ingredients, honoring centuries of Japanese culinary artistry.",
-          tagline: "Sushi is not just food; it's an art form. – Sushi Haven",
+          tagline: "Sushi is not just food; it's an art form. - Sushi Haven",
           routePath: "sushiHeaven",
           mainImage: sushi01,
           subImage: sushi02,
+          logoImage: sushiheaven,
         },
         {
           name: "Fajita Friends",
@@ -131,6 +140,7 @@ export default function OurBrands() {
           routePath: "fajithaFriends",
           mainImage: fajithaFriends01,
           subImage: fajithaFriends02,
+          logoImage: fajitha,
         },
         {
           name: "O! Momos",
@@ -140,6 +150,7 @@ export default function OurBrands() {
           routePath: "oMomos",
           mainImage: momos01,
           subImage: momos02,
+          logoImage: momos,
         },
       ].map((brand, index) => (
         <div
@@ -170,7 +181,8 @@ export default function OurBrands() {
             </div>
           </div>
           <div className="flex-1 text-center lg:text-left px-5">
-            <p className="text-2xl font-bold">{brand.name}</p>
+            {/* <p className="text-2xl font-bold">{brand.name}</p> */}
+            <img className="w-[300px]" src={brand.logoImage} alt="" />
             <p className="mt-2">{brand.description}</p>
             <p className="mt-2 font-semibold italic">{brand.tagline}</p>
             <button
