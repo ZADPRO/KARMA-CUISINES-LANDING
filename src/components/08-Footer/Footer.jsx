@@ -1,5 +1,7 @@
 import logo from "../../assets/logoNew/kcWhite1.png";
 
+import { Facebook, Instagram, Linkedin } from "lucide-react";
+
 export default function Footer() {
   return (
     <div>
@@ -113,6 +115,34 @@ export default function Footer() {
                       <b>Address:</b> Schaffhausserstrasse 56, 8152 Glattbrugg,
                       Zürich Switzerland.
                     </a>
+                  </li>
+                  <li className="mb-2 leading-6">
+                    <div className="flex gap-3">
+                      <a
+                        href="https://www.instagram.com/karmacuisine2025?igsh=bG55Z3B0NnZkcTBv"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors duration-300 text-white hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                      >
+                        <Instagram size={28} />
+                      </a>
+                      <a
+                        href="https://www.facebook.com/profile.php?id=61573924657122"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors duration-300 text-white hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                      >
+                        <Facebook size={28} />
+                      </a>
+                      {/* <a
+                        href="https://www.instagram.com/karmacuisine2025?igsh=bG55Z3B0NnZkcTBv"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors duration-300 text-white hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                      >
+                        <Linkedin size={28} />
+                      </a> */}
+                    </div>
                   </li>
                 </ul>
               </nav>
