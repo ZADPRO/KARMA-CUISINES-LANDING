@@ -48,8 +48,7 @@ export default function Footer() {
               >
                 <img src={logo} alt="" className="w-[300px]" />
                 <p className="text-white text-[20px] py-5">
-                  Be the first to know about new collections, special events,
-                  and what's going on at our place.
+                Be the first to know about our special events, and what's going on!
                 </p>
               </nav>
               <nav
