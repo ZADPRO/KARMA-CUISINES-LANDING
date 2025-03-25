@@ -210,7 +210,7 @@ export default function Home() {
                 />
                 <p
                   className="bg-[#cd5c08] text-white w-full cursor-pointer text-center py-2 rounded-ee-xl rounded-es-xl"
-                  onClick={() => navigate("/menu")}
+                  // onClick={() => navigate("/menu")}
                 >
                   {t("home.explore")}
                 </p>
