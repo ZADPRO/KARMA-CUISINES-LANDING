@@ -2,8 +2,11 @@ import logo from "../../assets/logoNew/kcWhite1.png";
 
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { RiTiktokLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation("global");
+
   return (
     <div>
       <svg
@@ -48,7 +51,7 @@ export default function Footer() {
               >
                 <img src={logo} alt="" className="w-[300px]" />
                 <p className="text-white text-[20px] py-5">
-                Be the first to know about our special events, and what's going on!
+                  {t("footerCont.footerContent")}
                 </p>
               </nav>
               <nav
@@ -59,32 +62,37 @@ export default function Footer() {
                   className="mb-6  font-bold uppercase text-[20px] text-white"
                   id="footer-about-4-sub"
                 >
-                  Connect with us
+                  {t("footerCont.connectWithUs")}
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
                     <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
-                      Home
+                      {t("nav.home")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
                     <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
-                      About Us
+                      {t("nav.about")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
                     <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
-                      Course
+                      {t("nav.ourBrand")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
                     <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
-                      Blog
+                      {t("nav.beOurPartner")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
                     <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
-                      Contact
+                      {t("nav.career")}
+                    </a>
+                  </li>
+                  <li className="mb-2 leading-6">
+                    <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
+                      {t("nav.contact")}
                     </a>
                   </li>
                 </ul>
@@ -97,7 +105,7 @@ export default function Footer() {
                   className="mb-6  font-bold uppercase text-[20px] text-white"
                   id="footer-get-in-touch-4-sub"
                 >
-                  Get in touch
+                  {t("footerCont.getInTouch")}
                 </h3>
                 <ul>
                   {/* <li className="mb-2 leading-6">
@@ -107,13 +115,13 @@ export default function Footer() {
                   </li> */}
                   <li className="mb-2 leading-6">
                     <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
-                      <b> Email:</b> info@karmacuisine.ch
+                      <b>{t("footerCont.email")}:</b> info@karmacuisine.ch
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
                     <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
-                      <b>Address:</b> Schaffhausserstrasse 56, 8152 Glattbrugg,
-                      Zürich Switzerland.
+                      <b>{t("footerCont.address")}:</b>{" "}
+                      {t("footerCont.addressValue")}.
                     </a>
                   </li>
                   <li className="mb-2 leading-6">

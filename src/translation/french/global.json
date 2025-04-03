@@ -63,6 +63,28 @@
         "step4Cont": "Bénéficiez de notre soutien continu, de nos analyses et de nos efforts marketing pour stimuler vos ventes et fidéliser vos clients."
     },
     "ourBrands": {
-        "ourBrandsHeader": "Nos marques !!!"
+        "ourBrandsHeader": "Nos Marques !!!",
+        "kingsKurry": "Cuisine indienne, Kings Kurry - où nous apportons les saveurs royales de l'Inde à votre table ! Notre menu propose des plats indiens authentiques, du tandoori grillé aux currys riches, préparés avec les épices et ingrédients les plus fins.",
+        "kingsKurryTagLine": "Savourez le goût royal de l'Inde à chaque bouchée.",
+        "banThai": "Cuisine thaïlandaise, Ban Thai - Notre menu célèbre les saveurs vibrantes et audacieuses de la Thaïlande, des currys épicés aux salades fraîches et zestées, toutes préparées avec des ingrédients de qualité et des épices aromatiques.",
+        "banThaiTagLine": "Plongez dans les saveurs riches et authentiques de la Thaïlande, directement à votre table.",
+        "sushiHeaven": "L'art de la cuisine japonaise - Sushi Haven Nos chefs préparent chaque sushi avec les ingrédients les plus frais, honorant des siècles d'art culinaire japonais.",
+        "sushiHeavenTagLine": "Le sushi n'est pas seulement un plat ; c'est un art.",
+        "fajithaFriends": "Cuisine mexicaine ! Fajita Friends Dégustez des tacos fumants et frais, accompagnés de margaritas rafraîchissantes, dans une ambiance vibrante. Nous apportons les saveurs audacieuses du Mexique à votre table !",
+        "fajithaFriendsTagLine": "Relevez votre vie avec les saveurs du Mexique !",
+        "omomos": "Délicieusement moelleux, débordant de saveurs—nos momos sont faits à la main avec perfection, vous offrant le goût authentique de l'Himalaya.",
+        "omomosTagLine": "Cuits à la vapeur à la perfection, remplis de saveur !"
+    },
+    "footerCont": {
+        "footerContent": "Soyez le premier informé de nos événements spéciaux et de notre actualité !",
+        "connectWithUs": "CONTACTEZ-NOUS",
+        "home": "Home",
+        "about": "About",
+        "ourBrand": "Our Brand",
+        "beOurPartner": "Be Our Partner",
+        "getInTouch": "CONTACTEZ-NOUS",
+        "email": "Courriel ",
+        "address": "Adresse ",
+        "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zurich, Suisse."
     }
 }

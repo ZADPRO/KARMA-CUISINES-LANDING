@@ -103,9 +103,8 @@ export default function OurBrands() {
       {[
         {
           name: "Kings Kurry",
-          description:
-            "Indian cuisine, Kings Kurry - where we bring the royal flavors of India to your table! Our menu features authentic Indian dishes, from sizzling tandoori to rich curries made with the finest spices and ingredients.",
-          tagline: "Savor the royal taste of India in every bite.",
+          description: t("ourBrands.kingsKurry"),
+          tagline: t("ourBrands.kingsKurryTagLine"),
           routePath: "kingsKurry",
           mainImage: kingsKurry01,
           subImage: kingsKurry02,
@@ -113,10 +112,8 @@ export default function OurBrands() {
         },
         {
           name: "Ban Thai",
-          description:
-            "Thai cuisine, Ban Thai - Our menu celebrates the vibrant and bold tastes of Thailand, from spicy curries to fresh, zesty salads, all prepared with the finest ingredients and aromatic spices.",
-          tagline:
-            "Indulge in Thailand's rich, authentic flavors, right at your table.",
+          description: t("ourBrands.banThai"),
+          tagline: t("ourBrands.banThaiTagLine"),
           routePath: "banThai",
           mainImage: banThai01,
           subImage: banThai02,
@@ -124,9 +121,8 @@ export default function OurBrands() {
         },
         {
           name: "Sushi Heaven",
-          description:
-            "The Art of Japanese Cuisine - Sushi Haven Our chefs craft each sushi roll with the freshest ingredients, honoring centuries of Japanese culinary artistry.",
-          tagline: "Sushi is not just food; it's an art form. - Sushi Haven",
+          description: t("ourBrands.sushiHeaven"),
+          tagline: t("ourBrands.sushiHeavenTagLine"),
           routePath: "sushiHeaven",
           mainImage: sushi01,
           subImage: sushi02,
@@ -134,9 +130,8 @@ export default function OurBrands() {
         },
         {
           name: "Fajita Friends",
-          description:
-            "Mexican Cuisine! Fajita Friends Enjoy sizzling, fresh tacos, and refreshing margaritas in a vibrant, we bring the bold tastes of Mexico to your table!",
-          tagline: "Spice up your life with the flavors of Mexico!",
+          description: t("ourBrands.fajithaFriends"),
+          tagline: t("ourBrands.fajithaFriendsTagLine"),
           routePath: "fajithaFriends",
           mainImage: fajithaFriends01,
           subImage: fajithaFriends02,
@@ -144,9 +139,8 @@ export default function OurBrands() {
         },
         {
           name: "O! Momos",
-          description:
-            "The Art of Japanese Cuisine - Sushi Haven Our chefs craft each sushi roll with the freshest ingredients, honoring centuries of Japanese culinary artistry.",
-          tagline: "Sushi is not just food; it's an art form. – Sushi Haven",
+          description: t("ourBrands.omomos"),
+          tagline: t("ourBrands.omomosTagLine"),
           routePath: "oMomos",
           mainImage: momos01,
           subImage: momos02,

@@ -1,10 +1,55 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import spicyChicken from "../../assets/kingsKurry/spicyChicken.png";
-import garlicNaan from "../../assets/kingsKurry/garlicNaan.png";
-import chickenTikka from "../../assets/kingsKurry/chickenTikka.png";
-import butterChicken from "../../assets/kingsKurry/butterChicken.png";
+// import chickenTikka from "../../assets/kingsKurry/chickenTikka.png";
+// import butterChicken from "../../assets/kingsKurry/butterChicken.png";
+// import chickenCurry from "../../assets/kingsKurry/chickenCurry.png";
+
+import chickenTikkaImg from "../../foodImgs/chickenTIkkaMasala.JPG";
+import butterChickenImg from "../../foodImgs/butterChickenMasala.WEBP";
+import chickenMadras from "../../foodImgs/madrasChicken.png";
+import chickenVindaloo from "../../foodImgs/chickenVindaloo.WEBP";
+import malabarPrawn from "../../foodImgs/prawnCurry.WEBP";
+import paneerButter from "../../foodImgs/paneerButter.JPG";
+import mixVegMasala from "../../foodImgs/mixVegMasala.png";
+import dhalMakani from "../../foodImgs/dalMakhani.JPG";
 import chickenCurry from "../../assets/kingsKurry/chickenCurry.png";
+import vegSamosa from "../../foodImgs/vegSamosa.JPG";
+import fruhlingsrolle from "../../foodImgs/fruhilibgsrolle.jpg";
+import pommesFruits from "../../foodImgs/pommesFrites.JPG";
+import chickenNuggets from "../../foodImgs/chickenNiggets.JPG";
+import chickenWings from "../../foodImgs/chickenWings.JPG";
+import onionRings from "../../foodImgs/onionRings.JPG";
+import mixedSnackBox from "../../foodImgs/mixVegMasala.png";
+import tamarindChutney from "../../foodImgs/tamarindChutney.JPG";
+import sweetMangoChutney from "../../foodImgs/sweetMangoChutney.JPG";
+import mayonnise from "../../foodImgs/mayonnaise.JPG";
+import natureNaan from "../../foodImgs/natureNaan.JPG";
+import currySauce from "../../foodImgs/currySauce.JPG";
+import garlicNaan from "../../assets/kingsKurry/garlicNaan.png";
+import butterNaan from "../../foodImgs/butterNaan.JPG";
+import vanila from "../../foodImgs/movenPickVanilla.WEBP";
+import chocolate from "../../foodImgs/movenPickChocolate.WEBP";
+import caramel from "../../foodImgs/movenPickcaramelIceCream.WEBP";
+import gulabJamun from "../../foodImgs/gulabJamun.JPG";
+import sweetChilliSauce from "../../foodImgs/sweetChilliSauce.jpg";
+import sauce from "../../foodImgs/sauce.jpg";
+import basmathi from "../../foodImgs/basmathi.jpg";
+import spicyFinger from "../../foodImgs/friedFingers.jpg";
+import ketchup from "../../foodImgs/ketchup.jpg";
+import tiramisu from "../../foodImgs/tiramisu.jpg";
+import kingFisher from "../../foodImgs/kingFisher.jpg";
+import feldschlossen from "../../foodImgs/feldschlossen.jpg";
+import hauseweinWeissChardonnay from "../../foodImgs/hauseweinWeissChardonnay.jpg";
+import hauseweinRotPrimitivo from "../../foodImgs/hauseweinRotPrimitivo.jpg";
+import hausGetranke from "../../foodImgs/hausGetranke.jpg";
+import cocacola from "../../foodImgs/cocacola.jpg";
+import cocacolazero from "../../foodImgs/cocacolazero.jpg";
+import fantaOrange from "../../foodImgs/fantaOrange.jpg";
+import rivellaRot from "../../foodImgs/rivellaRot.jpg";
+import rivellaBlau from "../../foodImgs/rivellaBlau.jpg";
+import iceTeaLemon from "../../foodImgs/iceTeaLemon.jpg";
+import mineralwasserOhne from "../../foodImgs/mineralwasserOhne.jpg";
 
 import ProductDetailsModal from "../../pages/ProductDetailsModal/ProductDetailsModal";
 
@@ -12,10 +57,14 @@ import "./restroMenu.css";
 import { ShoppingCart } from "lucide-react";
 import ProductsModalLatest from "../../pages/ProductsModalLatest/ProductsModalLatest";
 
+import { useTranslation } from "react-i18next";
+
 export default function RestroMenu() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const routePath = params.get("routePath");
+
+  const { t } = useTranslation("global");
 
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,7 +86,7 @@ export default function RestroMenu() {
     {
       id: 1,
       price: "32.90 CHF",
-      image: spicyChicken,
+      image: chickenTikkaImg,
       name: "CHICKEN TIKKA MASALA mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
@@ -49,7 +98,7 @@ export default function RestroMenu() {
     {
       id: 2,
       price: "32.90 CHF",
-      image: spicyChicken,
+      image: butterChickenImg,
       name: "BUTTER CHICKEN mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
@@ -61,7 +110,7 @@ export default function RestroMenu() {
     {
       id: 3,
       price: "31.90 CHF",
-      image: spicyChicken,
+      image: chickenMadras,
       name: "CHICKEN MADRAS mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
@@ -73,7 +122,7 @@ export default function RestroMenu() {
     {
       id: 4,
       price: "33.90 CHF",
-      image: spicyChicken,
+      image: chickenVindaloo,
       name: "CHICKEN VINDALOO mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
@@ -84,7 +133,7 @@ export default function RestroMenu() {
     {
       id: 5,
       price: "33.90 CHF",
-      image: spicyChicken,
+      image: malabarPrawn,
       name: "MALABAR PRAWN CURRY mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
@@ -97,8 +146,8 @@ export default function RestroMenu() {
     {
       id: 6,
       price: "32.90 CHF",
-      image: spicyChicken,
-      name: "PANEER BUTTER MASALA mit Reis",
+      image: paneerButter,
+      name: "PANEER BUTTER MASALA mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
       mainCategory: "VEGETARISCH- HAUPTGANG",
@@ -109,7 +158,7 @@ export default function RestroMenu() {
     {
       id: 7,
       price: "31.90 CHF",
-      image: spicyChicken,
+      image: mixVegMasala,
       name: "MIX VEG. MASALA mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
@@ -120,8 +169,8 @@ export default function RestroMenu() {
     {
       id: 8,
       price: "31.90 CHF",
-      image: spicyChicken,
-      name: "DAL MAKHANI mit Reis",
+      image: dhalMakani,
+      name: "DAL MAKHANI mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
       mainCategory: "VEGETARISCH- HAUPTGANG",
@@ -132,7 +181,7 @@ export default function RestroMenu() {
     {
       id: 9,
       price: "30.90 CHF",
-      image: spicyChicken,
+      image: chickenCurry,
       name: "PLANTED CHICKEN CURRY mit Reis",
       postalCode: "8052",
       category: "HAUPTSPEISEN",
@@ -144,7 +193,7 @@ export default function RestroMenu() {
     {
       id: 10,
       price: "5.00 CHF",
-      image: spicyChicken,
+      image: vegSamosa,
       name: "VEGETABLE SAMOSA’S  1stk",
       postalCode: "8052",
       category: "SNACKS",
@@ -156,7 +205,7 @@ export default function RestroMenu() {
     {
       id: 11,
       price: "5.00 CHF",
-      image: spicyChicken,
+      image: fruhlingsrolle,
       name: "FRÜHLINGSROLLE  1 stk",
       postalCode: "8052",
       category: "SNACKS",
@@ -167,7 +216,7 @@ export default function RestroMenu() {
     {
       id: 12,
       price: "9.00 CHF",
-      image: spicyChicken,
+      image: pommesFruits,
       name: "POMMES FRITES",
       postalCode: "8052",
       category: "SNACKS",
@@ -178,7 +227,7 @@ export default function RestroMenu() {
     {
       id: 13,
       price: "12.00 CHF",
-      image: spicyChicken,
+      image: chickenNuggets,
       name: "CHICKEN NUGGETS 8 Stk",
       postalCode: "8052",
       category: "SNACKS",
@@ -189,7 +238,7 @@ export default function RestroMenu() {
     {
       id: 14,
       price: "18.00 CHF",
-      image: spicyChicken,
+      image: chickenWings,
       name: "CHICKEN WINGS 9 stk",
       postalCode: "8052",
       category: "SNACKS",
@@ -200,7 +249,7 @@ export default function RestroMenu() {
     {
       id: 15,
       price: "9.00 CHF",
-      image: spicyChicken,
+      image: onionRings,
       name: "ONION RINGS 6 stk",
       postalCode: "8052",
       category: "SNACKS",
@@ -211,7 +260,7 @@ export default function RestroMenu() {
     {
       id: 16,
       price: "15.90 CHF",
-      image: spicyChicken,
+      image: spicyFinger,
       name: "CRISPY CHICKEN FINGERS 8 stk",
       postalCode: "8052",
       category: "SNACKS",
@@ -222,7 +271,7 @@ export default function RestroMenu() {
     {
       id: 17,
       price: "20.90 CHF",
-      image: spicyChicken,
+      image: mixedSnackBox,
       name: "MIXED SNACKS BOX",
       postalCode: "8052",
       category: "SNACKS",
@@ -234,139 +283,387 @@ export default function RestroMenu() {
     {
       id: 18,
       price: "2.50 CHF",
-      image: spicyChicken,
+      image: currySauce,
       name: "CURRY SAUCE",
       postalCode: "8052",
       category: "SAUCEN / TIP",
       mainCategory: "DIPS",
-      description: "3 X ONION RINGS , 3 X VEG SAMOSA, 3 X CRISPY CHICKEN",
+      description: "-",
       rating: 5,
     },
     {
       id: 19,
       price: "2.50 CHF",
-      image: spicyChicken,
+      image: sauce,
       name: "GARLIC SAUCE ",
       postalCode: "8052",
       category: "SAUCEN / TIP",
       mainCategory: "DIPS",
-      description: "3 X ONION RINGS , 3 X VEG SAMOSA, 3 X CRISPY CHICKEN",
+      description: "-",
       rating: 5,
     },
     {
       id: 20,
       price: "2.50 CHF",
-      image: spicyChicken,
+      image: sweetChilliSauce,
       name: "SWEET CHILLY SAUCE",
       postalCode: "8052",
       category: "SAUCEN / TIP",
       mainCategory: "DIPS",
-      description: "3 X ONION RINGS , 3 X VEG SAMOSA, 3 X CRISPY CHICKEN",
+      description: "-",
       rating: 5,
     },
     {
       id: 21,
       price: "2.50 CHF",
-      image: spicyChicken,
+      image: tamarindChutney,
       name: "TAMARIND SAUCE",
       postalCode: "8052",
       category: "SAUCEN / TIP",
       mainCategory: "DIPS",
-      description: "3 X ONION RINGS , 3 X VEG SAMOSA, 3 X CRISPY CHICKEN",
+      description: "-",
       rating: 5,
     },
     {
       id: 22,
       price: "2.50 CHF",
-      image: spicyChicken,
+      image: sweetMangoChutney,
       name: "SWEET MANGO CHUTNEY",
       postalCode: "8052",
       category: "SAUCEN / TIP",
       mainCategory: "DIPS",
-      description: "3 X ONION RINGS , 3 X VEG SAMOSA, 3 X CRISPY CHICKEN",
+      description: "-",
       rating: 5,
     },
     {
       id: 23,
       price: "2.00 CHF",
-      image: spicyChicken,
+      image: ketchup,
       name: "KETCHUP",
       postalCode: "8052",
       category: "SAUCEN / TIP",
       mainCategory: "DIPS",
-      description: "3 X ONION RINGS , 3 X VEG SAMOSA, 3 X CRISPY CHICKEN",
+      description: "-",
       rating: 5,
     },
     {
       id: 24,
       price: "2.00 CHF",
-      image: spicyChicken,
+      image: mayonnise,
       name: "MAYONNAISE",
       postalCode: "8052",
       category: "SAUCEN / TIP",
       mainCategory: "DIPS",
-      description: "3 X ONION RINGS , 3 X VEG SAMOSA, 3 X CRISPY CHICKEN",
+      description: "-",
+      rating: 5,
+    },
+
+    // BEILAGEN
+    {
+      id: 25,
+      price: "5.00 CHF",
+      image: natureNaan,
+      name: "NATURE NAAN",
+      postalCode: "8052",
+      category: "BEILAGEN",
+      mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
+      description: "Fladen Brot- Natur",
+      rating: 5,
+    },
+    {
+      id: 26,
+      price: "7.00 CHF",
+      image: garlicNaan,
+      name: "GARLIC NAAN",
+      postalCode: "8052",
+      category: "BEILAGEN",
+      mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
+      description: "Fladen Brot mit Knoblauch",
+      rating: 5,
+    },
+    {
+      id: 27,
+      price: "6.00 CHF",
+      image: butterNaan,
+      name: "BUTTER NAAN",
+      postalCode: "8052",
+      category: "BEILAGEN",
+      mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
+      description: "Fladen Brot- mit Butter",
+      rating: 5,
+    },
+    {
+      id: 28,
+      price: "5.00 CHF",
+      image: basmathi,
+      name: "BASMATI RICE ",
+      postalCode: "8052",
+      category: "BEILAGEN",
+      mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
+      description: "Natur Reis",
+      rating: 5,
+    },
+    // DESSERTS
+    {
+      id: 29,
+      price: "6.90 CHF",
+      image: caramel,
+      name: "MÖVENPICK CARAMEL ICECREAM ",
+      postalCode: "8052",
+      category: "DESSERTS",
+      mainCategory: "DESSERTS",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 30,
+      price: "6.90 CHF",
+      image: vanila,
+      name: "MÖVENPICK VANILLA ICECREAM ",
+      postalCode: "8052",
+      category: "DESSERTS",
+      mainCategory: "DESSERTS",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 31,
+      price: "6.90 CHF",
+      image: chocolate,
+      name: "MÖVENPICK CHOCOLATE ICECREAM ",
+      postalCode: "8052",
+      category: "DESSERTS",
+      mainCategory: "DESSERTS",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 32,
+      price: "9.90 CHF",
+      image: gulabJamun,
+      name: "GULAB JAMUN ",
+      postalCode: "8052",
+      category: "DESSERTS",
+      mainCategory: "DESSERTS",
+      description:
+        "Milchbällchen in Kardamom Saffran Rosen -Sirup getaucht 2 Stücke",
+      rating: 5,
+    },
+    {
+      id: 33,
+      price: "9.90 CHF",
+      image: tiramisu,
+      name: "TIRAMISU ",
+      postalCode: "8052",
+      category: "DESSERTS",
+      mainCategory: "DESSERTS",
+      description: "-",
+      rating: 5,
+    },
+    // GETRÄNKE MIT ALKOHOL
+    {
+      id: 33,
+      price: "7.5 CHF",
+      image: kingFisher,
+      name: "INDIA BEER- KINGFISHER ",
+      postalCode: "8052",
+      category: "BIER 3.33 dl",
+      mainCategory: "GETRÄNKE MIT ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 33,
+      price: "6.5 CHF",
+      image: feldschlossen,
+      name: "Feldschlössen ORIGINAL ",
+      postalCode: "8052",
+      category: "BIER 3.33 dl",
+      mainCategory: "GETRÄNKE MIT ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 33,
+      price: "25 CHF",
+      image: hauseweinWeissChardonnay,
+      name: "Hausewein Weiss Chardonnay ",
+      postalCode: "8052",
+      category: "WEINE 5dl",
+      mainCategory: "GETRÄNKE MIT ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 33,
+      price: "25 CHF",
+      image: hauseweinRotPrimitivo,
+      name: "Hausewein Rot  Primitivo ",
+      postalCode: "8052",
+      category: "WEINE 5dl",
+      mainCategory: "GETRÄNKE MIT ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    // GETRÄNKE OHNE ALKOHOL
+    {
+      id: 34,
+      price: "7.9 CHF",
+      image: hausGetranke,
+      name: "MANGO LASSI 3 DL ",
+      postalCode: "8052",
+      category: "HAUS GETRÄNKE ",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "Mango mit Joghurt und Kardamon",
+      rating: 5,
+    },
+    {
+      id: 35,
+      price: "9.9 CHF",
+      image: hausGetranke,
+      name: "MANGO LASSI 5 DL ",
+      postalCode: "8052",
+      category: "HAUS GETRÄNKE ",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "Mango mit Joghurt und Kardamon",
+      rating: 5,
+    },
+    {
+      id: 36,
+      price: "4.5 CHF",
+      image: cocacola,
+      name: "5 dl pet ",
+      postalCode: "8052",
+      category: "Coca Cola",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 37,
+      price: "4.5 CHF",
+      image: cocacolazero,
+      name: "5 dl pet ",
+      postalCode: "8052",
+      category: "Cola-Cola ZERO ",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 38,
+      price: "4.5 CHF",
+      image: fantaOrange,
+      name: "5 dl pet ",
+      postalCode: "8052",
+      category: "Fanta Orange ",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 39,
+      price: "4.5 CHF",
+      image: rivellaRot,
+      name: "5 dl pet ",
+      postalCode: "8052",
+      category: "Rivella Rot",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 40,
+      price: "4.5 CHF",
+      image: rivellaBlau,
+      name: "5 dl pet ",
+      postalCode: "8052",
+      category: "Rivella Blau",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 41,
+      price: "4.5 CHF",
+      image: iceTeaLemon,
+      name: "5 dl pet ",
+      postalCode: "8052",
+      category: "Ice Tea Lemon",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "-",
+      rating: 5,
+    },
+    {
+      id: 42,
+      price: "4.5 CHF",
+      image: mineralwasserOhne,
+      name: "5 dl pet ",
+      postalCode: "8052",
+      category: "Mineralwasser mit  Kohlensäure",
+      mainCategory: "GETRÄNKE OHNE ALKOHOL",
+      description: "-",
       rating: 5,
     },
   ];
 
-  const menuItems = [
-    {
-      id: 1,
-      name: "Spicy Chicken",
-      price: "120 CHF",
-      image: spicyChicken,
-      postalCode: "8052",
-      category: "Fast Food",
-      description:
-        "A fiery and flavorful chicken dish marinated with spices and grilled to perfection.",
-      rating: 4.5,
-    },
-    {
-      id: 2,
-      name: "Garlic Naan",
-      price: "50 CHF",
-      image: garlicNaan,
-      postalCode: "8052",
-      category: "Dining",
-      description:
-        "Soft and fluffy naan infused with fresh garlic and butter, perfect for pairing with curries.",
-      rating: 4.7,
-    },
-    {
-      id: 3,
-      name: "Chicken Tikka",
-      price: "140 CHF",
-      image: chickenTikka,
-      postalCode: "8052",
-      category: "Grill",
-      description:
-        "Tender, juicy chicken pieces marinated in yogurt and spices, then grilled to perfection.",
-      rating: 4.6,
-    },
-    {
-      id: 4,
-      name: "Butter Chicken",
-      price: "130 CHF",
-      image: butterChicken,
-      postalCode: "8052",
-      category: "Dining",
-      description:
-        "A rich and creamy tomato-based curry with succulent pieces of chicken.",
-      rating: 4.8,
-    },
-    {
-      id: 5,
-      name: "Chicken Curry",
-      price: "125 CHF",
-      image: chickenCurry,
-      postalCode: "8052",
-      category: "Homestyle",
-      description:
-        "A traditional Indian chicken curry made with aromatic spices and slow-cooked to perfection.",
-      rating: 4.4,
-    },
-  ];
+  // const menuItems = [
+  //   {
+  //     id: 1,
+  //     name: "Spicy Chicken",
+  //     price: "120 CHF",
+  //     image: spicyChicken,
+  //     postalCode: "8052",
+  //     category: "Fast Food",
+  //     description:
+  //       "A fiery and flavorful chicken dish marinated with spices and grilled to perfection.",
+  //     rating: 4.5,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Garlic Naan",
+  //     price: "50 CHF",
+  //     image: garlicNaan,
+  //     postalCode: "8052",
+  //     category: "Dining",
+  //     description:
+  //       "Soft and fluffy naan infused with fresh garlic and butter, perfect for pairing with curries.",
+  //     rating: 4.7,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Chicken Tikka",
+  //     price: "140 CHF",
+  //     image: chickenTikka,
+  //     postalCode: "8052",
+  //     category: "Grill",
+  //     description:
+  //       "Tender, juicy chicken pieces marinated in yogurt and spices, then grilled to perfection.",
+  //     rating: 4.6,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Butter Chicken",
+  //     price: "130 CHF",
+  //     image: butterChicken,
+  //     postalCode: "8052",
+  //     category: "Dining",
+  //     description:
+  //       "A rich and creamy tomato-based curry with succulent pieces of chicken.",
+  //     rating: 4.8,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Chicken Curry",
+  //     price: "125 CHF",
+  //     image: chickenCurry,
+  //     postalCode: "8052",
+  //     category: "Homestyle",
+  //     description:
+  //       "A traditional Indian chicken curry made with aromatic spices and slow-cooked to perfection.",
+  //     rating: 4.4,
+  //   },
+  // ];
 
   const filteredItems = menuItem.filter(
     (item) =>
@@ -488,7 +785,7 @@ export default function RestroMenu() {
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-full rounded-lg"
+                        className="w-full h-[160px] object-cover rounded-lg"
                       />
                       {isItemInCart(item.id) && (
                         <div className="absolute top-2 right-2">

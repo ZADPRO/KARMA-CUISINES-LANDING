@@ -63,6 +63,28 @@
         "step4Cont": "Profitiere von unserer kontinuierlichen Unterstützung, Einblicken und Marketingmaßnahmen, um den Umsatz und die Kundenbindung zu steigern."
     },
     "ourBrands": {
-        "ourBrandsHeader": "Unsere Marken !!!"
+        "ourBrandsHeader": "Unsere Marken !!!",
+        "kingsKurry": "Indische Küche, Kings Kurry - wo wir die königlichen Aromen Indiens auf Ihren Tisch bringen! Unser Menü bietet authentische indische Gerichte, von sizzling Tandoori bis hin zu reichhaltigen Currys, zubereitet mit den feinsten Gewürzen und Zutaten.",
+        "kingsKurryTagLine": "Genießen Sie den königlichen Geschmack Indiens in jedem Bissen.",
+        "banThai": "Thailändische Küche, Ban Thai - Unser Menü feiert die lebendigen und intensiven Aromen Thailands, von würzigen Currys bis hin zu frischen, pikanten Salaten, alle zubereitet mit den besten Zutaten und aromatischen Gewürzen.",
+        "banThaiTagLine": "Genießen Sie die reichen, authentischen Aromen Thailands direkt an Ihrem Tisch.",
+        "sushiHeaven": "Die Kunst der japanischen Küche - Sushi Heaven. Unsere Köche kreieren jede Sushi-Rolle mit den frischesten Zutaten und ehren damit jahrhundertealte japanische Kochkunst.",
+        "sushiHeavenTagLine": "Sushi ist nicht nur Essen, sondern eine Kunstform.",
+        "fajithaFriends": "Mexikanische Küche! Fajita Friends – Genießen Sie brutzelnde, frische Tacos und erfrischende Margaritas in einer lebhaften Atmosphäre. Wir bringen die kühnen Aromen Mexikos direkt auf Ihren Tisch!",
+        "fajithaFriendsTagLine": "Bringen Sie Würze in Ihr Leben mit den Aromen Mexikos!",
+        "omomos": "Köstlich weich und voller Geschmack – unsere Momos sind mit Perfektion handgefertigt und bringen Ihnen den authentischen Geschmack des Himalayas.",
+        "omomosTagLine": "Perfekt gedämpft, voller Geschmack!"
+    },
+    "footerCont": {
+        "footerContent": "Erfahren Sie als Erster von unseren besonderen Events und aktuellen Veranstaltungen!",
+        "connectWithUs": "KONTAKTIEREN SIE UNS",
+        "home": "Home",
+        "about": "About",
+        "ourBrand": "Our Brand",
+        "beOurPartner": "Be Our Partner",
+        "getInTouch": "Nehmen Sie Kontakt auf",
+        "email": "E-Mail",
+        "address": "Adresse",
+        "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zürich, Schweiz."
     }
 }

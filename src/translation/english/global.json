@@ -63,6 +63,28 @@
         "step4Cont": "Benefit from our continuous support, insights, and marketing efforts to drive sales and customer engagement."
     },
     "ourBrands": {
-        "ourBrandsHeader": "Our Brands !!!"
+        "ourBrandsHeader": "Our Brands !!!",
+        "kingsKurry": "Indian cuisine, Kings Kurry - where we bring the royal flavors of India to your table! Our menu features authentic Indian dishes, from sizzling tandoori to rich curries made with the finest spices and ingredients.",
+        "kingsKurryTagLine": "Savor the royal taste of India in every bite.",
+        "banThai": "Thai cuisine, Ban Thai - Our menu celebrates the vibrant and bold tastes of Thailand, from spicy curries to fresh, zesty salads, all prepared with the finest ingredients and aromatic spices.",
+        "banThaiTagLine": "Indulge in Thailand's rich, authentic flavors, right at your table.",
+        "sushiHeaven": "The Art of Japanese Cuisine - Sushi Haven Our chefs craft each sushi roll with the freshest ingredients, honoring centuries of Japanese culinary artistry.",
+        "sushiHeavenTagLine": "Sushi is not just food; it's an art form.",
+        "fajithaFriends": "Mexican Cuisine! Fajita Friends Enjoy sizzling, fresh tacos, and refreshing margaritas in a vibrant, we bring the bold tastes of Mexico to your table!",
+        "fajithaFriendsTagLine": "Spice up your life with the flavors of Mexico!",
+        "omomos": "Deliciously soft, bursting with flavors—our momos are handcrafted to perfection, bringing you the authentic taste of the Himalayas.",
+        "omomosTagLine": "Steamed to perfection, filled with flavor!"
+    },
+    "footerCont": {
+        "footerContent": "Be the first to know about our special events, and what's going on !",
+        "connectWithUs": "Connect With Us",
+        "home": "Home",
+        "about": "About",
+        "ourBrand": "Our Brand",
+        "beOurPartner": "Be Our Partner",
+        "getInTouch": "Get In Touch",
+        "email": "Email",
+        "address": "Address",
+        "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zürich Switzerland."
     }
 }
