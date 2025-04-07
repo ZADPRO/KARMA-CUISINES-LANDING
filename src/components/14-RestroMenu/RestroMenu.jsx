@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import spicyChicken from "../../assets/kingsKurry/spicyChicken.png";
+// import spicyChicken from "../../assets/kingsKurry/spicyChicken.png";
 // import chickenTikka from "../../assets/kingsKurry/chickenTikka.png";
 // import butterChicken from "../../assets/kingsKurry/butterChicken.png";
 // import chickenCurry from "../../assets/kingsKurry/chickenCurry.png";
@@ -67,8 +67,8 @@ export default function RestroMenu() {
   const { t } = useTranslation("global");
 
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [postalCodeSearch, setPostalCodeSearch] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [postalCodeSearch, setPostalCodeSearch] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productModalOpen, setProductsModalOpen] = useState(false);
@@ -607,73 +607,15 @@ export default function RestroMenu() {
     },
   ];
 
-  // const menuItems = [
-  //   {
-  //     id: 1,
-  //     name: "Spicy Chicken",
-  //     price: "120 CHF",
-  //     image: spicyChicken,
-  //     postalCode: "8052",
-  //     category: "Fast Food",
-  //     description:
-  //       "A fiery and flavorful chicken dish marinated with spices and grilled to perfection.",
-  //     rating: 4.5,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Garlic Naan",
-  //     price: "50 CHF",
-  //     image: garlicNaan,
-  //     postalCode: "8052",
-  //     category: "Dining",
-  //     description:
-  //       "Soft and fluffy naan infused with fresh garlic and butter, perfect for pairing with curries.",
-  //     rating: 4.7,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Chicken Tikka",
-  //     price: "140 CHF",
-  //     image: chickenTikka,
-  //     postalCode: "8052",
-  //     category: "Grill",
-  //     description:
-  //       "Tender, juicy chicken pieces marinated in yogurt and spices, then grilled to perfection.",
-  //     rating: 4.6,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Butter Chicken",
-  //     price: "130 CHF",
-  //     image: butterChicken,
-  //     postalCode: "8052",
-  //     category: "Dining",
-  //     description:
-  //       "A rich and creamy tomato-based curry with succulent pieces of chicken.",
-  //     rating: 4.8,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Chicken Curry",
-  //     price: "125 CHF",
-  //     image: chickenCurry,
-  //     postalCode: "8052",
-  //     category: "Homestyle",
-  //     description:
-  //       "A traditional Indian chicken curry made with aromatic spices and slow-cooked to perfection.",
-  //     rating: 4.4,
-  //   },
-  // ];
-
-  const filteredItems = menuItem.filter(
-    (item) =>
-      (postalCodeSearch === "" || item.postalCode.includes(postalCodeSearch)) &&
-      (searchTerm === "" ||
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.rating.toString().includes(searchTerm))
-  );
+  // const filteredItems = menuItem.filter(
+  //   (item) =>
+  //     (postalCodeSearch === "" || item.postalCode.includes(postalCodeSearch)) &&
+  //     (searchTerm === "" ||
+  //       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       item.rating.toString().includes(searchTerm))
+  // );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -733,6 +675,17 @@ export default function RestroMenu() {
     setCartItems(savedCartItems);
   };
 
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const uniqueCategories = [
+    "ALL",
+    ...new Set(menuItem.map((item) => item.category)),
+  ];
+
+  const filteredItems =
+    selectedCategory === "ALL"
+      ? menuItem
+      : menuItem.filter((item) => item.category === selectedCategory);
+
   return (
     <div>
       <div className="restroMenuIntroCont flex lg:flex-row flex-col lg:p-7">
@@ -752,7 +705,9 @@ export default function RestroMenu() {
           />
 
           <div className="menuItems py-10 w-full md:w-11/12 mx-auto">
-            <p className="text-2xl font-bold">Our excellent cuisine</p>
+            {/* <p className="text-2xl font-bold">
+              {t("restroMenu.excellentCuisine")}
+            </p>
             <div className="flex lg:flex-row flex-col justify-center items-center w-full md:w-10/12 mx-auto">
               <div className="relative lg:my-6 my-3 mx-3 lg:w-4/12 ">
                 <input
@@ -772,9 +727,81 @@ export default function RestroMenu() {
                   className="h-12 w-full rounded border px-4 text-slate-500 outline-none focus:border-[#cd5c08]"
                 />
               </div>
+            </div> */}
+            <p className="text-2xl font-bold">
+              {t("restroMenu.excellentCuisine")}
+            </p>
+
+            <div className="p-4 max-w-4xl mx-auto">
+              {/* Category Buttons */}
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                {uniqueCategories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded border ${
+                      selectedCategory === category
+                        ? "bg-orange-600 text-white"
+                        : "bg-white text-gray-800 border-gray-300"
+                    } hover:bg-orange-500 hover:text-white transition-all`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+              {/* Menu Items */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredItems.length > 0 ? (
+                  filteredItems.map((item) => (
+                    <div
+                      key={item.id}
+                      className="cartItemContents relative group"
+                    >
+                      <div
+                        className="relative overflow-hidden rounded-lg shadow-md cursor-pointer"
+                        onClick={() => toggleModal(item)}
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-[160px] object-cover rounded-lg"
+                        />
+                        {isItemInCart(item.id) && (
+                          <div className="absolute top-2 right-2">
+                            <ShoppingCart
+                              size={32}
+                              className="text-white bg-[#4f391d] rounded-full p-2"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div
+                        className="foodContents text-center mt-2 cursor-pointer"
+                        onClick={() => toggleModal(item)}
+                      >
+                        <p className="text-sm font-semibold line-clamp-1">
+                          {item.name}
+                        </p>
+                        <p className="text-gray-600">{item.price}</p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-center text-gray-500 col-span-full">
+                    No items match your search.
+                  </p>
+                )}
+              </div>
+
+              {filteredItems.length === 0 && (
+                <p className="text-center text-gray-500 mt-4">
+                  No items found in this category.
+                </p>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4 lg:mx-24 my-5">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4 lg:mx-24 my-5">
               {filteredItems.length > 0 ? (
                 filteredItems.map((item, index) => (
                   <div key={index} className="cartItemContents relative group">
@@ -812,7 +839,7 @@ export default function RestroMenu() {
                   No items match your search.
                 </p>
               )}
-            </div>
+            </div> */}
           </div>
         </>
       ) : (

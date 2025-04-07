@@ -186,7 +186,7 @@ export default function OurBrands() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              View Menu
+              {t("restroMenu.orderNow")}
             </button>
           </div>
         </div>

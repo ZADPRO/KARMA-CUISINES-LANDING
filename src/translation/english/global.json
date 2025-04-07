@@ -86,5 +86,9 @@
         "email": "Email",
         "address": "Address",
         "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zürich Switzerland."
+    },
+    "restroMenu": {
+        "excellentCuisine": "Our excellent cuisine",
+        "orderNow": "Order Now"
     }
 }

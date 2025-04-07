@@ -86,5 +86,9 @@
         "email": "Courriel ",
         "address": "Adresse ",
         "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zurich, Suisse."
+    },
+    "restroMenu": {
+        "excellentCuisine": "Notre excellente cuisine",
+        "orderNow": "Commander maintenant"
     }
 }
