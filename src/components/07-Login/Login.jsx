@@ -22,36 +22,6 @@ export default function Login() {
     temp_email: "",
   });
 
-  const [otpSent, setOtpSent] = useState(false);
-
-  const handleRequestOtp = (e) => {
-    e.preventDefault();
-    const { email } = signUp; // Use signUp instead of state
-    console.log(`Requesting OTP for email: ${email}`);
-
-    // Show SweetAlert for OTP request
-    Swal.fire({
-      title: "OTP Requested",
-      text: `An OTP has been sent to ${email}`,
-      icon: "success",
-      confirmButtonText: "OK",
-    });
-
-    setOtpSent(true);
-  };
-
-  const handleVerifyOtp = (e) => {
-    e.preventDefault();
-    // Implement OTP verification logic here
-    Swal.fire({
-      title: "OTP Verified",
-      text: "OTP verified successfully.",
-      icon: "success",
-      confirmButtonText: "OK",
-    });
-    // Optionally navigate to login or home
-  };
-
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -164,7 +134,6 @@ export default function Login() {
                       setState({ ...state, login: e.target.value })
                     }
                     required
-                    disabled={otpSent}
                   />
                   <label
                     htmlFor="email"
@@ -185,7 +154,6 @@ export default function Login() {
                       setState({ ...state, password: e.target.value })
                     }
                     required
-                    disabled={otpSent}
                   />
                   <label
                     htmlFor="password"

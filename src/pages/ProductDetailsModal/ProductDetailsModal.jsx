@@ -45,9 +45,12 @@ export default function ProductSidebar({
   }, [isOpen]);
 
   useEffect(() => {
+    console.log("product", product);
     const storedCart = localStorage.getItem("cart");
+
     if (storedCart) {
       const parsedCart = JSON.parse(storedCart);
+      console.log("parsedCart", parsedCart);
       setCart(parsedCart);
 
       // Check if the product is already in the cart
@@ -63,8 +66,10 @@ export default function ProductSidebar({
         setCurrentProduct(product);
       }
     } else {
-      // If no cart exists, set the current product to the incoming product
-      setCurrentProduct(product);
+      if (product) {
+        setCurrentProduct(product);
+        setQuantity(1);
+      }
     }
   }, [product, isOpen]);
 
@@ -88,6 +93,7 @@ export default function ProductSidebar({
   };
 
   const calculateTotalPrice = () => {
+    console.log("currentProduct", currentProduct);
     const price = parseFloat(
       currentProduct.price.replace(" CHF", "").replace(",", ".")
     );

@@ -628,18 +628,30 @@ export default function RestroMenu() {
   }, []);
 
   const toggleModal = (product = null) => {
-    if (isModalOpen) {
-      // Check cart items when closing the modal
+    let mergedProduct = product;
+    if (product) {
       const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      console.log("Cart items count:", savedCartItems.length);
+      const cartItem = savedCartItems.find((item) => item.id === product.id);
+      if (cartItem) {
+        mergedProduct = {
+          ...product,
+          quantity: cartItem.quantity,
+        };
+      } else {
+        mergedProduct = {
+          ...product,
+          quantity: 1,
+        };
+      }
     }
-    setSelectedProduct(product);
+
+    setSelectedProduct(mergedProduct);
     setIsModalOpen((prev) => !prev);
   };
 
   const productToggle = (product = null) => {
-    if (productModalOpen) {
-      // Check cart items when closing the modal
+    let mergedProduct = product;
+    if (product) {
       const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
       console.log("Cart items count:", savedCartItems.length);
     }
@@ -710,8 +722,6 @@ export default function RestroMenu() {
       : cleanedMenuItem.filter(
           (item) => item.mainCategory === selectedCategory
         );
-  console.log("selectedCategory", selectedCategory);
-  console.log("filteredItems", filteredItems);
 
   return (
     <div>

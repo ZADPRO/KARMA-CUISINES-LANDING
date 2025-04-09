@@ -229,15 +229,14 @@ export default function BottomModal({ isOpen, onClose }) {
                         alt={item.name}
                       />
                       <div className="flex flex-col">
-                        <p>{item.name}</p>
+                        <p>
+                          <b>{item.name}</b>
+                        </p>
                         <p>
                           <b>Unit Price:</b> CHF {unitPrice.toFixed(2)}
                         </p>
                         <p>
                           <b>Total:</b> CHF {totalPrice}
-                        </p>
-                        <p>
-                          <b>Rating:</b> {item.ratings}
                         </p>
                         <div className="addItems mt-2 items-center justify-end flex gap-2">
                           <button

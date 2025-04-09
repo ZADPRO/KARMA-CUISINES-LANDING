@@ -148,6 +148,7 @@ export default function ProductsModalLatest({ isOpen, onClose }) {
     if (jwtToken && loginStatus === "true") {
       console.log("User  is authenticated, proceeding to orders page.");
       navigate("/orders", { state: { orders: cartItems } });
+      window.scrollTo(0, 0);
     } else {
       console.log("User  is not authenticated, redirecting to login.");
 
@@ -164,6 +165,7 @@ export default function ProductsModalLatest({ isOpen, onClose }) {
       }
 
       navigate("/login");
+      window.scrollTo(0, 0);
     }
   };
 
@@ -230,7 +232,9 @@ export default function ProductsModalLatest({ isOpen, onClose }) {
                         alt={item.name}
                       />
                       <div className="flex flex-col">
-                        <p>{item.name}</p>
+                        <p>
+                          <b>{item.name}</b>
+                        </p>
                         <p>
                           <b>Unit Price:</b> {item.price}{" "}
                           {/* Use price directly */}
@@ -238,11 +242,7 @@ export default function ProductsModalLatest({ isOpen, onClose }) {
                         <p>
                           <b>Total:</b> CHF {totalPrice}
                         </p>
-                        <p>
-                          <b>Rating:</b> {item.rating}{" "}
-                          {/* Use rating directly */}
-                        </p>
-                        <div className="addItems mt-2 items-center justify-end flex gap-2">
+                        <div className="addItems mt-2 items-center flex gap-2">
                           <button
                             onClick={
                               () => updateCartItemCount(item.id, -1) // Change productId to id
