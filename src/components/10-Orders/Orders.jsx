@@ -125,13 +125,13 @@ export default function Orders() {
   const paymentModel = () => {
     const address = localStorage.getItem("selectedAddress");
     if (address) {
-      const merchantId = "L3348";
+      const merchantId = "KarmaCuisines";
       const txnId = `${Date.now()}`;
       console.log("grandTotal", grandTotal);
       const amount = grandTotal;
       const consumerId = "c964634";
       const currency = "CHF";
-      const secretKey = "7C2F25CEDC36F78C6E52"; // 👈 Use your real webhook/secret key
+      const secretKey = "7C2F25CEDC36F78C6E52";
       console.log("secretKey", secretKey);
 
       generateHash(
@@ -156,6 +156,7 @@ export default function Orders() {
             returnUrl:
               "https://pgproxyuat.in.worldline-solutions.com/linuxsimulator/MerchantResponsePage.jsp",
             responseHandler: (res) => {
+              console.log("res", res);
               const txnStatus =
                 res?.paymentMethod?.paymentTransaction?.statusCode;
               if (txnStatus === "0300") {
@@ -190,7 +191,7 @@ export default function Orders() {
           },
         };
 
-        // Launch Paynimo Checkout
+        console.log("reqJson", reqJson);
         window.$.pnCheckout(reqJson);
         if (reqJson.features.enableNewWindowFlow) {
           window.pnCheckoutShared.openNewWindow();
