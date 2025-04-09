@@ -462,7 +462,7 @@ export default function RestroMenu() {
     },
     // GETRÄNKE MIT ALKOHOL
     {
-      id: 33,
+      id: 34,
       price: "7.5 CHF",
       image: kingFisher,
       name: "INDIA BEER- KINGFISHER ",
@@ -473,7 +473,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 33,
+      id: 35,
       price: "6.5 CHF",
       image: feldschlossen,
       name: "Feldschlössen ORIGINAL ",
@@ -484,7 +484,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 33,
+      id: 36,
       price: "25 CHF",
       image: hauseweinWeissChardonnay,
       name: "Hausewein Weiss Chardonnay ",
@@ -495,7 +495,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 33,
+      id: 37,
       price: "25 CHF",
       image: hauseweinRotPrimitivo,
       name: "Hausewein Rot  Primitivo ",
@@ -507,7 +507,7 @@ export default function RestroMenu() {
     },
     // GETRÄNKE OHNE ALKOHOL
     {
-      id: 34,
+      id: 38,
       price: "7.9 CHF",
       image: hausGetranke,
       name: "MANGO LASSI 3 DL ",
@@ -518,7 +518,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 35,
+      id: 39,
       price: "9.9 CHF",
       image: hausGetranke,
       name: "MANGO LASSI 5 DL ",
@@ -529,7 +529,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 36,
+      id: 40,
       price: "4.5 CHF",
       image: cocacola,
       name: "5 dl pet ",
@@ -540,7 +540,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 37,
+      id: 41,
       price: "4.5 CHF",
       image: cocacolazero,
       name: "5 dl pet ",
@@ -551,7 +551,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 38,
+      id: 42,
       price: "4.5 CHF",
       image: fantaOrange,
       name: "5 dl pet ",
@@ -562,7 +562,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 39,
+      id: 43,
       price: "4.5 CHF",
       image: rivellaRot,
       name: "5 dl pet ",
@@ -573,7 +573,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 40,
+      id: 44,
       price: "4.5 CHF",
       image: rivellaBlau,
       name: "5 dl pet ",
@@ -584,7 +584,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 41,
+      id: 45,
       price: "4.5 CHF",
       image: iceTeaLemon,
       name: "5 dl pet ",
@@ -595,7 +595,7 @@ export default function RestroMenu() {
       rating: 5,
     },
     {
-      id: 42,
+      id: 46,
       price: "4.5 CHF",
       image: mineralwasserOhne,
       name: "5 dl pet ",
@@ -675,16 +675,43 @@ export default function RestroMenu() {
     setCartItems(savedCartItems);
   };
 
-  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  // const [selectedCategory, setSelectedCategory] = useState("ALL");
+  // const uniqueCategories = [
+  //   "ALL",
+  //   ...new Set(menuItem.map((item) => item.mainCategory?.trim().toLowerCase())),
+  // ];
+
+  // const filteredItems =
+  //   selectedCategory === "ALL"
+  //     ? menuItem
+  //     : menuItem.filter(
+  //         (item) =>
+  //           item.mainCategory?.trim().toLowerCase() ===
+  //           selectedCategory.trim().toLowerCase()
+  //       );
+
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const capitalize = (str) =>
+    str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+  const cleanedMenuItem = menuItem.map((item) => ({
+    ...item,
+    mainCategory: item.mainCategory?.trim().toLowerCase() || "others",
+  }));
+
   const uniqueCategories = [
-    "ALL",
-    ...new Set(menuItem.map((item) => item.category)),
+    "all",
+    ...Array.from(new Set(cleanedMenuItem.map((item) => item.mainCategory))),
   ];
 
   const filteredItems =
-    selectedCategory === "ALL"
-      ? menuItem
-      : menuItem.filter((item) => item.category === selectedCategory);
+    selectedCategory === "all"
+      ? cleanedMenuItem
+      : cleanedMenuItem.filter(
+          (item) => item.mainCategory === selectedCategory
+        );
+  console.log("selectedCategory", selectedCategory);
+  console.log("filteredItems", filteredItems);
 
   return (
     <div>
@@ -745,7 +772,7 @@ export default function RestroMenu() {
                         : "bg-white text-gray-800 border-gray-300"
                     } hover:bg-orange-500 hover:text-white transition-all`}
                   >
-                    {category}
+                    {capitalize(category)}
                   </button>
                 ))}
               </div>

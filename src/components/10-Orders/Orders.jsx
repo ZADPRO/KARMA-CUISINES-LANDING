@@ -82,10 +82,89 @@ export default function Orders() {
     setIsModalOpen((prev) => !prev);
   };
 
+  useEffect(() => {
+    // Load Paynimo scripts
+    const scriptJQuery = document.createElement("script");
+    scriptJQuery.src =
+      "https://www.paynimo.com/paynimocheckout/client/lib/jquery.min.js";
+    scriptJQuery.async = true;
+    document.body.appendChild(scriptJQuery);
+
+    const scriptCheckout = document.createElement("script");
+    scriptCheckout.src =
+      "https://www.paynimo.com/paynimocheckout/server/lib/checkout.js";
+    scriptCheckout.async = true;
+    document.body.appendChild(scriptCheckout);
+
+    return () => {
+      document.body.removeChild(scriptJQuery);
+      document.body.removeChild(scriptCheckout);
+    };
+  }, []);
+
   const paymentModel = () => {
     const address = localStorage.getItem("selectedAddress");
     if (address) {
-      setPaymentModule((prev) => !prev);
+      // setPaymentModule((prev) => !prev);
+      const reqJson = {
+        features: {
+          enableAbortResponse: true,
+          enableExpressPay: true,
+          enableInstrumentDeRegistration: true,
+          enableMerTxnDetails: true,
+        },
+        consumerData: {
+          deviceId: "WEBSH2",
+          token: "7B9131076A6D50F744BF",
+          returnUrl:
+            "https://pgproxyuat.in.worldline-solutions.com/linuxsimulator/MerchantResponsePage.jsp",
+          responseHandler: (res) => {
+            if (
+              res &&
+              res.paymentMethod &&
+              res.paymentMethod.paymentTransaction &&
+              res.paymentMethod.paymentTransaction.statusCode === "0300"
+            ) {
+              alert("Payment successful!");
+            } else if (
+              res &&
+              res.paymentMethod &&
+              res.paymentMethod.paymentTransaction &&
+              res.paymentMethod.paymentTransaction.statusCode === "0398"
+            ) {
+              alert("Payment initiated!");
+            } else {
+              alert("Payment failed or cancelled.");
+            }
+          },
+          paymentMode: "all",
+          merchantLogoUrl:
+            "https://www.paynimo.com/CompanyDocs/company-logo-vertical.png",
+          merchantId: "L3348",
+          currency: "CHF",
+          consumerId: "c964634",
+          txnId: `${Date.now()}`, // unique txn ID
+          items: [
+            {
+              itemId: "first",
+              amount: grandTotal, // test amount
+              comAmt: "0",
+            },
+          ],
+          customStyle: {
+            PRIMARY_COLOR_CODE: "#45beaa",
+            SECONDARY_COLOR_CODE: "#FFFFFF",
+            BUTTON_COLOR_CODE_1: "#2d8c8c",
+            BUTTON_COLOR_CODE_2: "#FFFFFF",
+          },
+        },
+      };
+
+      // Call the Paynimo checkout
+      window.$.pnCheckout(reqJson);
+      if (reqJson.features.enableNewWindowFlow) {
+        window.pnCheckoutShared.openNewWindow();
+      }
     } else {
       alert("Please select an address before proceeding to payment.");
     }
