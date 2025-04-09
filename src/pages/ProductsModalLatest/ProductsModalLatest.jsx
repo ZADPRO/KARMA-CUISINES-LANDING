@@ -142,31 +142,31 @@ export default function ProductsModalLatest({ isOpen, onClose }) {
     .toFixed(2);
 
   const handlePlaceOrder = () => {
-    const jwtToken = localStorage.getItem("JWTtoken");
-    const loginStatus = localStorage.getItem("loginStatus");
+    // const jwtToken = localStorage.getItem("JWTtoken");
+    // const loginStatus = localStorage.getItem("loginStatus");
 
-    if (jwtToken && loginStatus === "true") {
-      console.log("User  is authenticated, proceeding to orders page.");
-      navigate("/orders", { state: { orders: cartItems } });
-      window.scrollTo(0, 0);
-    } else {
-      console.log("User  is not authenticated, redirecting to login.");
+    // if (jwtToken && loginStatus === "true") {
+    console.log("User  is authenticated, proceeding to orders page.");
+    navigate("/orders", { state: { orders: cartItems } });
+    window.scrollTo(0, 0);
+    // } else {
+    //   console.log("User  is not authenticated, redirecting to login.");
 
-      const minimizedCart = cartItems.map((item) => ({
-        id: item.id,
-        quantity: item.quantity,
-      }));
+    //   const minimizedCart = cartItems.map((item) => ({
+    //     id: item.id,
+    //     quantity: item.quantity,
+    //   }));
 
-      try {
-        localStorage.setItem("cartItems", JSON.stringify(minimizedCart));
-        localStorage.setItem("fromPlaceOrder", "true");
-      } catch (error) {
-        console.error("Failed to store cart data in localStorage:", error);
-      }
+    //   try {
+    //     localStorage.setItem("cartItems", JSON.stringify(minimizedCart));
+    //     localStorage.setItem("fromPlaceOrder", "true");
+    //   } catch (error) {
+    //     console.error("Failed to store cart data in localStorage:", error);
+    //   }
 
-      navigate("/login");
-      window.scrollTo(0, 0);
-    }
+    //   navigate("/login");
+    //   window.scrollTo(0, 0);
+    // }
   };
 
   return (

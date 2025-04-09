@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentModel from "../../pages/PaymentModel/PaymentModel";
+import CryptoJS from "crypto-js";
 
 const stripePromise = loadStripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
 
@@ -102,72 +103,164 @@ export default function Orders() {
     };
   }, []);
 
+  async function generateHash(
+    merchantId,
+    txnId,
+    amount,
+    consumerId,
+    currency,
+    secretKey
+  ) {
+    const inputString = `${merchantId}${txnId}${amount}${consumerId}${currency}${secretKey}`;
+    const encoder = new TextEncoder();
+    const data = encoder.encode(inputString);
+    const hashBuffer = await crypto.subtle.digest("SHA-512", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+    return hashHex;
+  }
+
   const paymentModel = () => {
     const address = localStorage.getItem("selectedAddress");
     if (address) {
-      // setPaymentModule((prev) => !prev);
-      const reqJson = {
-        features: {
-          enableAbortResponse: true,
-          enableExpressPay: true,
-          enableInstrumentDeRegistration: true,
-          enableMerTxnDetails: true,
-        },
-        consumerData: {
-          deviceId: "WEBSH2",
-          token: "7B9131076A6D50F744BF",
-          returnUrl:
-            "https://pgproxyuat.in.worldline-solutions.com/linuxsimulator/MerchantResponsePage.jsp",
-          responseHandler: (res) => {
-            if (
-              res &&
-              res.paymentMethod &&
-              res.paymentMethod.paymentTransaction &&
-              res.paymentMethod.paymentTransaction.statusCode === "0300"
-            ) {
-              alert("Payment successful!");
-            } else if (
-              res &&
-              res.paymentMethod &&
-              res.paymentMethod.paymentTransaction &&
-              res.paymentMethod.paymentTransaction.statusCode === "0398"
-            ) {
-              alert("Payment initiated!");
-            } else {
-              alert("Payment failed or cancelled.");
-            }
-          },
-          paymentMode: "all",
-          merchantLogoUrl:
-            "https://www.paynimo.com/CompanyDocs/company-logo-vertical.png",
-          merchantId: "L3348",
-          currency: "CHF",
-          consumerId: "c964634",
-          txnId: `${Date.now()}`, // unique txn ID
-          items: [
-            {
-              itemId: "first",
-              amount: grandTotal, // test amount
-              comAmt: "0",
-            },
-          ],
-          customStyle: {
-            PRIMARY_COLOR_CODE: "#45beaa",
-            SECONDARY_COLOR_CODE: "#FFFFFF",
-            BUTTON_COLOR_CODE_1: "#2d8c8c",
-            BUTTON_COLOR_CODE_2: "#FFFFFF",
-          },
-        },
-      };
+      const merchantId = "L3348";
+      const txnId = `${Date.now()}`;
+      console.log("grandTotal", grandTotal);
+      const amount = grandTotal;
+      const consumerId = "c964634";
+      const currency = "CHF";
+      const secretKey = "7C2F25CEDC36F78C6E52"; // 👈 Use your real webhook/secret key
+      console.log("secretKey", secretKey);
 
-      // Call the Paynimo checkout
-      window.$.pnCheckout(reqJson);
-      if (reqJson.features.enableNewWindowFlow) {
-        window.pnCheckoutShared.openNewWindow();
-      }
+      generateHash(
+        merchantId,
+        txnId,
+        amount,
+        consumerId,
+        currency,
+        secretKey
+      ).then((signature) => {
+        console.log("signature", signature);
+        const reqJson = {
+          features: {
+            enableAbortResponse: true,
+            enableExpressPay: true,
+            enableInstrumentDeRegistration: true,
+            enableMerTxnDetails: true,
+          },
+          consumerData: {
+            deviceId: "WEBSH2",
+            token: "7C2F25CEDC36F78C6E52",
+            returnUrl:
+              "https://pgproxyuat.in.worldline-solutions.com/linuxsimulator/MerchantResponsePage.jsp",
+            responseHandler: (res) => {
+              const txnStatus =
+                res?.paymentMethod?.paymentTransaction?.statusCode;
+              if (txnStatus === "0300") {
+                alert("✅ Payment successful!");
+              } else if (txnStatus === "0398") {
+                alert("⚠️ Payment initiated.");
+              } else {
+                alert("❌ Payment failed or cancelled.");
+              }
+            },
+            paymentMode: "all",
+            merchantLogoUrl:
+              "https://www.paynimo.com/CompanyDocs/company-logo-vertical.png",
+            merchantId,
+            currency,
+            consumerId,
+            txnId,
+            items: [
+              {
+                itemId: "first",
+                amount,
+                comAmt: "0",
+              },
+            ],
+            signature, // 👈 VERY IMPORTANT
+            customStyle: {
+              PRIMARY_COLOR_CODE: "#45beaa",
+              SECONDARY_COLOR_CODE: "#FFFFFF",
+              BUTTON_COLOR_CODE_1: "#2d8c8c",
+              BUTTON_COLOR_CODE_2: "#FFFFFF",
+            },
+          },
+        };
+
+        // Launch Paynimo Checkout
+        window.$.pnCheckout(reqJson);
+        if (reqJson.features.enableNewWindowFlow) {
+          window.pnCheckoutShared.openNewWindow();
+        }
+      });
     } else {
       alert("Please select an address before proceeding to payment.");
     }
+
+    // if (address) {
+    //   const reqJson = {
+    //     features: {
+    //       enableAbortResponse: true,
+    //       enableExpressPay: true,
+    //       enableInstrumentDeRegistration: true,
+    //       enableMerTxnDetails: true,
+    //     },
+    //     consumerData: {
+    //       deviceId: "WEBSH2",
+    //       token: "7B9131076A6D50F744BF",
+    //       responseHandler: (res) => {
+    //         if (
+    //           res &&
+    //           res.paymentMethod &&
+    //           res.paymentMethod.paymentTransaction &&
+    //           res.paymentMethod.paymentTransaction.statusCode === "0300"
+    //         ) {
+    //           alert("Payment successful!");
+    //         } else if (
+    //           res &&
+    //           res.paymentMethod &&
+    //           res.paymentMethod.paymentTransaction &&
+    //           res.paymentMethod.paymentTransaction.statusCode === "0398"
+    //         ) {
+    //           alert("Payment initiated!");
+    //         } else {
+    //           alert("Payment failed or cancelled.");
+    //         }
+    //       },
+    //       paymentMode: "all",
+    //       merchantLogoUrl:
+    //         "https://www.paynimo.com/CompanyDocs/company-logo-vertical.png",
+    //       merchantId: "L3348",
+    //       currency: "CHF",
+    //       consumerId: "c964634",
+    //       txnId: `${Date.now()}`, // unique txn ID
+    //       items: [
+    //         {
+    //           itemId: "first",
+    //           amount: grandTotal, // test amount
+    //           comAmt: "0",
+    //         },
+    //       ],
+    //       customStyle: {
+    //         PRIMARY_COLOR_CODE: "#45beaa",
+    //         SECONDARY_COLOR_CODE: "#FFFFFF",
+    //         BUTTON_COLOR_CODE_1: "#2d8c8c",
+    //         BUTTON_COLOR_CODE_2: "#FFFFFF",
+    //       },
+    //     },
+    //   };
+
+    //   // Call the Paynimo checkout
+    //   window.$.pnCheckout(reqJson);
+    //   if (reqJson.features.enableNewWindowFlow) {
+    //     window.pnCheckoutShared.openNewWindow();
+    //   }
+    // } else {
+    //   alert("Please select an address before proceeding to payment.");
+    // }
   };
 
   useEffect(() => {
@@ -181,8 +274,20 @@ export default function Orders() {
     }
   }, [isModalOpen, paymentModule]);
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    mobile: "",
+    email: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
-    <div className="relative h-screen">
+    <div className="relative">
       <div
         className="headerContents cursor-pointer flex items-center pt-2 pb-2"
         onClick={handleBackClick}
@@ -259,6 +364,59 @@ export default function Orders() {
           </div>
         </div>
       </div>
+
+      <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
+        <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+          <div className="flex items-center justify-between ps-2 pt-2 pe-2">
+            <p className="text-lg font-semibold">Billing Details</p>
+          </div>
+          <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
+            <div className="address flex justify-center lg:mt-0 mt-3">
+              <input
+                id="id-l03"
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="address flex justify-center lg:mt-0 mt-3">
+              <input
+                id="id-l03"
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
+            <div className="address flex justify-center lg:mt-0 mt-3">
+              <input
+                id="id-l03"
+                type="text"
+                name="mobile"
+                placeholder="Mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="address flex justify-center lg:mt-0 mt-3">
+              <input
+                id="id-l03"
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="addAddressTabCall flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           {savedAddress ? (
