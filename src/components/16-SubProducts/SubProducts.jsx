@@ -38,104 +38,107 @@ export default function SubProducts() {
   };
 
   return (
-    <div className="p-4">
-      {/* Header Section */}
-      <div className="bg-[#FFF5E4] p-6 rounded-lg mb-6 shadow-lg text-[#4f391d]">
-        <h2 className="text-4xl font-bold mb-2">{product?.name}</h2>
-        <p className="text-lg">
-          Kategorie: <strong>{product?.category}</strong>
-        </p>
-        <p className="text-lg">
-          Hauptkategorie: <strong>{product?.mainCategory}</strong>
-        </p>
-        <p className="text-md mt-4">{product?.description}</p>
-        <p className="text-2xl font-bold mt-2 text-green-700">
-          {product?.price}
-        </p>
+    <div className="">
+      <div className="restroMenuIntroCont flex lg:flex-row flex-col lg:p-7">
+        <div className="flex-1 homePageCont p-4 mt-8">
+          <p className="lg:text-7xl text-5xl text-[#FFF5E4] capitalize"></p>
+        </div>
       </div>
+      <div className="p-5">
+        {/* Header Section */}
+        <div className="bg-[#FFF5E4] p-6 rounded-lg mb-6 shadow-lg text-[#4f391d]">
+          <h2 className="text-4xl font-bold mb-2">{product?.name}</h2>
+          <p className="text-lg">
+            Kategorie: <strong>{product?.category}</strong>
+          </p>
+          <p className="text-lg">
+            Hauptkategorie: <strong>{product?.mainCategory}</strong>
+          </p>
+          <p className="text-md mt-4">{product?.description}</p>
+          <p className="text-2xl font-bold mt-2 text-green-700">
+            {product?.price}
+          </p>
+        </div>
 
-      {/* Product Options */}
-      {product?.options?.map((option, idx) => (
-        <div key={idx} className="mb-10">
-          <h2 className="text-xl font-semibold text-white mb-3 px-4">
-            {option.label}{" "}
-            <span className="text-sm text-gray-300 ml-2">
-              {option.type === "select"
-                ? `(Bitte wähle ${option.min} - ${option.max})`
-                : "(Inklusive)"}
-            </span>
-          </h2>
+        {/* Product Options */}
+        {product?.options?.map((option, idx) => (
+          <div key={idx} className="mb-10">
+            <h2 className="text-xl font-semibold text-white mb-3 px-4">
+              {option.label}{" "}
+              <span className="text-sm text-gray-300 ml-2">
+                {option.type === "select"
+                  ? `(Bitte wähle ${option.min} - ${option.max})`
+                  : "(Inklusive)"}
+              </span>
+            </h2>
 
-          {option.type === "select" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
-              {option.items.map((item) => {
-                const isSelected = (selectedItems[option.label] || []).some(
-                  (i) => i.id === item.id
-                );
+            {option.type === "select" && (
+              <div className="flex flex-wrap gap-4 px-4">
+                {option.items.map((item) => {
+                  const isSelected = (selectedItems[option.label] || []).some(
+                    (i) => i.id === item.id
+                  );
 
-                return (
+                  return (
+                    <div
+                      key={item.id}
+                      className={`cursor-pointer flex items-center gap-4 p-4 rounded-lg shadow-md transition border-2 ${
+                        isSelected
+                          ? "border-green-600 bg-green-100"
+                          : "border-transparent hover:border-yellow-500 bg-[#e9e9e9]"
+                      }`}
+                      onClick={() =>
+                        handleSelectItem(option.label, item, option)
+                      }
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-20 h-20 object-cover rounded-md"
+                      />
+                      <div>
+                        <p className="font-bold">{item.name}</p>
+                        <p className="text-sm text-gray-700">{item.price}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Info Items - Display Only */}
+            {option.type === "info" && (
+              <div className="flex flex-wrap gap-4 px-4">
+                {option.items.map((item) => (
                   <div
                     key={item.id}
-                    className={`relative rounded-lg shadow-md overflow-hidden cursor-pointer border-2 ${
-                      isSelected
-                        ? "border-green-600 bg-green-100"
-                        : "border-transparent hover:border-yellow-500"
-                    }`}
-                    onClick={() => handleSelectItem(option.label, item, option)}
+                    className="bg-[#e9e9e9] rounded-lg p-4 flex items-center gap-4 shadow-md"
                   >
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-40 object-cover"
+                      className="w-20 h-20 object-cover rounded-md"
                     />
-                    {isItemInCart(item.id) && (
-                      <div className="absolute top-2 right-2">
-                        <ShoppingCart
-                          size={28}
-                          className="text-white bg-[#4f391d] rounded-full p-1"
-                        />
-                      </div>
-                    )}
-                    <div className="p-3 text-center">
-                      <p className="font-semibold">{item.name}</p>
-                      <p className="text-sm text-gray-600">{item.price}</p>
+                    <div>
+                      <p className="font-bold">{item.name}</p>
+                      <p className="text-sm text-gray-700">
+                        {item.description}
+                      </p>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
 
-          {/* Info Items - Display Only */}
-          {option.type === "info" && (
-            <div className="flex flex-wrap gap-4 px-4">
-              {option.items.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-[#e9e9e9] rounded-lg p-4 flex items-center gap-4 shadow-md"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-20 h-20 object-cover rounded-md"
-                  />
-                  <div>
-                    <p className="font-bold">{item.name}</p>
-                    <p className="text-sm text-gray-700">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+        {/* Debugging Selected Items */}
+        <div className="text-white px-4 mt-10">
+          <h3 className="text-xl font-bold mb-2">Ausgewählte Artikel:</h3>
+          <pre className="bg-black p-3 rounded-lg text-sm">
+            {JSON.stringify(selectedItems, null, 2)}
+          </pre>
         </div>
-      ))}
-
-      {/* Debugging Selected Items */}
-      <div className="text-white px-4 mt-10">
-        <h3 className="text-xl font-bold mb-2">Ausgewählte Artikel:</h3>
-        <pre className="bg-black p-3 rounded-lg text-sm">
-          {JSON.stringify(selectedItems, null, 2)}
-        </pre>
       </div>
     </div>
   );
