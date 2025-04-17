@@ -7,33 +7,22 @@ export default function SubProducts() {
   const product = location.state?.product;
 
   const [cartItems, setCartItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState({});
 
   useEffect(() => {
     const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCartItems);
   }, []);
 
-  const [selectedItems, setSelectedItems] = useState({});
   const isItemInCart = (id) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     return cart.some((item) => item.id === id);
   };
 
-  const productToggle = (product = null) => {
-    let mergedProduct = product;
-    console.log("mergedProduct", mergedProduct);
-    if (product) {
-      const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      console.log("Cart items count:", savedCartItems.length);
-    }
-    // setSelectedProduct(product);
-    // setProductsModalOpen((prev) => !prev);
-  };
-
   const calculateTotalPrice = () => {
     return cartItems
       .reduce((acc, item) => {
-        const price = parseFloat(item.price.replace(" CHF", "")); // Remove " CHF" and convert to float
+        const price = parseFloat(item.price.replace(" CHF", ""));
         return acc + (price * item.quantity || 0);
       }, 0)
       .toFixed(2);
@@ -55,6 +44,53 @@ export default function SubProducts() {
       ...prev,
       [optionLabel]: updated,
     }));
+  };
+
+  const allRequiredOptionsSelected = () => {
+    if (!product?.options) return false;
+
+    return product.options.every((option) => {
+      if (option.type !== "select") return true;
+      const selected = selectedItems[option.label] || [];
+      return selected.length >= option.min;
+    });
+  };
+
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Build final selected options by combining selected and inclusive
+    let finalOptions = [];
+
+    product.options.forEach((option) => {
+      if (option.type === "select") {
+        const selected = selectedItems[option.label] || [];
+        finalOptions.push(...selected);
+      } else {
+        // Add all inclusive items by default
+        finalOptions.push(...option.items);
+      }
+    });
+
+    const newProduct = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      category: product.category,
+      mainCategory: product.mainCategory,
+      description: product.description,
+      postalCode: product.postalCode,
+      quantity: 1,
+      selectedItems: finalOptions,
+    };
+
+    const newCart = [...cart, newProduct];
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCartItems(newCart);
+
+    // Reset selections
+    setSelectedItems({});
   };
 
   const toggleModal = (item) => {
@@ -89,7 +125,7 @@ export default function SubProducts() {
         {product?.options?.map((option, idx) => (
           <div key={idx} className="mb-10">
             <h2 className="text-xl font-semibold text-black mb-3 px-4">
-              {option.label}{" "}
+              {option.label}
               <span className="text-sm text-grey ml-2">
                 {option.type === "select"
                   ? `(Bitte wähle min ${option.min} - max ${option.max})`
@@ -97,7 +133,6 @@ export default function SubProducts() {
               </span>
             </h2>
 
-            {/* Select & Info Items using same layout */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
               {option.items.length > 0 ? (
                 option.items.map((item) => {
@@ -170,43 +205,42 @@ export default function SubProducts() {
           </div>
         ))}
       </div>
-      <div className="footerBuyProducts cursor-pointer" onClick={productToggle}>
-        {cartItems.length > 0 ? (
-          <>
-            <p className="text-lg font-semibold md:hidden">
-              {cartItems.length} items in cart - CHF {calculateTotalPrice()} to
-              continue
-            </p>
 
-            <p className="hidden md:block relative">
-              <a
-                href="#"
-                className="relative inline-flex h-12 w-12 items-center justify-center text-lg text-white"
-              >
-                <ShoppingCart />
-                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-white px-1.5 text-sm text-black">
-                  {cartItems.length}
-                </span>
-              </a>
-            </p>
-          </>
+      {/* Footer Add to Cart or Cart View */}
+      <div className="footerBuyProducts cursor-pointer">
+        {allRequiredOptionsSelected() && !isItemInCart(product?.id) ? (
+          <div
+            className="text-white text-center rounded-lg text-lg font-semibold"
+            onClick={handleAddToCart}
+          >
+            Add to Cart
+          </div>
         ) : (
-          <>
-            <p className="text-lg font-semibold text-gray-500 md:hidden">
-              No items in the cart
-            </p>
-            <p className="hidden md:block relative">
-              <a
-                href="#"
-                className="relative inline-flex h-12 w-12 items-center justify-center text-lg text-white"
-              >
-                <ShoppingCart />
-                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-white px-1.5 text-sm text-black">
-                  {cartItems.length}
-                </span>
-              </a>
-            </p>
-          </>
+          <div onClick={() => {}} className="text-center py-3">
+            {cartItems.length > 0 ? (
+              <>
+                <p className="text-lg font-semibold md:hidden">
+                  {cartItems.length} items in cart - CHF {calculateTotalPrice()}{" "}
+                  to continue
+                </p>
+                <p className="hidden md:block relative">
+                  <a
+                    href="#"
+                    className="relative inline-flex h-12 w-12 items-center justify-center text-lg text-white"
+                  >
+                    <ShoppingCart />
+                    <span className="absolute -top-1 -right-1 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-white px-1.5 text-sm text-black">
+                      {cartItems.length}
+                    </span>
+                  </a>
+                </p>
+              </>
+            ) : (
+              <p className="text-lg font-semibold text-gray-500">
+                No items in the cart
+              </p>
+            )}
+          </div>
         )}
       </div>
     </div>
