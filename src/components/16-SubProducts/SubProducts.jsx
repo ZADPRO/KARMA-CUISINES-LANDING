@@ -7,7 +7,6 @@ export default function SubProducts() {
   const product = location.state?.product;
 
   const [selectedItems, setSelectedItems] = useState({});
-
   const isItemInCart = (id) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     return cart.some((item) => item.id === id);
@@ -15,7 +14,6 @@ export default function SubProducts() {
 
   const handleSelectItem = (optionLabel, item, option) => {
     const selected = selectedItems[optionLabel] || [];
-
     const exists = selected.find((i) => i.id === item.id);
     let updated;
 
@@ -30,20 +28,20 @@ export default function SubProducts() {
       ...prev,
       [optionLabel]: updated,
     }));
+  };
 
-    console.log(
-      `Selected under "${optionLabel}":`,
-      updated.map((i) => i.name)
-    );
+  const toggleModal = (item) => {
+    console.log("Clicked item:", item);
   };
 
   return (
-    <div className="">
+    <div>
       <div className="restroMenuIntroCont flex lg:flex-row flex-col lg:p-7">
         <div className="flex-1 homePageCont p-4 mt-8">
           <p className="lg:text-7xl text-5xl text-[#FFF5E4] capitalize"></p>
         </div>
       </div>
+
       <div className="p-5">
         {/* Header Section */}
         <div className="bg-[#FFF5E4] p-6 rounded-lg mb-6 shadow-lg text-[#4f391d]">
@@ -72,74 +70,78 @@ export default function SubProducts() {
               </span>
             </h2>
 
-            {/* Select Items */}
-            {option.type === "select" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
-                {option.items.map((item) => {
-                  const isSelected = (selectedItems[option.label] || []).some(
-                    (i) => i.id === item.id
-                  );
+            {/* Select & Info Items using same layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+              {option.items.length > 0 ? (
+                option.items.map((item) => {
+                  const isSelected =
+                    (selectedItems[option.label] || []).some(
+                      (i) => i.id === item.id
+                    ) && option.type === "select";
+
+                  const showCartIcon = isSelected || isItemInCart(item.id);
 
                   return (
                     <div
                       key={item.id}
-                      className={`cursor-pointer flex flex-col items-center text-center p-4 rounded-lg shadow-md transition border-2 ${
-                        isSelected
-                          ? "border-green-600 bg-green-100"
-                          : "border-transparent hover:border-yellow-500 bg-[#e9e9e9]"
-                      }`}
-                      onClick={() =>
-                        handleSelectItem(option.label, item, option)
-                      }
+                      className="cartItemContents relative group"
                     >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-24 h-24 object-cover rounded-md mb-3"
-                      />
-                      <div>
-                        <p className="font-bold">{item.name}</p>
-                        <p className="text-sm text-gray-700">{item.price}</p>
+                      <div
+                        className={`relative overflow-hidden rounded-lg shadow-md cursor-pointer border-2 ${
+                          isSelected
+                            ? "border-green-600 bg-green-100"
+                            : "border-transparent"
+                        }`}
+                        onClick={() =>
+                          option.type === "select"
+                            ? handleSelectItem(option.label, item, option)
+                            : toggleModal(item)
+                        }
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-[160px] object-cover rounded-lg"
+                        />
+                        {showCartIcon && (
+                          <div className="absolute top-2 right-2">
+                            <ShoppingCart
+                              size={32}
+                              className="text-white bg-[#4f391d] rounded-full p-2"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div
+                        className="foodContents text-center mt-2 cursor-pointer"
+                        onClick={() =>
+                          option.type === "select"
+                            ? handleSelectItem(option.label, item, option)
+                            : toggleModal(item)
+                        }
+                      >
+                        <p className="text-sm font-semibold line-clamp-1">
+                          {item.name}
+                        </p>
+                        {option.type === "info" ? (
+                          <p className="text-gray-600 text-xs">
+                            {item.description}
+                          </p>
+                        ) : (
+                          <p className="text-gray-600">{item.price}</p>
+                        )}
                       </div>
                     </div>
                   );
-                })}
-              </div>
-            )}
-
-            {/* Info Items */}
-            {option.type === "info" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
-                {option.items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="bg-[#e9e9e9] rounded-lg p-4 flex flex-col items-center text-center shadow-md"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-24 h-24 object-cover rounded-md mb-3"
-                    />
-                    <div>
-                      <p className="font-bold">{item.name}</p>
-                      <p className="text-sm text-gray-700">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                })
+              ) : (
+                <p className="text-center text-gray-500 col-span-full">
+                  No items match your search.
+                </p>
+              )}
+            </div>
           </div>
         ))}
-
-        {/* Debugging Selected Items */}
-        {/* <div className="text-white px-4 mt-10">
-          <h3 className="text-xl font-bold mb-2">Ausgewählte Artikel:</h3>
-          <pre className="bg-black p-3 rounded-lg text-sm">
-            {JSON.stringify(selectedItems, null, 2)}
-          </pre>
-        </div> */}
       </div>
     </div>
   );
