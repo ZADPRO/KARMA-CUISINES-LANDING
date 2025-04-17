@@ -126,11 +126,6 @@ export default function SubProducts() {
           <div key={idx} className="mb-10">
             <h2 className="text-xl font-semibold text-black mb-3 px-4">
               {option.label}
-              <span className="text-sm text-grey ml-2">
-                {option.type === "select"
-                  ? `(Bitte wähle min ${option.min} - max ${option.max})`
-                  : "(Inklusive)"}
-              </span>
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
