@@ -22,7 +22,7 @@ export default function SubProducts() {
     if (exists) {
       updated = selected.filter((i) => i.id !== item.id);
     } else {
-      if (selected.length >= option.max) return; // Prevent over-selecting
+      if (selected.length >= option.max) return;
       updated = [...selected, item];
     }
 
@@ -63,17 +63,18 @@ export default function SubProducts() {
         {/* Product Options */}
         {product?.options?.map((option, idx) => (
           <div key={idx} className="mb-10">
-            <h2 className="text-xl font-semibold text-white mb-3 px-4">
+            <h2 className="text-xl font-semibold text-black mb-3 px-4">
               {option.label}{" "}
-              <span className="text-sm text-gray-300 ml-2">
+              <span className="text-sm text-grey ml-2">
                 {option.type === "select"
-                  ? `(Bitte wähle ${option.min} - ${option.max})`
+                  ? `(Bitte wähle min ${option.min} - max ${option.max})`
                   : "(Inklusive)"}
               </span>
             </h2>
 
+            {/* Select Items */}
             {option.type === "select" && (
-              <div className="flex flex-wrap gap-4 px-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
                 {option.items.map((item) => {
                   const isSelected = (selectedItems[option.label] || []).some(
                     (i) => i.id === item.id
@@ -82,7 +83,7 @@ export default function SubProducts() {
                   return (
                     <div
                       key={item.id}
-                      className={`cursor-pointer flex items-center gap-4 p-4 rounded-lg shadow-md transition border-2 ${
+                      className={`cursor-pointer flex flex-col items-center text-center p-4 rounded-lg shadow-md transition border-2 ${
                         isSelected
                           ? "border-green-600 bg-green-100"
                           : "border-transparent hover:border-yellow-500 bg-[#e9e9e9]"
@@ -94,7 +95,7 @@ export default function SubProducts() {
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-20 h-20 object-cover rounded-md"
+                        className="w-24 h-24 object-cover rounded-md mb-3"
                       />
                       <div>
                         <p className="font-bold">{item.name}</p>
@@ -106,18 +107,18 @@ export default function SubProducts() {
               </div>
             )}
 
-            {/* Info Items - Display Only */}
+            {/* Info Items */}
             {option.type === "info" && (
-              <div className="flex flex-wrap gap-4 px-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
                 {option.items.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-[#e9e9e9] rounded-lg p-4 flex items-center gap-4 shadow-md"
+                    className="bg-[#e9e9e9] rounded-lg p-4 flex flex-col items-center text-center shadow-md"
                   >
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-20 h-20 object-cover rounded-md"
+                      className="w-24 h-24 object-cover rounded-md mb-3"
                     />
                     <div>
                       <p className="font-bold">{item.name}</p>
@@ -133,12 +134,12 @@ export default function SubProducts() {
         ))}
 
         {/* Debugging Selected Items */}
-        <div className="text-white px-4 mt-10">
+        {/* <div className="text-white px-4 mt-10">
           <h3 className="text-xl font-bold mb-2">Ausgewählte Artikel:</h3>
           <pre className="bg-black p-3 rounded-lg text-sm">
             {JSON.stringify(selectedItems, null, 2)}
           </pre>
-        </div>
+        </div> */}
       </div>
     </div>
   );
