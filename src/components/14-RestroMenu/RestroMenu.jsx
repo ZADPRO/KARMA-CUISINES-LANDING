@@ -49,10 +49,12 @@ import cocacolazero from "../../foodImgs/cocacolazero.jpg";
 import fantaOrange from "../../foodImgs/fantaOrange.jpg";
 import rivellaRot from "../../foodImgs/rivellaRot.jpg";
 import rivellaBlau from "../../foodImgs/rivellaBlau.jpg";
-import iceTeaLemon from "../../foodImgs/iceTeaLemon.jpg";
+import iceTeaLemon from "../../foodImgs/iceTeaLemon.png";
 import mineralwasserOhne from "../../foodImgs/mineralwasserOhne.jpg";
 import raita from "../../foodImgs/raita.png";
+import ohne from "../../foodImgs/ohne.png";
 import knoblauch from "../../foodImgs/knoblauch.png";
+import mitKohlensaure from "../../foodImgs/mitKohlensaure.png";
 
 import familyImg from "../../foodImgs/familyImg.png";
 
@@ -213,8 +215,8 @@ export default function RestroMenu() {
         {
           label: "Chicken Curries",
           type: "select",
-          min: 2,
-          max: 2,
+          min: 4,
+          max: 4,
           required: true,
           items: [
             {
@@ -258,8 +260,8 @@ export default function RestroMenu() {
         {
           label: "Getränke",
           type: "select",
-          min: 2,
-          max: 2,
+          min: 4,
+          max: 4,
           required: true,
           items: [
             {
@@ -281,7 +283,7 @@ export default function RestroMenu() {
             {
               id: 2006,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: iceTeaLemon,
               name: "Ice Tee Peach 0.5l",
               description: "-",
               rating: 5,
@@ -297,7 +299,7 @@ export default function RestroMenu() {
             {
               id: 2008,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: mitKohlensaure,
               name: "Mineralwasser mit Kohlensäure 0.5l",
               description: "-",
               rating: 5,
@@ -305,7 +307,7 @@ export default function RestroMenu() {
             {
               id: 2009,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: ohne,
               name: "Mineralwasser ohne Kohlensäure 0.5l",
               description: "-",
               rating: 5,
@@ -353,8 +355,8 @@ export default function RestroMenu() {
         {
           label: "Chicken Curries",
           type: "select",
-          min: 3,
-          max: 3,
+          min: 4,
+          max: 4,
           required: true,
           items: [
             {
@@ -398,8 +400,8 @@ export default function RestroMenu() {
         {
           label: "Getränke",
           type: "select",
-          min: 3,
-          max: 3,
+          min: 4,
+          max: 4,
           required: true,
           items: [
             {
@@ -421,7 +423,7 @@ export default function RestroMenu() {
             {
               id: 2006,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: iceTeaLemon,
               name: "Ice Tee Peach 0.5l",
               description: "-",
               rating: 5,
@@ -437,7 +439,7 @@ export default function RestroMenu() {
             {
               id: 2008,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: mitKohlensaure,
               name: "Mineralwasser mit Kohlensäure 0.5l",
               description: "-",
               rating: 5,
@@ -445,7 +447,7 @@ export default function RestroMenu() {
             {
               id: 2009,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: ohne,
               name: "Mineralwasser ohne Kohlensäure 0.5l",
               description: "-",
               rating: 5,
@@ -561,7 +563,7 @@ export default function RestroMenu() {
             {
               id: 2006,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: iceTeaLemon,
               name: "Ice Tee Peach 0.5l",
               description: "-",
               rating: 5,
@@ -577,7 +579,7 @@ export default function RestroMenu() {
             {
               id: 2008,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: mitKohlensaure,
               name: "Mineralwasser mit Kohlensäure 0.5l",
               description: "-",
               rating: 5,
@@ -585,7 +587,7 @@ export default function RestroMenu() {
             {
               id: 2009,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: ohne,
               name: "Mineralwasser ohne Kohlensäure 0.5l",
               description: "-",
               rating: 5,
@@ -701,7 +703,7 @@ export default function RestroMenu() {
             {
               id: 2006,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: iceTeaLemon,
               name: "Ice Tee Peach 0.5l",
               description: "-",
               rating: 5,
@@ -717,7 +719,7 @@ export default function RestroMenu() {
             {
               id: 2008,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: mitKohlensaure,
               name: "Mineralwasser mit Kohlensäure 0.5l",
               description: "-",
               rating: 5,
@@ -725,7 +727,7 @@ export default function RestroMenu() {
             {
               id: 2009,
               price: "0.00 CHF",
-              image: cocacolazero,
+              image: ohne,
               name: "Mineralwasser ohne Kohlensäure 0.5l",
               description: "-",
               rating: 5,
