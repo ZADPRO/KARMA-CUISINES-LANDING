@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import spicyChicken from "../../assets/kingsKurry/spicyChicken.png";
 // import chickenTikka from "../../assets/kingsKurry/chickenTikka.png";
@@ -51,6 +51,8 @@ import rivellaBlau from "../../foodImgs/rivellaBlau.jpg";
 import iceTeaLemon from "../../foodImgs/iceTeaLemon.jpg";
 import mineralwasserOhne from "../../foodImgs/mineralwasserOhne.jpg";
 
+import familyImg from "../../foodImgs/familyImg.png";
+
 import ProductDetailsModal from "../../pages/ProductDetailsModal/ProductDetailsModal";
 
 import "./restroMenu.css";
@@ -65,6 +67,8 @@ export default function RestroMenu() {
   const routePath = params.get("routePath");
 
   const { t } = useTranslation("global");
+
+  const navigate = useNavigate();
 
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
   // const [searchTerm, setSearchTerm] = useState("");
@@ -188,6 +192,147 @@ export default function RestroMenu() {
       mainCategory: "VEGAN / PLANTED",
       description: "Fleischlos Poulet Curry mit  Zweibel, tomato, Curry Gewürz",
       rating: 5,
+    },
+    // FAMILY PACK
+    {
+      id: 47,
+      price: "69.00 CHF",
+      image: familyImg,
+      name: "Family Pack (2 Personen)",
+      postalCode: "8052",
+      category: "FAMILY PACK",
+      mainCategory: "FAMILY PACK",
+      subProducts: true,
+      description:
+        "Wähle 2 von unseren Chicken Curries, dazu gibt es 2x Basmati Reis & 2x Naan Brot & 2 Getränke nach Wahl.",
+      rating: 5,
+      options: [
+        {
+          label: "Chicken Curries",
+          type: "select",
+          min: 2,
+          max: 2,
+          required: true,
+          items: [
+            {
+              id: 1001,
+              price: "0.00 CHF",
+              image: chickenTikkaImg,
+              name: "CHICKEN TIKKA MASALA mit Reis",
+              description:
+                "Erst im Tonofen gebacken, dann mit Kümmel, gehacktem Koriander und Zwiebel-Tomaten-Mischung gekocht.",
+              rating: 5,
+            },
+            {
+              id: 1002,
+              price: "0.00 CHF",
+              image: butterChickenImg,
+              name: "BUTTER CHICKEN mit Reis",
+              description:
+                "Erst im Tonofen gebacken, dann mit Fine Rahm-Tomaten und Curry -Mischung sauce gekocht",
+              rating: 5,
+            },
+            {
+              id: 1003,
+              price: "0.00 CHF",
+              image: chickenMadras,
+              name: "CHICKEN MADRAS mit Reis",
+              description:
+                "Eine Madras Poulet Curry- Spezialität, Stücke vom Huhn gekocht mit Curry Blättern, Kokosnuss Paste, gemahlenem Fenchel, Chilis und Garam Masala",
+              rating: 5,
+            },
+            {
+              id: 1004,
+              price: "0.00 CHF",
+              image: chickenMadras,
+              name: "SPICY CHICKEN CURRY",
+              description:
+                "Poulet - Curry mit Stücken von der Pouletbrust in einer KokosTomatensauce raffiniert gewürtzt",
+              rating: 5,
+            },
+          ],
+        },
+        {
+          label: "Getränke",
+          type: "select",
+          min: 2,
+          max: 2,
+          required: true,
+          items: [
+            {
+              id: 2004,
+              price: "0.00 CHF",
+              image: cocacola,
+              name: "Coca cola 0.5 L",
+              description: "-",
+              rating: 5,
+            },
+            {
+              id: 2005,
+              price: "0.00 CHF",
+              image: cocacolazero,
+              name: "Coca Cola Zero 0.5l",
+              description: "-",
+              rating: 5,
+            },
+            {
+              id: 2006,
+              price: "0.00 CHF",
+              image: cocacolazero,
+              name: "Ice Tee Peach 0.5l",
+              description: "-",
+              rating: 5,
+            },
+            {
+              id: 2007,
+              price: "0.00 CHF",
+              image: rivellaRot,
+              name: "Rivella Rot 0.5l",
+              description: "-",
+              rating: 5,
+            },
+            {
+              id: 2008,
+              price: "0.00 CHF",
+              image: cocacolazero,
+              name: "Mineralwasser mit Kohlensäure 0.5l",
+              description: "-",
+              rating: 5,
+            },
+            {
+              id: 2009,
+              price: "0.00 CHF",
+              image: cocacolazero,
+              name: "Mineralwasser ohne Kohlensäure 0.5l",
+              description: "-",
+              rating: 5,
+            },
+          ],
+        },
+        {
+          label: "Inklusive Beilagen",
+          type: "info",
+          items: [
+            {
+              id: 28,
+              price: "5.00 CHF",
+              image: basmathi,
+              name: "BASMATI RICE ",
+              description: "Natur Reis",
+              rating: 5,
+              included: true,
+            },
+            {
+              id: 25,
+              price: "5.00 CHF",
+              image: natureNaan,
+              name: "2X NAAN",
+              description: "Fladen Brot- Natur",
+              rating: 5,
+            },
+          ],
+        },
+      ],
     },
     // SNACKS
     {
@@ -628,6 +773,12 @@ export default function RestroMenu() {
   }, []);
 
   const toggleModal = (product = null) => {
+    if (product?.subProducts) {
+      console.log("product", product);
+      navigate("/subproducts", { state: { product } });
+      return;
+    }
+
     let mergedProduct = product;
     if (product) {
       const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -645,6 +796,7 @@ export default function RestroMenu() {
       }
     }
 
+    console.log("mergedProduct", mergedProduct);
     setSelectedProduct(mergedProduct);
     setIsModalOpen((prev) => !prev);
   };

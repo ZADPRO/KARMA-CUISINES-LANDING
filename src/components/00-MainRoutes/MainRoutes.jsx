@@ -20,6 +20,7 @@ import OurPartners from "../12-BeOurPartner/OurPartners";
 import Career from "../13-Career/Career";
 import RestroMenu from "../14-RestroMenu/RestroMenu";
 import GuestLogin from "../15-GuestLogin/GuestLogin";
+import SubProducts from "../16-SubProducts/SubProducts";
 
 function AppRoutes() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function AppRoutes() {
     "/restroMenu",
     "/ourBrand",
     "/beOurPartner",
+    "/subproducts",
     "/career",
   ];
   const showHeader = headerRoutes.includes(location.pathname);
@@ -51,11 +53,12 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/subproducts" element={<SubProducts />} />
         <Route path="/restroMenu" element={<RestroMenu />} />
         <Route path="/guestLogin" element={<GuestLogin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {showHeader && <Footer />}
     </div>
   );
 }
