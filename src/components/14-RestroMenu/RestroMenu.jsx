@@ -21,22 +21,23 @@ import chickenNuggets from "../../foodImgs/chickenNugglets.png";
 import chickenWings from "../../foodImgs/chickenWings.png";
 import onionRings from "../../foodImgs/onionRings.png";
 import mixedSnackBox from "../../foodImgs/mixVegMasala.png";
-import tamarindChutney from "../../foodImgs/tamarindChutney.JPG";
-import sweetMangoChutney from "../../foodImgs/sweetMangoChutney.JPG";
-import mayonnise from "../../foodImgs/mayonnaise.JPG";
+import tamarindChutney from "../../foodImgs/tamarindChutney1.jpg";
+import sweetMangoChutney from "../../foodImgs/sweetMangoChutney1.JPG";
+import mayonnise from "../../foodImgs/mayonnise1.jpg";
 import natureNaan from "../../foodImgs/natureNaan.JPG";
-import currySauce from "../../foodImgs/currySauce.JPG";
+import currySauce from "../../foodImgs/currySauce1.jpg";
 import garlicNaan from "../../assets/kingsKurry/garlicNaan.png";
-import butterNaan from "../../foodImgs/butterNaan.JPG";
+import butterNaan from "../../foodImgs/butterNaan.png";
 import vanila from "../../foodImgs/movenPickVanilla.WEBP";
+import reis from "../../foodImgs/reis.png";
 import chocolate from "../../foodImgs/movenPickChocolate.WEBP";
 import caramel from "../../foodImgs/movenPickcaramelIceCream.WEBP";
 import gulabJamun from "../../foodImgs/gulabJamun.JPG";
-import sweetChilliSauce from "../../foodImgs/sweetChilliSauce.jpg";
-import sauce from "../../foodImgs/sauce.jpg";
+import sweetChilliSauce from "../../foodImgs/sweetChillySauce1.jpg";
+import sauce from "../../foodImgs/garlicSauce1.jpg";
 import basmathi from "../../foodImgs/basmathi.jpg";
 import spicyFinger from "../../foodImgs/chickenFingers.png";
-import ketchup from "../../foodImgs/ketchup.jpg";
+import ketchup from "../../foodImgs/ketchup1.jpg";
 import tiramisu from "../../foodImgs/tiramisu.jpg";
 import kingFisher from "../../foodImgs/kingFisher.jpg";
 import feldschlossen from "../../foodImgs/feldschlossen.jpg";
@@ -1489,8 +1490,8 @@ export default function RestroMenu() {
     {
       id: 25,
       price: "5.00 CHF",
-      image: natureNaan,
-      name: "NATURE NAAN",
+      image: butterNaan,
+      name: "Naan Brot Natur",
       postalCode: "8052",
       category: "BEILAGEN",
       mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
@@ -1501,7 +1502,7 @@ export default function RestroMenu() {
       id: 26,
       price: "7.00 CHF",
       image: garlicNaan,
-      name: "GARLIC NAAN",
+      name: "Naan Brot mit Knoblauch",
       postalCode: "8052",
       category: "BEILAGEN",
       mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
@@ -1512,7 +1513,7 @@ export default function RestroMenu() {
       id: 27,
       price: "6.00 CHF",
       image: butterNaan,
-      name: "BUTTER NAAN",
+      name: "Naan Brot mit Butter",
       postalCode: "8052",
       category: "BEILAGEN",
       mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
@@ -1522,8 +1523,8 @@ export default function RestroMenu() {
     {
       id: 28,
       price: "5.00 CHF",
-      image: basmathi,
-      name: "BASMATI RICE ",
+      image: reis,
+      name: "Portion Basmati Reis ",
       postalCode: "8052",
       category: "BEILAGEN",
       mainCategory: "BEILAGEN | SIDE ORDERS | BROTE",
