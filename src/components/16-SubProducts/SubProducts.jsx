@@ -1,15 +1,42 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 
 export default function SubProducts() {
   const location = useLocation();
   const product = location.state?.product;
 
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(savedCartItems);
+  }, []);
+
   const [selectedItems, setSelectedItems] = useState({});
   const isItemInCart = (id) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     return cart.some((item) => item.id === id);
+  };
+
+  const productToggle = (product = null) => {
+    let mergedProduct = product;
+    console.log("mergedProduct", mergedProduct);
+    if (product) {
+      const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      console.log("Cart items count:", savedCartItems.length);
+    }
+    // setSelectedProduct(product);
+    // setProductsModalOpen((prev) => !prev);
+  };
+
+  const calculateTotalPrice = () => {
+    return cartItems
+      .reduce((acc, item) => {
+        const price = parseFloat(item.price.replace(" CHF", "")); // Remove " CHF" and convert to float
+        return acc + (price * item.quantity || 0);
+      }, 0)
+      .toFixed(2);
   };
 
   const handleSelectItem = (optionLabel, item, option) => {
@@ -36,7 +63,7 @@ export default function SubProducts() {
 
   return (
     <div>
-      <div className="restroMenuIntroCont flex lg:flex-row flex-col lg:p-7">
+      <div className="subProductsMenuItem flex lg:flex-row flex-col lg:p-7">
         <div className="flex-1 homePageCont p-4 mt-8">
           <p className="lg:text-7xl text-5xl text-[#FFF5E4] capitalize"></p>
         </div>
@@ -89,7 +116,7 @@ export default function SubProducts() {
                       <div
                         className={`relative overflow-hidden rounded-lg shadow-md cursor-pointer border-2 ${
                           isSelected
-                            ? "border-green-600 bg-green-100"
+                            ? "border-green-600 bg-green-100 border-4"
                             : "border-transparent"
                         }`}
                         onClick={() =>
@@ -142,6 +169,45 @@ export default function SubProducts() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="footerBuyProducts cursor-pointer" onClick={productToggle}>
+        {cartItems.length > 0 ? (
+          <>
+            <p className="text-lg font-semibold md:hidden">
+              {cartItems.length} items in cart - CHF {calculateTotalPrice()} to
+              continue
+            </p>
+
+            <p className="hidden md:block relative">
+              <a
+                href="#"
+                className="relative inline-flex h-12 w-12 items-center justify-center text-lg text-white"
+              >
+                <ShoppingCart />
+                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-white px-1.5 text-sm text-black">
+                  {cartItems.length}
+                </span>
+              </a>
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="text-lg font-semibold text-gray-500 md:hidden">
+              No items in the cart
+            </p>
+            <p className="hidden md:block relative">
+              <a
+                href="#"
+                className="relative inline-flex h-12 w-12 items-center justify-center text-lg text-white"
+              >
+                <ShoppingCart />
+                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-white px-1.5 text-sm text-black">
+                  {cartItems.length}
+                </span>
+              </a>
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

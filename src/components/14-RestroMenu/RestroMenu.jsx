@@ -776,6 +776,7 @@ export default function RestroMenu() {
     if (product?.subProducts) {
       console.log("product", product);
       navigate("/subproducts", { state: { product } });
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
