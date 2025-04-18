@@ -45,7 +45,7 @@ import hauseweinWeissChardonnay from "../../alcholic/hausweinWeiss.jpg";
 import hauseweinRotPrimitivo from "../../alcholic/hausweinRot.jpg";
 import hausGetranke from "../../nonAlcholic/mango.jpg";
 import cocacola from "../../nonAlcholic/cocacola.jpg";
-import cocacolazero from "../../nonAlcholic/cocacolazero01.jpg";
+import cocacolazero from "../../nonAlcholic/cocacolaZero01.jpg";
 import fantaOrange from "../../nonAlcholic/fantaorange.jpg";
 import rivellaRot from "../../nonAlcholic/rivellaRot.jpg";
 import rivellaBlau from "../../nonAlcholic/rivellaBlau.jpg";
