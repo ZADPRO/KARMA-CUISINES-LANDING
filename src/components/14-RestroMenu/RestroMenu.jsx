@@ -22,7 +22,7 @@ import chickenWings from "../../foodImgs/chickenWings.png";
 import onionRings from "../../foodImgs/onionRings.png";
 import mixedSnackBox from "../../foodImgs/mixVegMasala.png";
 import tamarindChutney from "../../foodImgs/tamarindChutney1.jpg";
-import sweetMangoChutney from "../../foodImgs/sweetMangoChutney1.JPG";
+import sweetMangoChutney from "../../foodImgs/sweetMangoChutney1.jpg";
 import mayonnise from "../../foodImgs/mayonnise1.jpg";
 import natureNaan from "../../foodImgs/natureNaan.JPG";
 import currySauce from "../../foodImgs/currySauce1.jpg";
