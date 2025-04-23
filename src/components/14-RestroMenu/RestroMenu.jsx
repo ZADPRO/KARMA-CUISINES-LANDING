@@ -27,6 +27,7 @@ export default function RestroMenu() {
           import.meta.env.VITE_ENCRYPTION_KEY
         );
         if (data.success) {
+          console.log("data", data);
           const categories = data.foodItem;
           const refs = {};
           categories.forEach((cat) => {
@@ -76,8 +77,8 @@ export default function RestroMenu() {
       .post(
         import.meta.env.VITE_API_URL + "/userProduct/foodInfo",
         {
-          foodId: item.refFoodId,
-          foodCategory: item.refCategoryId,
+          foodId: item.refFoodId ? item.refFoodId : item.refComboId,
+          foodCategory: item.refCategoryId ? item.refCategoryId : 0,
         },
         {
           headers: {
@@ -269,13 +270,36 @@ export default function RestroMenu() {
               {/* Add-Ons (if any) */}
               {selectedItem.refAddOns && selectedItem.refAddOns.length > 0 && (
                 <div className="mt-4">
-                  <h4 className="text-lg font-semibold mb-2">Add-ons</h4>
-                  {selectedItem.refAddOns.map((addon, index) => (
-                    <div key={index} className="flex justify-between mb-2">
-                      <p className="text-gray-700">{addon.refFoodName}</p>
-                      <p className="text-blue-600">CHF {addon.refPrice}</p>
-                    </div>
-                  ))}
+                  <h4 className="text-xl font-semibold mb-3">Add Ons</h4>
+                  <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+                    {selectedItem.refAddOns.map((addon, index) => (
+                      <div
+                        key={index}
+                        className="flex-shrink-0 w-70 bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                      >
+                        <img
+                          src={
+                            selectedItem.profileFile
+                              ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
+                              : kingsKurryLogo
+                          }
+                          alt={addon.refFoodName}
+                          className="w-20 h-full object-cover rounded"
+                        />
+                        <div className="flex flex-col justify-between flex-grow">
+                          <p className="font-semibold text-gray-800">
+                            {addon.refFoodName}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {addon.refDescription}
+                          </p>
+                          <p className="text-blue-600 font-medium">
+                            CHF {addon.refPrice}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 
