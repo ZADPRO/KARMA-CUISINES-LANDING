@@ -241,8 +241,10 @@ export default function RestroMenu() {
     drinksRef.current?.scrollBy({ left: 200, behavior: "smooth" });
   };
 
+  const [loading, setLoading] = useState(false);
+
   const getCategory = () => {
-    axios
+    return axios
       .get(import.meta.env.VITE_API_URL + "/userProduct/FoodList", {
         headers: {
           Authorization: localStorage.getItem("JWTtoken"),
@@ -256,7 +258,6 @@ export default function RestroMenu() {
         );
         console.log("data", data);
         if (data.success) {
-          console.log("data", data);
           const categories = data.foodItem;
           const refs = {};
           categories.forEach((cat) => {
@@ -265,11 +266,20 @@ export default function RestroMenu() {
           refsMap.current = refs;
           setCategories(categories);
         }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch categories:", err);
       });
   };
 
+  const fetchCategories = async () => {
+    setLoading(true);
+    await getCategory();
+    setLoading(false);
+  };
+
   useEffect(() => {
-    getCategory();
+    fetchCategories();
   }, []);
 
   const handleTabClick = (refKey, index) => {
@@ -347,77 +357,95 @@ export default function RestroMenu() {
       </div>
 
       {/* Tabs */}
-      <div
-        className="flex overflow-x-auto gap-2 mb-4 sticky top-[60px] bg-white z-50 p-2 shadow whitespace-nowrap"
-        style={{ scrollbarWidth: "none" }}
-      >
-        {categories.map((cat, idx) => {
-          const key = cat.refFoodCategoryName;
-          return (
-            <button
-              key={idx}
-              data-tab-key={key}
-              className={`px-4 py-2 min-w-max rounded transition-all ${
-                activeTabIndex === idx
-                  ? "bg-[#cd5c08] text-white font-semibold"
-                  : "text-black"
-              }`}
-              onClick={() => handleTabClick(key, idx)}
-            >
-              {key}
-            </button>
-          );
-        })}
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center h-[50vh]">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#cd5c08]"></div>
+          <p className="ml-4 text-lg font-medium text-[#cd5c08]">
+            Loading products...
+          </p>
+        </div>
+      ) : (
+        <>
+          {/* Tabs */}
+          <div
+            className="flex overflow-x-auto gap-2 mb-4 sticky top-[60px] bg-white z-50 p-2 shadow whitespace-nowrap"
+            style={{ scrollbarWidth: "none" }}
+          >
+            {categories.map((cat, idx) => {
+              const key = cat.refFoodCategoryName;
+              const displayKey = key === "Combo" ? "Menues" : key;
+              return (
+                <button
+                  key={idx}
+                  data-tab-key={key}
+                  className={`px-4 py-2 min-w-max rounded transition-all ${
+                    activeTabIndex === idx
+                      ? "bg-[#cd5c08] text-white font-semibold"
+                      : "text-black"
+                  }`}
+                  onClick={() => handleTabClick(key, idx)}
+                >
+                  {displayKey}
+                </button>
+              );
+            })}
+          </div>
 
-      {/* Menu Items */}
-      <div className="flex flex-col gap-6 pb-20">
-        {categories.map((cat, idx) => {
-          const key = cat.refFoodCategoryName;
-          return (
-            <div
-              key={idx}
-              ref={refsMap.current[key]}
-              className="p-6 rounded w-full md:w-9/12 mx-auto"
-              style={{ minHeight: "300px" }}
-            >
-              <h2 className="text-xl font-bold mb-2">{key}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {(cat.items || []).map((item, itemIdx) => (
-                  <div
-                    key={itemIdx}
-                    className="p-4 border rounded shadow cursor-pointer hover:shadow-md transition-all"
-                    onClick={() => openModal(item)}
-                  >
-                    <p className="font-semibold">
-                      {item.refFoodName || item.refComboName}
-                    </p>
-                    <p
-                      className="line-clamp-1"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          item.refDescription || item.refComboDescription || "",
-                      }}
-                    />
-                    <p className="text-[15px] text-[#cd5c08] font-medium">
-                      CHF {item.refPrice || item.refComboPrice}
-                    </p>
-                    <img
-                      src={
-                        item.profileFile
-                          ? `data:${item.profileFile.contentType};base64,${item.profileFile.content}`
-                          : kingsKurryLogo
-                      }
-                      alt=""
-                      className="w-full h-40 object-cover mt-2 rounded"
-                    />
+          {/* Menu Items */}
+          <div className="flex flex-col gap-6 pb-20">
+            {categories.map((cat, idx) => {
+              const key = cat.refFoodCategoryName;
+              return (
+                <div
+                  key={idx}
+                  ref={refsMap.current[key]}
+                  className="p-6 rounded w-full md:w-9/12 mx-auto"
+                  style={{ minHeight: "300px" }}
+                >
+                  <h2 className="text-xl font-bold mb-2">
+                    {" "}
+                    {key === "Combo" ? "Menues" : key}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {(cat.items || []).map((item, itemIdx) => (
+                      <div
+                        key={itemIdx}
+                        className="p-4 border rounded shadow cursor-pointer hover:shadow-md transition-all"
+                        onClick={() => openModal(item)}
+                      >
+                        <p className="font-semibold">
+                          {item.refFoodName || item.refComboName}
+                        </p>
+                        <p
+                          className="line-clamp-1"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              item.refDescription ||
+                              item.refComboDescription ||
+                              "",
+                          }}
+                        />
+                        <p className="text-[15px] text-[#cd5c08] font-medium">
+                          CHF {item.refPrice || item.refComboPrice}
+                        </p>
+                        <img
+                          src={
+                            item.profileFile
+                              ? `data:${item.profileFile.contentType};base64,${item.profileFile.content}`
+                              : kingsKurryLogo
+                          }
+                          alt=""
+                          className="w-full h-40 object-cover mt-2 rounded"
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
 
       {/* Modal */}
       {showModal && selectedItem && (
@@ -673,6 +701,7 @@ export default function RestroMenu() {
               {selectedItem.refFixedProduct &&
                 selectedItem.refFixedProduct.length > 0 && (
                   <div className="relative">
+                    <h4 className="text-xl font-semibold mb-3">Add Ons</h4>
                     <div className="relative">
                       <div
                         ref={fixedRef}
@@ -740,6 +769,47 @@ export default function RestroMenu() {
                           </div>
                         ))}
                       </div>
+                      {showLeftFixed && (
+                        <button
+                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                          onClick={scrollLeftFixedItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 19l-7-7 7-7"
+                            />
+                          </svg>
+                        </button>
+                      )}
+
+                      {showRightFixed && (
+                        <button
+                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                          onClick={scrollRightFixedItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </button>
+                      )}
                     </div>
                   </div>
                 )}
@@ -747,7 +817,8 @@ export default function RestroMenu() {
               {/* MAIN DISH */}
               {selectedItem.refMainProduct &&
                 selectedItem.refMainProduct.length > 0 && (
-                  <div className="relative">
+                  <div className="relative mt-3">
+                    <h4 className="text-xl font-semibold">Main Dish</h4>
                     <div className="relative">
                       <div
                         ref={mainRef}
@@ -756,10 +827,6 @@ export default function RestroMenu() {
                         {selectedItem.refMainProduct &&
                           selectedItem.refMainProduct.length > 0 && (
                             <div className="mt-4 relative">
-                              <h4 className="text-xl font-semibold mb-3">
-                                Main Dish
-                              </h4>
-
                               <div className="relative">
                                 <div
                                   ref={mainRef}
@@ -785,7 +852,7 @@ export default function RestroMenu() {
                                             {addon.refFoodName}
                                           </p>
                                           <p
-                                            className="text-sm text-gray-500"
+                                            className="text-sm text-gray-500 line-clamp-2"
                                             dangerouslySetInnerHTML={{
                                               __html: addon.refDescription,
                                             }}
@@ -926,7 +993,8 @@ export default function RestroMenu() {
               {/* SIDE DISH */}
               {selectedItem.refSideDish &&
                 selectedItem.refSideDish.length > 0 && (
-                  <div className="relative">
+                  <div className="relative mt-3">
+                    <h4 className="text-xl font-semibold">Drinks</h4>
                     <div className="relative">
                       <div
                         ref={drinksRef}
@@ -935,10 +1003,6 @@ export default function RestroMenu() {
                         {selectedItem.refSideDish &&
                           selectedItem.refSideDish.length > 0 && (
                             <div className="mt-4 relative">
-                              <h4 className="text-xl font-semibold mb-3">
-                                Drinks
-                              </h4>
-
                               <div className="relative">
                                 <div
                                   ref={drinksRef}
