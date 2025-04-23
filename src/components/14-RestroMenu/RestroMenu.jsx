@@ -28,10 +28,17 @@ export default function RestroMenu() {
 
   const [cartState, setCartState] = useState({});
 
-  const handleAddToCart = (index) => {
-    setCartState({
-      ...cartState,
-      [index]: { count: 1 },
+  const handleAddToCart = (index, isFixedProduct = false) => {
+    setCartState((prev) => {
+      const newCartState = { ...prev };
+      if (isFixedProduct) {
+        // For fixed products, we can use the index directly
+        newCartState[`fixed_${index}`] = { count: 1 };
+      } else {
+        // For add-ons, we use the index directly
+        newCartState[index] = { count: 1 };
+      }
+      return newCartState;
     });
   };
 
@@ -55,6 +62,63 @@ export default function RestroMenu() {
         [index]: { count: prev[index].count - 1 },
       }));
     }
+  };
+
+  const [itemCount, setItemCount] = useState(1);
+
+  const handleIncrease = () => {
+    setItemCount(itemCount + 1);
+  };
+
+  const handleDecrease = () => {
+    if (itemCount > 1) {
+      setItemCount(itemCount - 1);
+    }
+  };
+
+  const handleMainAddToCart = () => {
+    const mainItem = {
+      refFoodId: selectedItem.refFoodId,
+      refFoodName: selectedItem.refFoodName,
+      refFoodCategoryName: selectedItem.refFoodCategoryName,
+      refMenuId: selectedItem.refMenuId,
+      refPrice: selectedItem.refPrice,
+      count: itemCount,
+    };
+
+    let addons = [];
+
+    if (selectedItem.refAddOns && selectedItem.refAddOns.length > 0) {
+      selectedItem.refAddOns.forEach((addon, index) => {
+        if (cartState[index]) {
+          addons.push({
+            refFoodId: addon.refFoodId,
+            refFoodName: addon.refFoodName,
+            refFoodCategoryName: addon.refFoodCategoryName,
+            refMenuId: addon.refMenuId,
+            refPrice: addon.refPrice,
+            count: cartState[index].count,
+          });
+        }
+      });
+    }
+
+    const cartData = [mainItem];
+    if (addons.length > 0) {
+      cartData.push(...addons);
+    }
+
+    // Get existing cart data from localStorage
+    let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Append the new data
+    existingCart.push(cartData);
+
+    // Save updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
+    // Optional: Close modal or give feedback
+    closeModal();
   };
 
   useEffect(() => {
@@ -106,33 +170,6 @@ export default function RestroMenu() {
       document.body.style.overflow = "";
     };
   }, [showModal]);
-
-  // const checkScrollPosition = () => {
-  //   const el = scrollRef.current;
-  //   if (el) {
-  //     setShowLeft(el.scrollLeft > 0);
-  //     setShowRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
-  //   }
-  //   const el2 = fixedRef.current;
-  //   if (el2) {
-  //     setShowLeftFixed(el.scrollLeftFixedItem > 0);
-  //     setShowRightFixed(
-  //       el.scrollLeftFixedItem + el.clientWidth < el.scrollWidth
-  //     );
-  //   }
-  //   const el3 = mainRef.current;
-  //   if (el3) {
-  //     setShowLeftMain(el.scrollLeftMainItem > 0);
-  //     setShowRightMain(el.scrollLeftMainItem + el.clientWidth < el.scrollWidth);
-  //   }
-  //   const el4 = drinksRef.current;
-  //   if (el4) {
-  //     setShowLeftDrinks(el.scrollLeftDrinksItem > 0);
-  //     setShowRightDrinks(
-  //       el.scrollLeftDrinksItem + el.clientWidth < el.scrollWidth
-  //     );
-  //   }
-  // };
 
   useEffect(() => {
     const checkScrollPosition = () => {
@@ -217,6 +254,7 @@ export default function RestroMenu() {
           res.data[0],
           import.meta.env.VITE_ENCRYPTION_KEY
         );
+        console.log("data", data);
         if (data.success) {
           console.log("data", data);
           const categories = data.foodItem;
@@ -294,63 +332,6 @@ export default function RestroMenu() {
   const closeModal = () => {
     setShowModal(false);
     setSelectedItem(null);
-  };
-
-  const [itemCount, setItemCount] = useState(1);
-
-  const handleIncrease = () => {
-    setItemCount(itemCount + 1);
-  };
-
-  const handleDecrease = () => {
-    if (itemCount > 1) {
-      setItemCount(itemCount - 1);
-    }
-  };
-
-  const handleMainAddToCart = () => {
-    const mainItem = {
-      refFoodId: selectedItem.refFoodId,
-      refFoodName: selectedItem.refFoodName,
-      refFoodCategoryName: selectedItem.refFoodCategoryName,
-      refMenuId: selectedItem.refMenuId,
-      refPrice: selectedItem.refPrice,
-      count: itemCount,
-    };
-
-    let addons = [];
-
-    if (selectedItem.refAddOns && selectedItem.refAddOns.length > 0) {
-      selectedItem.refAddOns.forEach((addon, index) => {
-        if (cartState[index]) {
-          addons.push({
-            refFoodId: addon.refFoodId,
-            refFoodName: addon.refFoodName,
-            refFoodCategoryName: addon.refFoodCategoryName,
-            refMenuId: addon.refMenuId,
-            refPrice: addon.refPrice,
-            count: cartState[index].count,
-          });
-        }
-      });
-    }
-
-    const cartData = [mainItem];
-    if (addons.length > 0) {
-      cartData.push(...addons);
-    }
-
-    // Get existing cart data from localStorage
-    let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Append the new data
-    existingCart.push(cartData);
-
-    // Save updated cart to localStorage
-    localStorage.setItem("cart", JSON.stringify(existingCart));
-
-    // Optional: Close modal or give feedback
-    closeModal();
   };
 
   return (
@@ -697,172 +678,68 @@ export default function RestroMenu() {
                         ref={fixedRef}
                         className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
                       >
-                        {selectedItem.refFixedProduct &&
-                          selectedItem.refFixedProduct.length > 0 && (
-                            <div className="mt-4 relative">
-                              <h4 className="text-xl font-semibold mb-3">
-                                Foods
-                              </h4>
+                        {selectedItem.refFixedProduct.map((addon, index) => (
+                          <div
+                            key={index}
+                            className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                          >
+                            <img
+                              src={
+                                addon.profileFile
+                                  ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                  : kingsKurryLogo
+                              }
+                              alt={addon.refFoodName}
+                              className="w-20 h-full object-cover rounded"
+                            />
+                            <div className="flex flex-col justify-between flex-grow">
+                              <p className="font-semibold text-gray-800">
+                                {addon.refFoodName}
+                              </p>
+                              <p
+                                className="text-sm text-gray-500"
+                                dangerouslySetInnerHTML={{
+                                  __html: addon.refDescription,
+                                }}
+                              />
+                              <p className="text-[#cd5c08] font-medium mb-2">
+                                CHF {addon.refPrice}
+                              </p>
 
-                              <div className="relative">
-                                <div
-                                  ref={fixedRef}
-                                  className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                              {!cartState[`fixed_${index}`] ? (
+                                <button
+                                  onClick={() => handleAddToCart(index, true)} // Pass true for fixed products
+                                  className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
                                 >
-                                  {selectedItem.refFixedProduct.map(
-                                    (addon, index) => (
-                                      <div
-                                        key={index}
-                                        className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                                      >
-                                        <img
-                                          src={
-                                            addon.profileFile
-                                              ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
-                                              : kingsKurryLogo
-                                          }
-                                          alt={addon.refFoodName}
-                                          className="w-20 h-full object-cover rounded"
-                                        />
-                                        <div className="flex flex-col justify-between flex-grow">
-                                          <p className="font-semibold text-gray-800">
-                                            {addon.refFoodName}
-                                          </p>
-                                          <p
-                                            className="text-sm text-gray-500"
-                                            dangerouslySetInnerHTML={{
-                                              __html: addon.refDescription,
-                                            }}
-                                          />
-                                          <p className="text-[#cd5c08] font-medium mb-2">
-                                            CHF {addon.refPrice}
-                                          </p>
-
-                                          {!cartState[index] ? (
-                                            <button
-                                              onClick={() =>
-                                                handleAddToCart(index)
-                                              }
-                                              className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
-                                            >
-                                              Add to Cart
-                                            </button>
-                                          ) : (
-                                            <div className="flex items-center gap-2">
-                                              <button
-                                                onClick={() =>
-                                                  handleDecrement(index)
-                                                }
-                                                className="border px-2 py-1 rounded text-sm"
-                                              >
-                                                -
-                                              </button>
-                                              <span className="font-semibold">
-                                                {cartState[index].count}
-                                              </span>
-                                              <button
-                                                onClick={() =>
-                                                  handleIncrement(index)
-                                                }
-                                                className=" border px-2 py-1 rounded text-sm"
-                                              >
-                                                +
-                                              </button>
-                                            </div>
-                                          )}
-                                        </div>
-                                      </div>
-                                    )
-                                  )}
+                                  Add to Cart
+                                </button>
+                              ) : (
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    onClick={() =>
+                                      handleDecrement(`fixed_${index}`)
+                                    } // Use the same key for decrement
+                                    className="border px-2 py-1 rounded text-sm"
+                                  >
+                                    -
+                                  </button>
+                                  <span className="font-semibold">
+                                    {cartState[`fixed_${index}`].count}
+                                  </span>
+                                  <button
+                                    onClick={() =>
+                                      handleIncrement(`fixed_${index}`)
+                                    } // Use the same key for increment
+                                    className="border px-2 py-1 rounded text-sm"
+                                  >
+                                    +
+                                  </button>
                                 </div>
-
-                                {showLeftFixed && (
-                                  <button
-                                    className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                    onClick={scrollLeftFixedItem}
-                                  >
-                                    <svg
-                                      className="w-5 h-5 text-gray-700"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M15 19l-7-7 7-7"
-                                      />
-                                    </svg>
-                                  </button>
-                                )}
-
-                                {showRightFixed && (
-                                  <button
-                                    className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                    onClick={scrollRightFixedItem}
-                                  >
-                                    <svg
-                                      className="w-5 h-5 text-gray-700"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M9 5l7 7-7 7"
-                                      />
-                                    </svg>
-                                  </button>
-                                )}
-                              </div>
+                              )}
                             </div>
-                          )}
+                          </div>
+                        ))}
                       </div>
-
-                      {showLeftFixed && (
-                        <button
-                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                          onClick={scrollLeftFixedItem}
-                        >
-                          <svg
-                            className="w-5 h-5 text-gray-700"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15 19l-7-7 7-7"
-                            />
-                          </svg>
-                        </button>
-                      )}
-
-                      {showRightFixed && (
-                        <button
-                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                          onClick={scrollRightFixedItem}
-                        >
-                          <svg
-                            className="w-5 h-5 text-gray-700"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </button>
-                      )}
                     </div>
                   </div>
                 )}
