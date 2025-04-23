@@ -17,7 +17,64 @@ export default function RestroMenu() {
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(false);
 
-  // Check scroll positions
+  const [cartState, setCartState] = useState({});
+
+  const handleAddToCart = (index) => {
+    setCartState({
+      ...cartState,
+      [index]: { count: 1 },
+    });
+  };
+
+  const handleIncrement = (index) => {
+    setCartState((prev) => ({
+      ...prev,
+      [index]: { count: prev[index].count + 1 },
+    }));
+  };
+
+  const handleDecrement = (index) => {
+    const currentCount = cartState[index]?.count || 0;
+    if (currentCount <= 1) {
+      // Remove from cart
+      const updatedState = { ...cartState };
+      delete updatedState[index];
+      setCartState(updatedState);
+    } else {
+      setCartState((prev) => ({
+        ...prev,
+        [index]: { count: prev[index].count - 1 },
+      }));
+    }
+  };
+
+  useEffect(() => {
+    const updateScrollButtons = () => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        setShowLeft(scrollLeft > 0);
+        setShowRight(scrollLeft + clientWidth < scrollWidth);
+      }
+    };
+
+    updateScrollButtons();
+    scrollRef.current?.addEventListener("scroll", updateScrollButtons);
+    return () =>
+      scrollRef.current?.removeEventListener("scroll", updateScrollButtons);
+  }, []);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showModal]);
+
   const checkScrollPosition = () => {
     const el = scrollRef.current;
     if (el) {
@@ -27,7 +84,7 @@ export default function RestroMenu() {
   };
 
   useEffect(() => {
-    checkScrollPosition(); // Initial check
+    checkScrollPosition();
     const el = scrollRef.current;
     if (el) {
       el.addEventListener("scroll", checkScrollPosition);
@@ -150,10 +207,6 @@ export default function RestroMenu() {
     }
   };
 
-  const handleAddToCart = () => {
-    console.log("Adding to cart", itemCount);
-  };
-
   return (
     <div ref={containerRef}>
       <div className="coverImg h-[60vh]">
@@ -242,7 +295,7 @@ export default function RestroMenu() {
       {/* Modal */}
       {showModal && selectedItem && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white rounded-lg p-6 w-[90%] md:w-1/2 max-h-[80vh] overflow-y-auto shadow-xl flex flex-col lg:flex-row">
+          <div className="bg-white rounded-lg p-6 w-[90%] md:w-1/2 max-h-[80vh] overflow-y-auto shadow-xl flex flex-col lg:flex-row my-2">
             {/* Left side: Image */}
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold">{selectedItem.refFoodName}</h3>
@@ -271,7 +324,7 @@ export default function RestroMenu() {
                 }}
               />
 
-              <p className="text-blue-600 font-semibold text-lg">
+              <p className="text-[#cd5c08] font-semibold text-lg">
                 CHF {selectedItem.refPrice}
               </p>
 
@@ -287,7 +340,7 @@ export default function RestroMenu() {
                   type="text"
                   value={itemCount}
                   readOnly
-                  className="mx-4 w-16 text-center rounded-full"
+                  className="mx-4 w-3 text-center rounded-full"
                 />
                 <button
                   onClick={handleIncrease}
@@ -299,46 +352,136 @@ export default function RestroMenu() {
 
               {/* Add-Ons (if any) */}
               {selectedItem.refAddOns && selectedItem.refAddOns.length > 0 && (
-                <div className="mt-4 relative">
-                  <h4 className="text-xl font-semibold mb-3">Add Ons</h4>
-
+                <div className="relative">
                   <div className="relative">
                     <div
                       ref={scrollRef}
-                      className="flex gap-4 overflow-x-auto scrollbar-hide px-10"
+                      className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
                     >
-                      {selectedItem.refAddOns.map((addon, index) => (
-                        <div
-                          key={index}
-                          className="flex-shrink-0 w-70 bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                        >
-                          <img
-                            src={
-                              selectedItem.profileFile
-                                ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
-                                : kingsKurryLogo
-                            }
-                            alt={addon.refFoodName}
-                            className="w-20 h-full object-cover rounded"
-                          />
-                          <div className="flex flex-col justify-between flex-grow">
-                            <p className="font-semibold text-gray-800">
-                              {addon.refFoodName}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {addon.refDescription}
-                            </p>
-                            <p className="text-blue-600 font-medium">
-                              CHF {addon.refPrice}
-                            </p>
+                      {selectedItem.refAddOns &&
+                        selectedItem.refAddOns.length > 0 && (
+                          <div className="mt-4 relative">
+                            <h4 className="text-xl font-semibold mb-3">
+                              Add Ons
+                            </h4>
+
+                            <div className="relative">
+                              <div
+                                ref={scrollRef}
+                                className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                              >
+                                {selectedItem.refAddOns.map((addon, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex-shrink-0 w-70 bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                                  >
+                                    <img
+                                      src={
+                                        addon.profileFile
+                                          ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                          : kingsKurryLogo
+                                      }
+                                      alt={addon.refFoodName}
+                                      className="w-20 h-full object-cover rounded"
+                                    />
+                                    <div className="flex flex-col justify-between flex-grow">
+                                      <p className="font-semibold text-gray-800">
+                                        {addon.refFoodName}
+                                      </p>
+                                      <p
+                                        className="text-sm text-gray-500"
+                                        dangerouslySetInnerHTML={{
+                                          __html: addon.refDescription,
+                                        }}
+                                      />
+                                      <p className="text-[#cd5c08] font-medium mb-2">
+                                        CHF {addon.refPrice}
+                                      </p>
+
+                                      {!cartState[index] ? (
+                                        <button
+                                          onClick={() => handleAddToCart(index)}
+                                          className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
+                                        >
+                                          Add to Cart
+                                        </button>
+                                      ) : (
+                                        <div className="flex items-center gap-2">
+                                          <button
+                                            onClick={() =>
+                                              handleDecrement(index)
+                                            }
+                                            className="border px-2 py-1 rounded text-sm"
+                                          >
+                                            -
+                                          </button>
+                                          <span className="font-semibold">
+                                            {cartState[index].count}
+                                          </span>
+                                          <button
+                                            onClick={() =>
+                                              handleIncrement(index)
+                                            }
+                                            className=" border px-2 py-1 rounded text-sm"
+                                          >
+                                            +
+                                          </button>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+
+                              {showLeft && (
+                                <button
+                                  className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                  onClick={scrollLeft}
+                                >
+                                  <svg
+                                    className="w-5 h-5 text-gray-700"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M15 19l-7-7 7-7"
+                                    />
+                                  </svg>
+                                </button>
+                              )}
+
+                              {showRight && (
+                                <button
+                                  className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                  onClick={scrollRight}
+                                >
+                                  <svg
+                                    className="w-5 h-5 text-gray-700"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M9 5l7 7-7 7"
+                                    />
+                                  </svg>
+                                </button>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        )}
                     </div>
 
                     {showLeft && (
                       <button
-                        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
                         onClick={scrollLeft}
                       >
                         <svg
@@ -359,7 +502,7 @@ export default function RestroMenu() {
 
                     {showRight && (
                       <button
-                        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
                         onClick={scrollRight}
                       >
                         <svg
@@ -381,11 +524,10 @@ export default function RestroMenu() {
                 </div>
               )}
 
-              {/* Add to Cart Button */}
-              <div className="fixed bottom-0 left-0 w-full bg-white p-4 shadow-lg">
+              <div className="fixed bottom-0 left-0 w-full bg-white p-1 shadow-lg">
                 <button
                   onClick={handleAddToCart}
-                  className="w-full py-2 bg-blue-600 text-white font-semibold rounded"
+                  className="w-full py-2 bg-[#cd5c08] text-white font-semibold rounded"
                 >
                   Add to Cart
                 </button>
