@@ -441,340 +441,166 @@ export default function RestroMenu() {
       {/* Modal */}
       {showModal && selectedItem && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white rounded-lg p-6 w-[90%] md:w-1/2 max-h-[80vh] overflow-y-auto shadow-xl flex flex-col my-2">
-            {/* Left side: Image */}
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold">
-                {selectedItem.refFoodName
-                  ? selectedItem.refFoodName
-                  : selectedItem.refComboName}
-              </h3>
-              <button onClick={closeModal} className="text-gray-500 text-xl">
-                &times;
-              </button>
-            </div>
-
-            <div className="flex flex-col lg:flex-row gap-6">
+          <div className="bg-white rounded-lg w-[90%] md:w-1/2 max-h-[80vh] overflow-y-auto shadow-xl flex flex-col my-2">
+            <div className="p-5">
               {/* Left side: Image */}
-              <div className="flex-shrink-0 w-full lg:w-1/2 mb-4 lg:mb-0">
-                <img
-                  src={
-                    selectedItem.profileFile
-                      ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
-                      : kingsKurryLogo
-                  }
-                  alt={
-                    selectedItem.refFoodName
-                      ? selectedItem.refFoodName
-                      : selectedItem.refComboName
-                  }
-                  className="w-full h-60 object-cover rounded"
-                />
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold">
+                  {selectedItem.refFoodName
+                    ? selectedItem.refFoodName
+                    : selectedItem.refComboName}
+                </h3>
+                <button onClick={closeModal} className="text-gray-500 text-xl">
+                  &times;
+                </button>
               </div>
 
-              {/* Right side: Details */}
-              <div className="flex flex-col w-full lg:w-1/2 lg:pl-6">
-                <div
-                  className="text-gray-700 mb-2"
-                  dangerouslySetInnerHTML={{
-                    __html: selectedItem.refDescription
-                      ? selectedItem.refDescription
-                      : selectedItem.refComboDescription,
-                  }}
-                />
-
-                <p className="text-[#cd5c08] font-semibold text-lg">
-                  CHF{" "}
-                  {selectedItem.refPrice
-                    ? selectedItem.refPrice
-                    : selectedItem.refComboPrice}
-                </p>
-
-                {/* Item Count Controls */}
-                <div className="flex items-center mt-4 mb-4">
-                  <button
-                    onClick={handleDecrease}
-                    className="px-4 py-2 border rounded-full text-lg font-semibold"
-                  >
-                    -
-                  </button>
-                  <input
-                    type="text"
-                    value={itemCount}
-                    readOnly
-                    className="mx-4 w-3 text-center rounded-full"
+              <div className="flex flex-col lg:flex-row gap-6">
+                {/* Left side: Image */}
+                <div className="flex-shrink-0 w-full lg:w-1/2 mb-4 lg:mb-0">
+                  <img
+                    src={
+                      selectedItem.profileFile
+                        ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
+                        : kingsKurryLogo
+                    }
+                    alt={
+                      selectedItem.refFoodName
+                        ? selectedItem.refFoodName
+                        : selectedItem.refComboName
+                    }
+                    className="w-full h-60 object-cover rounded"
                   />
-                  <button
-                    onClick={handleIncrease}
-                    className="px-4 py-2 border rounded-full text-lg font-semibold"
-                  >
-                    +
-                  </button>
                 </div>
-              </div>
-            </div>
-            {/* Add-Ons (if any) */}
-            {selectedItem.refAddOns && selectedItem.refAddOns.length > 0 && (
-              <div className="relative">
-                <div className="relative">
+
+                {/* Right side: Details */}
+                <div className="flex flex-col w-full lg:w-1/2 lg:pl-6">
                   <div
-                    ref={scrollRef}
-                    className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
-                  >
-                    {selectedItem.refAddOns &&
-                      selectedItem.refAddOns.length > 0 && (
-                        <div className="mt-4 relative">
-                          <h4 className="text-xl font-semibold mb-3">
-                            Add Ons
-                          </h4>
+                    className="text-gray-700 mb-2"
+                    dangerouslySetInnerHTML={{
+                      __html: selectedItem.refDescription
+                        ? selectedItem.refDescription
+                        : selectedItem.refComboDescription,
+                    }}
+                  />
 
-                          <div className="relative">
-                            <div
-                              ref={scrollRef}
-                              className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
-                            >
-                              {selectedItem.refAddOns.map((addon, index) => (
-                                <div
-                                  key={index}
-                                  className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                                >
-                                  <img
-                                    src={
-                                      addon.profileFile
-                                        ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
-                                        : kingsKurryLogo
-                                    }
-                                    alt={addon.refFoodName}
-                                    className="w-20 h-full object-cover rounded"
-                                  />
-                                  <div className="flex flex-col justify-between flex-grow">
-                                    <p className="font-semibold text-gray-800">
-                                      {addon.refFoodName}
-                                    </p>
-                                    <p
-                                      className="text-sm text-gray-500"
-                                      dangerouslySetInnerHTML={{
-                                        __html: addon.refDescription,
-                                      }}
-                                    />
-                                    <p className="text-[#cd5c08] font-medium mb-2">
-                                      CHF {addon.refPrice}
-                                    </p>
+                  <p className="text-[#cd5c08] font-semibold text-lg">
+                    CHF{" "}
+                    {selectedItem.refPrice
+                      ? selectedItem.refPrice
+                      : selectedItem.refComboPrice}
+                  </p>
 
-                                    {!cartState[index] ? (
-                                      <button
-                                        onClick={() => handleAddToCart(index)}
-                                        className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
-                                      >
-                                        Add to Cart
-                                      </button>
-                                    ) : (
-                                      <div className="flex items-center gap-2">
-                                        <button
-                                          onClick={() => handleDecrement(index)}
-                                          className="border px-2 py-1 rounded text-sm"
-                                        >
-                                          -
-                                        </button>
-                                        <span className="font-semibold">
-                                          {cartState[index].count}
-                                        </span>
-                                        <button
-                                          onClick={() => handleIncrement(index)}
-                                          className=" border px-2 py-1 rounded text-sm"
-                                        >
-                                          +
-                                        </button>
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-
-                            {showLeft && (
-                              <button
-                                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                onClick={scrollLeft}
-                              >
-                                <svg
-                                  className="w-5 h-5 text-gray-700"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M15 19l-7-7 7-7"
-                                  />
-                                </svg>
-                              </button>
-                            )}
-
-                            {showRight && (
-                              <button
-                                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                onClick={scrollRight}
-                              >
-                                <svg
-                                  className="w-5 h-5 text-gray-700"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M9 5l7 7-7 7"
-                                  />
-                                </svg>
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      )}
+                  {/* Item Count Controls */}
+                  <div className="flex items-center mt-4 mb-4">
+                    <button
+                      onClick={handleDecrease}
+                      className="px-4 py-2 border rounded-full text-lg font-semibold"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      value={itemCount}
+                      readOnly
+                      className="mx-4 w-3 text-center rounded-full"
+                    />
+                    <button
+                      onClick={handleIncrease}
+                      className="px-4 py-2 border rounded-full text-lg font-semibold"
+                    >
+                      +
+                    </button>
                   </div>
-
-                  {showLeft && (
-                    <button
-                      className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                      onClick={scrollLeft}
-                    >
-                      <svg
-                        className="w-5 h-5 text-gray-700"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                    </button>
-                  )}
-
-                  {showRight && (
-                    <button
-                      className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                      onClick={scrollRight}
-                    >
-                      <svg
-                        className="w-5 h-5 text-gray-700"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  )}
                 </div>
               </div>
-            )}
-
-            {/* FIXED FOOD ITEMS */}
-            {selectedItem.refFixedProduct &&
-              selectedItem.refFixedProduct.length > 0 && (
+              {/* Add-Ons (if any) */}
+              {selectedItem.refAddOns && selectedItem.refAddOns.length > 0 && (
                 <div className="relative">
                   <div className="relative">
                     <div
-                      ref={fixedRef}
+                      ref={scrollRef}
                       className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
                     >
-                      {selectedItem.refFixedProduct &&
-                        selectedItem.refFixedProduct.length > 0 && (
+                      {selectedItem.refAddOns &&
+                        selectedItem.refAddOns.length > 0 && (
                           <div className="mt-4 relative">
                             <h4 className="text-xl font-semibold mb-3">
-                              Foods
+                              Add Ons
                             </h4>
 
                             <div className="relative">
                               <div
-                                ref={fixedRef}
+                                ref={scrollRef}
                                 className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
                               >
-                                {selectedItem.refFixedProduct.map(
-                                  (addon, index) => (
-                                    <div
-                                      key={index}
-                                      className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                                    >
-                                      <img
-                                        src={
-                                          addon.profileFile
-                                            ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
-                                            : kingsKurryLogo
-                                        }
-                                        alt={addon.refFoodName}
-                                        className="w-20 h-full object-cover rounded"
+                                {selectedItem.refAddOns.map((addon, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                                  >
+                                    <img
+                                      src={
+                                        addon.profileFile
+                                          ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                          : kingsKurryLogo
+                                      }
+                                      alt={addon.refFoodName}
+                                      className="w-20 h-full object-cover rounded"
+                                    />
+                                    <div className="flex flex-col justify-between flex-grow">
+                                      <p className="font-semibold text-gray-800">
+                                        {addon.refFoodName}
+                                      </p>
+                                      <p
+                                        className="text-sm text-gray-500"
+                                        dangerouslySetInnerHTML={{
+                                          __html: addon.refDescription,
+                                        }}
                                       />
-                                      <div className="flex flex-col justify-between flex-grow">
-                                        <p className="font-semibold text-gray-800">
-                                          {addon.refFoodName}
-                                        </p>
-                                        <p
-                                          className="text-sm text-gray-500"
-                                          dangerouslySetInnerHTML={{
-                                            __html: addon.refDescription,
-                                          }}
-                                        />
-                                        <p className="text-[#cd5c08] font-medium mb-2">
-                                          CHF {addon.refPrice}
-                                        </p>
+                                      <p className="text-[#cd5c08] font-medium mb-2">
+                                        CHF {addon.refPrice}
+                                      </p>
 
-                                        {!cartState[index] ? (
+                                      {!cartState[index] ? (
+                                        <button
+                                          onClick={() => handleAddToCart(index)}
+                                          className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
+                                        >
+                                          Add to Cart
+                                        </button>
+                                      ) : (
+                                        <div className="flex items-center gap-2">
                                           <button
                                             onClick={() =>
-                                              handleAddToCart(index)
+                                              handleDecrement(index)
                                             }
-                                            className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
+                                            className="border px-2 py-1 rounded text-sm"
                                           >
-                                            Add to Cart
+                                            -
                                           </button>
-                                        ) : (
-                                          <div className="flex items-center gap-2">
-                                            <button
-                                              onClick={() =>
-                                                handleDecrement(index)
-                                              }
-                                              className="border px-2 py-1 rounded text-sm"
-                                            >
-                                              -
-                                            </button>
-                                            <span className="font-semibold">
-                                              {cartState[index].count}
-                                            </span>
-                                            <button
-                                              onClick={() =>
-                                                handleIncrement(index)
-                                              }
-                                              className=" border px-2 py-1 rounded text-sm"
-                                            >
-                                              +
-                                            </button>
-                                          </div>
-                                        )}
-                                      </div>
+                                          <span className="font-semibold">
+                                            {cartState[index].count}
+                                          </span>
+                                          <button
+                                            onClick={() =>
+                                              handleIncrement(index)
+                                            }
+                                            className=" border px-2 py-1 rounded text-sm"
+                                          >
+                                            +
+                                          </button>
+                                        </div>
+                                      )}
                                     </div>
-                                  )
-                                )}
+                                  </div>
+                                ))}
                               </div>
 
-                              {showLeftFixed && (
+                              {showLeft && (
                                 <button
                                   className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                  onClick={scrollLeftFixedItem}
+                                  onClick={scrollLeft}
                                 >
                                   <svg
                                     className="w-5 h-5 text-gray-700"
@@ -792,10 +618,10 @@ export default function RestroMenu() {
                                 </button>
                               )}
 
-                              {showRightFixed && (
+                              {showRight && (
                                 <button
                                   className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                  onClick={scrollRightFixedItem}
+                                  onClick={scrollRight}
                                 >
                                   <svg
                                     className="w-5 h-5 text-gray-700"
@@ -817,10 +643,10 @@ export default function RestroMenu() {
                         )}
                     </div>
 
-                    {showLeftFixed && (
+                    {showLeft && (
                       <button
                         className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                        onClick={scrollLeftFixedItem}
+                        onClick={scrollLeft}
                       >
                         <svg
                           className="w-5 h-5 text-gray-700"
@@ -838,10 +664,10 @@ export default function RestroMenu() {
                       </button>
                     )}
 
-                    {showRightFixed && (
+                    {showRight && (
                       <button
                         className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                        onClick={scrollRightFixedItem}
+                        onClick={scrollRight}
                       >
                         <svg
                           className="w-5 h-5 text-gray-700"
@@ -862,364 +688,544 @@ export default function RestroMenu() {
                 </div>
               )}
 
-            {/* MAIN DISH */}
-            {selectedItem.refMainProduct &&
-              selectedItem.refMainProduct.length > 0 && (
-                <div className="relative">
+              {/* FIXED FOOD ITEMS */}
+              {selectedItem.refFixedProduct &&
+                selectedItem.refFixedProduct.length > 0 && (
                   <div className="relative">
-                    <div
-                      ref={mainRef}
-                      className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
-                    >
-                      {selectedItem.refMainProduct &&
-                        selectedItem.refMainProduct.length > 0 && (
-                          <div className="mt-4 relative">
-                            <h4 className="text-xl font-semibold mb-3">
-                              Main Dish
-                            </h4>
+                    <div className="relative">
+                      <div
+                        ref={fixedRef}
+                        className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                      >
+                        {selectedItem.refFixedProduct &&
+                          selectedItem.refFixedProduct.length > 0 && (
+                            <div className="mt-4 relative">
+                              <h4 className="text-xl font-semibold mb-3">
+                                Foods
+                              </h4>
 
-                            <div className="relative">
-                              <div
-                                ref={mainRef}
-                                className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
-                              >
-                                {selectedItem.refMainProduct.map(
-                                  (addon, index) => (
-                                    <div
-                                      key={index}
-                                      className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                                    >
-                                      <img
-                                        src={
-                                          addon.profileFile
-                                            ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
-                                            : kingsKurryLogo
-                                        }
-                                        alt={addon.refFoodName}
-                                        className="w-20 h-full object-cover rounded"
-                                      />
-                                      <div className="flex flex-col justify-between flex-grow">
-                                        <p className="font-semibold text-gray-800">
-                                          {addon.refFoodName}
-                                        </p>
-                                        <p
-                                          className="text-sm text-gray-500"
-                                          dangerouslySetInnerHTML={{
-                                            __html: addon.refDescription,
-                                          }}
+                              <div className="relative">
+                                <div
+                                  ref={fixedRef}
+                                  className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                                >
+                                  {selectedItem.refFixedProduct.map(
+                                    (addon, index) => (
+                                      <div
+                                        key={index}
+                                        className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                                      >
+                                        <img
+                                          src={
+                                            addon.profileFile
+                                              ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                              : kingsKurryLogo
+                                          }
+                                          alt={addon.refFoodName}
+                                          className="w-20 h-full object-cover rounded"
                                         />
-                                        <p className="text-[#cd5c08] font-medium mb-2">
-                                          CHF {addon.refPrice}
-                                        </p>
+                                        <div className="flex flex-col justify-between flex-grow">
+                                          <p className="font-semibold text-gray-800">
+                                            {addon.refFoodName}
+                                          </p>
+                                          <p
+                                            className="text-sm text-gray-500"
+                                            dangerouslySetInnerHTML={{
+                                              __html: addon.refDescription,
+                                            }}
+                                          />
+                                          <p className="text-[#cd5c08] font-medium mb-2">
+                                            CHF {addon.refPrice}
+                                          </p>
 
-                                        {!cartState[index] ? (
-                                          <button
-                                            onClick={() =>
-                                              handleAddToCart(index)
-                                            }
-                                            className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
-                                          >
-                                            Add to Cart
-                                          </button>
-                                        ) : (
-                                          <div className="flex items-center gap-2">
+                                          {!cartState[index] ? (
                                             <button
                                               onClick={() =>
-                                                handleDecrement(index)
+                                                handleAddToCart(index)
                                               }
-                                              className="border px-2 py-1 rounded text-sm"
+                                              className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
                                             >
-                                              -
+                                              Add to Cart
                                             </button>
-                                            <span className="font-semibold">
-                                              {cartState[index].count}
-                                            </span>
-                                            <button
-                                              onClick={() =>
-                                                handleIncrement(index)
-                                              }
-                                              className=" border px-2 py-1 rounded text-sm"
-                                            >
-                                              +
-                                            </button>
-                                          </div>
-                                        )}
+                                          ) : (
+                                            <div className="flex items-center gap-2">
+                                              <button
+                                                onClick={() =>
+                                                  handleDecrement(index)
+                                                }
+                                                className="border px-2 py-1 rounded text-sm"
+                                              >
+                                                -
+                                              </button>
+                                              <span className="font-semibold">
+                                                {cartState[index].count}
+                                              </span>
+                                              <button
+                                                onClick={() =>
+                                                  handleIncrement(index)
+                                                }
+                                                className=" border px-2 py-1 rounded text-sm"
+                                              >
+                                                +
+                                              </button>
+                                            </div>
+                                          )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  )
+                                    )
+                                  )}
+                                </div>
+
+                                {showLeftFixed && (
+                                  <button
+                                    className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                    onClick={scrollLeftFixedItem}
+                                  >
+                                    <svg
+                                      className="w-5 h-5 text-gray-700"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 19l-7-7 7-7"
+                                      />
+                                    </svg>
+                                  </button>
+                                )}
+
+                                {showRightFixed && (
+                                  <button
+                                    className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                    onClick={scrollRightFixedItem}
+                                  >
+                                    <svg
+                                      className="w-5 h-5 text-gray-700"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M9 5l7 7-7 7"
+                                      />
+                                    </svg>
+                                  </button>
                                 )}
                               </div>
-
-                              {showLeftMain && (
-                                <button
-                                  className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                  onClick={scrollLeftMainItem}
-                                >
-                                  <svg
-                                    className="w-5 h-5 text-gray-700"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M15 19l-7-7 7-7"
-                                    />
-                                  </svg>
-                                </button>
-                              )}
-
-                              {showRightMain && (
-                                <button
-                                  className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                  onClick={scrollRightMainItem}
-                                >
-                                  <svg
-                                    className="w-5 h-5 text-gray-700"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M9 5l7 7-7 7"
-                                    />
-                                  </svg>
-                                </button>
-                              )}
                             </div>
-                          </div>
-                        )}
+                          )}
+                      </div>
+
+                      {showLeftFixed && (
+                        <button
+                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          onClick={scrollLeftFixedItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 19l-7-7 7-7"
+                            />
+                          </svg>
+                        </button>
+                      )}
+
+                      {showRightFixed && (
+                        <button
+                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          onClick={scrollRightFixedItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </button>
+                      )}
                     </div>
-
-                    {showLeftMain && (
-                      <button
-                        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                        onClick={scrollLeftMainItem}
-                      >
-                        <svg
-                          className="w-5 h-5 text-gray-700"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 19l-7-7 7-7"
-                          />
-                        </svg>
-                      </button>
-                    )}
-
-                    {showRightMain && (
-                      <button
-                        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                        onClick={scrollRightMainItem}
-                      >
-                        <svg
-                          className="w-5 h-5 text-gray-700"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </button>
-                    )}
                   </div>
-                </div>
-              )}
+                )}
 
-            {/* SIDE DISH */}
-            {selectedItem.refSideDish &&
-              selectedItem.refSideDish.length > 0 && (
-                <div className="relative">
+              {/* MAIN DISH */}
+              {selectedItem.refMainProduct &&
+                selectedItem.refMainProduct.length > 0 && (
                   <div className="relative">
-                    <div
-                      ref={drinksRef}
-                      className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
-                    >
-                      {selectedItem.refSideDish &&
-                        selectedItem.refSideDish.length > 0 && (
-                          <div className="mt-4 relative">
-                            <h4 className="text-xl font-semibold mb-3">
-                              Drinks
-                            </h4>
+                    <div className="relative">
+                      <div
+                        ref={mainRef}
+                        className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                      >
+                        {selectedItem.refMainProduct &&
+                          selectedItem.refMainProduct.length > 0 && (
+                            <div className="mt-4 relative">
+                              <h4 className="text-xl font-semibold mb-3">
+                                Main Dish
+                              </h4>
 
-                            <div className="relative">
-                              <div
-                                ref={drinksRef}
-                                className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
-                              >
-                                {selectedItem.refSideDish.map(
-                                  (addon, index) => (
-                                    <div
-                                      key={index}
-                                      className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                                    >
-                                      <img
-                                        src={
-                                          addon.profileFile
-                                            ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
-                                            : kingsKurryLogo
-                                        }
-                                        alt={addon.refFoodName}
-                                        className="w-20 h-full object-cover rounded"
-                                      />
-                                      <div className="flex flex-col justify-between flex-grow">
-                                        <p className="font-semibold text-gray-800">
-                                          {addon.refFoodName}
-                                        </p>
-                                        <p
-                                          className="text-sm text-gray-500"
-                                          dangerouslySetInnerHTML={{
-                                            __html: addon.refDescription,
-                                          }}
+                              <div className="relative">
+                                <div
+                                  ref={mainRef}
+                                  className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                                >
+                                  {selectedItem.refMainProduct.map(
+                                    (addon, index) => (
+                                      <div
+                                        key={index}
+                                        className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                                      >
+                                        <img
+                                          src={
+                                            addon.profileFile
+                                              ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                              : kingsKurryLogo
+                                          }
+                                          alt={addon.refFoodName}
+                                          className="w-20 h-full object-cover rounded"
                                         />
-                                        <p className="text-[#cd5c08] font-medium mb-2">
-                                          CHF {addon.refPrice}
-                                        </p>
+                                        <div className="flex flex-col justify-between flex-grow">
+                                          <p className="font-semibold text-gray-800">
+                                            {addon.refFoodName}
+                                          </p>
+                                          <p
+                                            className="text-sm text-gray-500"
+                                            dangerouslySetInnerHTML={{
+                                              __html: addon.refDescription,
+                                            }}
+                                          />
+                                          <p className="text-[#cd5c08] font-medium mb-2">
+                                            CHF {addon.refPrice}
+                                          </p>
 
-                                        {!cartState[index] ? (
-                                          <button
-                                            onClick={() =>
-                                              handleAddToCart(index)
-                                            }
-                                            className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
-                                          >
-                                            Add to Cart
-                                          </button>
-                                        ) : (
-                                          <div className="flex items-center gap-2">
+                                          {!cartState[index] ? (
                                             <button
                                               onClick={() =>
-                                                handleDecrement(index)
+                                                handleAddToCart(index)
                                               }
-                                              className="border px-2 py-1 rounded text-sm"
+                                              className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
                                             >
-                                              -
+                                              Add to Cart
                                             </button>
-                                            <span className="font-semibold">
-                                              {cartState[index].count}
-                                            </span>
-                                            <button
-                                              onClick={() =>
-                                                handleIncrement(index)
-                                              }
-                                              className=" border px-2 py-1 rounded text-sm"
-                                            >
-                                              +
-                                            </button>
-                                          </div>
-                                        )}
+                                          ) : (
+                                            <div className="flex items-center gap-2">
+                                              <button
+                                                onClick={() =>
+                                                  handleDecrement(index)
+                                                }
+                                                className="border px-2 py-1 rounded text-sm"
+                                              >
+                                                -
+                                              </button>
+                                              <span className="font-semibold">
+                                                {cartState[index].count}
+                                              </span>
+                                              <button
+                                                onClick={() =>
+                                                  handleIncrement(index)
+                                                }
+                                                className=" border px-2 py-1 rounded text-sm"
+                                              >
+                                                +
+                                              </button>
+                                            </div>
+                                          )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  )
+                                    )
+                                  )}
+                                </div>
+
+                                {showLeftMain && (
+                                  <button
+                                    className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                    onClick={scrollLeftMainItem}
+                                  >
+                                    <svg
+                                      className="w-5 h-5 text-gray-700"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 19l-7-7 7-7"
+                                      />
+                                    </svg>
+                                  </button>
+                                )}
+
+                                {showRightMain && (
+                                  <button
+                                    className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                    onClick={scrollRightMainItem}
+                                  >
+                                    <svg
+                                      className="w-5 h-5 text-gray-700"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M9 5l7 7-7 7"
+                                      />
+                                    </svg>
+                                  </button>
                                 )}
                               </div>
-
-                              {showLeftDrinks && (
-                                <button
-                                  className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                  onClick={scrollLeftDrinksItem}
-                                >
-                                  <svg
-                                    className="w-5 h-5 text-gray-700"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M15 19l-7-7 7-7"
-                                    />
-                                  </svg>
-                                </button>
-                              )}
-
-                              {showRightDrinks && (
-                                <button
-                                  className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                  onClick={scrollRightDrinksItem}
-                                >
-                                  <svg
-                                    className="w-5 h-5 text-gray-700"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M9 5l7 7-7 7"
-                                    />
-                                  </svg>
-                                </button>
-                              )}
                             </div>
-                          </div>
-                        )}
+                          )}
+                      </div>
+
+                      {showLeftMain && (
+                        <button
+                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          onClick={scrollLeftMainItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 19l-7-7 7-7"
+                            />
+                          </svg>
+                        </button>
+                      )}
+
+                      {showRightMain && (
+                        <button
+                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          onClick={scrollRightMainItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </button>
+                      )}
                     </div>
-
-                    {showLeftDrinks && (
-                      <button
-                        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                        onClick={scrollLeftDrinksItem}
-                      >
-                        <svg
-                          className="w-5 h-5 text-gray-700"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 19l-7-7 7-7"
-                          />
-                        </svg>
-                      </button>
-                    )}
-
-                    {showRightDrinks && (
-                      <button
-                        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
-                        onClick={scrollRightDrinksItem}
-                      >
-                        <svg
-                          className="w-5 h-5 text-gray-700"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </button>
-                    )}
                   </div>
-                </div>
-              )}
-            <div className="sticky bottom-0 left-0 bg-white border-t flex w-full">
+                )}
+
+              {/* SIDE DISH */}
+              {selectedItem.refSideDish &&
+                selectedItem.refSideDish.length > 0 && (
+                  <div className="relative">
+                    <div className="relative">
+                      <div
+                        ref={drinksRef}
+                        className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                      >
+                        {selectedItem.refSideDish &&
+                          selectedItem.refSideDish.length > 0 && (
+                            <div className="mt-4 relative">
+                              <h4 className="text-xl font-semibold mb-3">
+                                Drinks
+                              </h4>
+
+                              <div className="relative">
+                                <div
+                                  ref={drinksRef}
+                                  className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
+                                >
+                                  {selectedItem.refSideDish.map(
+                                    (addon, index) => (
+                                      <div
+                                        key={index}
+                                        className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                                      >
+                                        <img
+                                          src={
+                                            addon.profileFile
+                                              ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                              : kingsKurryLogo
+                                          }
+                                          alt={addon.refFoodName}
+                                          className="w-20 h-full object-cover rounded"
+                                        />
+                                        <div className="flex flex-col justify-between flex-grow">
+                                          <p className="font-semibold text-gray-800">
+                                            {addon.refFoodName}
+                                          </p>
+                                          <p
+                                            className="text-sm text-gray-500"
+                                            dangerouslySetInnerHTML={{
+                                              __html: addon.refDescription,
+                                            }}
+                                          />
+                                          <p className="text-[#cd5c08] font-medium mb-2">
+                                            CHF {addon.refPrice}
+                                          </p>
+
+                                          {!cartState[index] ? (
+                                            <button
+                                              onClick={() =>
+                                                handleAddToCart(index)
+                                              }
+                                              className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
+                                            >
+                                              Add to Cart
+                                            </button>
+                                          ) : (
+                                            <div className="flex items-center gap-2">
+                                              <button
+                                                onClick={() =>
+                                                  handleDecrement(index)
+                                                }
+                                                className="border px-2 py-1 rounded text-sm"
+                                              >
+                                                -
+                                              </button>
+                                              <span className="font-semibold">
+                                                {cartState[index].count}
+                                              </span>
+                                              <button
+                                                onClick={() =>
+                                                  handleIncrement(index)
+                                                }
+                                                className=" border px-2 py-1 rounded text-sm"
+                                              >
+                                                +
+                                              </button>
+                                            </div>
+                                          )}
+                                        </div>
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+
+                                {showLeftDrinks && (
+                                  <button
+                                    className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                    onClick={scrollLeftDrinksItem}
+                                  >
+                                    <svg
+                                      className="w-5 h-5 text-gray-700"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 19l-7-7 7-7"
+                                      />
+                                    </svg>
+                                  </button>
+                                )}
+
+                                {showRightDrinks && (
+                                  <button
+                                    className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                                    onClick={scrollRightDrinksItem}
+                                  >
+                                    <svg
+                                      className="w-5 h-5 text-gray-700"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M9 5l7 7-7 7"
+                                      />
+                                    </svg>
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          )}
+                      </div>
+
+                      {showLeftDrinks && (
+                        <button
+                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          onClick={scrollLeftDrinksItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 19l-7-7 7-7"
+                            />
+                          </svg>
+                        </button>
+                      )}
+
+                      {showRightDrinks && (
+                        <button
+                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          onClick={scrollRightDrinksItem}
+                        >
+                          <svg
+                            className="w-5 h-5 text-gray-700"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+            </div>
+            <div className="sticky bottom-0 left-0 bg-white border-t flex w-full z-10">
               <button
                 onClick={handleMainAddToCart}
                 className="bg-[#cd5c08] text-white px-6 py-2 w-full rounded-md text-lg font-semibold hover:bg-[#a64500]"
