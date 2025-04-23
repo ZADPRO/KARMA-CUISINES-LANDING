@@ -58,6 +58,13 @@ export default function RestroMenu() {
       });
       const closestIndex = offsets.indexOf(Math.min(...offsets));
       setActiveTabIndex(closestIndex);
+      const key = categories[closestIndex]?.refFoodCategoryName;
+      const activeButton = document.querySelector(`[data-tab-key="${key}"]`);
+      activeButton?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -89,15 +96,31 @@ export default function RestroMenu() {
 
         if (data.success) {
           console.log("data", data);
+          setSelectedItem(data.food[0]);
         }
       });
-    setSelectedItem(item);
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
     setSelectedItem(null);
+  };
+
+  const [itemCount, setItemCount] = useState(1);
+
+  const handleIncrease = () => {
+    setItemCount(itemCount + 1);
+  };
+
+  const handleDecrease = () => {
+    if (itemCount > 1) {
+      setItemCount(itemCount - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    console.log("Adding to cart", itemCount);
   };
 
   return (
@@ -122,10 +145,11 @@ export default function RestroMenu() {
           return (
             <button
               key={idx}
+              data-tab-key={key}
               className={`px-4 py-2 min-w-max rounded transition-all ${
                 activeTabIndex === idx
-                  ? "bg-blue-600 text-white font-semibold"
-                  : "bg-blue-100 text-blue-800"
+                  ? "bg-[#ff7209] text-white font-semibold"
+                  : "text-black"
               }`}
               onClick={() => handleTabClick(key, idx)}
             >
@@ -187,36 +211,84 @@ export default function RestroMenu() {
       {/* Modal */}
       {showModal && selectedItem && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white rounded-lg p-6 w-[90%] md:w-1/2 max-h-[80vh] overflow-y-auto shadow-xl">
+          <div className="bg-white rounded-lg p-6 w-[90%] md:w-1/2 max-h-[80vh] overflow-y-auto shadow-xl flex flex-col lg:flex-row">
+            {/* Left side: Image */}
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold">
-                {selectedItem.refFoodName || selectedItem.refComboName}
-              </h3>
+              <h3 className="text-xl font-bold">{selectedItem.refFoodName}</h3>
               <button onClick={closeModal} className="text-gray-500 text-xl">
                 &times;
               </button>
             </div>
-            <img
-              src={
-                selectedItem.profileFile
-                  ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
-                  : kingsKurryLogo
-              }
-              alt=""
-              className="w-full h-60 object-cover rounded mb-4"
-            />
-            <p
-              className="text-gray-700 mb-2"
-              dangerouslySetInnerHTML={{
-                __html:
-                  selectedItem.refDescription ||
-                  selectedItem.refComboDescription ||
-                  "",
-              }}
-            />
-            <p className="text-blue-600 font-semibold text-lg">
-              CHF {selectedItem.refPrice || selectedItem.refComboPrice}
-            </p>
+            <div className="flex-shrink-0 w-full lg:w-1/2 mb-4 lg:mb-0">
+              <img
+                src={
+                  selectedItem.profileFile
+                    ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
+                    : kingsKurryLogo
+                }
+                alt={selectedItem.refFoodName}
+                className="w-full h-60 object-cover rounded"
+              />
+            </div>
+
+            {/* Right side: Details */}
+            <div className="flex flex-col w-full lg:w-1/2 lg:pl-6">
+              <div
+                className="text-gray-700 mb-2"
+                dangerouslySetInnerHTML={{
+                  __html: selectedItem.refDescription,
+                }}
+              />
+
+              <p className="text-blue-600 font-semibold text-lg">
+                CHF {selectedItem.refPrice}
+              </p>
+
+              {/* Item Count Controls */}
+              <div className="flex items-center mt-4 mb-4">
+                <button
+                  onClick={handleDecrease}
+                  className="px-4 py-2 border rounded-full text-lg font-semibold"
+                >
+                  -
+                </button>
+                <input
+                  type="text"
+                  value={itemCount}
+                  readOnly
+                  className="mx-4 w-16 text-center rounded-full"
+                />
+                <button
+                  onClick={handleIncrease}
+                  className="px-4 py-2 border rounded-full text-lg font-semibold"
+                >
+                  +
+                </button>
+              </div>
+
+              {/* Add-Ons (if any) */}
+              {selectedItem.refAddOns && selectedItem.refAddOns.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="text-lg font-semibold mb-2">Add-ons</h4>
+                  {selectedItem.refAddOns.map((addon, index) => (
+                    <div key={index} className="flex justify-between mb-2">
+                      <p className="text-gray-700">{addon.refFoodName}</p>
+                      <p className="text-blue-600">CHF {addon.refPrice}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Add to Cart Button */}
+              <div className="fixed bottom-0 left-0 w-full bg-white p-4 shadow-lg">
+                <button
+                  onClick={handleAddToCart}
+                  className="w-full py-2 bg-blue-600 text-white font-semibold rounded"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
