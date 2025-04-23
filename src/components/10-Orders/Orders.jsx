@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentModel from "../../pages/PaymentModel/PaymentModel";
-import CryptoJS from "crypto-js";
 
 const stripePromise = loadStripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
 
@@ -20,6 +19,7 @@ export default function Orders() {
   const [paymentModule, setPaymentModule] = useState(false);
   const [savedAddress, setSavedAddress] = useState(null);
   const [isAddressAvailable, setIsAddressAvailable] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,8 +30,7 @@ export default function Orders() {
   useEffect(() => {
     const address = localStorage.getItem("selectedAddress");
     if (address) {
-      console.log("address", address);
-      setSavedAddress(JSON.parse(address)); // Parse the address
+      setSavedAddress(JSON.parse(address));
     }
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(savedCart);
@@ -41,13 +40,12 @@ export default function Orders() {
     const updatedCart = cartItems
       .map((item) => {
         if (item.id === id) {
-          // Change productId to id
-          const updatedCount = item.quantity + delta; // Change count to quantity
-          return { ...item, quantity: updatedCount > 0 ? updatedCount : 0 }; // Change count to quantity
+          const updatedCount = item.quantity + delta;
+          return { ...item, quantity: updatedCount > 0 ? updatedCount : 0 };
         }
         return item;
       })
-      .filter((item) => item.quantity > 0); // Change count to quantity
+      .filter((item) => item.quantity > 0);
 
     if (updatedCart.length === 0) {
       Swal.fire({
@@ -76,32 +74,39 @@ export default function Orders() {
   };
 
   const grandTotal = cartItems
-    .reduce((total, item) => total + parseFloat(item.price) * item.quantity, 0) // Change productPrice to price and count to quantity
+    .reduce((total, item) => total + parseFloat(item.price) * item.quantity, 0)
     .toFixed(2);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    // Load Paynimo scripts
-    const scriptJQuery = document.createElement("script");
-    scriptJQuery.src =
-      "https://www.paynimo.com/paynimocheckout/client/lib/jquery.min.js";
-    scriptJQuery.async = true;
-    document.body.appendChild(scriptJQuery);
+  const validateFields = () => {
+    if (
+      !savedAddress ||
+      !formData.firstName ||
+      !formData.lastName ||
+      !paymentMethod
+    ) {
+      Swal.fire("Error", "Please fill all the required fields.", "error");
+      return false;
+    }
+    return true;
+  };
 
-    const scriptCheckout = document.createElement("script");
-    scriptCheckout.src =
-      "https://www.paynimo.com/paynimocheckout/server/lib/checkout.js";
-    scriptCheckout.async = true;
-    document.body.appendChild(scriptCheckout);
+  const handlePayment = () => {
+    if (!validateFields()) return;
 
-    return () => {
-      document.body.removeChild(scriptJQuery);
-      document.body.removeChild(scriptCheckout);
-    };
-  }, []);
+    if (paymentMethod === "online") {
+      // Proceed with online payment
+      paymentModel();
+    } else {
+      // Offline payment
+      Swal.fire("Order Placed Successfully!", "", "success").then(() => {
+        navigate("/ourBrand");
+      });
+    }
+  };
 
   async function generateHash(
     merchantId,
@@ -127,12 +132,10 @@ export default function Orders() {
     if (address) {
       const merchantId = "KarmaCuisines";
       const txnId = `${Date.now()}`;
-      console.log("grandTotal", grandTotal);
       const amount = grandTotal;
       const consumerId = "c964634";
       const currency = "CHF";
       const secretKey = "7C2F25CEDC36F78C6E52";
-      console.log("secretKey", secretKey);
 
       generateHash(
         merchantId,
@@ -142,7 +145,6 @@ export default function Orders() {
         currency,
         secretKey
       ).then((signature) => {
-        console.log("signature", signature);
         const reqJson = {
           features: {
             enableAbortResponse: true,
@@ -156,11 +158,14 @@ export default function Orders() {
             returnUrl:
               "https://pgproxyuat.in.worldline-solutions.com/linuxsimulator/MerchantResponsePage.jsp",
             responseHandler: (res) => {
-              console.log("res", res);
               const txnStatus =
                 res?.paymentMethod?.paymentTransaction?.statusCode;
               if (txnStatus === "0300") {
-                alert("✅ Payment successful!");
+                Swal.fire("Order Placed Successfully!", "", "success").then(
+                  () => {
+                    navigate("/ourBrand");
+                  }
+                );
               } else if (txnStatus === "0398") {
                 alert("⚠️ Payment initiated.");
               } else {
@@ -181,7 +186,7 @@ export default function Orders() {
                 comAmt: "0",
               },
             ],
-            signature, // 👈 VERY IMPORTANT
+            signature,
             customStyle: {
               PRIMARY_COLOR_CODE: "#45beaa",
               SECONDARY_COLOR_CODE: "#FFFFFF",
@@ -191,77 +196,20 @@ export default function Orders() {
           },
         };
 
-        console.log("reqJson", reqJson);
-        window.$.pnCheckout(reqJson);
-        if (reqJson.features.enableNewWindowFlow) {
-          window.pnCheckoutShared.openNewWindow();
+        if (window.$ && typeof window.$.pnCheckout === "function") {
+          window.$.pnCheckout(reqJson);
+          if (reqJson.features.enableNewWindowFlow) {
+            window.pnCheckoutShared.openNewWindow();
+          }
+        } else {
+          alert(
+            "Payment gateway is not ready yet. Please try again in a moment."
+          );
         }
       });
     } else {
       alert("Please select an address before proceeding to payment.");
     }
-
-    // if (address) {
-    //   const reqJson = {
-    //     features: {
-    //       enableAbortResponse: true,
-    //       enableExpressPay: true,
-    //       enableInstrumentDeRegistration: true,
-    //       enableMerTxnDetails: true,
-    //     },
-    //     consumerData: {
-    //       deviceId: "WEBSH2",
-    //       token: "7B9131076A6D50F744BF",
-    //       responseHandler: (res) => {
-    //         if (
-    //           res &&
-    //           res.paymentMethod &&
-    //           res.paymentMethod.paymentTransaction &&
-    //           res.paymentMethod.paymentTransaction.statusCode === "0300"
-    //         ) {
-    //           alert("Payment successful!");
-    //         } else if (
-    //           res &&
-    //           res.paymentMethod &&
-    //           res.paymentMethod.paymentTransaction &&
-    //           res.paymentMethod.paymentTransaction.statusCode === "0398"
-    //         ) {
-    //           alert("Payment initiated!");
-    //         } else {
-    //           alert("Payment failed or cancelled.");
-    //         }
-    //       },
-    //       paymentMode: "all",
-    //       merchantLogoUrl:
-    //         "https://www.paynimo.com/CompanyDocs/company-logo-vertical.png",
-    //       merchantId: "L3348",
-    //       currency: "CHF",
-    //       consumerId: "c964634",
-    //       txnId: `${Date.now()}`, // unique txn ID
-    //       items: [
-    //         {
-    //           itemId: "first",
-    //           amount: grandTotal, // test amount
-    //           comAmt: "0",
-    //         },
-    //       ],
-    //       customStyle: {
-    //         PRIMARY_COLOR_CODE: "#45beaa",
-    //         SECONDARY_COLOR_CODE: "#FFFFFF",
-    //         BUTTON_COLOR_CODE_1: "#2d8c8c",
-    //         BUTTON_COLOR_CODE_2: "#FFFFFF",
-    //       },
-    //     },
-    //   };
-
-    //   // Call the Paynimo checkout
-    //   window.$.pnCheckout(reqJson);
-    //   if (reqJson.features.enableNewWindowFlow) {
-    //     window.pnCheckoutShared.openNewWindow();
-    //   }
-    // } else {
-    //   alert("Please select an address before proceeding to payment.");
-    // }
   };
 
   useEffect(() => {
@@ -318,27 +266,22 @@ export default function Orders() {
               <ul>
                 {cartItems.map((item) => (
                   <div
-                    key={item.id} // Change productId to id
+                    key={item.id}
                     className="flex items-center justify-between p-1"
                   >
-                    <p>{item.name}</p> {/* Change productName to name */}
+                    <p>{item.name}</p>
                     <div className="addItems flex items-center gap-2">
                       {isEditing ? (
                         <>
                           <button
-                            onClick={
-                              () => updateCartItemCount(item.id, -1) // Change productId to id
-                            }
+                            onClick={() => updateCartItemCount(item.id, -1)}
                             className="px-2 py-1 border rounded"
                           >
                             -
                           </button>
-                          <p>{item.quantity}</p>{" "}
-                          {/* Change count to quantity */}
+                          <p>{item.quantity}</p>
                           <button
-                            onClick={
-                              () => updateCartItemCount(item.id, 1) // Change productId to id
-                            }
+                            onClick={() => updateCartItemCount(item.id, 1)}
                             className="px-2 py-1 border rounded"
                           >
                             +
@@ -418,6 +361,34 @@ export default function Orders() {
         </div>
       </div>
 
+      <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
+        <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+          <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
+          <div className="flex flex-col gap-2">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="online"
+                className="accent-blue-500"
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              <span>Online</span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="offline"
+                className="accent-blue-500"
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              <span>Offline</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <div className="addAddressTabCall flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           {savedAddress ? (
@@ -455,7 +426,7 @@ export default function Orders() {
 
       <div
         className={`payButton ${!isAddressAvailable ? "disabled" : ""}`}
-        onClick={isAddressAvailable ? paymentModel : null}
+        onClick={isAddressAvailable ? handlePayment : null}
         style={{
           cursor: isAddressAvailable ? "pointer" : "not-allowed",
           opacity: isAddressAvailable ? 1 : 0.5,

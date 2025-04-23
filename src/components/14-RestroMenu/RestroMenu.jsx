@@ -3,6 +3,8 @@ import kingskurryBanner from "../../images/restroMenu/img1.jpg";
 import axios from "axios";
 import decrypt from "../../helper";
 import kingsKurryLogo from "../../assets/logoNew/kingsKurry.jpg";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function RestroMenu() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -32,12 +34,33 @@ export default function RestroMenu() {
     setCartState((prev) => {
       const newCartState = { ...prev };
       if (isFixedProduct) {
-        // For fixed products, we can use the index directly
         newCartState[`fixed_${index}`] = { count: 1 };
       } else {
-        // For add-ons, we use the index directly
         newCartState[index] = { count: 1 };
       }
+      return newCartState;
+    });
+  };
+
+  const navigate = useNavigate();
+
+  const moveToOrders = () => {
+    navigate("/menu");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleMainDishToCart = (index) => {
+    setCartState((prev) => {
+      const newCartState = { ...prev };
+      newCartState[`mainDish_${index}`] = { count: 1 };
+      return newCartState;
+    });
+  };
+
+  const handleSideDishToCart = (index) => {
+    setCartState((prev) => {
+      const newCartState = { ...prev };
+      newCartState[`sideDish_${index}`] = { count: 1 };
       return newCartState;
     });
   };
@@ -861,11 +884,34 @@ export default function RestroMenu() {
                                             CHF {addon.refPrice}
                                           </p>
 
-                                          {!cartState[index] ? (
+                                          {!cartState[`mainDish_${index}`] ? (
                                             <button
-                                              onClick={() =>
-                                                handleAddToCart(index)
-                                              }
+                                              onClick={() => {
+                                                const totalCount =
+                                                  Object.values(
+                                                    cartState
+                                                  ).reduce(
+                                                    (acc, curr) =>
+                                                      acc + (curr?.count || 0),
+                                                    0
+                                                  );
+                                                if (
+                                                  totalCount <
+                                                  selectedItem.refMainDishLimit
+                                                ) {
+                                                  handleMainDishToCart(
+                                                    `mainDish_${index}`
+                                                  );
+                                                } else {
+                                                  Swal.fire({
+                                                    icon: "warning",
+                                                    title: "Limit Reached",
+                                                    text: `You can only select up to ${selectedItem.refMainDishLimit} main dishes.`,
+                                                    confirmButtonColor:
+                                                      "#cd5c08",
+                                                  });
+                                                }
+                                              }}
                                               className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
                                             >
                                               Add to Cart
@@ -874,19 +920,48 @@ export default function RestroMenu() {
                                             <div className="flex items-center gap-2">
                                               <button
                                                 onClick={() =>
-                                                  handleDecrement(index)
+                                                  handleDecrement(
+                                                    `mainDish_${index}`
+                                                  )
                                                 }
                                                 className="border px-2 py-1 rounded text-sm"
                                               >
                                                 -
                                               </button>
                                               <span className="font-semibold">
-                                                {cartState[index].count}
+                                                {
+                                                  cartState[`mainDish_${index}`]
+                                                    .count
+                                                }
                                               </span>
                                               <button
-                                                onClick={() =>
-                                                  handleIncrement(index)
-                                                }
+                                                onClick={() => {
+                                                  const totalCount =
+                                                    Object.values(
+                                                      cartState
+                                                    ).reduce(
+                                                      (acc, curr) =>
+                                                        acc +
+                                                        (curr?.count || 0),
+                                                      0
+                                                    );
+                                                  if (
+                                                    totalCount <
+                                                    selectedItem.refMainDishLimit
+                                                  ) {
+                                                    handleIncrement(
+                                                      `$mainDish_${index}`
+                                                    );
+                                                  } else {
+                                                    Swal.fire({
+                                                      icon: "warning",
+                                                      title: "Limit Reached",
+                                                      text: `You can only select up to ${selectedItem.refMainDishLimit} main dishes.`,
+                                                      confirmButtonColor:
+                                                        "#cd5c08",
+                                                    });
+                                                  }
+                                                }}
                                                 className=" border px-2 py-1 rounded text-sm"
                                               >
                                                 +
@@ -1037,11 +1112,34 @@ export default function RestroMenu() {
                                             CHF {addon.refPrice}
                                           </p>
 
-                                          {!cartState[index] ? (
+                                          {!cartState[`sideDish_${index}`] ? (
                                             <button
-                                              onClick={() =>
-                                                handleAddToCart(index)
-                                              }
+                                              onClick={() => {
+                                                const totalCount =
+                                                  Object.values(
+                                                    cartState
+                                                  ).reduce(
+                                                    (acc, curr) =>
+                                                      acc + (curr?.count || 0),
+                                                    0
+                                                  );
+                                                if (
+                                                  totalCount <
+                                                  selectedItem.refSideDishLimit
+                                                ) {
+                                                  handleSideDishToCart(
+                                                    `sideDish_${index}`
+                                                  );
+                                                } else {
+                                                  Swal.fire({
+                                                    icon: "warning",
+                                                    title: "Limit Reached",
+                                                    text: `You can only select up to ${selectedItem.refSideDishLimit} main dishes.`,
+                                                    confirmButtonColor:
+                                                      "#cd5c08",
+                                                  });
+                                                }
+                                              }}
                                               className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
                                             >
                                               Add to Cart
@@ -1050,19 +1148,48 @@ export default function RestroMenu() {
                                             <div className="flex items-center gap-2">
                                               <button
                                                 onClick={() =>
-                                                  handleDecrement(index)
+                                                  handleDecrement(
+                                                    `sideDish_${index}`
+                                                  )
                                                 }
                                                 className="border px-2 py-1 rounded text-sm"
                                               >
                                                 -
                                               </button>
                                               <span className="font-semibold">
-                                                {cartState[index].count}
+                                                {
+                                                  cartState[`sideDish_${index}`]
+                                                    .count
+                                                }
                                               </span>
                                               <button
-                                                onClick={() =>
-                                                  handleIncrement(index)
-                                                }
+                                                onClick={() => {
+                                                  const totalCount =
+                                                    Object.values(
+                                                      cartState
+                                                    ).reduce(
+                                                      (acc, curr) =>
+                                                        acc +
+                                                        (curr?.count || 0),
+                                                      0
+                                                    );
+                                                  if (
+                                                    totalCount <
+                                                    selectedItem.refSideDishLimit
+                                                  ) {
+                                                    handleIncrement(
+                                                      `sideDish_${index}`
+                                                    );
+                                                  } else {
+                                                    Swal.fire({
+                                                      icon: "warning",
+                                                      title: "Limit Reached",
+                                                      text: `You can only select up to ${selectedItem.refSideDishLimit} main dishes.`,
+                                                      confirmButtonColor:
+                                                        "#cd5c08",
+                                                    });
+                                                  }
+                                                }}
                                                 className=" border px-2 py-1 rounded text-sm"
                                               >
                                                 +
@@ -1179,10 +1306,10 @@ export default function RestroMenu() {
       )}
       <div className="fixed bottom-0 left-0 w-full bg-white p-1 shadow-lg">
         <button
-          onClick={handleAddToCart}
+          onClick={moveToOrders}
           className="w-full py-2 bg-[#cd5c08] text-white font-semibold rounded"
         >
-          View Cart
+          Place Order
         </button>
       </div>
     </div>
