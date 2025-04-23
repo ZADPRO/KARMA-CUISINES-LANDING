@@ -114,7 +114,6 @@ export default function RestroMenu() {
           import.meta.env.VITE_ENCRYPTION_KEY
         );
         if (data.success) {
-          console.log("data", data);
           const categories = data.foodItem;
           const refs = {};
           categories.forEach((cat) => {
@@ -159,7 +158,6 @@ export default function RestroMenu() {
   }, [categories]);
 
   const openModal = (item) => {
-    console.log("item", item);
     axios
       .post(
         import.meta.env.VITE_API_URL + "/userProduct/foodInfo",
@@ -174,13 +172,11 @@ export default function RestroMenu() {
         }
       )
       .then((res) => {
-        console.log("res", res);
         const data = decrypt(
           res.data[1],
           res.data[0],
           import.meta.env.VITE_ENCRYPTION_KEY
         );
-        console.log("data without encrypt", data);
 
         if (data.success) {
           console.log("data", data);
@@ -209,7 +205,7 @@ export default function RestroMenu() {
 
   return (
     <div ref={containerRef}>
-      <div className="coverImg h-[60vh]">
+      <div className="coverImg">
         <img src={kingskurryBanner} alt="" />
       </div>
 
@@ -244,7 +240,7 @@ export default function RestroMenu() {
       </div>
 
       {/* Menu Items */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 pb-20">
         {categories.map((cat, idx) => {
           const key = cat.refFoodCategoryName;
           return (
@@ -373,7 +369,7 @@ export default function RestroMenu() {
                                 {selectedItem.refAddOns.map((addon, index) => (
                                   <div
                                     key={index}
-                                    className="flex-shrink-0 w-70 bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                                    className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
                                   >
                                     <img
                                       src={
@@ -523,19 +519,18 @@ export default function RestroMenu() {
                   </div>
                 </div>
               )}
-
-              <div className="fixed bottom-0 left-0 w-full bg-white p-1 shadow-lg">
-                <button
-                  onClick={handleAddToCart}
-                  className="w-full py-2 bg-[#cd5c08] text-white font-semibold rounded"
-                >
-                  Add to Cart
-                </button>
-              </div>
             </div>
           </div>
         </div>
       )}
+      <div className="fixed bottom-0 left-0 w-full bg-white p-1 shadow-lg">
+        <button
+          onClick={handleAddToCart}
+          className="w-full py-2 bg-[#cd5c08] text-white font-semibold rounded"
+        >
+          View Cart
+        </button>
+      </div>
     </div>
   );
 }

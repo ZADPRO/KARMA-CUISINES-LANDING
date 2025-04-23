@@ -39,6 +39,19 @@ function AppRoutes() {
   ];
   const showHeader = headerRoutes.includes(location.pathname);
 
+  const footerRoutes = [
+    "/",
+    "/about",
+    "/menu",
+    "/contact",
+    "/ourBrand",
+    "/beOurPartner",
+    "/subproducts",
+    "/career",
+  ];
+
+  const showFooter = footerRoutes.includes(location.pathname);
+
   return (
     <div>
       {showHeader && <Header />}
@@ -58,7 +71,7 @@ function AppRoutes() {
         <Route path="/guestLogin" element={<GuestLogin />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-      {showHeader && <Footer />}
+      {showFooter && <Footer />}
     </div>
   );
 }
