@@ -841,7 +841,7 @@ export default function RestroMenu() {
               {selectedItem.refMainProduct &&
                 selectedItem.refMainProduct.length > 0 && (
                   <div className="relative mt-3">
-                    <h4 className="text-xl font-semibold">Main Dish</h4>
+                    <h4 className="text-xl font-semibold">Hauptgerichte</h4>
                     <div className="relative">
                       <div
                         ref={mainRef}
@@ -1069,7 +1069,7 @@ export default function RestroMenu() {
               {selectedItem.refSideDish &&
                 selectedItem.refSideDish.length > 0 && (
                   <div className="relative mt-3">
-                    <h4 className="text-xl font-semibold">Drinks</h4>
+                    <h4 className="text-xl font-semibold">Getränke</h4>
                     <div className="relative">
                       <div
                         ref={drinksRef}
