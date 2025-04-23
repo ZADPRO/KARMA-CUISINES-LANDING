@@ -203,6 +203,51 @@ export default function RestroMenu() {
     }
   };
 
+  const handleMainAddToCart = () => {
+    const mainItem = {
+      refFoodId: selectedItem.refFoodId,
+      refFoodName: selectedItem.refFoodName,
+      refFoodCategoryName: selectedItem.refFoodCategoryName,
+      refMenuId: selectedItem.refMenuId,
+      refPrice: selectedItem.refPrice,
+      count: itemCount,
+    };
+
+    let addons = [];
+
+    if (selectedItem.refAddOns && selectedItem.refAddOns.length > 0) {
+      selectedItem.refAddOns.forEach((addon, index) => {
+        if (cartState[index]) {
+          addons.push({
+            refFoodId: addon.refFoodId,
+            refFoodName: addon.refFoodName,
+            refFoodCategoryName: addon.refFoodCategoryName,
+            refMenuId: addon.refMenuId,
+            refPrice: addon.refPrice,
+            count: cartState[index].count,
+          });
+        }
+      });
+    }
+
+    const cartData = [mainItem];
+    if (addons.length > 0) {
+      cartData.push(...addons);
+    }
+
+    // Get existing cart data from localStorage
+    let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Append the new data
+    existingCart.push(cartData);
+
+    // Save updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
+    // Optional: Close modal or give feedback
+    closeModal();
+  };
+
   return (
     <div ref={containerRef}>
       <div className="coverImg">
@@ -519,6 +564,14 @@ export default function RestroMenu() {
                 </div>
               </div>
             )}
+            <div className="sticky bottom-0 left-0 bg-white border-t flex w-full">
+              <button
+                onClick={handleMainAddToCart}
+                className="bg-[#cd5c08] text-white px-6 py-2 w-full rounded-md text-lg font-semibold hover:bg-[#a64500]"
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         </div>
       )}
