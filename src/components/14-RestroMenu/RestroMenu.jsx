@@ -13,6 +13,36 @@ export default function RestroMenu() {
   const containerRef = useRef(null);
   const refsMap = useRef({});
 
+  const scrollRef = useRef(null);
+  const [showLeft, setShowLeft] = useState(false);
+  const [showRight, setShowRight] = useState(false);
+
+  // Check scroll positions
+  const checkScrollPosition = () => {
+    const el = scrollRef.current;
+    if (el) {
+      setShowLeft(el.scrollLeft > 0);
+      setShowRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollPosition(); // Initial check
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkScrollPosition);
+      return () => el.removeEventListener("scroll", checkScrollPosition);
+    }
+  }, [selectedItem]);
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({ left: 200, behavior: "smooth" });
+  };
+
   const getCategory = () => {
     axios
       .get(import.meta.env.VITE_API_URL + "/userProduct/FoodList", {
@@ -269,36 +299,84 @@ export default function RestroMenu() {
 
               {/* Add-Ons (if any) */}
               {selectedItem.refAddOns && selectedItem.refAddOns.length > 0 && (
-                <div className="mt-4">
+                <div className="mt-4 relative">
                   <h4 className="text-xl font-semibold mb-3">Add Ons</h4>
-                  <div className="flex gap-4 overflow-x-auto scrollbar-hide">
-                    {selectedItem.refAddOns.map((addon, index) => (
-                      <div
-                        key={index}
-                        className="flex-shrink-0 w-70 bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                      >
-                        <img
-                          src={
-                            selectedItem.profileFile
-                              ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
-                              : kingsKurryLogo
-                          }
-                          alt={addon.refFoodName}
-                          className="w-20 h-full object-cover rounded"
-                        />
-                        <div className="flex flex-col justify-between flex-grow">
-                          <p className="font-semibold text-gray-800">
-                            {addon.refFoodName}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {addon.refDescription}
-                          </p>
-                          <p className="text-blue-600 font-medium">
-                            CHF {addon.refPrice}
-                          </p>
+
+                  <div className="relative">
+                    <div
+                      ref={scrollRef}
+                      className="flex gap-4 overflow-x-auto scrollbar-hide px-10"
+                    >
+                      {selectedItem.refAddOns.map((addon, index) => (
+                        <div
+                          key={index}
+                          className="flex-shrink-0 w-70 bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                        >
+                          <img
+                            src={
+                              selectedItem.profileFile
+                                ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
+                                : kingsKurryLogo
+                            }
+                            alt={addon.refFoodName}
+                            className="w-20 h-full object-cover rounded"
+                          />
+                          <div className="flex flex-col justify-between flex-grow">
+                            <p className="font-semibold text-gray-800">
+                              {addon.refFoodName}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {addon.refDescription}
+                            </p>
+                            <p className="text-blue-600 font-medium">
+                              CHF {addon.refPrice}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+
+                    {showLeft && (
+                      <button
+                        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                        onClick={scrollLeft}
+                      >
+                        <svg
+                          className="w-5 h-5 text-gray-700"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 19l-7-7 7-7"
+                          />
+                        </svg>
+                      </button>
+                    )}
+
+                    {showRight && (
+                      <button
+                        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
+                        onClick={scrollRight}
+                      >
+                        <svg
+                          className="w-5 h-5 text-gray-700"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
