@@ -33,7 +33,15 @@ export default function Orders() {
       setSavedAddress(JSON.parse(address));
     }
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartItems(savedCart);
+    const mappedCartItems = savedCart.flatMap((itemGroup) =>
+      itemGroup.map((item) => ({
+        id: item.refFoodId,
+        name: item.refFoodName,
+        price: item.refPrice,
+        quantity: item.count,
+      }))
+    );
+    setCartItems(mappedCartItems);
   }, []);
 
   const updateCartItemCount = (id, delta) => {

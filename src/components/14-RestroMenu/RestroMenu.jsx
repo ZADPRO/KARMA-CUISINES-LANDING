@@ -34,7 +34,7 @@ export default function RestroMenu() {
     setCartState((prev) => {
       const newCartState = { ...prev };
       if (isFixedProduct) {
-        newCartState[`fixed_${index}`] = { count: 1 };
+        newCartState[`mainDish_${index}`] = { count: 1 };
       } else {
         newCartState[index] = { count: 1 };
       }
@@ -47,14 +47,6 @@ export default function RestroMenu() {
   const moveToOrders = () => {
     navigate("/orders");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleMainDishToCart = (index) => {
-    setCartState((prev) => {
-      const newCartState = { ...prev };
-      newCartState[`mainDish_${index}`] = { count: 1 };
-      return newCartState;
-    });
   };
 
   const handleSideDishToCart = (index) => {
@@ -437,7 +429,8 @@ export default function RestroMenu() {
                         onClick={() => openModal(item)}
                       >
                         <p className="font-semibold">
-                          {item.refMenuId} {item.refFoodName || item.refComboName}
+                          {item.refMenuId}{" "}
+                          {item.refFoodName || item.refComboName}
                         </p>
                         <p
                           className="line-clamp-1"
@@ -724,7 +717,7 @@ export default function RestroMenu() {
               {selectedItem.refFixedProduct &&
                 selectedItem.refFixedProduct.length > 0 && (
                   <div className="relative">
-                    <h4 className="text-xl font-semibold mb-3">Add Ons</h4>
+                    <h4 className="text-xl font-semibold mb-3">Food Items</h4>
                     <div className="relative">
                       <div
                         ref={fixedRef}
@@ -757,37 +750,6 @@ export default function RestroMenu() {
                               <p className="text-[#cd5c08] font-medium mb-2">
                                 CHF {addon.refPrice}
                               </p>
-
-                              {!cartState[`fixed_${index}`] ? (
-                                <button
-                                  onClick={() => handleAddToCart(index, true)} // Pass true for fixed products
-                                  className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
-                                >
-                                  Add to Cart
-                                </button>
-                              ) : (
-                                <div className="flex items-center gap-2">
-                                  <button
-                                    onClick={() =>
-                                      handleDecrement(`fixed_${index}`)
-                                    } // Use the same key for decrement
-                                    className="border px-2 py-1 rounded text-sm"
-                                  >
-                                    -
-                                  </button>
-                                  <span className="font-semibold">
-                                    {cartState[`fixed_${index}`].count}
-                                  </span>
-                                  <button
-                                    onClick={() =>
-                                      handleIncrement(`fixed_${index}`)
-                                    } // Use the same key for increment
-                                    className="border px-2 py-1 rounded text-sm"
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              )}
                             </div>
                           </div>
                         ))}
@@ -886,32 +848,9 @@ export default function RestroMenu() {
 
                                           {!cartState[`mainDish_${index}`] ? (
                                             <button
-                                              onClick={() => {
-                                                const totalCount =
-                                                  Object.values(
-                                                    cartState
-                                                  ).reduce(
-                                                    (acc, curr) =>
-                                                      acc + (curr?.count || 0),
-                                                    0
-                                                  );
-                                                if (
-                                                  totalCount <
-                                                  selectedItem.refMainDishLimit
-                                                ) {
-                                                  handleMainDishToCart(
-                                                    `mainDish_${index}`
-                                                  );
-                                                } else {
-                                                  Swal.fire({
-                                                    icon: "warning",
-                                                    title: "Limit Reached",
-                                                    text: `You can only select up to ${selectedItem.refMainDishLimit} main dishes.`,
-                                                    confirmButtonColor:
-                                                      "#cd5c08",
-                                                  });
-                                                }
-                                              }}
+                                              onClick={() =>
+                                                handleAddToCart(index, true)
+                                              } // Pass true for fixed products
                                               className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
                                             >
                                               Add to Cart
@@ -923,7 +862,7 @@ export default function RestroMenu() {
                                                   handleDecrement(
                                                     `mainDish_${index}`
                                                   )
-                                                }
+                                                } // Use the same key for decrement
                                                 className="border px-2 py-1 rounded text-sm"
                                               >
                                                 -
@@ -935,34 +874,12 @@ export default function RestroMenu() {
                                                 }
                                               </span>
                                               <button
-                                                onClick={() => {
-                                                  const totalCount =
-                                                    Object.values(
-                                                      cartState
-                                                    ).reduce(
-                                                      (acc, curr) =>
-                                                        acc +
-                                                        (curr?.count || 0),
-                                                      0
-                                                    );
-                                                  if (
-                                                    totalCount <
-                                                    selectedItem.refMainDishLimit
-                                                  ) {
-                                                    handleIncrement(
-                                                      `$mainDish_${index}`
-                                                    );
-                                                  } else {
-                                                    Swal.fire({
-                                                      icon: "warning",
-                                                      title: "Limit Reached",
-                                                      text: `You can only select up to ${selectedItem.refMainDishLimit} main dishes.`,
-                                                      confirmButtonColor:
-                                                        "#cd5c08",
-                                                    });
-                                                  }
-                                                }}
-                                                className=" border px-2 py-1 rounded text-sm"
+                                                onClick={() =>
+                                                  handleIncrement(
+                                                    `mainDish_${index}`
+                                                  )
+                                                } // Use the same key for increment
+                                                className="border px-2 py-1 rounded text-sm"
                                               >
                                                 +
                                               </button>
