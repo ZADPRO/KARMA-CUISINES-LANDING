@@ -89,6 +89,9 @@
     },
     "restroMenu": {
         "excellentCuisine": "Notre excellente cuisine",
-        "orderNow": "Commander maintenant"
+        "orderNow": "Commander maintenant",
+        "foodItems": "Aliments",
+        "mainCourses": "Plats principaux",
+        "drinks": "Boissons"
     }
 }

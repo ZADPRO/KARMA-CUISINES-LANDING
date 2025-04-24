@@ -89,6 +89,9 @@
     },
     "restroMenu": {
         "excellentCuisine": "La nostra ottima cucina",
-        "orderNow": "Ordina ora"
+        "orderNow": "Ordina ora",
+        "foodItems": "Alimenti",
+        "mainCourses": "Portate principali",
+        "drinks": "Bevande"
     }
 }

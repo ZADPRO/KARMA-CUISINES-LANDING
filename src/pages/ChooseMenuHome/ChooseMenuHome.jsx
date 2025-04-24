@@ -28,6 +28,12 @@ export default function ChooseMenuHome({ isOpen, onClose, foodItem }) {
     } else if (type === "justEats") {
       window.open("https://www.just-eat.ie/", "_blank");
     } else if (type === "uberEats") {
+      if (foodItem.id === 1) {
+        window.open(
+          "https://www.ubereats.com/store/kings-kurry/d8ul-X2YUOazZzk2CKMK8g?diningMode=DELIVERY",
+          "_blank"
+        );
+      }
       window.open("https://www.ubereats.com/", "_blank");
     }
   };

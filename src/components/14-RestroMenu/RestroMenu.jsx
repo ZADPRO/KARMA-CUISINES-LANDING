@@ -8,7 +8,11 @@ import kingsKurryPng from "../../assets/logoNew/king01.png";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 export default function RestroMenu() {
+  const { t } = useTranslation("global");
+
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [categories, setCategories] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -380,6 +384,44 @@ export default function RestroMenu() {
     return [...firstTwo, ...combo, ...rest];
   })();
 
+  const [mainDishCounts, setMainDishCounts] = useState({});
+  const [subDishCounts, setSubDishCounts] = useState({});
+
+  const getTotalCount = (countsObj) =>
+    Object.values(countsObj).reduce((a, b) => a + b, 0);
+
+  const handleIncrementMainDish = (type, index) => {
+    console.log("type", type);
+    const limit =
+      type === "main"
+        ? selectedItem.refMainDishLimit
+        : selectedItem.refSideDishLimit;
+    const counts = type === "main" ? mainDishCounts : subDishCounts;
+    const totalCount = getTotalCount(counts);
+    console.log("totalCount", totalCount);
+
+    if (totalCount < limit) {
+      const newCounts = { ...counts, [index]: (counts[index] || 0) + 1 };
+      console.log("newCounts", newCounts);
+      type === "main"
+        ? setMainDishCounts(newCounts)
+        : setSubDishCounts(newCounts);
+    }
+  };
+
+  const handleDecrementMainDish = (type, index) => {
+    console.log("type", type);
+    const counts = type === "main" ? mainDishCounts : subDishCounts;
+    if ((counts[index] || 0) > 0) {
+      console.log("counts", counts);
+      const newCounts = { ...counts, [index]: counts[index] - 1 };
+      console.log("newCounts", newCounts);
+      type === "main"
+        ? setMainDishCounts(newCounts)
+        : setSubDishCounts(newCounts);
+    }
+  };
+
   return (
     <div ref={containerRef}>
       <div className="coverImg">
@@ -737,7 +779,9 @@ export default function RestroMenu() {
               {selectedItem.refFixedProduct &&
                 selectedItem.refFixedProduct.length > 0 && (
                   <div className="relative">
-                    <h4 className="text-xl font-semibold mb-3">Food Items</h4>
+                    <h4 className="text-xl font-semibold mb-3">
+                      {t("restroMenu.foodItems")}
+                    </h4>
                     <div className="relative">
                       <div
                         ref={fixedRef}
@@ -767,9 +811,6 @@ export default function RestroMenu() {
                                   __html: addon.refDescription,
                                 }}
                               />
-                              <p className="text-[#cd5c08] font-medium mb-2">
-                                CHF {addon.refPrice}
-                              </p>
                             </div>
                           </div>
                         ))}
@@ -823,7 +864,9 @@ export default function RestroMenu() {
               {selectedItem.refMainProduct &&
                 selectedItem.refMainProduct.length > 0 && (
                   <div className="relative mt-3">
-                    <h4 className="text-xl font-semibold">Hauptgerichte</h4>
+                    <h4 className="text-xl font-semibold">
+                      {t("restroMenu.mainCourses")}
+                    </h4>
                     <div className="relative">
                       <div
                         ref={mainRef}
@@ -862,96 +905,43 @@ export default function RestroMenu() {
                                               __html: addon.refDescription,
                                             }}
                                           />
-                                          <p className="text-[#cd5c08] font-medium mb-2">
-                                            CHF {addon.refPrice}
-                                          </p>
 
-                                          {!cartState[`mainDish_${index}`] ? (
+                                          <div className="flex items-center gap-2 mt-3">
                                             <button
                                               onClick={() =>
-                                                handleAddToCart(index, true)
-                                              } // Pass true for fixed products
-                                              className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
+                                                handleDecrementMainDish(
+                                                  "main",
+                                                  index
+                                                )
+                                              }
+                                              className="border px-2 py-1 rounded text-sm"
                                             >
-                                              Add to Cart
+                                              -
                                             </button>
-                                          ) : (
-                                            <div className="flex items-center gap-2">
-                                              <button
-                                                onClick={() =>
-                                                  handleDecrement(
-                                                    `mainDish_${index}`
-                                                  )
-                                                } // Use the same key for decrement
-                                                className="border px-2 py-1 rounded text-sm"
-                                              >
-                                                -
-                                              </button>
-                                              <span className="font-semibold">
-                                                {
-                                                  cartState[`mainDish_${index}`]
-                                                    .count
-                                                }
-                                              </span>
-                                              <button
-                                                onClick={() =>
-                                                  handleIncrement(
-                                                    `mainDish_${index}`
-                                                  )
-                                                } // Use the same key for increment
-                                                className="border px-2 py-1 rounded text-sm"
-                                              >
-                                                +
-                                              </button>
-                                            </div>
-                                          )}
+                                            <span className="font-semibold">
+                                              {mainDishCounts[index] || 0}
+                                            </span>
+                                            <button
+                                              onClick={() =>
+                                                handleIncrementMainDish(
+                                                  "main",
+                                                  index
+                                                )
+                                              }
+                                              className="border px-2 py-1 rounded text-sm"
+                                              disabled={
+                                                getTotalCount(mainDishCounts) >=
+                                                selectedItem.refMainDishLimit
+                                              }
+                                            >
+                                              +
+                                            </button>
+                                          </div>
                                         </div>
                                       </div>
                                     )
                                   )}
                                 </div>
-
-                                {showLeftMain && (
-                                  <button
-                                    className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                    onClick={scrollLeftMainItem}
-                                  >
-                                    <svg
-                                      className="w-5 h-5 text-gray-700"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M15 19l-7-7 7-7"
-                                      />
-                                    </svg>
-                                  </button>
-                                )}
-
-                                {showRightMain && (
-                                  <button
-                                    className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                    onClick={scrollRightMainItem}
-                                  >
-                                    <svg
-                                      className="w-5 h-5 text-gray-700"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M9 5l7 7-7 7"
-                                      />
-                                    </svg>
-                                  </button>
-                                )}
                               </div>
                             </div>
                           )}
@@ -959,7 +949,7 @@ export default function RestroMenu() {
 
                       {showLeftMain && (
                         <button
-                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 "
                           onClick={scrollLeftMainItem}
                         >
                           <svg
@@ -980,7 +970,7 @@ export default function RestroMenu() {
 
                       {showRightMain && (
                         <button
-                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 "
                           onClick={scrollRightMainItem}
                         >
                           <svg
@@ -1006,7 +996,9 @@ export default function RestroMenu() {
               {selectedItem.refSideDish &&
                 selectedItem.refSideDish.length > 0 && (
                   <div className="relative mt-3">
-                    <h4 className="text-xl font-semibold">Getränke</h4>
+                    <h4 className="text-xl font-semibold">
+                      {t("restroMenu.drinks")}
+                    </h4>
                     <div className="relative">
                       <div
                         ref={drinksRef}
@@ -1036,150 +1028,52 @@ export default function RestroMenu() {
                                           className="w-20 h-full object-cover rounded"
                                         />
                                         <div className="flex flex-col justify-between flex-grow">
-                                          <p className="font-semibold text-gray-800">
+                                          <p className="font-semibold text-gray-800 line-clamp-1">
                                             {addon.refFoodName}
                                           </p>
                                           <p
-                                            className="text-sm text-gray-500"
+                                            className="text-sm text-gray-500 line-clamp-2"
                                             dangerouslySetInnerHTML={{
                                               __html: addon.refDescription,
                                             }}
                                           />
-                                          <p className="text-[#cd5c08] font-medium mb-2">
-                                            CHF {addon.refPrice}
-                                          </p>
 
-                                          {!cartState[`sideDish_${index}`] ? (
+                                          <div className="flex items-center gap-2 mt-3">
                                             <button
-                                              onClick={() => {
-                                                const totalCount =
-                                                  Object.values(
-                                                    cartState
-                                                  ).reduce(
-                                                    (acc, curr) =>
-                                                      acc + (curr?.count || 0),
-                                                    0
-                                                  );
-                                                if (
-                                                  totalCount <
-                                                  selectedItem.refSideDishLimit
-                                                ) {
-                                                  handleSideDishToCart(
-                                                    `sideDish_${index}`
-                                                  );
-                                                } else {
-                                                  Swal.fire({
-                                                    icon: "warning",
-                                                    title: "Limit Reached",
-                                                    text: `You can only select up to ${selectedItem.refSideDishLimit} main dishes.`,
-                                                    confirmButtonColor:
-                                                      "#cd5c08",
-                                                  });
-                                                }
-                                              }}
-                                              className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
+                                              onClick={() =>
+                                                handleDecrementMainDish(
+                                                  "side",
+                                                  index
+                                                )
+                                              }
+                                              className="border px-2 py-1 rounded text-sm"
                                             >
-                                              Add to Cart
+                                              -
                                             </button>
-                                          ) : (
-                                            <div className="flex items-center gap-2">
-                                              <button
-                                                onClick={() =>
-                                                  handleDecrement(
-                                                    `sideDish_${index}`
-                                                  )
-                                                }
-                                                className="border px-2 py-1 rounded text-sm"
-                                              >
-                                                -
-                                              </button>
-                                              <span className="font-semibold">
-                                                {
-                                                  cartState[`sideDish_${index}`]
-                                                    .count
-                                                }
-                                              </span>
-                                              <button
-                                                onClick={() => {
-                                                  const totalCount =
-                                                    Object.values(
-                                                      cartState
-                                                    ).reduce(
-                                                      (acc, curr) =>
-                                                        acc +
-                                                        (curr?.count || 0),
-                                                      0
-                                                    );
-                                                  if (
-                                                    totalCount <
-                                                    selectedItem.refSideDishLimit
-                                                  ) {
-                                                    handleIncrement(
-                                                      `sideDish_${index}`
-                                                    );
-                                                  } else {
-                                                    Swal.fire({
-                                                      icon: "warning",
-                                                      title: "Limit Reached",
-                                                      text: `You can only select up to ${selectedItem.refSideDishLimit} main dishes.`,
-                                                      confirmButtonColor:
-                                                        "#cd5c08",
-                                                    });
-                                                  }
-                                                }}
-                                                className=" border px-2 py-1 rounded text-sm"
-                                              >
-                                                +
-                                              </button>
-                                            </div>
-                                          )}
+                                            <span className="font-semibold">
+                                              {subDishCounts[index] || 0}
+                                            </span>
+                                            <button
+                                              onClick={() =>
+                                                handleIncrementMainDish(
+                                                  "side",
+                                                  index
+                                                )
+                                              }
+                                              className="border px-2 py-1 rounded text-sm"
+                                              disabled={
+                                                getTotalCount(subDishCounts) >=
+                                                selectedItem.refSideDishLimit
+                                              }
+                                            >
+                                              +
+                                            </button>
+                                          </div>
                                         </div>
                                       </div>
                                     )
                                   )}
                                 </div>
-
-                                {showLeftDrinks && (
-                                  <button
-                                    className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                    onClick={scrollLeftDrinksItem}
-                                  >
-                                    <svg
-                                      className="w-5 h-5 text-gray-700"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M15 19l-7-7 7-7"
-                                      />
-                                    </svg>
-                                  </button>
-                                )}
-
-                                {showRightDrinks && (
-                                  <button
-                                    className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
-                                    onClick={scrollRightDrinksItem}
-                                  >
-                                    <svg
-                                      className="w-5 h-5 text-gray-700"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M9 5l7 7-7 7"
-                                      />
-                                    </svg>
-                                  </button>
-                                )}
                               </div>
                             </div>
                           )}
@@ -1187,7 +1081,7 @@ export default function RestroMenu() {
 
                       {showLeftDrinks && (
                         <button
-                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
                           onClick={scrollLeftDrinksItem}
                         >
                           <svg
@@ -1208,7 +1102,7 @@ export default function RestroMenu() {
 
                       {showRightDrinks && (
                         <button
-                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10 mt-8"
+                          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white shadow-md rounded-full p-2 z-10"
                           onClick={scrollRightDrinksItem}
                         >
                           <svg

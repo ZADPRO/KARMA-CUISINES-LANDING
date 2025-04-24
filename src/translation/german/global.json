@@ -89,6 +89,9 @@
     },
     "restroMenu": {
         "excellentCuisine": "Unsere ausgezeichnete Küche",
-        "orderNow": "Jetzt bestellen"
+        "orderNow": "Jetzt bestellen",
+        "foodItems": "Lebensmittel",
+        "mainCourses": "Hauptgerichte",
+        "drinks": "Getränke"
     }
 }

@@ -89,6 +89,9 @@
     },
     "restroMenu": {
         "excellentCuisine": "Our excellent cuisine",
-        "orderNow": "Order Now"
+        "orderNow": "Order Now",
+        "foodItems": "Food Items",
+        "mainCourses": "Main Courses",
+        "drinks": "Drinks"
     }
 }
