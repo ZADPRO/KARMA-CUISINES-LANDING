@@ -92,6 +92,36 @@
         "orderNow": "Jetzt bestellen",
         "foodItems": "Lebensmittel",
         "mainCourses": "Hauptgerichte",
-        "drinks": "Getränke"
+        "drinks": "Getränke",
+        "placeOrder": "Bestellung aufgeben"
+    },
+    "ordersPage": {
+        "back": "Zurück",
+        "total": "Gesamt",
+        "billing": "Rechnungsdetails",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "mobile": "Handy",
+        "email": "E-Mail",
+        "paymentMethod": "Zahlungsmethode",
+        "online": "Online",
+        "offline": "Offline",
+        "useAnotherAddress": "Andere Adresse verwenden",
+        "proceedToPay": "Zur Zahlung fortfahren"
+    },
+    "address": {
+        "selectAddress": "Adresse auswählen",
+        "addNewAddress": "Neue Adresse hinzufügen",
+        "savedAddress": "Gespeicherte Adresse",
+        "location": "Standort",
+        "home": "Zuhause",
+        "work": "Arbeit",
+        "roomNo": "Zimmernummer, Straßenname",
+        "postalCode": "Postleitzahl",
+        "zone": "Zone",
+        "country": "Land",
+        "mobile": "Handy",
+        "clearAll": "Alles löschen",
+        "saveAddress": "Adresse speichern"
     }
 }

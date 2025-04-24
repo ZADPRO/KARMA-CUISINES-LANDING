@@ -92,6 +92,36 @@
         "orderNow": "Order Now",
         "foodItems": "Food Items",
         "mainCourses": "Main Courses",
-        "drinks": "Drinks"
+        "drinks": "Drinks",
+        "placeOrder": "Place Order"
+    },
+    "ordersPage": {
+        "back": "Back",
+        "total": "Total",
+        "billing": "Billing Details",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "mobile": "Mobile",
+        "email": "Email",
+        "paymentMethod": "Payment Method",
+        "online": "Online",
+        "offline": "Offline",
+        "useAnotherAddress": "Use Another Address",
+        "proceedToPay": "Proceed To Pay"
+    },
+    "address": {
+        "selectAddress": "Select an Address",
+        "addNewAddress": "Add New Address",
+        "savedAddress": "Saved Address",
+        "location": "Location",
+        "home": "Home",
+        "work": "Work",
+        "roomNo": "Room No, Street Name",
+        "postalCode": "Postal Code",
+        "zone": "Zone",
+        "country": "Country",
+        "mobile": "Mobile",
+        "clearAll": "Clear All",
+        "saveAddress": "Save Address"
     }
 }

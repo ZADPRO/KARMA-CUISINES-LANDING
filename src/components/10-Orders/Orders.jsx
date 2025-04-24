@@ -2,6 +2,8 @@ import { ChevronLeft, House } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
+import { useTranslation } from "react-i18next";
+
 import "./Orders.css";
 import AddressBottomModal from "../../pages/AddressBottomModal/AddressBottomModal";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +15,8 @@ import PaymentModel from "../../pages/PaymentModel/PaymentModel";
 const stripePromise = loadStripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
 
 export default function Orders() {
+  const { t } = useTranslation("global");
+
   const [cartItems, setCartItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentModule, setPaymentModule] = useState(false);
@@ -287,7 +291,7 @@ export default function Orders() {
         onClick={handleBackClick}
       >
         <ChevronLeft />
-        <p>Back</p>
+        <p>{t("ordersPage.back")}</p>
       </div>
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="flex flex-col border-2 border-dashed rounded-lg surface-ground flex-auto p-4 m-3">
@@ -347,7 +351,7 @@ export default function Orders() {
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           <div className="flex items-center justify-between ps-2 pt-2 pe-2">
-            <p className="text-lg font-semibold">Total:</p>
+            <p className="text-lg font-semibold">{t("ordersPage.total")}:</p>
             <p className="text-lg font-semibold">CHF {grandTotal}</p>
           </div>
         </div>
@@ -356,7 +360,7 @@ export default function Orders() {
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           <div className="flex items-center justify-between ps-2 pt-2 pe-2">
-            <p className="text-lg font-semibold">Billing Details</p>
+            <p className="text-lg font-semibold">{t("ordersPage.billing")}</p>
           </div>
           <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
             <div className="address flex justify-center lg:mt-0 mt-3">
@@ -364,7 +368,7 @@ export default function Orders() {
                 id="id-l03"
                 type="text"
                 name="firstName"
-                placeholder="First Name"
+                placeholder={t("ordersPage.firstName")}
                 value={formData.firstName}
                 onChange={handleChange}
               />
@@ -374,7 +378,7 @@ export default function Orders() {
                 id="id-l03"
                 type="text"
                 name="lastName"
-                placeholder="Last Name"
+                placeholder={t("ordersPage.lastName")}
                 value={formData.lastName}
                 onChange={handleChange}
               />
@@ -386,7 +390,7 @@ export default function Orders() {
                 id="id-l03"
                 type="text"
                 name="mobile"
-                placeholder="Mobile"
+                placeholder={t("ordersPage.mobile")}
                 value={formData.mobile}
                 onChange={handleChange}
               />
@@ -396,7 +400,7 @@ export default function Orders() {
                 id="id-l03"
                 type="text"
                 name="email"
-                placeholder="Email"
+                placeholder={t("ordersPage.email")}
                 value={formData.email}
                 onChange={handleChange}
               />
@@ -407,7 +411,9 @@ export default function Orders() {
 
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
-          <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            {t("ordersPage.paymentMethod")}
+          </h3>
           <div className="flex flex-col gap-2">
             <label className="flex items-center gap-2">
               <input
@@ -417,7 +423,7 @@ export default function Orders() {
                 className="accent-blue-500"
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <span>Online</span>
+              <span>{t("ordersPage.online")}</span>
             </label>
             <label className="flex items-center gap-2">
               <input
@@ -427,7 +433,7 @@ export default function Orders() {
                 className="accent-blue-500"
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <span>Offline</span>
+              <span>{t("ordersPage.offline")}</span>
             </label>
           </div>
         </div>
@@ -448,7 +454,7 @@ export default function Orders() {
                 onClick={toggleModal}
                 className="useAnotherAddressButton mt-5"
               >
-                Use Another Address
+                {t("ordersPage.useAnotherAddress")}
               </button>
             </>
           ) : (
@@ -476,7 +482,7 @@ export default function Orders() {
           opacity: isAddressAvailable ? 1 : 0.5,
         }}
       >
-        Proceed to Pay
+        {t("ordersPage.proceedToPay")}
       </div>
     </div>
   );

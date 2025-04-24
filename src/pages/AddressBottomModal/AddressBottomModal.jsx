@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import { ChevronDown, CircleCheckBig, House, MapPin } from "lucide-react";
 import Swal from "sweetalert2";
 
+import { useTranslation } from "react-i18next";
+
 export default function AddressBottomModal({ isOpen, onClose }) {
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();
@@ -17,6 +19,8 @@ export default function AddressBottomModal({ isOpen, onClose }) {
   const controls = useDragControls();
   const [addresses, setAddresses] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const { t } = useTranslation("global");
+
   const [formData, setFormData] = useState({
     mode: "",
     room: "",
@@ -166,7 +170,9 @@ export default function AddressBottomModal({ isOpen, onClose }) {
         dragConstraints={{ top: -100, bottom: 0 }}
       >
         <div className="w-full h-full overflow-auto pt-3 ps-4 pe-4 pb-[70px]">
-          <p className="pt-2 pb-2 text-[18px] font-bold">Select an Address</p>
+          <p className="pt-2 pb-2 text-[18px] font-bold">
+            {t("address.selectAddress")}
+          </p>
 
           <div className="w-full md:w-8/12 mx-auto">
             <section className="w-full divide-slate-200 rounded">
@@ -174,13 +180,13 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                 <summary className="relative rounded flex items-center justify-between gap-3 mt-3 mb-3 border p-3 cursor-pointer">
                   <div className="flex items-center gap-2">
                     <MapPin />
-                    <p>Add New Address</p>
+                    <p>{t("address.addNewAddress")}</p>
                   </div>
                   <ChevronDown />
                 </summary>
                 <div className="address flex flex-col w-full">
                   <fieldset className="flex gap-10">
-                    <p>Location:</p>
+                    <p>{t("address.location")}:</p>
                     <div className="relative inputBoxRadio flex items-center">
                       <input
                         type="radio"
@@ -191,7 +197,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         checked={formData.mode === "home"}
                       />
                       <label className="pl-2 cursor-pointer text-slate-500">
-                        Home
+                        {t("address.home")}
                       </label>
                     </div>
                     <div className="relative inputBoxRadio flex items-center">
@@ -204,7 +210,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         checked={formData.mode === "work"}
                       />
                       <label className="pl-2 cursor-pointer text-slate-500">
-                        Work
+                        {t("address.work")}
                       </label>
                     </div>
                   </fieldset>
@@ -214,7 +220,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         id="id-l03"
                         type="text"
                         name="room"
-                        placeholder="Room No, Street Name"
+                        placeholder={t("address.roomNo")}
                         value={formData.room}
                         onChange={handleChange}
                       />
@@ -224,7 +230,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         id="id-l04"
                         type="text"
                         name="postalCode"
-                        placeholder="Postal Code"
+                        placeholder={t("address.postalCode")}
                         value={formData.postalCode}
                         onChange={handleChange}
                       />
@@ -234,7 +240,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         id="id-l05"
                         type="text"
                         name="zone"
-                        placeholder="Zone"
+                        placeholder={t("address.zone")}
                         value={formData.zone}
                         onChange={handleChange}
                       />
@@ -244,7 +250,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         id="id-l06"
                         type="text"
                         name="country"
-                        placeholder="Country"
+                        placeholder={t("address.country")}
                         value={formData.country}
                         onChange={handleChange}
                       />
@@ -254,7 +260,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         id="id-l07"
                         type="text"
                         name="mobile"
-                        placeholder="Mobile"
+                        placeholder={t("address.mobile")}
                         value={formData.mobile}
                         onChange={handleChange}
                       />
@@ -265,13 +271,13 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                       className="border-2 pt-1 pb-1 ps-5 pe-5 rounded-lg"
                       onClick={onClearAll}
                     >
-                      Clear All
+                      {t("address.clearAll")}
                     </button>
                     <button
                       className="border-2 pt-1 pb-1 ps-5 pe-5 rounded-lg"
                       onClick={onSaveAddress}
                     >
-                      Save Address
+                      {t("address.saveAddress")}
                     </button>
                   </div>
                 </div>
@@ -280,7 +286,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
             <div className="flex items-center justify-center">
               <hr className="flex-1 border-t-2 border-slate-300" />
               <h1 className="mx-3 text-md font-semibold text-gray-700">
-                Saved Addresses
+                {t("address.saveAddress")}
               </h1>
               <hr className="flex-1 border-t-2 border-slate-300" />
             </div>

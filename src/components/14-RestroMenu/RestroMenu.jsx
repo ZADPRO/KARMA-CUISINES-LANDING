@@ -405,15 +405,8 @@ export default function RestroMenu() {
 
     categories.forEach((cat, idx) => {
       const key = cat.refFoodCategoryName;
-      if (firstTwo.length < 2) {
-        firstTwo.push(cat);
-      } else if (key === "Combo" && combo.length === 0) {
-        combo.push(cat);
-      } else {
-        rest.push(cat);
-      }
+      rest.push(cat);
     });
-
     return [...firstTwo, ...combo, ...rest];
   })();
 
@@ -507,7 +500,7 @@ export default function RestroMenu() {
             className="flex overflow-x-auto gap-2 mb-4 sticky top-[60px] bg-white z-50 p-2 shadow whitespace-nowrap"
             style={{ scrollbarWidth: "none" }}
           >
-            {reorderedCategories.map((cat, idx) => {
+            {categories.map((cat, idx) => {
               const key = cat.refFoodCategoryName;
               const displayKey = key === "Combo" ? "Menues" : key;
               return (
@@ -529,7 +522,7 @@ export default function RestroMenu() {
 
           {/* Menu Items */}
           <div className="flex flex-col gap-6 pb-20">
-            {reorderedCategories.map((cat, idx) => {
+            {categories.map((cat, idx) => {
               const key = cat.refFoodCategoryName;
               return (
                 <div
@@ -1241,7 +1234,7 @@ export default function RestroMenu() {
           onClick={moveToOrders}
           className="w-full py-2 bg-[#cd5c08] text-white font-semibold rounded"
         >
-          Place Order
+          {t("restroMenu.placeOrder")}
         </button>
       </div>
     </div>
