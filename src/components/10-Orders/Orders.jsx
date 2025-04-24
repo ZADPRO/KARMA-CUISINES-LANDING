@@ -155,7 +155,7 @@ export default function Orders() {
           },
           consumerData: {
             deviceId: "WEBSH2",
-            token: "7C2F25CEDC36F78C6E52",
+            token: "7B9131076A6D50F744BF",
             returnUrl:
               "https://pgproxyuat.in.worldline-solutions.com/linuxsimulator/MerchantResponsePage.jsp",
             responseHandler: (res) => {
