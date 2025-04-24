@@ -3,6 +3,8 @@ import kingskurryBanner from "../../assets/coverImg.jpg";
 import axios from "axios";
 import decrypt from "../../helper";
 import kingsKurryLogo from "../../assets/logoNew/kingsKurry.jpg";
+import kingsKurryPng from "../../assets/logoNew/king01.png";
+
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -365,10 +367,9 @@ export default function RestroMenu() {
         <img src={kingskurryBanner} alt="" />
       </div>
 
-      <div className="restroIntro text-center my-4">
-        <p className="text-xl font-bold">Kings Kurry</p>
-        <p className="text-sm text-gray-500">Indian | Indian Curry | Asian</p>
-        <p className="text-sm text-gray-600">Available at 11:30 AM</p>
+      <div className="restroIntro text-center my-4 flex flex-col items-center">
+        <img src={kingsKurryPng} alt="" className="w-[200px]" />
+        <p className="text-sm text-gray-500">Celebrating Indian Cuisine</p>
       </div>
 
       {/* Tabs */}
