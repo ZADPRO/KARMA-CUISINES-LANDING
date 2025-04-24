@@ -14,7 +14,6 @@ const stripePromise = loadStripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
 
 export default function Orders() {
   const [cartItems, setCartItems] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentModule, setPaymentModule] = useState(false);
   const [savedAddress, setSavedAddress] = useState(null);
@@ -33,16 +32,60 @@ export default function Orders() {
       setSavedAddress(JSON.parse(address));
     }
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const mappedCartItems = savedCart.flatMap((itemGroup) =>
-      itemGroup.map((item) => ({
-        id: item.refFoodId,
-        name: item.refFoodName,
-        price: item.refPrice,
-        quantity: item.count,
-      }))
-    );
+    const mappedCartItems = savedCart.map((item) => {
+      console.log("item", item);
+      if (item.isCombo && item.subProducts) {
+        const mainDishes = Object.values(item.subProducts.mainDishCounts || {});
+        const subDishes = Object.values(item.subProducts.subDishCounts || {});
+        const updatedProducts = Object.values(
+          item.subProducts.updatedProducts || {}
+        );
+
+        return {
+          id: item.refFoodId || item.refMenuId,
+          name: item.refFoodName,
+          price: item.refPrice,
+          quantity: item.count,
+          isCombo: true,
+          subProducts: {
+            mainDishes,
+            subDishes,
+            updatedProducts,
+          },
+        };
+      } else {
+        return {
+          id: item.refFoodId || item.refMenuId,
+          name: item.refFoodName || `Item ${item.refMenuId}`,
+          price: item.refPrice || "0.00",
+          quantity: item.count,
+          isCombo: false,
+        };
+      }
+    });
+
     setCartItems(mappedCartItems);
   }, []);
+
+  const grandTotal = cartItems
+    .reduce((total, item) => {
+      if (item.isCombo && item.subProducts) {
+        const sum = total + parseFloat(item.price);
+        return sum;
+      }
+
+      const price = parseFloat(item.price) || 0;
+      const quantity = parseInt(item.quantity) || 0;
+      return total + price * quantity;
+    }, 0)
+    .toFixed(2);
+
+  console.log("cartItems", cartItems);
+  console.log("grandTotal", grandTotal);
+
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
 
   const updateCartItemCount = (id, delta) => {
     const updatedCart = cartItems
@@ -79,14 +122,6 @@ export default function Orders() {
       setCartItems(updatedCart);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
-  };
-
-  const grandTotal = cartItems
-    .reduce((total, item) => total + parseFloat(item.price) * item.quantity, 0)
-    .toFixed(2);
-
-  const toggleModal = () => {
-    setIsModalOpen((prev) => !prev);
   };
 
   const validateFields = () => {
@@ -256,7 +291,7 @@ export default function Orders() {
       </div>
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="flex flex-col border-2 border-dashed rounded-lg surface-ground flex-auto p-4 m-3">
-          <div className="relative flex flex-wrap items-center justify-end mb-4">
+          {/* <div className="relative flex flex-wrap items-center justify-end mb-4">
             <label
               className="cursor-pointer text-slate-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400"
               htmlFor="id-c01"
@@ -270,37 +305,36 @@ export default function Orders() {
               onChange={() => setIsEditing((prev) => !prev)}
               id="id-c01"
             />
-          </div>
+          </div> */}
           <div className="contents">
             {cartItems.length > 0 ? (
               <ul>
-                {cartItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between p-1"
-                  >
-                    <p>{item.name}</p>
-                    <div className="addItems flex items-center gap-2">
-                      {isEditing ? (
-                        <>
-                          <button
-                            onClick={() => updateCartItemCount(item.id, -1)}
-                            className="px-2 py-1 border rounded"
-                          >
-                            -
-                          </button>
-                          <p>{item.quantity}</p>
-                          <button
-                            onClick={() => updateCartItemCount(item.id, 1)}
-                            className="px-2 py-1 border rounded"
-                          >
-                            +
-                          </button>
-                        </>
-                      ) : (
-                        <p className="pt-1 pb-1">Quantity: {item.quantity}</p>
-                      )}
+                {cartItems.map((item, index) => (
+                  <div key={index} className="cart-item">
+                    <div>
+                      <strong>{item.name}</strong> CHF {item.price}
                     </div>
+
+                    {item.isCombo && item.subProducts && (
+                      <div className="pl-4 text-sm text-gray-600">
+                        {item.subProducts.mainDishes.map((sub, i) => (
+                          <div key={`main-${i}`}>
+                            {sub.foodName} × {sub.quantity}
+                          </div>
+                        ))}
+                        {item.subProducts.subDishes.map((sub, i) => (
+                          <div key={`sub-${i}`}>
+                            {sub.foodName} × {sub.quantity}
+                          </div>
+                        ))}
+                        {item.subProducts.updatedProducts.map((product, i) => (
+                          <div key={`updated-${i}`} className="">
+                            {product.refFoodName} × {product.refQuantity} — CHF{" "}
+                            {product.refPrice}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </ul>

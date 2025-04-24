@@ -93,11 +93,26 @@ export default function RestroMenu() {
     if (selectedItem.refComboId) {
       console.log("selectedItem <======>", selectedItem);
       const fixedQuantityValues = selectedItem.refFixedQuantity
-        .replace(/[{}]/g, "") // Remove curly braces
+        .replace(/[{}]/g, "")
         .split(",")
-        .map(Number); // Convert to numbers
+        .map(Number);
 
       const fixedQuantitySum = fixedQuantityValues.reduce((a, b) => a + b, 0);
+      const fixedQuantities = selectedItem.refFixedQuantity
+        .replace(/[{}]/g, "")
+        .split(",")
+        .map((q) => parseInt(q.trim()));
+
+      const updatedProducts = selectedItem.refFixedProduct.map(
+        (product, index) => ({
+          ...product,
+          refQuantity: fixedQuantities[index] || "0",
+          refPrice: "0",
+        })
+      );
+
+      console.log("updatedProducts", updatedProducts);
+
       const mainItem = {
         refFoodId: selectedItem.refComboId,
         refFoodName: selectedItem.refComboName,
@@ -109,6 +124,7 @@ export default function RestroMenu() {
         subProducts: {
           mainDishCounts: mainDishCounts,
           subDishCounts: subDishCounts,
+          updatedProducts: updatedProducts,
         },
       };
 
@@ -427,7 +443,7 @@ export default function RestroMenu() {
         foodId: product.refFoodId,
         foodName: product.refFoodName,
         menuId: selectedItem.refMenuId,
-        price: product.refPrice,
+        price: "0.00",
         quantity: (counts[index]?.quantity || 0) + 1,
       };
 
