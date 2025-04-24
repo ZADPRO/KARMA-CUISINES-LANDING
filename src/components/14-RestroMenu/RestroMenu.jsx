@@ -98,48 +98,43 @@ export default function RestroMenu() {
   };
 
   const handleMainAddToCart = () => {
-    const mainItem = {
-      refFoodId: selectedItem.refFoodId,
-      refFoodName: selectedItem.refFoodName,
-      refFoodCategoryName: selectedItem.refFoodCategoryName,
-      refMenuId: selectedItem.refMenuId,
-      refPrice: selectedItem.refPrice,
-      count: itemCount,
-    };
+    if (selectedItem.refComboId) {
+      console.log("selectedItem ====== ", mainDishCounts, subDishCounts);
+    } else {
+      const mainItem = {
+        refFoodId: selectedItem.refFoodId,
+        refFoodName: selectedItem.refFoodName,
+        refFoodCategoryName: selectedItem.refFoodCategoryName,
+        refMenuId: selectedItem.refMenuId,
+        refPrice: selectedItem.refPrice,
+        count: itemCount,
+        isCombo: false,
+      };
 
-    let addons = [];
+      let addons = [];
 
-    if (selectedItem.refAddOns && selectedItem.refAddOns.length > 0) {
-      selectedItem.refAddOns.forEach((addon, index) => {
-        if (cartState[index]) {
-          addons.push({
-            refFoodId: addon.refFoodId,
-            refFoodName: addon.refFoodName,
-            refFoodCategoryName: addon.refFoodCategoryName,
-            refMenuId: addon.refMenuId,
-            refPrice: addon.refPrice,
-            count: cartState[index].count,
-          });
-        }
-      });
+      if (selectedItem.refAddOns && selectedItem.refAddOns.length > 0) {
+        selectedItem.refAddOns.forEach((addon, index) => {
+          if (cartState[index]) {
+            addons.push({
+              refFoodId: addon.refFoodId,
+              refFoodName: addon.refFoodName,
+              refFoodCategoryName: addon.refFoodCategoryName,
+              refMenuId: addon.refMenuId,
+              refPrice: addon.refPrice,
+              count: cartState[index].count,
+              isCombo: false,
+            });
+          }
+        });
+      }
+      const cartData = [mainItem, ...addons];
+      let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+      existingCart.push(...cartData);
+      localStorage.setItem("cart", JSON.stringify(existingCart));
+
+      closeModal();
     }
-
-    const cartData = [mainItem];
-    if (addons.length > 0) {
-      cartData.push(...addons);
-    }
-
-    // Get existing cart data from localStorage
-    let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Append the new data
-    existingCart.push(cartData);
-
-    // Save updated cart to localStorage
-    localStorage.setItem("cart", JSON.stringify(existingCart));
-
-    // Optional: Close modal or give feedback
-    closeModal();
   };
 
   useEffect(() => {
@@ -277,7 +272,6 @@ export default function RestroMenu() {
           res.data[0],
           import.meta.env.VITE_ENCRYPTION_KEY
         );
-        console.log("data", data);
         if (data.success) {
           const categories = data.foodItem;
           const refs = {};
@@ -388,7 +382,7 @@ export default function RestroMenu() {
   const [subDishCounts, setSubDishCounts] = useState({});
 
   const getTotalCount = (countsObj) =>
-    Object.values(countsObj).reduce((a, b) => a + b, 0);
+    Object.values(countsObj).reduce((a, b) => a + (b.quantity || 0), 0);
 
   const handleIncrementMainDish = (type, index) => {
     console.log("type", type);
@@ -397,12 +391,23 @@ export default function RestroMenu() {
         ? selectedItem.refMainDishLimit
         : selectedItem.refSideDishLimit;
     const counts = type === "main" ? mainDishCounts : subDishCounts;
+    console.log("selectedItem", selectedItem);
     const totalCount = getTotalCount(counts);
-    console.log("totalCount", totalCount);
 
     if (totalCount < limit) {
-      const newCounts = { ...counts, [index]: (counts[index] || 0) + 1 };
-      console.log("newCounts", newCounts);
+      const product = selectedItem.refMainProduct[index];
+      console.log("product", product);
+
+      const updatedItem = {
+        foodId: product.refFoodId,
+        foodName: product.refFoodName,
+        menuId: selectedItem.refMenuId,
+        price: product.refPrice,
+        quantity: (counts[index]?.quantity || 0) + 1,
+      };
+
+      const newCounts = { ...counts, [index]: updatedItem };
+
       type === "main"
         ? setMainDishCounts(newCounts)
         : setSubDishCounts(newCounts);
@@ -410,17 +415,28 @@ export default function RestroMenu() {
   };
 
   const handleDecrementMainDish = (type, index) => {
-    console.log("type", type);
     const counts = type === "main" ? mainDishCounts : subDishCounts;
-    if ((counts[index] || 0) > 0) {
-      console.log("counts", counts);
-      const newCounts = { ...counts, [index]: counts[index] - 1 };
-      console.log("newCounts", newCounts);
+
+    if ((counts[index]?.quantity || 0) > 0) {
+      const updatedItem = {
+        ...counts[index],
+        quantity: counts[index].quantity - 1,
+      };
+
+      const newCounts = { ...counts };
+      if (updatedItem.quantity === 0) {
+        delete newCounts[index];
+      } else {
+        newCounts[index] = updatedItem;
+      }
+
       type === "main"
         ? setMainDishCounts(newCounts)
         : setSubDishCounts(newCounts);
     }
   };
+
+  console.log("mainDishCounts", mainDishCounts);
 
   return (
     <div ref={containerRef}>
@@ -919,7 +935,10 @@ export default function RestroMenu() {
                                               -
                                             </button>
                                             <span className="font-semibold">
-                                              {mainDishCounts[index] || 0}
+                                              <span className="font-semibold">
+                                                {mainDishCounts[index]
+                                                  ?.quantity || 0}
+                                              </span>
                                             </span>
                                             <button
                                               onClick={() =>
@@ -1051,7 +1070,8 @@ export default function RestroMenu() {
                                               -
                                             </button>
                                             <span className="font-semibold">
-                                              {subDishCounts[index] || 0}
+                                              {subDishCounts[index]?.quantity ||
+                                                0}{" "}
                                             </span>
                                             <button
                                               onClick={() =>
