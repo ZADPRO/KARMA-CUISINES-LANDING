@@ -941,17 +941,36 @@ export default function RestroMenu() {
                                               </span>
                                             </span>
                                             <button
-                                              onClick={() =>
-                                                handleIncrementMainDish(
-                                                  "main",
-                                                  index
-                                                )
-                                              }
+                                              onClick={() => {
+                                                const limitReached =
+                                                  getTotalCount(
+                                                    mainDishCounts
+                                                  ) >=
+                                                  selectedItem.refMainDishLimit;
+
+                                                if (limitReached) {
+                                                  Swal.fire({
+                                                    icon: "warning",
+                                                    title: "Limit Reached",
+                                                    text: `You can only add up to ${
+                                                      selectedItem.refMainDishLimit
+                                                    } main dish${
+                                                      selectedItem.refMainDishLimit >
+                                                      1
+                                                        ? "es"
+                                                        : ""
+                                                    }.`,
+                                                    confirmButtonColor:
+                                                      "#3085d6",
+                                                  });
+                                                } else {
+                                                  handleIncrementMainDish(
+                                                    "main",
+                                                    index
+                                                  );
+                                                }
+                                              }}
                                               className="border px-2 py-1 rounded text-sm"
-                                              disabled={
-                                                getTotalCount(mainDishCounts) >=
-                                                selectedItem.refMainDishLimit
-                                              }
                                             >
                                               +
                                             </button>
@@ -1074,17 +1093,36 @@ export default function RestroMenu() {
                                                 0}{" "}
                                             </span>
                                             <button
-                                              onClick={() =>
-                                                handleIncrementMainDish(
-                                                  "side",
-                                                  index
-                                                )
-                                              }
+                                              onClick={() => {
+                                                const limitReached =
+                                                  getTotalCount(
+                                                    subDishCounts
+                                                  ) >=
+                                                  selectedItem.refSideDishLimit;
+
+                                                if (limitReached) {
+                                                  Swal.fire({
+                                                    icon: "warning",
+                                                    title: "Limit Reached",
+                                                    text: `You can only add up to ${
+                                                      selectedItem.refSideDishLimit
+                                                    } side dish${
+                                                      selectedItem.refSideDishLimit >
+                                                      1
+                                                        ? "es"
+                                                        : ""
+                                                    }.`,
+                                                    confirmButtonColor:
+                                                      "#3085d6",
+                                                  });
+                                                } else {
+                                                  handleIncrementMainDish(
+                                                    "side",
+                                                    index
+                                                  );
+                                                }
+                                              }}
                                               className="border px-2 py-1 rounded text-sm"
-                                              disabled={
-                                                getTotalCount(subDishCounts) >=
-                                                selectedItem.refSideDishLimit
-                                              }
                                             >
                                               +
                                             </button>
