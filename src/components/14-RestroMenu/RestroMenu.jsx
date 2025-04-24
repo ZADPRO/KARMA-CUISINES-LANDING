@@ -361,6 +361,25 @@ export default function RestroMenu() {
     setSelectedItem(null);
   };
 
+  const reorderedCategories = (() => {
+    const firstTwo = [];
+    const combo = [];
+    const rest = [];
+
+    categories.forEach((cat, idx) => {
+      const key = cat.refFoodCategoryName;
+      if (firstTwo.length < 2) {
+        firstTwo.push(cat);
+      } else if (key === "Combo" && combo.length === 0) {
+        combo.push(cat);
+      } else {
+        rest.push(cat);
+      }
+    });
+
+    return [...firstTwo, ...combo, ...rest];
+  })();
+
   return (
     <div ref={containerRef}>
       <div className="coverImg">
@@ -387,7 +406,7 @@ export default function RestroMenu() {
             className="flex overflow-x-auto gap-2 mb-4 sticky top-[60px] bg-white z-50 p-2 shadow whitespace-nowrap"
             style={{ scrollbarWidth: "none" }}
           >
-            {categories.map((cat, idx) => {
+            {reorderedCategories.map((cat, idx) => {
               const key = cat.refFoodCategoryName;
               const displayKey = key === "Combo" ? "Menues" : key;
               return (
@@ -409,7 +428,7 @@ export default function RestroMenu() {
 
           {/* Menu Items */}
           <div className="flex flex-col gap-6 pb-20">
-            {categories.map((cat, idx) => {
+            {reorderedCategories.map((cat, idx) => {
               const key = cat.refFoodCategoryName;
               return (
                 <div
