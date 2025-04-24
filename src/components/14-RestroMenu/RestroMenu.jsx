@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import kingskurryBanner from "../../images/restroMenu/img1.jpg";
+import kingskurryBanner from "../../assets/coverImg.jpg";
 import axios from "axios";
 import decrypt from "../../helper";
 import kingsKurryLogo from "../../assets/logoNew/kingsKurry.jpg";
@@ -454,7 +454,7 @@ export default function RestroMenu() {
                         <img
                           src={
                             item.profileFile
-                              ? `data:${item.profileFile.contentType};base64,${item.profileFile.content}`
+                              ? `https://karmacuisine.ch/src/assets/FoodImage/${item.profileFile.filename}`
                               : kingsKurryLogo
                           }
                           alt=""
@@ -493,7 +493,7 @@ export default function RestroMenu() {
                   <img
                     src={
                       selectedItem.profileFile
-                        ? `data:${selectedItem.profileFile.contentType};base64,${selectedItem.profileFile.content}`
+                        ? `https://karmacuisine.ch/src/assets/FoodImage/${selectedItem.profileFile.filename}`
                         : kingsKurryLogo
                     }
                     alt={
@@ -574,7 +574,7 @@ export default function RestroMenu() {
                                     <img
                                       src={
                                         addon.profileFile
-                                          ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                          ? `https://karmacuisine.ch/src/assets/FoodImage/${addon.profileFile.filename}`
                                           : kingsKurryLogo
                                       }
                                       alt={addon.refFoodName}
@@ -738,7 +738,7 @@ export default function RestroMenu() {
                             <img
                               src={
                                 addon.profileFile
-                                  ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                  ? `https://karmacuisine.ch/src/assets/FoodImage/${addon.profileFile.filename}`
                                   : kingsKurryLogo
                               }
                               alt={addon.refFoodName}
@@ -864,7 +864,7 @@ export default function RestroMenu() {
                                         <img
                                           src={
                                             addon.profileFile
-                                              ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                              ? `https://karmacuisine.ch/src/assets/FoodImage/${addon.profileFile.filename}`
                                               : kingsKurryLogo
                                           }
                                           alt={addon.refFoodName}
@@ -1092,7 +1092,7 @@ export default function RestroMenu() {
                                         <img
                                           src={
                                             addon.profileFile
-                                              ? `data:${addon.profileFile.contentType};base64,${addon.profileFile.content}`
+                                              ? `https://karmacuisine.ch/src/assets/FoodImage/${addon.profileFile.filename}`
                                               : kingsKurryLogo
                                           }
                                           alt={addon.refFoodName}
