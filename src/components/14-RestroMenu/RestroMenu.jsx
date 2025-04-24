@@ -437,7 +437,7 @@ export default function RestroMenu() {
                         onClick={() => openModal(item)}
                       >
                         <p className="font-semibold">
-                          {item.refFoodName || item.refComboName}
+                          {item.refMenuId} {item.refFoodName || item.refComboName}
                         </p>
                         <p
                           className="line-clamp-1"
