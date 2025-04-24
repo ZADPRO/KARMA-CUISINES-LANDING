@@ -113,10 +113,11 @@ export default function Orders() {
     txnId,
     amount,
     consumerId,
+    returnUrl,
     currency,
     secretKey
   ) {
-    const inputString = `${merchantId}${txnId}${amount}${consumerId}${currency}${secretKey}`;
+    const inputString = `${merchantId}|${txnId}|${amount}|${consumerId}|${currency}|${returnUrl}|${secretKey}`;
     const encoder = new TextEncoder();
     const data = encoder.encode(inputString);
     const hashBuffer = await crypto.subtle.digest("SHA-512", data);

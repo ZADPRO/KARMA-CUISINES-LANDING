@@ -45,7 +45,7 @@ export default function RestroMenu() {
   const navigate = useNavigate();
 
   const moveToOrders = () => {
-    navigate("/menu");
+    navigate("/orders");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
