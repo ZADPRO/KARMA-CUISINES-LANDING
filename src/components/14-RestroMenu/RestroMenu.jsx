@@ -55,14 +55,6 @@ export default function RestroMenu() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSideDishToCart = (index) => {
-    setCartState((prev) => {
-      const newCartState = { ...prev };
-      newCartState[`sideDish_${index}`] = { count: 1 };
-      return newCartState;
-    });
-  };
-
   const handleIncrement = (index) => {
     setCartState((prev) => ({
       ...prev,
@@ -99,7 +91,35 @@ export default function RestroMenu() {
 
   const handleMainAddToCart = () => {
     if (selectedItem.refComboId) {
-      console.log("selectedItem ====== ", mainDishCounts, subDishCounts);
+      console.log("selectedItem <======>", selectedItem);
+      const fixedQuantityValues = selectedItem.refFixedQuantity
+        .replace(/[{}]/g, "") // Remove curly braces
+        .split(",")
+        .map(Number); // Convert to numbers
+
+      const fixedQuantitySum = fixedQuantityValues.reduce((a, b) => a + b, 0);
+      const mainItem = {
+        refFoodId: selectedItem.refComboId,
+        refFoodName: selectedItem.refComboName,
+        refFoodCategoryName: "Combo",
+        refMenuId: selectedItem.refMenuId,
+        refPrice: selectedItem.refComboPrice,
+        count: fixedQuantitySum,
+        isCombo: true,
+        subProducts: {
+          mainDishCounts: mainDishCounts,
+          subDishCounts: subDishCounts,
+        },
+      };
+
+      console.log("mainItem", mainItem);
+      const cartData = [mainItem];
+      console.log("cartData", cartData);
+      let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+      existingCart.push(...cartData);
+      localStorage.setItem("cart", JSON.stringify(existingCart));
+
+      closeModal();
     } else {
       const mainItem = {
         refFoodId: selectedItem.refFoodId,
@@ -395,7 +415,12 @@ export default function RestroMenu() {
     const totalCount = getTotalCount(counts);
 
     if (totalCount < limit) {
-      const product = selectedItem.refMainProduct[index];
+      let product;
+      if (type === "main") {
+        product = selectedItem.refMainProduct[index];
+      } else {
+        product = selectedItem.refSideDish[index];
+      }
       console.log("product", product);
 
       const updatedItem = {
@@ -407,6 +432,7 @@ export default function RestroMenu() {
       };
 
       const newCounts = { ...counts, [index]: updatedItem };
+      console.log("newCounts", newCounts);
 
       type === "main"
         ? setMainDishCounts(newCounts)
@@ -435,8 +461,6 @@ export default function RestroMenu() {
         : setSubDishCounts(newCounts);
     }
   };
-
-  console.log("mainDishCounts", mainDishCounts);
 
   return (
     <div ref={containerRef}>
