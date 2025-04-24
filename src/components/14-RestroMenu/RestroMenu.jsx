@@ -135,6 +135,9 @@ export default function RestroMenu() {
       existingCart.push(...cartData);
       localStorage.setItem("cart", JSON.stringify(existingCart));
 
+      setMainDishCounts({});
+      setSubDishCounts({});
+
       closeModal();
     } else {
       const mainItem = {
@@ -168,7 +171,7 @@ export default function RestroMenu() {
       let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
       existingCart.push(...cartData);
       localStorage.setItem("cart", JSON.stringify(existingCart));
-
+      setItemCount(1);
       closeModal();
     }
   };
