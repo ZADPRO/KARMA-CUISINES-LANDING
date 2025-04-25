@@ -141,18 +141,60 @@ export default function Orders() {
     return true;
   };
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     if (!validateFields()) return;
 
-    if (paymentMethod === "online") {
-      // Proceed with online payment
-      paymentModel();
-    } else {
-      // Offline payment
-      Swal.fire("Order Placed Successfully!", "", "success").then(() => {
-        navigate("/ourBrand");
-      });
-    }
+    // if (paymentMethod === "online") {
+    //   const stripe = window.Stripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
+
+    //   // Create a Checkout Session
+    //   const response = await fetch(
+    //     "https://api.stripe.com/v1/checkout/sessions",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         Authorization: `Bearer rk_test_51AS1nCH3jcdlg0c0s65rMdCQpuuTm7teaMIEWjIcpgtAVHekTtm59uWBZCDuVFUMuFV3Mqhk7cPZUXfhx5wA5z8Z00x9P6Lqv0`,
+    //         "Content-Type": "application/x-www-form-urlencoded",
+    //       },
+    //       body: new URLSearchParams({
+    //         payment_method_types: ["card"],
+    //         line_items: JSON.stringify(
+    //           cartItems.map((item) => ({
+    //             price_data: {
+    //               currency: "chf",
+    //               product_data: {
+    //                 name: "payment",
+    //               },
+    //               unit_amount: 100 * 100,
+    //             },
+    //             quantity: item.quantity,
+    //           }))
+    //         ),
+    //         mode: "payment",
+    //         success_url: window.location.origin + "/success",
+    //         cancel_url: window.location.origin + "/cancel",
+    //       }),
+    //     }
+    //   );
+
+    //   const session = await response.json();
+
+    //   // Redirect to Checkout
+    //   const { error } = await stripe.redirectToCheckout({
+    //     sessionId: session.id,
+    //   });
+
+    //   if (error) {
+    //     console.error("Error:", error);
+    //     Swal.fire("Payment failed", error.message, "error");
+    //   }
+    // } else {
+    //   Swal.fire("Order Placed Successfully!", "", "success").then(() => {
+    //     navigate("/ourBrand");
+    //   });
+    // }
+
+    setPaymentModule(true);
   };
 
   async function generateHash(

@@ -9,16 +9,12 @@ import {
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 
 export default function PaymentModel({ isOpen, totalAmount, onClose }) {
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();
   const y = useMotionValue(0);
   const controls = useDragControls();
-  const [addresses, setAddresses] = useState([]);
-
-  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const handleClose = async () => {
     animate(scope.current, {
@@ -39,17 +35,6 @@ export default function PaymentModel({ isOpen, totalAmount, onClose }) {
       console.log("isOpen", isOpen);
     }
   }, [isOpen]);
-
-  useEffect(() => {
-    const storedAddresses = localStorage.getItem("addresses");
-    if (storedAddresses) {
-      console.log("storedAddresses raw data:", storedAddresses);
-      const parsedAddresses = JSON.parse(storedAddresses);
-      const addressArray = Object.values(parsedAddresses);
-      console.log("Parsed Addresses:", addressArray);
-      setAddresses(addressArray);
-    }
-  }, []);
 
   if (!isOpen) return null;
 
@@ -81,37 +66,7 @@ export default function PaymentModel({ isOpen, totalAmount, onClose }) {
         dragConstraints={{ top: -100, bottom: 0 }}
       >
         <div className="p-4 border rounded mt-5">
-          <h3 className="text-lg font-semibold mb-3">Select Payment Method</h3>
-
-          <div className="flex space-x-4 mb-3">
-            <button
-              className={`px-4 py-2 rounded ${
-                paymentMethod === "card"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-300"
-              }`}
-              onClick={() => setPaymentMethod("card")}
-            >
-              Pay with Card
-            </button>
-            <button
-              className={`px-4 py-2 rounded ${
-                paymentMethod === "twint"
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-300"
-              }`}
-              onClick={() => setPaymentMethod("twint")}
-            >
-              Pay with Twint
-            </button>
-          </div>
-
-          {paymentMethod === "card" && (
-            <CardPaymentForm totalAmount={totalAmount} />
-          )}
-          {paymentMethod === "twint" && (
-            <TwintPayment totalAmount={totalAmount} />
-          )}
+          <CardPaymentForm totalAmount={totalAmount} />
         </div>
       </motion.div>
     </motion.div>
@@ -126,8 +81,9 @@ function CardPaymentForm({ totalAmount, onClose }) {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
+  const [cardComplete, setCardComplete] = useState(false);
 
-  const isFormValid = name && email && mobile && billingAddress;
+  const isFormValid = name && email && mobile && billingAddress && cardComplete;
 
   const handlePayment = async () => {
     if (!stripe || !elements) return;
@@ -137,6 +93,7 @@ function CardPaymentForm({ totalAmount, onClose }) {
     const { token, error } = await stripe.createToken(cardElement, {
       name,
       email,
+      totalAmount,
       mobile,
       address_line1: billingAddress,
     });
@@ -147,7 +104,7 @@ function CardPaymentForm({ totalAmount, onClose }) {
     } else {
       Swal.fire("Payment Successful!", `Paid CHF${totalAmount}`, "success");
       console.log("Token:", token);
-      onClose();
+      // onClose();
     }
   };
 
@@ -188,7 +145,10 @@ function CardPaymentForm({ totalAmount, onClose }) {
         required
       />
 
-      <CardElement className="p-2 border rounded" />
+      <CardElement
+        className="p-2 border rounded"
+        onChange={(event) => setCardComplete(event.complete)}
+      />
 
       <button
         className={`mt-4 px-4 py-2 rounded ${
@@ -205,37 +165,8 @@ function CardPaymentForm({ totalAmount, onClose }) {
   );
 }
 
-function TwintPayment({ totalAmount }) {
-  const handleTwintPayment = () => {
-    Swal.fire(
-      "Twint Payment",
-      "Scan the QR code to complete your payment.",
-      "info"
-    );
-  };
-
-  return (
-    <div className="p-4 border rounded mt-5 text-center">
-      <h3>
-        Internal Server Error <br />
-      </h3>
-      {/* <h3 className="text-lg font-semibold mb-3">Scan to Pay with Twint</h3>
-      <img
-        src="https://via.placeholder.com/150"
-        alt="Twint QR Code"
-        className="mx-auto mb-3"
-      />
-      <button
-        className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
-        onClick={handleTwintPayment}
-      >
-        Pay with Twint (CHF{totalAmount})
-      </button> */}
-    </div>
-  );
-}
-
 PaymentModel.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  totalAmount: PropTypes.number,
 };
