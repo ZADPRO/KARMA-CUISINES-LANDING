@@ -9,6 +9,7 @@ import {
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useNavigate } from "react-router-dom";
 
 export default function PaymentModel({ isOpen, totalAmount, onClose }) {
   const [scope, animate] = useAnimate();
@@ -66,7 +67,7 @@ export default function PaymentModel({ isOpen, totalAmount, onClose }) {
         dragConstraints={{ top: -100, bottom: 0 }}
       >
         <div className="p-4 border rounded mt-5">
-          <CardPaymentForm totalAmount={totalAmount} />
+          <CardPaymentForm totalAmount={totalAmount} onClose={onClose} />
         </div>
       </motion.div>
     </motion.div>
@@ -82,6 +83,8 @@ function CardPaymentForm({ totalAmount, onClose }) {
   const [mobile, setMobile] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
   const [cardComplete, setCardComplete] = useState(false);
+
+  const navigate = useNavigate();
 
   const isFormValid = name && email && mobile && billingAddress && cardComplete;
 
@@ -102,9 +105,13 @@ function CardPaymentForm({ totalAmount, onClose }) {
       console.log("error", error);
       Swal.fire("Error", error.message, "error");
     } else {
-      Swal.fire("Payment Successful!", `Paid CHF${totalAmount}`, "success");
       console.log("Token:", token);
-      // onClose();
+      await Swal.fire(
+        "Payment Successful!",
+        `Paid CHF${totalAmount}`,
+        "success"
+      );
+      navigate("/restroMenu?routePath=kingsKurry");
     }
   };
 
