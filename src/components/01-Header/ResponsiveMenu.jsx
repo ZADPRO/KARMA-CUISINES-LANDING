@@ -29,7 +29,7 @@ export default function ResponsiveMenu({ open, setOpen }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -100 }}
           transition={{ duration: 0.1 }}
-          className="fixed top-20 left-0 w-full h-screen z-20"
+          className="fixed top-20 left-0 w-full h-screen z-51"
         >
           <div className="text-xl font-semibold uppercase h-[85vh] bg-[#cd5c08] text-white py-6 m-2 rounded-xl">
             <ul className="flex flex-col justify-start items-start gap-5 px-8">

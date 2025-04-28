@@ -11,6 +11,9 @@ import Swal from "sweetalert2";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
+import decrypt from "../../helper";
+
 export default function PaymentModel({ isOpen, totalAmount, onClose }) {
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();
@@ -75,9 +78,6 @@ export default function PaymentModel({ isOpen, totalAmount, onClose }) {
 }
 
 function CardPaymentForm({ totalAmount, onClose }) {
-  const stripe = useStripe();
-  const elements = useElements();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
@@ -89,29 +89,44 @@ function CardPaymentForm({ totalAmount, onClose }) {
   const isFormValid = name && email && mobile && billingAddress && cardComplete;
 
   const handlePayment = async () => {
-    if (!stripe || !elements) return;
-
-    const cardElement = elements.getElement(CardElement);
-
-    const { token, error } = await stripe.createToken(cardElement, {
-      name,
-      email,
-      totalAmount,
-      mobile,
-      address_line1: billingAddress,
-    });
-
-    if (error) {
-      console.log("error", error);
-      Swal.fire("Error", error.message, "error");
-    } else {
-      console.log("Token:", token);
-      await Swal.fire(
-        "Payment Successful!",
-        `Paid CHF${totalAmount}`,
-        "success"
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_API_URL + "/Employee/checkApi",
+        {
+          amount: totalAmount,
+          currency: "CHF",
+          successRedirectUrl: "https://your-success-url.com",
+          failedRedirectUrl: "https://your-failed-url.com",
+          purpose: "Test Payment",
+        },
+        {
+          headers: {
+            Authorization: "vqdTdCezHYCNEzgFcRsPz4PwvYvZPV",
+            "Content-Type": "application/json",
+          },
+        }
       );
-      navigate("/restroMenu?routePath=kingsKurry");
+
+      const decryptedData = decrypt(
+        response.data[1],
+        response.data[0],
+        import.meta.env.VITE_ENCRYPTION_KEY
+      );
+
+      if (decryptedData.success) {
+        console.log("decryptedData", decryptedData);
+        const paymentLink = decryptedData.data[0]?.link;
+        if (paymentLink) {
+          window.location.href = paymentLink;
+        } else {
+          alert("Payment link not found.");
+        }
+      } else {
+        alert("Payment creation failed: " + decryptedData.message);
+      }
+    } catch (error) {
+      console.error("Error while tracking:", error);
+      alert("Error while tracking. Please try again.");
     }
   };
 

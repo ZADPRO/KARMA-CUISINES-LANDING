@@ -34,6 +34,7 @@ export default function Header() {
   const handleChangeLang = (lang) => {
     setTimeout(() => {
       i18n.changeLanguage(lang);
+      setLanguageOpen(false);
     });
   };
 
@@ -138,7 +139,7 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2"
+                    className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2 ms-[-120px]"
                   >
                     {languages.map((lang) => (
                       <div
@@ -179,7 +180,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2"
+                  className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2 ms-[-120px]"
                 >
                   {languages.map((lang) => (
                     <div

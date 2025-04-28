@@ -298,6 +298,9 @@ export default function RestroMenu() {
 
   const [loading, setLoading] = useState(false);
 
+  const [savedCartItems, setSavedCartItems] = useState(null);
+  const [cartItemIds, setCartItemIds] = useState([]);
+
   const getCategory = () => {
     return axios
       .get(import.meta.env.VITE_API_URL + "/userProduct/FoodList", {
@@ -319,6 +322,10 @@ export default function RestroMenu() {
           });
           refsMap.current = refs;
           setCategories(categories);
+
+          const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+          console.log("savedCart", savedCart);
+          setSavedCartItems(savedCart);
         }
       })
       .catch((err) => {
@@ -335,6 +342,14 @@ export default function RestroMenu() {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    if (savedCartItems) {
+      const ids = savedCartItems.map((item) => item.refFoodId);
+      console.log("ids", ids);
+      setCartItemIds(ids);
+    }
+  }, [savedCartItems]);
 
   const handleTabClick = (refKey, index) => {
     const ref = refsMap.current[refKey];
@@ -397,18 +412,6 @@ export default function RestroMenu() {
     setShowModal(false);
     setSelectedItem(null);
   };
-
-  const reorderedCategories = (() => {
-    const firstTwo = [];
-    const combo = [];
-    const rest = [];
-
-    categories.forEach((cat, idx) => {
-      const key = cat.refFoodCategoryName;
-      rest.push(cat);
-    });
-    return [...firstTwo, ...combo, ...rest];
-  })();
 
   const [mainDishCounts, setMainDishCounts] = useState({});
   const [subDishCounts, setSubDishCounts] = useState({});
@@ -524,6 +527,7 @@ export default function RestroMenu() {
           <div className="flex flex-col gap-6 pb-20">
             {categories.map((cat, idx) => {
               const key = cat.refFoodCategoryName;
+
               return (
                 <div
                   key={idx}
@@ -536,39 +540,49 @@ export default function RestroMenu() {
                     {key === "Combo" ? "Menues" : key}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {(cat.items || []).map((item, itemIdx) => (
-                      <div
-                        key={itemIdx}
-                        className="p-4 border rounded shadow cursor-pointer hover:shadow-md transition-all"
-                        onClick={() => openModal(item)}
-                      >
-                        <p className="font-semibold">
-                          {item.refMenuId}{" "}
-                          {item.refFoodName || item.refComboName}
-                        </p>
-                        <p
-                          className="line-clamp-1"
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              item.refDescription ||
-                              item.refComboDescription ||
-                              "",
-                          }}
-                        />
-                        <p className="text-[15px] text-[#cd5c08] font-medium">
-                          CHF {item.refPrice || item.refComboPrice}
-                        </p>
-                        <img
-                          src={
-                            item.profileFile
-                              ? `https://karmacuisine.ch/src/assets/FoodImage/${item.profileFile.filename}`
-                              : kingsKurryLogo
-                          }
-                          alt=""
-                          className="w-full h-40 object-cover mt-2 rounded"
-                        />
-                      </div>
-                    ))}
+                    {(cat.items || []).map((item, itemIdx) => {
+                      const isItemInCart = cartItemIds.includes(item.refFoodId);
+
+                      return (
+                        <div
+                          key={itemIdx}
+                          className="p-4 border rounded shadow cursor-pointer hover:shadow-md transition-all"
+                          onClick={() => openModal(item)}
+                        >
+                          <p className="font-semibold">
+                            {item.refMenuId}{" "}
+                            {item.refFoodName || item.refComboName}
+                          </p>
+                          <p
+                            className="line-clamp-1"
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                item.refDescription ||
+                                item.refComboDescription ||
+                                "",
+                            }}
+                          />
+                          <p className="text-[15px] text-[#cd5c08] font-medium">
+                            CHF {item.refPrice || item.refComboPrice}
+                          </p>
+                          <img
+                            src={
+                              item.profileFile
+                                ? `https://karmacuisine.ch/src/assets/FoodImage/${item.profileFile.filename}`
+                                : kingsKurryLogo
+                            }
+                            alt=""
+                            className="w-full h-40 object-cover mt-2 rounded"
+                          />
+
+                          {isItemInCart && (
+                            <p className="text-green-600 font-semibold mt-2">
+                              Item was found in cart.
+                            </p>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );

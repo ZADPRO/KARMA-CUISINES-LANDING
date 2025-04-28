@@ -8,18 +8,14 @@ import "./Orders.css";
 import AddressBottomModal from "../../pages/AddressBottomModal/AddressBottomModal";
 import { useNavigate } from "react-router-dom";
 
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import PaymentModel from "../../pages/PaymentModel/PaymentModel";
-
-const stripePromise = loadStripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
+import axios from "axios";
+import decrypt from "../../helper";
 
 export default function Orders() {
   const { t } = useTranslation("global");
 
   const [cartItems, setCartItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [paymentModule, setPaymentModule] = useState(false);
   const [savedAddress, setSavedAddress] = useState(null);
   const [isAddressAvailable, setIsAddressAvailable] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -143,163 +139,46 @@ export default function Orders() {
 
   const handlePayment = async () => {
     if (!validateFields()) return;
+    console.log("validateFields");
 
-    // if (paymentMethod === "online") {
-    //   const stripe = window.Stripe("pk_test_Rkr4eyMdSXZL54ZP2HKeDFMK");
-
-    //   // Create a Checkout Session
-    //   const response = await fetch(
-    //     "https://api.stripe.com/v1/checkout/sessions",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         Authorization: `Bearer rk_test_51AS1nCH3jcdlg0c0s65rMdCQpuuTm7teaMIEWjIcpgtAVHekTtm59uWBZCDuVFUMuFV3Mqhk7cPZUXfhx5wA5z8Z00x9P6Lqv0`,
-    //         "Content-Type": "application/x-www-form-urlencoded",
-    //       },
-    //       body: new URLSearchParams({
-    //         payment_method_types: ["card"],
-    //         line_items: JSON.stringify(
-    //           cartItems.map((item) => ({
-    //             price_data: {
-    //               currency: "chf",
-    //               product_data: {
-    //                 name: "payment",
-    //               },
-    //               unit_amount: 100 * 100,
-    //             },
-    //             quantity: item.quantity,
-    //           }))
-    //         ),
-    //         mode: "payment",
-    //         success_url: window.location.origin + "/success",
-    //         cancel_url: window.location.origin + "/cancel",
-    //       }),
-    //     }
-    //   );
-
-    //   const session = await response.json();
-
-    //   // Redirect to Checkout
-    //   const { error } = await stripe.redirectToCheckout({
-    //     sessionId: session.id,
-    //   });
-
-    //   if (error) {
-    //     console.error("Error:", error);
-    //     Swal.fire("Payment failed", error.message, "error");
-    //   }
-    // } else {
-    //   Swal.fire("Order Placed Successfully!", "", "success").then(() => {
-    //     navigate("/ourBrand");
-    //   });
-    // }
-
-    setPaymentModule(true);
-  };
-
-  async function generateHash(
-    merchantId,
-    txnId,
-    amount,
-    consumerId,
-    returnUrl,
-    currency,
-    secretKey
-  ) {
-    const inputString = `${merchantId}|${txnId}|${amount}|${consumerId}|${currency}|${returnUrl}|${secretKey}`;
-    const encoder = new TextEncoder();
-    const data = encoder.encode(inputString);
-    const hashBuffer = await crypto.subtle.digest("SHA-512", data);
-    console.log("hashBuffer", hashBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
-    return hashHex;
-  }
-
-  const paymentModel = () => {
-    const address = localStorage.getItem("selectedAddress");
-    if (address) {
-      const merchantId = "KarmaCuisines";
-      const txnId = `${Date.now()}`;
-      const amount = grandTotal;
-      const consumerId = "c964634";
-      const currency = "CHF";
-      const secretKey = "7C2F25CEDC36F78C6E52";
-
-      generateHash(
-        merchantId,
-        txnId,
-        amount,
-        consumerId,
-        currency,
-        secretKey
-      ).then((signature) => {
-        const reqJson = {
-          features: {
-            enableAbortResponse: true,
-            enableExpressPay: true,
-            enableInstrumentDeRegistration: true,
-            enableMerTxnDetails: true,
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_API_URL + "/userProduct/paymentGateway",
+        {
+          amount: grandTotal,
+          currency: "CHF",
+          successRedirectUrl: "https://your-success-url.com",
+          failedRedirectUrl: "https://your-failed-url.com",
+          purpose: "Test Payment",
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("JWTtoken"),
           },
-          consumerData: {
-            deviceId: "WEBSH2",
-            token: "7B9131076A6D50F744BF",
-            returnUrl:
-              "https://pgproxyuat.in.worldline-solutions.com/linuxsimulator/MerchantResponsePage.jsp",
-            responseHandler: (res) => {
-              const txnStatus =
-                res?.paymentMethod?.paymentTransaction?.statusCode;
-              if (txnStatus === "0300") {
-                Swal.fire("Order Placed Successfully!", "", "success").then(
-                  () => {
-                    navigate("/ourBrand");
-                  }
-                );
-              } else if (txnStatus === "0398") {
-                alert("⚠️ Payment initiated.");
-              } else {
-                alert("❌ Payment failed or cancelled.");
-              }
-            },
-            paymentMode: "all",
-            merchantLogoUrl:
-              "https://www.paynimo.com/CompanyDocs/company-logo-vertical.png",
-            merchantId,
-            currency,
-            consumerId,
-            txnId,
-            items: [
-              {
-                itemId: "first",
-                amount,
-                comAmt: "0",
-              },
-            ],
-            signature,
-            customStyle: {
-              PRIMARY_COLOR_CODE: "#45beaa",
-              SECONDARY_COLOR_CODE: "#FFFFFF",
-              BUTTON_COLOR_CODE_1: "#2d8c8c",
-              BUTTON_COLOR_CODE_2: "#FFFFFF",
-            },
-          },
-        };
-
-        if (window.$ && typeof window.$.pnCheckout === "function") {
-          window.$.pnCheckout(reqJson);
-          if (reqJson.features.enableNewWindowFlow) {
-            window.pnCheckoutShared.openNewWindow();
-          }
-        } else {
-          alert(
-            "Payment gateway is not ready yet. Please try again in a moment."
-          );
         }
-      });
-    } else {
-      alert("Please select an address before proceeding to payment.");
+      );
+
+      const decryptedData = decrypt(
+        response.data[1],
+        response.data[0],
+        import.meta.env.VITE_ENCRYPTION_KEY
+      );
+      console.log("decryptedData", decryptedData);
+
+      if (decryptedData.success) {
+        console.log("decryptedData", decryptedData);
+        const paymentLink = decryptedData.data[0]?.link;
+        if (paymentLink) {
+          window.location.href = paymentLink;
+        } else {
+          alert("Payment link not found.");
+        }
+      } else {
+        alert("Payment creation failed: " + decryptedData.message);
+      }
+    } catch (error) {
+      console.error("Error while tracking:", error);
+      alert("Error while tracking. Please try again.");
     }
   };
 
@@ -312,7 +191,7 @@ export default function Orders() {
     } else {
       setIsAddressAvailable(false);
     }
-  }, [isModalOpen, paymentModule]);
+  }, [isModalOpen]);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -337,21 +216,6 @@ export default function Orders() {
       </div>
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="flex flex-col border-2 border-dashed rounded-lg surface-ground flex-auto p-4 m-3">
-          {/* <div className="relative flex flex-wrap items-center justify-end mb-4">
-            <label
-              className="cursor-pointer text-slate-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400"
-              htmlFor="id-c01"
-            >
-              Edit Orders
-            </label>
-            <input
-              className="peer relative h-4 w-8 ml-3 cursor-pointer appearance-none rounded-lg bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full after:bg-slate-500 after:transition-all checked:bg-emerald-200 checked:after:left-4 checked:after:bg-emerald-500 hover:bg-slate-400 after:hover:bg-slate-600 checked:hover:bg-emerald-300 checked:after:hover:bg-emerald-600 focus:outline-none checked:focus:bg-emerald-400 checked:after:focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:after:bg-slate-300"
-              type="checkbox"
-              checked={isEditing}
-              onChange={() => setIsEditing((prev) => !prev)}
-              id="id-c01"
-            />
-          </div> */}
           <div className="contents">
             {cartItems.length > 0 ? (
               <ul>
@@ -381,6 +245,15 @@ export default function Orders() {
                         ))}
                       </div>
                     )}
+                    <div className="quantity-control">
+                      <button onClick={() => updateCartItemCount(item.id, -1)}>
+                        -
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => updateCartItemCount(item.id, 1)}>
+                        +
+                      </button>
+                    </div>
                   </div>
                 ))}
               </ul>
@@ -508,13 +381,6 @@ export default function Orders() {
         </div>
       </div>
       <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto"></div>
-      <Elements stripe={stripePromise}>
-        <PaymentModel
-          isOpen={paymentModule}
-          totalAmount={grandTotal}
-          onClose={paymentModel}
-        />
-      </Elements>
 
       <div
         className={`payButton ${!isAddressAvailable ? "disabled" : ""}`}
