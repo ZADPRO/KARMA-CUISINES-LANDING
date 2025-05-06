@@ -162,8 +162,8 @@ export default function Orders() {
             amount: grandTotal,
             currency: "CHF",
             successRedirectUrl:
-              "https://karmacuisine.ch//orders?status=success&message=Payment+Successful",
-            failedRedirectUrl: "https://karmacuisine.ch//orders?status=failure",
+              "https://karmacuisine.ch/orders?status=success&message=Payment+Successful",
+            failedRedirectUrl: "https://karmacuisine.ch/orders?status=failure",
             purpose: "Test Payment",
             firstName: formData.firstName,
             lastName: formData.lastName,
