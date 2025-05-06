@@ -100,6 +100,10 @@ export default function AddressBottomModal({ isOpen, onClose }) {
     const address = `${room}, ${zone}, ${country}`;
     const newAddress = {
       mode,
+      room,
+      postalCode,
+      zone,
+      country,
       address,
       mobile,
     };

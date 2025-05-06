@@ -679,7 +679,10 @@ export default function RestroMenu() {
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {(cat.items || []).map((item, itemIdx) => {
-                      const isItemInCart = cartItemIds.includes(item.refFoodId);
+                      console.log("item", item);
+                      const isItemInCart =
+                        cartItemIds.includes(item.refFoodId) ||
+                        cartItemIds.includes(item.refComboId);
 
                       return (
                         <div

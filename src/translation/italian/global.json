@@ -1,127 +1,129 @@
 {
-    "nav": {
-        "home": "Home",
-        "about": "Chi siamo",
-        "ourBrand": "Il nostro brand",
-        "beOurPartner": "Diventa nostro partner",
-        "career": "Carriera",
-        "menu": "Menù",
-        "contact": "Contatto"
-    },
-    "home": {
-        "title": "Il gusto che ti fa sentire straordinario",
-        "exploreNow": "Esplora ora",
-        "ourBrands": "I nostri marchi",
-        "explore": "Continua a esplorare",
-        "welcomeKarma": "Benvenuti a Karma Cuisine - Sapori autentici, sempre e ovunque",
-        "karmaCuisineCont": "Da Karma Cuisine, ridefiniamo l'eccellenza culinaria offrendo una ricca varietà di sapori autentici ed esotici. Come marchio alimentare premium, ci impegniamo a offrire una cucina ispirata a livello globale attraverso le nostre partnership strategiche con Cloud Kitchen, garantendo un'esperienza culinaria fluida e raffinata ovunque tu sia.",
-        "thatsKarma": "Questo è Karma Cuisine",
-        "whyChooseKarma": "Perché scegliere Karma",
-        "whyChooseHead1": "Cucina globale diversificata:",
-        "whyChooseCont1": "Assapora il meglio della cucina esotica, preparata con ingredienti autentici e tecniche di cottura tradizionali.",
-        "whyChooseHead2": "Ingredienti freschi e locali:",
-        "whyChooseCont2": "Utilizziamo solo ingredienti freschi per garantire che ogni piatto sia ricco di sapore.",
-        "whyChooseHead3": "Opzioni vegetariane, vegane e senza glutine:",
-        "whyChooseCont3": "Offriamo una varietà di opzioni vegetariane, vegane e senza glutine per soddisfare tutte le preferenze alimentari."
-    },
-    "about": {
-        "aboutCont": "Ottimo cibo, buon karma. Esalta il tuo gusto con noi.",
-        "aboutUsCont": "Noi di Karma Cuisine crediamo che il buon cibo sia più di un semplice pasto: è un'esperienza.",
-        "storyHead": "La storia di Karma Cuisine: portare autentici sapori esotici direttamente a casa tua",
-        "faq1Qn": "Che cos'è una Ghost Kitchen?",
-        "faq1Ans": "Una Ghost Kitchen, conosciuta anche come Dark Kitchen, cucina virtuale o Cloud Kitchen, è una cucina commerciale che opera esclusivamente per evadere ordini di cibo online. Queste cucine di solito non hanno un negozio fisico o un'area dove i clienti possono mangiare. Preparano invece pasti solo per la consegna o l'asporto, spesso collaborando con piattaforme di consegna come Uber Eats e Just Eats.",
-        "faq2Qn": "Perché scegliere una Cloud Kitchen?",
-        "faq2Ans": "Le Cloud Kitchen offrono ai clienti la comodità di ordinare da più marchi senza uscire di casa. Per le aziende, rappresentano un modo conveniente e scalabile per entrare nel settore della ristorazione. Che tu voglia gustare un pasto o innovare nel mondo del cibo, le Cloud Kitchen offrono una soluzione veloce ed economica.",
-        "faq3Qn": "Quali sono i vantaggi di una Cloud Kitchen?",
-        "faq3Ans": "Le Cloud Kitchen offrono numerosi vantaggi, tra cui costi operativi ridotti, nessuna necessità di immobili di prestigio e la possibilità di espandersi rapidamente. Con un focus sugli ordini online e sulla consegna, le aziende possono ampliare la propria clientela, ottimizzare i tempi di consegna e aumentare la redditività con costi generali minimi."
-    },
-    "menu": {
-        "menu": "Il Nostro Menu"
-    },
-    "contact": {
-        "welcomeCont": "Saremmo felici di sentirti!",
-        "contactUsCont": "Noi di Karma Cuisine diamo grande valore ai tuoi feedback, alle tue domande e ai tuoi suggerimenti."
-    },
-    "career": {
-        "careerIntro": "Sei pronto a fare il prossimo passo nella tua carriera?",
-        "careerDesc": "Unisciti al nostro team dinamico e diventa parte di un ambiente innovativo e orientato alla crescita, dove le tue competenze e idee contano davvero."
-    },
-    "ourPartners": {
-        "beOurPartner": "Diventa nostro partner !!!",
-        "howItWorks": "Come funziona",
-        "step1": "Passo 1",
-        "step1Head": "Candidati online",
-        "step1Cont": "Invia i tuoi dati tramite il nostro semplice modulo di partnership.",
-        "step2": "Passo 2",
-        "step2Head": "Onboarding e configurazione",
-        "step2Cont": "Il nostro team ti guiderà attraverso il processo di onboarding, dall'integrazione del menu al branding.",
-        "step3": "Passo 3",
-        "step3Head": "Vai online e inizia a servire",
-        "step3Cont": "Una volta configurato, i tuoi piatti saranno disponibili sulla nostra piattaforma, pronti per essere gustati dai clienti.",
-        "step4": "Passo 4",
-        "step4Head": "Cresci con noi",
-        "step4Cont": "Approfitta del nostro supporto continuo, delle analisi di mercato e delle strategie di marketing per aumentare le vendite e il coinvolgimento dei clienti."
-    },
-    "ourBrands": {
-        "ourBrandsHeader": "I Nostri Marchi !!!",
-        "kingsKurry": "Cucina indiana, Kings Kurry - dove portiamo i sapori reali dell'India direttamente sulla tua tavola! Il nostro menu offre piatti autentici indiani, dal tandoori fumante ai ricchi curry preparati con le migliori spezie e ingredienti.",
-        "kingsKurryTagLine": "Assapora il gusto regale dell'India in ogni morso.",
-        "banThai": "Cucina thailandese, Ban Thai - Il nostro menu celebra i sapori vivaci e decisi della Thailandia, dai curry piccanti alle insalate fresche e speziate, tutte preparate con ingredienti di alta qualità e spezie aromatiche.",
-        "banThaiTagLine": "Goditi i sapori autentici e ricchi della Thailandia, direttamente sulla tua tavola.",
-        "sushiHeaven": "L'arte della cucina giapponese - Sushi Heaven. I nostri chef preparano ogni sushi roll con gli ingredienti più freschi, onorando secoli di tradizione culinaria giapponese.",
-        "sushiHeavenTagLine": "Il sushi non è solo cibo; è un'arte.",
-        "fajithaFriends": "Cucina messicana! Fajita Friends – Assapora tacos fumanti e freschi, accompagnati da rinfrescanti margaritas, in un'atmosfera vivace. Portiamo i sapori intensi del Messico direttamente sulla tua tavola!",
-        "fajithaFriendsTagLine": "Dai più sapore alla tua vita con i gusti del Messico!",
-        "omomos": "Morbidi e deliziosi, pieni di sapore—i nostri momos sono fatti a mano alla perfezione, portandoti il gusto autentico dell'Himalaya.",
-        "omomosTagLine": "Cotti al vapore alla perfezione, pieni di sapore!"
-    },
-    "footerCont": {
-        "footerContent": "Scopri per primo i nostri eventi e le nostre novità!",
-        "connectWithUs": "CONTATTACI",
-        "home": "Home",
-        "about": "About",
-        "ourBrand": "Our Brand",
-        "beOurPartner": "Be Our Partner",
-        "getInTouch": "CONTATTACI",
-        "email": "E-mail",
-        "address": "Indirizzo",
-        "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zurigo, Svizzera."
-    },
-    "restroMenu": {
-        "excellentCuisine": "La nostra ottima cucina",
-        "orderNow": "Ordina ora",
-        "foodItems": "Alimenti",
-        "mainCourses": "Portate principali",
-        "drinks": "Bevande",
-        "placeOrder": "Effettua ordine"
-    },
-    "ordersPage": {
-        "back": "Indietro",
-        "total": "Totale",
-        "billing": "Dettagli di fatturazione",
-        "firstName": "Nome",
-        "lastName": "Cognome",
-        "mobile": "Cellulare",
-        "email": "Email",
-        "paymentMethod": "Metodo di pagamento",
-        "online": "Online",
-        "offline": "Offline",
-        "useAnotherAddress": "Usa un altro indirizzo",
-        "proceedToPay": "Procedi al pagamento"
-    },
-    "address": {
-        "selectAddress": "Seleziona un indirizzo",
-        "addNewAddress": "Aggiungi nuovo indirizzo",
-        "savedAddress": "Indirizzo salvato",
-        "location": "Posizione",
-        "home": "Casa",
-        "work": "Lavoro",
-        "roomNo": "Numero stanza, nome della via",
-        "postalCode": "Codice postale",
-        "zone": "Zona",
-        "country": "Paese",
-        "mobile": "Cellulare",
-        "clearAll": "Cancella tutto",
-        "saveAddress": "Salva indirizzo"
-    }
+  "nav": {
+    "home": "Home",
+    "about": "Chi siamo",
+    "ourBrand": "Il nostro brand",
+    "beOurPartner": "Diventa nostro partner",
+    "career": "Carriera",
+    "menu": "Menù",
+    "contact": "Contatto"
+  },
+  "home": {
+    "title": "Il gusto che ti fa sentire straordinario",
+    "exploreNow": "Esplora ora",
+    "ourBrands": "I nostri marchi",
+    "explore": "Continua a esplorare",
+    "welcomeKarma": "Benvenuti a Karma Cuisine - Sapori autentici, sempre e ovunque",
+    "karmaCuisineCont": "Da Karma Cuisine, ridefiniamo l'eccellenza culinaria offrendo una ricca varietà di sapori autentici ed esotici. Come marchio alimentare premium, ci impegniamo a offrire una cucina ispirata a livello globale attraverso le nostre partnership strategiche con Cloud Kitchen, garantendo un'esperienza culinaria fluida e raffinata ovunque tu sia.",
+    "thatsKarma": "Questo è Karma Cuisine",
+    "whyChooseKarma": "Perché scegliere Karma",
+    "whyChooseHead1": "Cucina globale diversificata:",
+    "whyChooseCont1": "Assapora il meglio della cucina esotica, preparata con ingredienti autentici e tecniche di cottura tradizionali.",
+    "whyChooseHead2": "Ingredienti freschi e locali:",
+    "whyChooseCont2": "Utilizziamo solo ingredienti freschi per garantire che ogni piatto sia ricco di sapore.",
+    "whyChooseHead3": "Opzioni vegetariane, vegane e senza glutine:",
+    "whyChooseCont3": "Offriamo una varietà di opzioni vegetariane, vegane e senza glutine per soddisfare tutte le preferenze alimentari."
+  },
+  "about": {
+    "aboutCont": "Ottimo cibo, buon karma. Esalta il tuo gusto con noi.",
+    "aboutUsCont": "Noi di Karma Cuisine crediamo che il buon cibo sia più di un semplice pasto: è un'esperienza.",
+    "storyHead": "La storia di Karma Cuisine: portare autentici sapori esotici direttamente a casa tua",
+    "faq1Qn": "Che cos'è una Ghost Kitchen?",
+    "faq1Ans": "Una Ghost Kitchen, conosciuta anche come Dark Kitchen, cucina virtuale o Cloud Kitchen, è una cucina commerciale che opera esclusivamente per evadere ordini di cibo online. Queste cucine di solito non hanno un negozio fisico o un'area dove i clienti possono mangiare. Preparano invece pasti solo per la consegna o l'asporto, spesso collaborando con piattaforme di consegna come Uber Eats e Just Eats.",
+    "faq2Qn": "Perché scegliere una Cloud Kitchen?",
+    "faq2Ans": "Le Cloud Kitchen offrono ai clienti la comodità di ordinare da più marchi senza uscire di casa. Per le aziende, rappresentano un modo conveniente e scalabile per entrare nel settore della ristorazione. Che tu voglia gustare un pasto o innovare nel mondo del cibo, le Cloud Kitchen offrono una soluzione veloce ed economica.",
+    "faq3Qn": "Quali sono i vantaggi di una Cloud Kitchen?",
+    "faq3Ans": "Le Cloud Kitchen offrono numerosi vantaggi, tra cui costi operativi ridotti, nessuna necessità di immobili di prestigio e la possibilità di espandersi rapidamente. Con un focus sugli ordini online e sulla consegna, le aziende possono ampliare la propria clientela, ottimizzare i tempi di consegna e aumentare la redditività con costi generali minimi."
+  },
+  "menu": {
+    "menu": "Il Nostro Menu"
+  },
+  "contact": {
+    "welcomeCont": "Saremmo felici di sentirti!",
+    "contactUsCont": "Noi di Karma Cuisine diamo grande valore ai tuoi feedback, alle tue domande e ai tuoi suggerimenti."
+  },
+  "career": {
+    "careerIntro": "Sei pronto a fare il prossimo passo nella tua carriera?",
+    "careerDesc": "Unisciti al nostro team dinamico e diventa parte di un ambiente innovativo e orientato alla crescita, dove le tue competenze e idee contano davvero."
+  },
+  "ourPartners": {
+    "beOurPartner": "Diventa nostro partner !!!",
+    "howItWorks": "Come funziona",
+    "step1": "Passo 1",
+    "step1Head": "Candidati online",
+    "step1Cont": "Invia i tuoi dati tramite il nostro semplice modulo di partnership.",
+    "step2": "Passo 2",
+    "step2Head": "Onboarding e configurazione",
+    "step2Cont": "Il nostro team ti guiderà attraverso il processo di onboarding, dall'integrazione del menu al branding.",
+    "step3": "Passo 3",
+    "step3Head": "Vai online e inizia a servire",
+    "step3Cont": "Una volta configurato, i tuoi piatti saranno disponibili sulla nostra piattaforma, pronti per essere gustati dai clienti.",
+    "step4": "Passo 4",
+    "step4Head": "Cresci con noi",
+    "step4Cont": "Approfitta del nostro supporto continuo, delle analisi di mercato e delle strategie di marketing per aumentare le vendite e il coinvolgimento dei clienti."
+  },
+  "ourBrands": {
+    "ourBrandsHeader": "I Nostri Marchi !!!",
+    "kingsKurry": "Cucina indiana, Kings Kurry - dove portiamo i sapori reali dell'India direttamente sulla tua tavola! Il nostro menu offre piatti autentici indiani, dal tandoori fumante ai ricchi curry preparati con le migliori spezie e ingredienti.",
+    "kingsKurryTagLine": "Assapora il gusto regale dell'India in ogni morso.",
+    "banThai": "Cucina thailandese, Ban Thai - Il nostro menu celebra i sapori vivaci e decisi della Thailandia, dai curry piccanti alle insalate fresche e speziate, tutte preparate con ingredienti di alta qualità e spezie aromatiche.",
+    "banThaiTagLine": "Goditi i sapori autentici e ricchi della Thailandia, direttamente sulla tua tavola.",
+    "sushiHeaven": "L'arte della cucina giapponese - Sushi Heaven. I nostri chef preparano ogni sushi roll con gli ingredienti più freschi, onorando secoli di tradizione culinaria giapponese.",
+    "sushiHeavenTagLine": "Il sushi non è solo cibo; è un'arte.",
+    "fajithaFriends": "Cucina messicana! Fajita Friends – Assapora tacos fumanti e freschi, accompagnati da rinfrescanti margaritas, in un'atmosfera vivace. Portiamo i sapori intensi del Messico direttamente sulla tua tavola!",
+    "fajithaFriendsTagLine": "Dai più sapore alla tua vita con i gusti del Messico!",
+    "omomos": "Morbidi e deliziosi, pieni di sapore—i nostri momos sono fatti a mano alla perfezione, portandoti il gusto autentico dell'Himalaya.",
+    "omomosTagLine": "Cotti al vapore alla perfezione, pieni di sapore!"
+  },
+  "footerCont": {
+    "footerContent": "Scopri per primo i nostri eventi e le nostre novità!",
+    "connectWithUs": "CONTATTACI",
+    "home": "Home",
+    "about": "About",
+    "ourBrand": "Our Brand",
+    "beOurPartner": "Be Our Partner",
+    "getInTouch": "CONTATTACI",
+    "email": "E-mail",
+    "address": "Indirizzo",
+    "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zurigo, Svizzera."
+  },
+  "restroMenu": {
+    "excellentCuisine": "La nostra ottima cucina",
+    "orderNow": "Ordina ora",
+    "foodItems": "Alimenti",
+    "mainCourses": "Portate principali",
+    "drinks": "Bevande",
+    "placeOrder": "Effettua ordine"
+  },
+  "ordersPage": {
+    "back": "Indietro",
+    "total": "Totale",
+    "billing": "Dettagli di fatturazione",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "mobile": "Cellulare",
+    "email": "Email",
+    "paymentMethod": "Metodo di pagamento",
+    "online": "Pagamento online",
+    "offline": "Pagamento offline",
+    "useAnotherAddress": "Usa un altro indirizzo",
+    "proceedToPay": "Procedi al pagamento",
+    "guestLogin": "Accesso Ospite",
+    "guestName": "Nome dell'ospite"
+  },
+  "address": {
+    "selectAddress": "Seleziona un indirizzo",
+    "addNewAddress": "Aggiungi nuovo indirizzo",
+    "savedAddress": "Indirizzo salvato",
+    "location": "Posizione",
+    "home": "Casa",
+    "work": "Lavoro",
+    "roomNo": "Numero stanza, nome della via",
+    "postalCode": "Codice postale",
+    "zone": "Zona",
+    "country": "Paese",
+    "mobile": "Cellulare",
+    "clearAll": "Cancella tutto",
+    "saveAddress": "Salva indirizzo"
+  }
 }

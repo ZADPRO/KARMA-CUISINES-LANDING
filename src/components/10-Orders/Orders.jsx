@@ -126,15 +126,26 @@ export default function Orders() {
   };
 
   const validateFields = () => {
-    if (
-      !savedAddress ||
-      !formData.firstName ||
-      !formData.lastName ||
-      !paymentMethod
-    ) {
-      Swal.fire("Error", "Please fill all the required fields.", "error");
+    const missingFields = [];
+
+    if (!savedAddress) missingFields.push("Address");
+    if (!formData.firstName) missingFields.push("First Name");
+    if (!formData.lastName) missingFields.push("Last Name");
+    if (!formData.mobile) missingFields.push("Mobile Number");
+    if (!formData.email) missingFields.push("Email");
+    if (!paymentMethod) missingFields.push("Payment Method");
+
+    if (missingFields.length > 0) {
+      Swal.fire(
+        "Missing Fields",
+        `Please fill the following required fields:\n\n• ${missingFields.join(
+          "\n• "
+        )}`,
+        "error"
+      );
       return false;
     }
+
     return true;
   };
 
@@ -142,66 +153,193 @@ export default function Orders() {
     if (!validateFields()) return;
     console.log("validateFields");
 
-    try {
-      const response = await axios.post(
-        import.meta.env.VITE_API_URL + "/userProduct/paymentGateway",
+    console.log("paymentMethod", paymentMethod);
+    if (paymentMethod === "online") {
+      try {
+        const response = await axios.post(
+          import.meta.env.VITE_API_URL + "/userProduct/paymentGateway",
+          {
+            amount: grandTotal,
+            currency: "CHF",
+            successRedirectUrl:
+              "http://localhost:5173/orders?status=success&message=Payment+Successful",
+            failedRedirectUrl: "http://localhost:5173/orders?status=failure",
+            purpose: "Test Payment",
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("JWTtoken"),
+            },
+          }
+        );
+
+        const decryptedData = decrypt(
+          response.data[1],
+          response.data[0],
+          import.meta.env.VITE_ENCRYPTION_KEY
+        );
+        console.log("decryptedData", decryptedData);
+
+        if (decryptedData.success) {
+          const paymentLink = decryptedData.data[0]?.link;
+          if (paymentLink) {
+            window.location.href = paymentLink;
+          } else {
+            alert("Payment link not found.");
+          }
+        } else {
+          alert("Payment creation failed: " + decryptedData.message);
+        }
+      } catch (error) {
+        console.error("Error while tracking:", error);
+        alert("Error while tracking. Please try again.");
+      }
+    } else {
+      PaymentPayloadToBackend("offline");
+    }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("status");
+    const message = params.get("message");
+
+    console.log("Status:", status);
+    console.log("Message:", message);
+
+    if (status === "failure") {
+      alert(`Payment failed: ${message || "Unknown error"}`);
+    } else if (status === "success") {
+      alert(`Payment successful: ${message}`);
+      PaymentPayloadToBackend("online");
+    }
+  }, []);
+
+  const PaymentPayloadToBackend = (paymentStatus) => {
+    console.log("Sending payment status to backend:", paymentStatus);
+    const selectedAddress = JSON.parse(localStorage.getItem("selectedAddress"));
+    console.log("selectedAddress", selectedAddress);
+    let cartItems = JSON.parse(localStorage.getItem("cart"));
+    console.log("cart", cartItems);
+
+    let payload = {
+      userFName: formData.firstName,
+      userLName: formData.lastName,
+      userMobile: formData.mobile,
+      userEmail: formData.email,
+      userStreet: selectedAddress.room,
+      userPostalCode: selectedAddress.postalCode,
+      userZone: selectedAddress.zone,
+      userCountry: selectedAddress.country,
+      storeId: 1,
+      transactionId: "Testing",
+      paymentType: paymentStatus,
+      totalAmtPaid: grandTotal,
+      order: [],
+    };
+
+    cartItems.forEach((item) => {
+      if (item.isCombo) {
+        let comboOrder = {
+          FoodId: item.refFoodId,
+          FoodName: item.refFoodName,
+          foodCategory: item.refFoodCategoryName,
+          foodPrice: item.refPrice,
+          ifCambo: true,
+          subProduct: [],
+        };
+
+        // Extract subProducts from mainDishCounts and subDishCounts
+        const { mainDishCounts, subDishCounts, updatedProducts } =
+          item.subProducts;
+
+        if (mainDishCounts) {
+          Object.values(mainDishCounts).forEach((sub) => {
+            comboOrder.subProduct.push({
+              FoodName: sub.foodName,
+              FoodId: sub.foodId,
+              foodQuantity: sub.quantity,
+              foodType: "Main Product",
+            });
+          });
+        }
+
+        if (subDishCounts) {
+          Object.values(subDishCounts).forEach((sub) => {
+            comboOrder.subProduct.push({
+              FoodName: sub.foodName,
+              FoodId: sub.foodId,
+              foodQuantity: sub.quantity,
+              foodType: "Fixed Product",
+            });
+          });
+        }
+
+        if (updatedProducts) {
+          updatedProducts.forEach((prod) => {
+            comboOrder.subProduct.push({
+              FoodName: prod.refFoodName,
+              FoodId: prod.refFoodId,
+              foodQuantity: prod.refQuantity,
+              foodType: "Fixed Product",
+            });
+          });
+        }
+
+        payload.order.push(comboOrder);
+      } else {
+        payload.order.push({
+          FoodId: item.refFoodId,
+          FoodName: item.refFoodName,
+          foodCategory: item.refFoodCategoryName,
+          foodPrice: item.refPrice,
+          foodQuantity: item.count,
+          ifCambo: false,
+        });
+      }
+    });
+
+    console.log("Payload:", payload);
+
+    axios
+      .post(
+        import.meta.env.VITE_API_URL + "/userProduct/orderFood",
         {
-          amount: grandTotal,
-          currency: "CHF",
-          successRedirectUrl: "http://localhost:5173/orders",
-          failedRedirectUrl: "http://localhost:5173",
-          purpose: "Test Payment",
+          payload,
         },
         {
           headers: {
             Authorization: localStorage.getItem("JWTtoken"),
           },
         }
-      );
+      )
+      .then((res) => {
+        const data = decrypt(
+          res.data[1],
+          res.data[0],
+          import.meta.env.VITE_ENCRYPTION_KEY
+        );
 
-      const decryptedData = decrypt(
-        response.data[1],
-        response.data[0],
-        import.meta.env.VITE_ENCRYPTION_KEY
-      );
-      console.log("decryptedData", decryptedData);
+        if (data.success) {
+          console.log("response data =========== ", data);
+          localStorage.removeItem("cart");
 
-      if (decryptedData.success) {
-        const paymentLink = decryptedData.data[0]?.link;
-        if (paymentLink) {
-          window.location.href = paymentLink;
-        } else {
-          alert("Payment link not found.");
+          // Show success Swal
+          Swal.fire({
+            icon: "success",
+            title: "Order placed successfully!",
+            showConfirmButton: false,
+            timer: 2500,
+          });
+
+          // After 2500ms, navigate
+          setTimeout(() => {
+            navigate("/ourBrand");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }, 2500);
         }
-      } else {
-        alert("Payment creation failed: " + decryptedData.message);
-      }
-    } catch (error) {
-      console.error("Error while tracking:", error);
-      alert("Error while tracking. Please try again.");
-    }
+      });
   };
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    console.log("params", params);
-    const result = params.get("result");
-    const encryptedData = params.get("DATA");
-
-    if (result === "0" && encryptedData) {
-      const decrypted = decrypt(
-        encryptedData,
-        "", // or use appropriate secret if needed
-        import.meta.env.VITE_ENCRYPTION_KEY
-      );
-      console.log("Decrypted failed payment data:", decrypted);
-
-      // Show user-friendly error if available
-      if (decrypted?.status === "error" || decrypted?.message) {
-        alert(`Payment failed: ${decrypted.message || "Unknown error"}`);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     const address = localStorage.getItem("selectedAddress");
@@ -219,6 +357,8 @@ export default function Orders() {
     lastName: "",
     mobile: "",
     email: "",
+    guestName: "",
+    guestMobile: "",
   });
 
   const handleChange = (e) => {
@@ -365,6 +505,42 @@ export default function Orders() {
                 onChange={handleChange}
                 className="w-full border rounded-md p-2"
               />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto mt-5">
+        <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+          <div className="flex items-center justify-between ps-2 pt-2 pe-2">
+            <p className="text-lg font-semibold">
+              {t("ordersPage.guestLogin")}
+            </p>
+          </div>
+
+          {/* Guest Name & Mobile Number */}
+          <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
+            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
+              <input
+                type="text"
+                name="guestName"
+                placeholder={t("ordersPage.guestName")}
+                value={formData.guestName}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2"
+              />
+            </div>
+            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
+              <div className="newPhoneDiv">
+                <PhoneInput
+                  country={"ch"}
+                  value={formData.guestMobile}
+                  onChange={(phone) =>
+                    setFormData({ ...formData, guestMobile: phone })
+                  }
+                  className="phoneInput"
+                />
+              </div>
             </div>
           </div>
         </div>

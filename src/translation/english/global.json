@@ -1,127 +1,129 @@
 {
-    "nav": {
-        "home": "Home",
-        "about": "About",
-        "ourBrand": "Our Brand",
-        "beOurPartner": "Be Our Partner",
-        "career": "Career",
-        "menu": "Menu",
-        "contact": "Contact"
-    },
-    "home": {
-        "title": "The Taste That Makes You Feel Awesome",
-        "exploreNow": "Explore Now",
-        "ourBrands": "Our Brands",
-        "explore": "Keep Exploring",
-        "welcomeKarma": "Welcome to Karma Cuisine - Authentic Flavors, Anytime, Anywhere",
-        "karmaCuisineCont": " At Karma Cuisine, we redefine culinary excellence by curating a rich tapestry of authentic and exotic flavors. As a premium food brand, we are committed to delivering high-quality, globally inspired cuisine through our strategic Cloud Kitchen Partnerships, ensuring a seamless and elevated dining experience wherever you are.",
-        "thatsKarma": "That's Karma Cuisine",
-        "whyChooseKarma": "Why Choose",
-        "whyChooseHead1": "Diverse Global Cuisine:",
-        "whyChooseCont1": "Savor the best of exotic cuisine, all crafted with authentic ingredients and traditional cooking techniques.",
-        "whyChooseHead2": "Fresh, Locally Sourced Ingredients:",
-        "whyChooseCont2": "We use only the freshest ingredients to ensure every dish bursts with flavor.",
-        "whyChooseHead3": "Vegetarian, Vegan, and Gluten-Free Options:",
-        "whyChooseCont3": "We offer a variety of vegetarian, vegan, and gluten-free options to cater to all dietary preferences."
-    },
-    "about": {
-        "aboutCont": "Great food, good karma. Elevate your taste with Us",
-        "aboutUsCont": " At Karma Cuisine, we believe that great food is more than just a meal - it's an experience.",
-        "storyHead": "  The Story of Karma Cuisine: Bringing Authentic Exotic Flavors to Your Doorste",
-        "faq1Qn": "What is a Ghost Kitchen?",
-        "faq1Ans": " A ghost kitchen, also known as a dark kitchen, virtual kitchen, or cloud kitchen, is a commercial kitchen that operates exclusively for fulfilling online food orders. These kitchens typically don't have a physical storefront or dining area where customers can eat. Instead, they prepare meals for delivery or takeout only, often partnering with food delivery platforms like Uber Eats and Just Eats.",
-        "faq2Qn": " Why Choose a Cloud Kitchen?",
-        "faq2Ans": "Cloud kitchens offer customers the convenience of ordering from multiple brands without leaving home. For businesses, they provide an affordable and scalable way to enter the food service industry. Whether you're craving a meal or seeking to innovate in food, cloud kitchens offer a fast, cost-effective solution.",
-        "faq3Qn": "What are the Advantages of Cloud Kitchen?",
-        "faq3Ans": "Cloud kitchens provide numerous benefits, including reduced operational costs, no need for prime real estate, and the ability to scale quickly. With a focus on online orders and delivery, businesses can expand their reach, optimize delivery times, and increase profitability with minimal overhead."
-    },
-    "menu": {
-        "menu": "Our Menu"
-    },
-    "contact": {
-        "welcomeCont": "We had Love to Hear From You!",
-        "contactUsCont": " At Karma Cuisine, your feedback, queries, and suggestions mean the world to us."
-    },
-    "career": {
-        "careerIntro": "Are you ready to take the next step in your career? ",
-        "careerDesc": "Join our dynamic team and be part of an innovative, growth-driven environment where your skills and ideas matter."
-    },
-    "ourPartners": {
-        "beOurPartner": "Be Our Partners !!!",
-        "howItWorks": "How It Works",
-        "step1": "Step 1",
-        "step1Head": "Apply Online",
-        "step1Cont": "Submit your details through our simple partnership form.",
-        "step2": "Step 2",
-        "step2Head": "Onboarding & Setup",
-        "step2Cont": "Our team will guide you through the onboarding process, from menu integration to branding.",
-        "step3": "Step 3",
-        "step3Head": "Go Live & Start Serving",
-        "step3Cont": "Once set up, your dishes will be available on our platform, ready to be enjoyed by customers.",
-        "step4": "Step 4",
-        "step4Head": "Grow with Us",
-        "step4Cont": "Benefit from our continuous support, insights, and marketing efforts to drive sales and customer engagement."
-    },
-    "ourBrands": {
-        "ourBrandsHeader": "Our Brands !!!",
-        "kingsKurry": "Indian cuisine, Kings Kurry - where we bring the royal flavors of India to your table! Our menu features authentic Indian dishes, from sizzling tandoori to rich curries made with the finest spices and ingredients.",
-        "kingsKurryTagLine": "Savor the royal taste of India in every bite.",
-        "banThai": "Thai cuisine, Ban Thai - Our menu celebrates the vibrant and bold tastes of Thailand, from spicy curries to fresh, zesty salads, all prepared with the finest ingredients and aromatic spices.",
-        "banThaiTagLine": "Indulge in Thailand's rich, authentic flavors, right at your table.",
-        "sushiHeaven": "The Art of Japanese Cuisine - Sushi Haven Our chefs craft each sushi roll with the freshest ingredients, honoring centuries of Japanese culinary artistry.",
-        "sushiHeavenTagLine": "Sushi is not just food; it's an art form.",
-        "fajithaFriends": "Mexican Cuisine! Fajita Friends Enjoy sizzling, fresh tacos, and refreshing margaritas in a vibrant, we bring the bold tastes of Mexico to your table!",
-        "fajithaFriendsTagLine": "Spice up your life with the flavors of Mexico!",
-        "omomos": "Deliciously soft, bursting with flavors—our momos are handcrafted to perfection, bringing you the authentic taste of the Himalayas.",
-        "omomosTagLine": "Steamed to perfection, filled with flavor!"
-    },
-    "footerCont": {
-        "footerContent": "Be the first to know about our special events, and what's going on !",
-        "connectWithUs": "Connect With Us",
-        "home": "Home",
-        "about": "About",
-        "ourBrand": "Our Brand",
-        "beOurPartner": "Be Our Partner",
-        "getInTouch": "Get In Touch",
-        "email": "Email",
-        "address": "Address",
-        "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zürich Switzerland."
-    },
-    "restroMenu": {
-        "excellentCuisine": "Our excellent cuisine",
-        "orderNow": "Order Now",
-        "foodItems": "Food Items",
-        "mainCourses": "Main Courses",
-        "drinks": "Drinks",
-        "placeOrder": "Place Order"
-    },
-    "ordersPage": {
-        "back": "Back",
-        "total": "Total",
-        "billing": "Billing Details",
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "mobile": "Mobile",
-        "email": "Email",
-        "paymentMethod": "Payment Method",
-        "online": "Online",
-        "offline": "Offline",
-        "useAnotherAddress": "Use Another Address",
-        "proceedToPay": "Proceed To Pay"
-    },
-    "address": {
-        "selectAddress": "Select an Address",
-        "addNewAddress": "Add New Address",
-        "savedAddress": "Saved Address",
-        "location": "Location",
-        "home": "Home",
-        "work": "Work",
-        "roomNo": "Room No, Street Name",
-        "postalCode": "Postal Code",
-        "zone": "Zone",
-        "country": "Country",
-        "mobile": "Mobile",
-        "clearAll": "Clear All",
-        "saveAddress": "Save Address"
-    }
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "ourBrand": "Our Brand",
+    "beOurPartner": "Be Our Partner",
+    "career": "Career",
+    "menu": "Menu",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "The Taste That Makes You Feel Awesome",
+    "exploreNow": "Explore Now",
+    "ourBrands": "Our Brands",
+    "explore": "Keep Exploring",
+    "welcomeKarma": "Welcome to Karma Cuisine - Authentic Flavors, Anytime, Anywhere",
+    "karmaCuisineCont": " At Karma Cuisine, we redefine culinary excellence by curating a rich tapestry of authentic and exotic flavors. As a premium food brand, we are committed to delivering high-quality, globally inspired cuisine through our strategic Cloud Kitchen Partnerships, ensuring a seamless and elevated dining experience wherever you are.",
+    "thatsKarma": "That's Karma Cuisine",
+    "whyChooseKarma": "Why Choose",
+    "whyChooseHead1": "Diverse Global Cuisine:",
+    "whyChooseCont1": "Savor the best of exotic cuisine, all crafted with authentic ingredients and traditional cooking techniques.",
+    "whyChooseHead2": "Fresh, Locally Sourced Ingredients:",
+    "whyChooseCont2": "We use only the freshest ingredients to ensure every dish bursts with flavor.",
+    "whyChooseHead3": "Vegetarian, Vegan, and Gluten-Free Options:",
+    "whyChooseCont3": "We offer a variety of vegetarian, vegan, and gluten-free options to cater to all dietary preferences."
+  },
+  "about": {
+    "aboutCont": "Great food, good karma. Elevate your taste with Us",
+    "aboutUsCont": " At Karma Cuisine, we believe that great food is more than just a meal - it's an experience.",
+    "storyHead": "  The Story of Karma Cuisine: Bringing Authentic Exotic Flavors to Your Doorste",
+    "faq1Qn": "What is a Ghost Kitchen?",
+    "faq1Ans": " A ghost kitchen, also known as a dark kitchen, virtual kitchen, or cloud kitchen, is a commercial kitchen that operates exclusively for fulfilling online food orders. These kitchens typically don't have a physical storefront or dining area where customers can eat. Instead, they prepare meals for delivery or takeout only, often partnering with food delivery platforms like Uber Eats and Just Eats.",
+    "faq2Qn": " Why Choose a Cloud Kitchen?",
+    "faq2Ans": "Cloud kitchens offer customers the convenience of ordering from multiple brands without leaving home. For businesses, they provide an affordable and scalable way to enter the food service industry. Whether you're craving a meal or seeking to innovate in food, cloud kitchens offer a fast, cost-effective solution.",
+    "faq3Qn": "What are the Advantages of Cloud Kitchen?",
+    "faq3Ans": "Cloud kitchens provide numerous benefits, including reduced operational costs, no need for prime real estate, and the ability to scale quickly. With a focus on online orders and delivery, businesses can expand their reach, optimize delivery times, and increase profitability with minimal overhead."
+  },
+  "menu": {
+    "menu": "Our Menu"
+  },
+  "contact": {
+    "welcomeCont": "We had Love to Hear From You!",
+    "contactUsCont": " At Karma Cuisine, your feedback, queries, and suggestions mean the world to us."
+  },
+  "career": {
+    "careerIntro": "Are you ready to take the next step in your career? ",
+    "careerDesc": "Join our dynamic team and be part of an innovative, growth-driven environment where your skills and ideas matter."
+  },
+  "ourPartners": {
+    "beOurPartner": "Be Our Partners !!!",
+    "howItWorks": "How It Works",
+    "step1": "Step 1",
+    "step1Head": "Apply Online",
+    "step1Cont": "Submit your details through our simple partnership form.",
+    "step2": "Step 2",
+    "step2Head": "Onboarding & Setup",
+    "step2Cont": "Our team will guide you through the onboarding process, from menu integration to branding.",
+    "step3": "Step 3",
+    "step3Head": "Go Live & Start Serving",
+    "step3Cont": "Once set up, your dishes will be available on our platform, ready to be enjoyed by customers.",
+    "step4": "Step 4",
+    "step4Head": "Grow with Us",
+    "step4Cont": "Benefit from our continuous support, insights, and marketing efforts to drive sales and customer engagement."
+  },
+  "ourBrands": {
+    "ourBrandsHeader": "Our Brands !!!",
+    "kingsKurry": "Indian cuisine, Kings Kurry - where we bring the royal flavors of India to your table! Our menu features authentic Indian dishes, from sizzling tandoori to rich curries made with the finest spices and ingredients.",
+    "kingsKurryTagLine": "Savor the royal taste of India in every bite.",
+    "banThai": "Thai cuisine, Ban Thai - Our menu celebrates the vibrant and bold tastes of Thailand, from spicy curries to fresh, zesty salads, all prepared with the finest ingredients and aromatic spices.",
+    "banThaiTagLine": "Indulge in Thailand's rich, authentic flavors, right at your table.",
+    "sushiHeaven": "The Art of Japanese Cuisine - Sushi Haven Our chefs craft each sushi roll with the freshest ingredients, honoring centuries of Japanese culinary artistry.",
+    "sushiHeavenTagLine": "Sushi is not just food; it's an art form.",
+    "fajithaFriends": "Mexican Cuisine! Fajita Friends Enjoy sizzling, fresh tacos, and refreshing margaritas in a vibrant, we bring the bold tastes of Mexico to your table!",
+    "fajithaFriendsTagLine": "Spice up your life with the flavors of Mexico!",
+    "omomos": "Deliciously soft, bursting with flavors—our momos are handcrafted to perfection, bringing you the authentic taste of the Himalayas.",
+    "omomosTagLine": "Steamed to perfection, filled with flavor!"
+  },
+  "footerCont": {
+    "footerContent": "Be the first to know about our special events, and what's going on !",
+    "connectWithUs": "Connect With Us",
+    "home": "Home",
+    "about": "About",
+    "ourBrand": "Our Brand",
+    "beOurPartner": "Be Our Partner",
+    "getInTouch": "Get In Touch",
+    "email": "Email",
+    "address": "Address",
+    "addressValue": "Schaffhausserstrasse 56, 8152 Glattbrugg, Zürich Switzerland."
+  },
+  "restroMenu": {
+    "excellentCuisine": "Our excellent cuisine",
+    "orderNow": "Order Now",
+    "foodItems": "Food Items",
+    "mainCourses": "Main Courses",
+    "drinks": "Drinks",
+    "placeOrder": "Place Order"
+  },
+  "ordersPage": {
+    "back": "Back",
+    "total": "Total",
+    "billing": "Billing Details",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "mobile": "Mobile",
+    "email": "Email",
+    "paymentMethod": "Payment Method",
+    "online": "Online Payment",
+    "offline": "Offline Payment",
+    "useAnotherAddress": "Use Another Address",
+    "proceedToPay": "Proceed To Pay",
+    "guestLogin": "Guest Login",
+    "guestName": "Guest Name"
+  },
+  "address": {
+    "selectAddress": "Select an Address",
+    "addNewAddress": "Add New Address",
+    "savedAddress": "Saved Address",
+    "location": "Location",
+    "home": "Home",
+    "work": "Work",
+    "roomNo": "Room No, Street Name",
+    "postalCode": "Postal Code",
+    "zone": "Zone",
+    "country": "Country",
+    "mobile": "Mobile",
+    "clearAll": "Clear All",
+    "saveAddress": "Save Address"
+  }
 }
