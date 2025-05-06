@@ -8,6 +8,9 @@ import "./Orders.css";
 import AddressBottomModal from "../../pages/AddressBottomModal/AddressBottomModal";
 import { useNavigate } from "react-router-dom";
 
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 import axios from "axios";
 import decrypt from "../../helper";
 
@@ -32,6 +35,7 @@ export default function Orders() {
       setSavedAddress(JSON.parse(address));
     }
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log("savedCart", savedCart);
     const mappedCartItems = savedCart.map((item) => {
       console.log("item", item);
       if (item.isCombo && item.subProducts) {
@@ -64,6 +68,7 @@ export default function Orders() {
       }
     });
 
+    console.log("mappedCartItems", mappedCartItems);
     setCartItems(mappedCartItems);
   }, []);
 
@@ -79,10 +84,6 @@ export default function Orders() {
       return total + price * quantity;
     }, 0)
     .toFixed(2);
-
-  console.log("cartItems", cartItems);
-  console.log("grandTotal", grandTotal);
-
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -136,9 +137,6 @@ export default function Orders() {
     }
     return true;
   };
-
-  const [paymentLink, setPaymentLink] = useState("");
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   const handlePayment = async () => {
     if (!validateFields()) return;
@@ -241,41 +239,58 @@ export default function Orders() {
         <div className="flex flex-col border-2 border-dashed rounded-lg surface-ground flex-auto p-4 m-3">
           <div className="contents">
             {cartItems.length > 0 ? (
-              <ul>
+              <ul className="space-y-4">
                 {cartItems.map((item, index) => (
-                  <div key={index} className="cart-item">
-                    <div>
-                      <strong>{item.name}</strong> CHF {item.price}
+                  <div
+                    key={index}
+                    className="bg-white shadow rounded-lg p-4 border border-gray-200"
+                  >
+                    <div className="flex justify-between items-center mb-2 line">
+                      <div className="text-base font-semibold line">
+                        {item.name}
+                      </div>
+                      <div className="text-red-600 font-medium">
+                        CHF {item.price}
+                      </div>
                     </div>
 
                     {item.isCombo && item.subProducts && (
-                      <div className="pl-4 text-sm text-gray-600">
+                      <div className="pl-2 text-sm text-gray-600 mb-2 space-y-1">
                         {item.subProducts.mainDishes.map((sub, i) => (
                           <div key={`main-${i}`}>
-                            {sub.foodName} × {sub.quantity}
+                            🍛 {sub.foodName} × {sub.quantity}
                           </div>
                         ))}
                         {item.subProducts.subDishes.map((sub, i) => (
                           <div key={`sub-${i}`}>
-                            {sub.foodName} × {sub.quantity}
+                            🥗 {sub.foodName} × {sub.quantity}
                           </div>
                         ))}
                         {item.subProducts.updatedProducts.map((product, i) => (
-                          <div key={`updated-${i}`} className="">
-                            {product.refFoodName} × {product.refQuantity} — CHF{" "}
-                            {product.refPrice}
+                          <div key={`updated-${i}`}>
+                            🛠 {product.refFoodName} × {product.refQuantity}{" "}
                           </div>
                         ))}
                       </div>
                     )}
-                    <div className="quantity-control">
-                      <button onClick={() => updateCartItemCount(item.id, -1)}>
-                        -
-                      </button>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => updateCartItemCount(item.id, 1)}>
-                        +
-                      </button>
+
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm text-gray-500">Quantity</div>
+                      <div className="flex items-center space-x-2">
+                        <button
+                          className="bg-red-500 text-white rounded-full w-8 h-8"
+                          onClick={() => updateCartItemCount(item.id, -1)}
+                        >
+                          -
+                        </button>
+                        <span className="px-2 text-lg">{item.quantity}</span>
+                        <button
+                          className="bg-green-500 text-white rounded-full w-8 h-8"
+                          onClick={() => updateCartItemCount(item.id, 1)}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -288,9 +303,11 @@ export default function Orders() {
       </div>
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
         <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
-          <div className="flex items-center justify-between ps-2 pt-2 pe-2">
-            <p className="text-lg font-semibold">{t("ordersPage.total")}:</p>
-            <p className="text-lg font-semibold">CHF {grandTotal}</p>
+          <div className="bg-white shadow rounded-lg p-4 border border-gray-200">
+            <div className="flex items-center justify-between ps-2 pe-2">
+              <p className="text-lg font-semibold">{t("ordersPage.total")}:</p>
+              <p className="text-lg font-semibold">CHF {grandTotal}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -300,47 +317,53 @@ export default function Orders() {
           <div className="flex items-center justify-between ps-2 pt-2 pe-2">
             <p className="text-lg font-semibold">{t("ordersPage.billing")}</p>
           </div>
+
+          {/* First & Last Name */}
           <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
-            <div className="address flex justify-center lg:mt-0 mt-3">
+            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
               <input
-                id="id-l03"
                 type="text"
                 name="firstName"
                 placeholder={t("ordersPage.firstName")}
                 value={formData.firstName}
                 onChange={handleChange}
+                className="w-full border rounded-md p-2"
               />
             </div>
-            <div className="address flex justify-center lg:mt-0 mt-3">
+            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
               <input
-                id="id-l03"
                 type="text"
                 name="lastName"
                 placeholder={t("ordersPage.lastName")}
                 value={formData.lastName}
                 onChange={handleChange}
+                className="w-full border rounded-md p-2"
               />
             </div>
           </div>
+
+          {/* Mobile & Email */}
           <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
-            <div className="address flex justify-center lg:mt-0 mt-3">
-              <input
-                id="id-l03"
-                type="text"
-                name="mobile"
-                placeholder={t("ordersPage.mobile")}
-                value={formData.mobile}
-                onChange={handleChange}
-              />
+            <div className="address newAddress flex justify-center lg:mt-0 mt-3 w-full">
+              <div className="newPhoneDiv">
+                <PhoneInput
+                  country={"ch"}
+                  value={formData.mobile}
+                  onChange={(phone) =>
+                    setFormData({ ...formData, mobile: phone })
+                  }
+                  className="phoneInput"
+                />
+              </div>
             </div>
-            <div className="address flex justify-center lg:mt-0 mt-3">
+            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
               <input
-                id="id-l03"
                 type="text"
                 name="email"
                 placeholder={t("ordersPage.email")}
                 value={formData.email}
                 onChange={handleChange}
+                className="w-full border rounded-md p-2"
               />
             </div>
           </div>
