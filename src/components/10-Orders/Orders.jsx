@@ -213,7 +213,6 @@ export default function Orders() {
     if (status === "failure") {
       alert(`Payment failed: ${message || "Unknown error"}`);
     } else if (status === "success") {
-      alert(`Payment successful: ${message}`);
       PaymentPayloadToBackend("online");
     }
   }, []);
