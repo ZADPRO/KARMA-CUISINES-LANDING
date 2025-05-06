@@ -243,6 +243,10 @@ export default function RestroMenu() {
     setMainDishCounts({});
     setSubDishCounts({});
     closeModal();
+
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log("savedCart", savedCart);
+    setSavedCartItems(savedCart);
   };
 
   useEffect(() => {
@@ -413,10 +417,6 @@ export default function RestroMenu() {
   }, []);
 
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("savedCart", savedCart);
-    setSavedCartItems(savedCart);
-
     if (savedCartItems) {
       const ids = savedCartItems.map((item) => item.refFoodId);
       console.log("ids", ids);
@@ -1424,7 +1424,7 @@ export default function RestroMenu() {
             {t("restroMenu.placeOrder")}
           </button>
           <button
-            onClick={moveToOrders}
+            // onClick={moveToOrders}
             className="w-[18%] py-2 bg-[#ffffff] border-[#cd5c08] border-1 text-white font-semibold rounded items-center justify-center flex relative"
             style={{
               border: "2px solid #cd5c08",
