@@ -139,7 +139,7 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2 ms-[-120px]"
+                    className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2 ms-[-120px] z-100"
                   >
                     {languages.map((lang) => (
                       <div
@@ -180,7 +180,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2 ms-[-120px]"
+                  className="absolute top-12 w-48 bg-white text-black p-3 shadow-lg rounded-lg transform -translate-x-1/2 ms-[-120px] z-100"
                 >
                   {languages.map((lang) => (
                     <div

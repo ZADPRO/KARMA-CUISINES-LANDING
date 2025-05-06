@@ -21,6 +21,7 @@ import Career from "../13-Career/Career";
 import RestroMenu from "../14-RestroMenu/RestroMenu";
 import GuestLogin from "../15-GuestLogin/GuestLogin";
 import SubProducts from "../16-SubProducts/SubProducts";
+import OtherBrands from "../11-OurBrands/OtherBrands";
 
 function AppRoutes() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function AppRoutes() {
     "/contact",
     "/restroMenu",
     "/ourBrand",
+    "/comingSoon",
     "/beOurPartner",
     "/subproducts",
     "/career",
@@ -45,6 +47,7 @@ function AppRoutes() {
     "/menu",
     "/contact",
     "/ourBrand",
+    "/comingSoon",
     "/beOurPartner",
     "/subproducts",
     "/career",
@@ -65,6 +68,7 @@ function AppRoutes() {
         <Route path="/career" element={<Career />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/comingSoon" element={<OtherBrands />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/subproducts" element={<SubProducts />} />
         <Route path="/restroMenu" element={<RestroMenu />} />

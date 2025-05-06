@@ -137,6 +137,9 @@ export default function Orders() {
     return true;
   };
 
+  const [paymentLink, setPaymentLink] = useState("");
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+
   const handlePayment = async () => {
     if (!validateFields()) return;
     console.log("validateFields");
@@ -147,8 +150,8 @@ export default function Orders() {
         {
           amount: grandTotal,
           currency: "CHF",
-          successRedirectUrl: "https://your-success-url.com",
-          failedRedirectUrl: "https://your-failed-url.com",
+          successRedirectUrl: "http://localhost:5173/orders",
+          failedRedirectUrl: "http://localhost:5173",
           purpose: "Test Payment",
         },
         {
@@ -166,7 +169,6 @@ export default function Orders() {
       console.log("decryptedData", decryptedData);
 
       if (decryptedData.success) {
-        console.log("decryptedData", decryptedData);
         const paymentLink = decryptedData.data[0]?.link;
         if (paymentLink) {
           window.location.href = paymentLink;
@@ -181,6 +183,27 @@ export default function Orders() {
       alert("Error while tracking. Please try again.");
     }
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    console.log("params", params);
+    const result = params.get("result");
+    const encryptedData = params.get("DATA");
+
+    if (result === "0" && encryptedData) {
+      const decrypted = decrypt(
+        encryptedData,
+        "", // or use appropriate secret if needed
+        import.meta.env.VITE_ENCRYPTION_KEY
+      );
+      console.log("Decrypted failed payment data:", decrypted);
+
+      // Show user-friendly error if available
+      if (decrypted?.status === "error" || decrypted?.message) {
+        alert(`Payment failed: ${decrypted.message || "Unknown error"}`);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const address = localStorage.getItem("selectedAddress");

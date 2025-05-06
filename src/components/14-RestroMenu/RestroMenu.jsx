@@ -5,6 +5,8 @@ import decrypt from "../../helper";
 import kingsKurryLogo from "../../assets/logoNew/kingsKurry.jpg";
 import kingsKurryPng from "../../assets/logoNew/king01.png";
 
+import { ShoppingCart } from "lucide-react";
+
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -33,6 +35,9 @@ export default function RestroMenu() {
   const [showRightFixed, setShowRightFixed] = useState(false);
   const [showRightMain, setShowRightMain] = useState(false);
   const [showRightDrinks, setShowRightDrinks] = useState(false);
+
+  const [itemAddedCart, setItemAddedCart] = useState(false);
+  const [itemComment, setItemComment] = useState("");
 
   const [cartState, setCartState] = useState({});
 
@@ -80,18 +85,64 @@ export default function RestroMenu() {
   const [itemCount, setItemCount] = useState(1);
 
   const handleIncrease = () => {
-    setItemCount(itemCount + 1);
+    const newCount = itemCount + 1;
+
+    // Check if the item is already in the cart (localStorage)
+    const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingCartItemIndex = savedCartItems.findIndex((cartItem) => {
+      if (selectedItem.refFoodId) {
+        return cartItem.refFoodId === selectedItem.refFoodId;
+      } else if (selectedItem.refComboId) {
+        return cartItem.refComboId === selectedItem.refComboId;
+      }
+      return false;
+    });
+
+    if (existingCartItemIndex > -1) {
+      // Item is found in the cart, update localStorage
+      updateCartItem(newCount);
+    }
+
+    // Always update the local state for item count
+    setItemCount(newCount);
   };
 
   const handleDecrease = () => {
     if (itemCount > 1) {
-      setItemCount(itemCount - 1);
+      const newCount = itemCount - 1;
+
+      // Check if the item is already in the cart (localStorage)
+      const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      const existingCartItemIndex = savedCartItems.findIndex((cartItem) => {
+        if (selectedItem.refFoodId) {
+          return cartItem.refFoodId === selectedItem.refFoodId;
+        } else if (selectedItem.refComboId) {
+          return cartItem.refComboId === selectedItem.refComboId;
+        }
+        return false;
+      });
+
+      if (existingCartItemIndex > -1) {
+        // Item is found in the cart, update localStorage
+        updateCartItem(newCount);
+      }
+
+      // Always update the local state for item count
+      setItemCount(newCount);
+    } else {
+      // If item count is 1 and user tries to decrease, remove item from cart
+      updateCartItem(0);
+      setItemCount(0); // Optionally reset the item count to 0
     }
   };
 
   const handleMainAddToCart = () => {
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
     if (selectedItem.refComboId) {
+      // Handle Combo Items
       console.log("selectedItem <======>", selectedItem);
+
       const fixedQuantityValues = selectedItem.refFixedQuantity
         .replace(/[{}]/g, "")
         .split(",")
@@ -111,8 +162,6 @@ export default function RestroMenu() {
         })
       );
 
-      console.log("updatedProducts", updatedProducts);
-
       const mainItem = {
         refFoodId: selectedItem.refComboId,
         refFoodName: selectedItem.refComboName,
@@ -121,6 +170,7 @@ export default function RestroMenu() {
         refPrice: selectedItem.refComboPrice,
         count: fixedQuantitySum,
         isCombo: true,
+        comment: itemComment,
         subProducts: {
           mainDishCounts: mainDishCounts,
           subDishCounts: subDishCounts,
@@ -128,18 +178,20 @@ export default function RestroMenu() {
         },
       };
 
-      console.log("mainItem", mainItem);
-      const cartData = [mainItem];
-      console.log("cartData", cartData);
-      let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-      existingCart.push(...cartData);
-      localStorage.setItem("cart", JSON.stringify(existingCart));
+      // Check if the combo is already in the cart
+      const existingComboIndex = existingCart.findIndex(
+        (item) => item.refFoodId === mainItem.refFoodId
+      );
 
-      setMainDishCounts({});
-      setSubDishCounts({});
-
-      closeModal();
+      if (existingComboIndex >= 0) {
+        // Item exists, update the count (set new value directly, not adding)
+        existingCart[existingComboIndex].count = fixedQuantitySum;
+      } else {
+        // Item does not exist, add it
+        existingCart.push(mainItem);
+      }
     } else {
+      // Handle Single Item
       const mainItem = {
         refFoodId: selectedItem.refFoodId,
         refFoodName: selectedItem.refFoodName,
@@ -148,10 +200,10 @@ export default function RestroMenu() {
         refPrice: selectedItem.refPrice,
         count: itemCount,
         isCombo: false,
+        comment: itemComment, // ← Add this
       };
 
       let addons = [];
-
       if (selectedItem.refAddOns && selectedItem.refAddOns.length > 0) {
         selectedItem.refAddOns.forEach((addon, index) => {
           if (cartState[index]) {
@@ -167,13 +219,30 @@ export default function RestroMenu() {
           }
         });
       }
+
       const cartData = [mainItem, ...addons];
-      let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-      existingCart.push(...cartData);
-      localStorage.setItem("cart", JSON.stringify(existingCart));
-      setItemCount(1);
-      closeModal();
+
+      const existingItemIndex = existingCart.findIndex(
+        (item) => item.refFoodId === mainItem.refFoodId
+      );
+
+      if (existingItemIndex >= 0) {
+        existingCart[existingItemIndex].count = itemCount;
+      } else {
+        existingCart.push(...cartData);
+      }
     }
+
+    // Save updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
+    // Reset count and close modal
+    setItemCount(1);
+    setItemAddedCart(true);
+    setItemComment("");
+    setMainDishCounts({});
+    setSubDishCounts({});
+    closeModal();
   };
 
   useEffect(() => {
@@ -344,12 +413,81 @@ export default function RestroMenu() {
   }, []);
 
   useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log("savedCart", savedCart);
+    setSavedCartItems(savedCart);
+
     if (savedCartItems) {
       const ids = savedCartItems.map((item) => item.refFoodId);
       console.log("ids", ids);
       setCartItemIds(ids);
+      if (ids.length) {
+        setItemAddedCart(true);
+      }
     }
-  }, [savedCartItems]);
+  }, [savedCartItems, itemAddedCart]);
+
+  const [isItemInCart, setIsItemInCart] = useState(false);
+
+  useEffect(() => {
+    if (showModal && selectedItem) {
+      const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const existingCartItem = savedCartItems.find((cartItem) => {
+        if (selectedItem.refFoodId) {
+          return cartItem.refFoodId === selectedItem.refFoodId;
+        } else if (selectedItem.refComboId) {
+          return cartItem.refComboId === selectedItem.refComboId;
+        }
+        return false;
+      });
+
+      if (existingCartItem) {
+        setItemCount(existingCartItem.count);
+        setIsItemInCart(true);
+      } else {
+        setItemCount(1);
+        setIsItemInCart(false);
+      }
+    }
+  }, [showModal, selectedItem]);
+
+  const updateCartItem = (newCount) => {
+    const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingCartItemIndex = savedCartItems.findIndex((cartItem) => {
+      if (selectedItem.refFoodId) {
+        return cartItem.refFoodId === selectedItem.refFoodId;
+      } else if (selectedItem.refComboId) {
+        return cartItem.refComboId === selectedItem.refComboId;
+      }
+      return false;
+    });
+
+    if (existingCartItemIndex > -1) {
+      const updatedItem = {
+        ...savedCartItems[existingCartItemIndex],
+        count: newCount,
+      };
+      if (newCount <= 0) {
+        savedCartItems.splice(existingCartItemIndex, 1);
+        setShowModal(false);
+      } else {
+        savedCartItems[existingCartItemIndex] = updatedItem;
+      }
+    } else if (newCount > 0) {
+      const newItem = {
+        refFoodId: selectedItem.refFoodId,
+        refFoodName: selectedItem.refFoodName,
+        refPrice: selectedItem.refPrice,
+        count: newCount,
+        comment: itemComment,
+      };
+      savedCartItems.push(newItem);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(savedCartItems));
+  };
 
   const handleTabClick = (refKey, index) => {
     const ref = refsMap.current[refKey];
@@ -500,7 +638,7 @@ export default function RestroMenu() {
         <>
           {/* Tabs */}
           <div
-            className="flex overflow-x-auto gap-2 mb-4 sticky top-[60px] bg-white z-50 p-2 shadow whitespace-nowrap"
+            className="flex overflow-x-auto gap-2 mb-4 sticky top-[60px] bg-white z-5 p-2 shadow whitespace-nowrap"
             style={{ scrollbarWidth: "none" }}
           >
             {categories.map((cat, idx) => {
@@ -656,7 +794,7 @@ export default function RestroMenu() {
                       type="text"
                       value={itemCount}
                       readOnly
-                      className="mx-4 w-3 text-center rounded-full"
+                      className="mx-4 text-center rounded-full"
                     />
                     <button
                       onClick={handleIncrease}
@@ -687,67 +825,82 @@ export default function RestroMenu() {
                                 ref={scrollRef}
                                 className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
                               >
-                                {selectedItem.refAddOns.map((addon, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
-                                  >
-                                    <img
-                                      src={
-                                        addon.profileFile
-                                          ? `https://karmacuisine.ch/src/assets/FoodImage/${addon.profileFile.filename}`
-                                          : kingsKurryLogo
-                                      }
-                                      alt={addon.refFoodName}
-                                      className="w-20 h-full object-cover rounded"
-                                    />
-                                    <div className="flex flex-col justify-between flex-grow">
-                                      <p className="font-semibold text-gray-800">
-                                        {addon.refFoodName}
-                                      </p>
-                                      <p
-                                        className="text-sm text-gray-500"
-                                        dangerouslySetInnerHTML={{
-                                          __html: addon.refDescription,
-                                        }}
-                                      />
-                                      <p className="text-[#cd5c08] font-medium mb-2">
-                                        CHF {addon.refPrice}
-                                      </p>
+                                {selectedItem.refAddOns.map((addon, index) => {
+                                  const existingAddon = savedCartItems.find(
+                                    (cartItem) =>
+                                      cartItem.refFoodId === addon.refFoodId
+                                  );
 
-                                      {!cartState[index] ? (
-                                        <button
-                                          onClick={() => handleAddToCart(index)}
-                                          className="bg-[#ff7209] text-white px-3 py-1 rounded hover:bg-[#cd5c08] text-sm"
-                                        >
-                                          Add to Cart
-                                        </button>
-                                      ) : (
-                                        <div className="flex items-center gap-2">
+                                  const addonCount = existingAddon
+                                    ? existingAddon.count
+                                    : 0;
+
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="flex-shrink-0 w-[350px] bg-white shadow-md rounded-lg p-4 flex gap-4 items-center"
+                                    >
+                                      <img
+                                        src={
+                                          addon.profileFile
+                                            ? `https://karmacuisine.ch/src/assets/FoodImage/${addon.profileFile.filename}`
+                                            : kingsKurryLogo
+                                        }
+                                        alt={addon.refFoodName}
+                                        className="w-20 h-full object-cover rounded"
+                                      />
+                                      <div className="flex flex-col justify-between flex-grow">
+                                        <p className="font-semibold text-gray-800">
+                                          {addon.refFoodName}
+                                        </p>
+                                        <p
+                                          className="text-sm text-gray-500"
+                                          dangerouslySetInnerHTML={{
+                                            __html: addon.refDescription,
+                                          }}
+                                        />
+                                        <p className="text-[#cd5c08] font-medium mb-2">
+                                          CHF {addon.refPrice}
+                                        </p>{" "}
+                                        {/* Your Addon Card */}
+                                        {!cartState[index] ? (
                                           <button
                                             onClick={() =>
-                                              handleDecrement(index)
+                                              handleAddToCart(index)
                                             }
-                                            className="border px-2 py-1 rounded text-sm"
                                           >
-                                            -
+                                            {addonCount > 0
+                                              ? `Add Again (${addonCount})`
+                                              : "Add to Cart"}
                                           </button>
-                                          <span className="font-semibold">
-                                            {cartState[index].count}
-                                          </span>
-                                          <button
-                                            onClick={() =>
-                                              handleIncrement(index)
-                                            }
-                                            className=" border px-2 py-1 rounded text-sm"
-                                          >
-                                            +
-                                          </button>
-                                        </div>
-                                      )}
+                                        ) : (
+                                          <div className="flex items-center gap-2">
+                                            <button
+                                              onClick={() =>
+                                                handleDecrement(index)
+                                              }
+                                              className="border px-2 py-1 rounded text-sm"
+                                            >
+                                              -
+                                            </button>
+                                            <span className="font-semibold">
+                                              {cartState[index]?.count ||
+                                                addonCount}
+                                            </span>
+                                            <button
+                                              onClick={() =>
+                                                handleIncrement(index)
+                                              }
+                                              className=" border px-2 py-1 rounded text-sm"
+                                            >
+                                              +
+                                            </button>
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
-                                  </div>
-                                ))}
+                                  );
+                                })}
                               </div>
 
                               {showLeft && (
@@ -1231,26 +1384,59 @@ export default function RestroMenu() {
                     </div>
                   </div>
                 )}
+
+              <label className="block mb-2 text-sm font-medium text-gray-700">
+                Enter Comments
+              </label>
+              <textarea
+                rows={4}
+                value={itemComment}
+                onChange={(e) => setItemComment(e.target.value)}
+                className="w-full p-3 border-2 rounded-md border-[#cd5c08] focus:outline-none resize-none"
+                placeholder="Type your comments here..."
+              ></textarea>
             </div>
             <div className="sticky bottom-0 left-0 bg-white border-t flex w-full z-10">
               <button
                 onClick={handleMainAddToCart}
                 className="bg-[#cd5c08] text-white px-6 py-2 w-full rounded-md text-lg font-semibold hover:bg-[#a64500]"
               >
-                Add to Cart
+                {isItemInCart ? "Item Added" : "Add to Cart"}
               </button>
             </div>
           </div>
         </div>
       )}
-      <div className="fixed bottom-0 left-0 w-full bg-white p-1 shadow-lg">
-        <button
-          onClick={moveToOrders}
-          className="w-full py-2 bg-[#cd5c08] text-white font-semibold rounded"
+
+      {itemAddedCart && (
+        <div
+          className="fixed bottom-0 left-0 w-full bg-white p-1 shadow-lg"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         >
-          {t("restroMenu.placeOrder")}
-        </button>
-      </div>
+          <button
+            onClick={moveToOrders}
+            className="w-[80%] py-2 bg-[#cd5c08] text-white font-semibold rounded"
+          >
+            {t("restroMenu.placeOrder")}
+          </button>
+          <button
+            onClick={moveToOrders}
+            className="w-[18%] py-2 bg-[#ffffff] border-[#cd5c08] border-1 text-white font-semibold rounded items-center justify-center flex relative"
+            style={{
+              border: "2px solid #cd5c08",
+            }}
+          >
+            <ShoppingCart color="#cd5c08" />
+            <span className="absolute top-0 right-0 -mt-1 -mr-1 bg-[#cd5c08] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+              {savedCartItems.length}
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

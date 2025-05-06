@@ -175,14 +175,17 @@ export default function OurBrands() {
             </div>
           </div>
           <div className="flex-1 text-center lg:text-left px-5">
-            {/* <p className="text-2xl font-bold">{brand.name}</p> */}
             <img className="w-[300px]" src={brand.logoImage} alt="" />
             <p className="mt-2">{brand.description}</p>
             <p className="mt-2 font-semibold italic">{brand.tagline}</p>
             <button
               className="border-2 border-black px-[20px] py-[10px] rounded-md my-5"
               onClick={() => {
-                navigate(`/restroMenu?routePath=${brand.routePath}`);
+                if (brand.routePath === "kingsKurry") {
+                  navigate(`/restroMenu?routePath=${brand.routePath}`);
+                } else {
+                  navigate("/comingSoon");
+                }
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
