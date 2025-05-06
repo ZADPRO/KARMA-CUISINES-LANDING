@@ -1,6 +1,6 @@
 .address input {
   height: 2.8rem;
-  width: 14rem !important;
+  width: 17rem !important;
   text-align: start;
   font-size: 1rem;
   padding: 3px 10px;
@@ -8,7 +8,20 @@
   border: 1px solid black;
 }
 
+.phoneInput input {
+  height: 2.8rem !important;
+  width: 17rem !important;
+  text-align: start !important;
+  font-size: 1rem !important;
+  border-radius: 4px !important;
+  border: 1px solid black !important;
+}
+
 .inputBoxRadio input {
   height: 16px !important;
   width: 16px !important;
+}
+
+.react-tel-input.phoneInput {
+  width: 96% !important;
 }

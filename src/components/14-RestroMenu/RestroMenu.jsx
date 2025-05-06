@@ -168,7 +168,7 @@ export default function RestroMenu() {
         refFoodCategoryName: "Combo",
         refMenuId: selectedItem.refMenuId,
         refPrice: selectedItem.refComboPrice,
-        count: fixedQuantitySum,
+        count: itemCount,
         isCombo: true,
         comment: itemComment,
         subProducts: {
