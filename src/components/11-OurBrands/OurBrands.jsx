@@ -25,7 +25,7 @@ import b3 from "../../assets/brandsBannerImages/b3.jpg";
 import b4 from "../../assets/brandsBannerImages/b4.jpg";
 import b5 from "../../assets/brandsBannerImages/b5.jpg";
 
-import kingsKurry from "../../assets/logoNew/king01.png";
+import kingsKurry from "../../assets/logoNew/kingsKurry001.png";
 import banthai from "../../assets/logoNew/banThai01.png";
 import fajitha from "../../assets/logoNew/fajitha01.png";
 import sushiheaven from "../../assets/logoNew/sushi01.png";
@@ -106,6 +106,7 @@ export default function OurBrands() {
           description: t("ourBrands.kingsKurry"),
           tagline: t("ourBrands.kingsKurryTagLine"),
           routePath: "kingsKurry",
+          desc: "Celebrating Indian Kitchen",
           mainImage: kingsKurry01,
           subImage: kingsKurry02,
           logoImage: kingsKurry,
@@ -115,6 +116,7 @@ export default function OurBrands() {
           description: t("ourBrands.banThai"),
           tagline: t("ourBrands.banThaiTagLine"),
           routePath: "banThai",
+          desc: "",
           mainImage: banThai01,
           subImage: banThai02,
           logoImage: banthai,
@@ -124,6 +126,7 @@ export default function OurBrands() {
           description: t("ourBrands.sushiHeaven"),
           tagline: t("ourBrands.sushiHeavenTagLine"),
           routePath: "sushiHeaven",
+          desc: "",
           mainImage: sushi01,
           subImage: sushi02,
           logoImage: sushiheaven,
@@ -133,6 +136,7 @@ export default function OurBrands() {
           description: t("ourBrands.fajithaFriends"),
           tagline: t("ourBrands.fajithaFriendsTagLine"),
           routePath: "fajithaFriends",
+          desc: "",
           mainImage: fajithaFriends01,
           subImage: fajithaFriends02,
           logoImage: fajitha,
@@ -142,6 +146,7 @@ export default function OurBrands() {
           description: t("ourBrands.omomos"),
           tagline: t("ourBrands.omomosTagLine"),
           routePath: "oMomos",
+          desc: "",
           mainImage: momos01,
           subImage: momos02,
           logoImage: momos,

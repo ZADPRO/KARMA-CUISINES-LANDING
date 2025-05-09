@@ -2,7 +2,7 @@ import "./Home.css";
 
 // import foodImg from "../../assets/home/thandoori.jpg";
 
-import kingsKurry from "../../assets/logoNew/king01.png";
+import kingsKurry from "../../assets/logoNew/kingsKurry001.png";
 import banthai from "../../assets/logoNew/banThai01.png";
 import fajitha from "../../assets/logoNew/fajitha01.png";
 import sushiheaven from "../../assets/logoNew/sushi01.png";
