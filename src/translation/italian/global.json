@@ -48,7 +48,15 @@
   },
   "career": {
     "careerIntro": "Sei pronto a fare il prossimo passo nella tua carriera?",
-    "careerDesc": "Unisciti al nostro team dinamico e diventa parte di un ambiente innovativo e orientato alla crescita, dove le tue competenze e idee contano davvero."
+    "careerDesc": "Unisciti al nostro team dinamico e contribuisci a un ambiente innovativo e orientato alla crescita, dove le tue competenze e idee contano.",
+    "card1Title": "Crescita Professionale Stimolante",
+    "card1Desc": "Che tu sia un neolaureato o un professionista esperto, offriamo una piattaforma per apprendere, crescere e guidare.",
+    "card2Title": "Lavora con Esperti",
+    "card2Desc": "Collabora con leader del settore e acquisisci esperienza pratica in un ambiente dinamico.",
+    "card3Title": "Cultura Lavorativa Innovativa",
+    "card3Desc": "Valorizziamo la creatività e incoraggiamo il pensiero fuori dagli schemi per generare un impatto significativo.",
+    "card4Title": "Cultura Flessibile e Inclusiva",
+    "card4Desc": "Un ambiente di lavoro vivace dove diversità, innovazione e flessibilità alimentano il successo."
   },
   "ourPartners": {
     "beOurPartner": "Diventa nostro partner !!!",

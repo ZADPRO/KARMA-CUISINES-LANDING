@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import careerImage from "../../assets/career/careerImg.jpg";
 import "./career.css";
 
 import career01 from "../../assets/career/career01.jpg";
@@ -22,28 +21,24 @@ export default function Career() {
 
   const cards = [
     {
-      title: "Exciting Career Growth",
+      title: t("career.card1Title"),
       image: career01,
-      description:
-        "Whether you're a fresher or an experienced professional, we offer a platform to learn, grow, and lead.",
+      description: t("career.card1Desc"),
     },
     {
-      title: "Work with Experts",
+      title: t("career.card2Title"),
       image: career02,
-      description:
-        "Get the chance to collaborate with industry leaders and gain hands-on experience in a dynamic environment.",
+      description: t("career.card2Desc"),
     },
     {
-      title: "Innovative Work Culture",
+      title: t("career.card3Title"),
       image: career03,
-      description:
-        "We value creativity and encourage out-of-the-box thinking to drive meaningful impact.",
+      description: t("career.card3Desc"),
     },
     {
-      title: "Flexible & Inclusive Culture",
+      title: t("career.card4Title"),
       image: career04,
-      description:
-        "A vibrant workplace where diversity, innovation, and flexibility fuel success.",
+      description: t("career.card4Desc"),
     },
   ];
 
@@ -86,7 +81,7 @@ export default function Career() {
         ))}
       </div>
       <p className="text-center py-20">
-        **There is No current openings are available.**{" "}
+        {/* **There is No current openings are available.**{" "} */}
       </p>
     </>
   );

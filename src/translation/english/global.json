@@ -48,7 +48,15 @@
   },
   "career": {
     "careerIntro": "Are you ready to take the next step in your career? ",
-    "careerDesc": "Join our dynamic team and be part of an innovative, growth-driven environment where your skills and ideas matter."
+    "careerDesc": "Join our dynamic team and be part of an innovative, growth-driven environment where your skills and ideas matter.",
+    "card1Title": "Exciting Career Growth",
+    "card1Desc": "Whether you're a fresher or an experienced professional, we offer a platform to learn, grow, and lead.",
+    "card2Title": "Work with Experts",
+    "card2Desc": "Get the chance to collaborate with industry leaders and gain hands-on experience in a dynamic environment.",
+    "card3Title": "Innovative Work Culture",
+    "card3Desc": "We value creativity and encourage out-of-the-box thinking to drive meaningful impact.",
+    "card4Title": "Flexible & Inclusive Culture",
+    "card4Desc": "A vibrant workplace where diversity, innovation, and flexibility fuel success."
   },
   "ourPartners": {
     "beOurPartner": "Be Our Partners !!!",

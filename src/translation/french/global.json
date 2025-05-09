@@ -47,8 +47,16 @@
     "submitForm": "Soumettre le commentaire"
   },
   "career": {
-    "careerIntro": "Êtes-vous prêt à franchir la prochaine étape de votre carrière ?",
-    "careerDesc": "Rejoignez notre équipe dynamique et évoluez dans un environnement innovant et axé sur la croissance, où vos compétences et vos idées comptent vraiment."
+    "careerIntro": "Êtes-vous prêt à franchir une nouvelle étape dans votre carrière ?",
+    "careerDesc": "Rejoignez notre équipe dynamique et faites partie d’un environnement innovant et axé sur la croissance où vos compétences et idées comptent.",
+    "card1Title": "Une Carrière Passionnante",
+    "card1Desc": "Que vous soyez débutant ou professionnel expérimenté, nous offrons une plateforme pour apprendre, évoluer et diriger.",
+    "card2Title": "Travailler avec des Experts",
+    "card2Desc": "Collaborez avec des leaders du secteur et acquérez une expérience concrète dans un environnement dynamique.",
+    "card3Title": "Culture de Travail Innovante",
+    "card3Desc": "Nous valorisons la créativité et encourageons la pensée originale pour générer un impact significatif.",
+    "card4Title": "Culture Flexible et Inclusive",
+    "card4Desc": "Un lieu de travail dynamique où la diversité, l’innovation et la flexibilité favorisent la réussite."
   },
   "ourPartners": {
     "beOurPartner": "Devenez notre partenaire !!!",

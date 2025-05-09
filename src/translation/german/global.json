@@ -48,7 +48,15 @@
   },
   "career": {
     "careerIntro": "Bist du bereit, den nächsten Schritt in deiner Karriere zu machen?",
-    "careerDesc": "Werde Teil unseres dynamischen Teams und arbeite in einem innovativen, wachstumsorientierten Umfeld, in dem deine Fähigkeiten und Ideen zählen."
+    "careerDesc": "Werde Teil unseres dynamischen Teams und gestalte eine innovative, wachstumsorientierte Umgebung mit, in der deine Fähigkeiten und Ideen zählen.",
+    "card1Title": "Spannende Karrieremöglichkeiten",
+    "card1Desc": "Egal ob Berufseinsteiger oder Profi – bei uns findest du eine Plattform zum Lernen, Wachsen und Führen.",
+    "card2Title": "Arbeiten mit Experten",
+    "card2Desc": "Arbeite mit Branchenführern zusammen und sammle praktische Erfahrungen in einem dynamischen Umfeld.",
+    "card3Title": "Innovative Arbeitskultur",
+    "card3Desc": "Wir schätzen Kreativität und fördern unkonventionelles Denken für einen bedeutenden Beitrag.",
+    "card4Title": "Flexible & inklusive Kultur",
+    "card4Desc": "Ein lebendiger Arbeitsplatz, an dem Vielfalt, Innovation und Flexibilität den Erfolg antreiben."
   },
   "ourPartners": {
     "beOurPartner": "Werde unser Partner !!!",
