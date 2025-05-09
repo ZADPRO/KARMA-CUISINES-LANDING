@@ -14,7 +14,7 @@
     "ourBrands": "Unsere Marken",
     "explore": "Weiter erkunden",
     "welcomeKarma": "Willkommen bei Karma Cuisine - Authentische Aromen, jederzeit und überall",
-    "karmaCuisineCont": "Bei Karma Cuisine definieren wir kulinarische Exzellenz neu, indem wir eine reiche Vielfalt an authentischen und exotischen Aromen zusammenstellen. Als Premium-Food-Marke sind wir bestrebt, durch unsere strategischen Cloud-Küchen-Partnerschaften hochwertige, global inspirierte Küche zu liefern und so ein nahtloses und gehobenes kulinarisches Erlebnis zu gewährleisten – egal, wo du bist.",
+    "karmaCuisineCont": "Bei Karma Cuisine definieren wir kulinarische Exzellenz neu, indem wir eine reiche Vielfalt an authentischen und exotischen Aromen zusammenstellen. Als Prämie-Food-Marke sind wir bestrebt, durch unsere strategischen Cloud-Küchen-Partnerschaften hochwertige, global inspirierte Küche zu liefern und so ein nahtloses und gehobenes kulinarisches Erlebnis zu gewährleisten – egal, wo du bist.",
     "thatsKarma": "Das ist Karma Cuisine",
     "whyChooseKarma": "Warum Karma wählen",
     "whyChooseHead1": "Vielfältige globale Küche:",
@@ -29,11 +29,11 @@
     "aboutUsCont": "Bei Karma Cuisine glauben wir, dass großartiges Essen mehr als nur eine Mahlzeit ist – es ist ein Erlebnis.",
     "storyHead": "Die Geschichte von Karma Cuisine: Authentische exotische Aromen direkt zu Ihnen nach Hause",
     "faq1Qn": "Was ist eine Ghost Kitchen?",
-    "faq1Ans": "Eine Ghost Kitchen, auch bekannt als Dark Kitchen, virtuelle Küche oder Cloud Kitchen, ist eine kommerzielle Küche, die ausschließlich für die Erfüllung von Online-Bestellungen betrieben wird. Diese Küchen haben in der Regel kein physisches Geschäft oder Speisebereich für Kunden. Stattdessen bereiten sie Mahlzeiten nur für die Lieferung oder zum Mitnehmen zu und arbeiten oft mit Lieferplattformen wie Uber Eats und Just Eats zusammen.",
-    "faq2Qn": "Warum eine Cloud Kitchen wählen?",
-    "faq2Ans": "Cloud Kitchens bieten Kunden die Bequemlichkeit, aus mehreren Marken zu bestellen, ohne das Haus zu verlassen. Für Unternehmen bieten sie eine erschwingliche und skalierbare Möglichkeit, in die Gastronomie einzusteigen. Egal, ob Sie eine Mahlzeit bestellen oder Innovationen in der Gastronomie anstreben, Cloud Kitchens bieten eine schnelle und kostengünstige Lösung.",
-    "faq3Qn": "Was sind die Vorteile einer Cloud Kitchen?",
-    "faq3Ans": "Cloud Kitchens bieten zahlreiche Vorteile, darunter reduzierte Betriebskosten, keine Notwendigkeit für erstklassige Immobilien und die Möglichkeit, schnell zu skalieren. Mit dem Fokus auf Online-Bestellungen und Lieferung können Unternehmen ihre Reichweite erweitern, Lieferzeiten optimieren und die Rentabilität mit minimalen Gemeinkosten steigern."
+    "faq1Ans": "Eine Ghost Kitchen, auch bekannt als Dark Kitchen, virtuelle Küche oder Wolkenküche, ist eine kommerzielle Küche, die ausschließlich für die Erfüllung von Online-Bestellungen betrieben wird. Diese Küchen haben in der Regel kein physisches Geschäft oder Speisebereich für Kunden. Stattdessen bereiten sie Mahlzeiten nur für die Lieferung oder zum Mitnehmen zu und arbeiten oft mit Lieferplattformen wie Uber Eats und Just Eats zusammen.",
+    "faq2Qn": "Warum eine Wolkenküche wählen?",
+    "faq2Ans": "Wolkenküche bieten Kunden die Bequemlichkeit, aus mehreren Marken zu bestellen, ohne das Haus zu verlassen. Für Unternehmen bieten sie eine erschwingliche und skalierbare Möglichkeit, in die Gastronomie einzusteigen. Egal, ob Sie eine Mahlzeit bestellen oder Innovationen in der Gastronomie anstreben, Wolkenküche bieten eine schnelle und kostengünstige Lösung.",
+    "faq3Qn": "Was sind die Vorteile einer Wolkenküche?",
+    "faq3Ans": "Wolkenküche bieten zahlreiche Vorteile, darunter reduzierte Betriebskosten, keine Notwendigkeit für erstklassige Immobilien und die Möglichkeit, schnell zu skalieren. Mit dem Fokus auf Online-Bestellungen und Lieferung können Unternehmen ihre Reichweite erweitern, Lieferzeiten optimieren und die Rentabilität mit minimalen Gemeinkosten steigern."
   },
   "menu": {
     "menu": "Unser Menü"
@@ -56,10 +56,10 @@
     "card3Title": "Innovative Arbeitskultur",
     "card3Desc": "Wir schätzen Kreativität und fördern unkonventionelles Denken für einen bedeutenden Beitrag.",
     "card4Title": "Flexible & inklusive Kultur",
-    "card4Desc": "Ein lebendiger Arbeitsplatz, an dem Vielfalt, Innovation und Flexibilität den Erfolg antreiben."
+    "card4Desc": "Ein lebendiger Arbeitsplatz, an dem Vielfalt, Neuerung und Flexibilität den Erfolg antreiben."
   },
   "ourPartners": {
-    "beOurPartner": "Werde unser Partner !!!",
+    "beOurPartner": "Werde unser Teilhabar !!!",
     "howItWorks": "So funktioniert es",
     "step1": "Schritt 1",
     "step1Head": "Online bewerben",
@@ -68,7 +68,7 @@
     "step2Head": "Onboarding & Einrichtung",
     "step2Cont": "Unser Team begleitet dich durch den Onboarding-Prozess – von der Menüintegration bis zum Branding.",
     "step3": "Schritt 3",
-    "step3Head": "Live gehen & Servieren",
+    "step3Head": "Gehe live und fange an zu servieres",
     "step3Cont": "Sobald alles eingerichtet ist, sind deine Gerichte auf unserer Plattform verfügbar und können von Kunden genossen werden.",
     "step4": "Schritt 4",
     "step4Head": "Wachse mit uns",
@@ -88,7 +88,7 @@
     "omomosTagLine": "Perfekt gedämpft, voller Geschmack!"
   },
   "footerCont": {
-    "footerContent": "Erfahren Sie als Erster von unseren besonderen Events und aktuellen Veranstaltungen!",
+    "footerContent": "Erfahren Sie als Erster von unseren besonderen Veranstaltungen und aktuellen Veranstaltungen!",
     "connectWithUs": "KONTAKTIEREN SIE UNS",
     "home": "Home",
     "about": "About",

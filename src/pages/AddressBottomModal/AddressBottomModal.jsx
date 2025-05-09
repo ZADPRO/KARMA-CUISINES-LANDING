@@ -11,6 +11,7 @@ import { ChevronDown, CircleCheckBig, House, MapPin } from "lucide-react";
 import Swal from "sweetalert2";
 
 import { useTranslation } from "react-i18next";
+import PhoneInput from "react-phone-input-2";
 
 export default function AddressBottomModal({ isOpen, onClose }) {
   const [scope, animate] = useAnimate();
@@ -273,15 +274,23 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="relative lg:mt-0 mt-3">
-                      <input
-                        id="id-l07"
-                        type="text"
-                        name="mobile"
-                        placeholder={t("address.mobile")}
-                        value={formData.mobile}
-                        onChange={handleChange}
-                      />
+                    <div className="address newAddress flex justify-center lg:mt-0 mt-3 w-full">
+                      <div className="newPhoneDiv">
+                        <PhoneInput
+                          country={"ch"}
+                          value={formData.mobile}
+                          onChange={(phone) =>
+                            setFormData({ ...formData, mobile: phone })
+                          }
+                          className={`w-full phoneInput border rounded-md ${""}`}
+                        />
+                        {/* {errors.mobile && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {t("ordersPage.mobile")}{" "}
+                            {t("ordersPage.isRequired")}
+                          </p>
+                        )} */}
+                      </div>
                     </div>
                   </div>
                   <div className="buttonSaveAddress flex items-center justify-between p-4">

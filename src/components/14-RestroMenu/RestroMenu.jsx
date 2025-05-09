@@ -79,6 +79,21 @@ export default function RestroMenu() {
         ...prev,
         [index]: { count: prev[index].count - 1 },
       }));
+      const savedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      console.log("savedCartItems", savedCartItems);
+      const existingCartItemIndex = savedCartItems.findIndex((cartItem) => {
+        if (selectedItem.refFoodId) {
+          console.log("selectedItem", selectedItem);
+          return cartItem.refFoodId === selectedItem.refFoodId;
+        } else if (selectedItem.refComboId) {
+          return cartItem.refComboId === selectedItem.refComboId;
+        }
+        return false;
+      });
+      if (existingCartItemIndex > -1) {
+        console.log("existingCartItemIndex", existingCartItemIndex);
+        updateCartItem(currentCount);
+      }
     }
   };
 
@@ -679,7 +694,6 @@ export default function RestroMenu() {
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {(cat.items || []).map((item, itemIdx) => {
-                      console.log("item", item);
                       const isItemInCart =
                         cartItemIds.includes(item.refFoodId) ||
                         cartItemIds.includes(item.refComboId);
@@ -736,18 +750,21 @@ export default function RestroMenu() {
       {showModal && selectedItem && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white rounded-lg w-[90%] md:w-1/2 max-h-[80vh] overflow-y-auto shadow-xl flex flex-col my-2">
+            <div
+              className="flex justify-between items-center mb-4 sticky top-0 left-0 p-3 bg-white"
+              style={{ zIndex: "150" }}
+            >
+              <h3 className="text-xl font-bold">
+                {selectedItem.refFoodName
+                  ? selectedItem.refFoodName
+                  : selectedItem.refComboName}
+              </h3>
+              <button onClick={closeModal} className="text-gray-500 text-xl">
+                &times;
+              </button>
+            </div>
             <div className="p-5">
               {/* Left side: Image */}
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold">
-                  {selectedItem.refFoodName
-                    ? selectedItem.refFoodName
-                    : selectedItem.refComboName}
-                </h3>
-                <button onClick={closeModal} className="text-gray-500 text-xl">
-                  &times;
-                </button>
-              </div>
 
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Left side: Image */}
@@ -811,18 +828,15 @@ export default function RestroMenu() {
               {/* Add-Ons (if any) */}
               {selectedItem.refAddOns && selectedItem.refAddOns.length > 0 && (
                 <div className="relative">
-                  <div className="relative">
+                  <div className="relative mt-3">
+                    <h4 className="text-xl font-semibold mb-3">Add Ons</h4>
                     <div
                       ref={scrollRef}
                       className="flex gap-4 overflow-x-auto scrollbar-hide px-1"
                     >
                       {selectedItem.refAddOns &&
                         selectedItem.refAddOns.length > 0 && (
-                          <div className="mt-4 relative">
-                            <h4 className="text-xl font-semibold mb-3">
-                              Add Ons
-                            </h4>
-
+                          <div className="mt-1 relative">
                             <div className="relative">
                               <div
                                 ref={scrollRef}
@@ -871,6 +885,7 @@ export default function RestroMenu() {
                                             onClick={() =>
                                               handleAddToCart(index)
                                             }
+                                            className="bg-[#cd5c08] text-white p-1 rounded"
                                           >
                                             {addonCount > 0
                                               ? `Add Again (${addonCount})`
@@ -1001,7 +1016,7 @@ export default function RestroMenu() {
               {selectedItem.refFixedProduct &&
                 selectedItem.refFixedProduct.length > 0 && (
                   <div className="relative">
-                    <h4 className="text-xl font-semibold mb-3">
+                    <h4 className="text-xl font-semibold mb-3 mt-3">
                       {t("restroMenu.foodItems")}
                     </h4>
                     <div className="relative">
@@ -1415,22 +1430,22 @@ export default function RestroMenu() {
 
       {itemAddedCart && (
         <div
-          className="fixed bottom-0 left-0 w-full bg-white p-1 shadow-lg"
+          className="fixed bottom-0 left-0 w-full bg-transparent p-1 shadow-lg"
           style={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "end",
           }}
         >
           <button
-            onClick={moveToOrders}
-            className="w-[80%] py-2 bg-[#cd5c08] text-white font-semibold rounded"
+            // onClick={moveToOrders}
+            className="w-[80%] py-2 hidden bg-transparent text-white font-semibold rounded"
           >
             {t("restroMenu.placeOrder")}
           </button>
           <button
-            // onClick={moveToOrders}
-            className="w-[18%] py-2 bg-[#ffffff] border-[#cd5c08] border-1 text-white font-semibold rounded items-center justify-center flex relative"
+            onClick={moveToOrders}
+            className="w-[18%] lg:w-[8%] py-2 bg-[#ffffff] border-[#cd5c08] border-1 text-white font-semibold rounded items-center justify-center flex relative"
             style={{
               border: "2px solid #cd5c08",
             }}
