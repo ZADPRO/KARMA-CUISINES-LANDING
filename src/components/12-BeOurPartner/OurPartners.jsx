@@ -1,7 +1,7 @@
 import "./OurPartners.css";
 
 import partner1 from "../../assets/beOurPartner/partner1.jpg";
-import partner2 from "../../assets/beOurPartner/partner2.jpg";
+// import partner2 from "../../assets/beOurPartner/partner2.jpg";
 
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
@@ -25,7 +25,7 @@ export default function OurPartners() {
   };
 
   const handleSubmit = () => {
-    const { restaurantName, ownerName, email, phone, address, message } = state;
+    const { restaurantName, ownerName, email, phone, address } = state;
 
     if (restaurantName && ownerName && email && phone && address) {
       console.log("Success: Data submitted successfully", state);
@@ -135,12 +135,12 @@ export default function OurPartners() {
       </div>
 
       <div
-        className="flex-1 homePageCont"
+        className="flex-1 homePageCont p-3"
         data-aos="fade-right"
         data-aos-delay="100"
       >
         <h2 className="text-2xl font-bold text-center mb-6">
-          Become Our Partner
+          {t("beOurPartner.becomeOurPartner")}
         </h2>
         <div className="relative my-6 w-full md:w-7/12 mx-auto">
           <input
@@ -157,7 +157,7 @@ export default function OurPartners() {
             htmlFor="restaurantName"
             className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#cd5c08] peer-required:after:content-['\00a0*'] peer-invalid:text-[#cd5c08] peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-[#cd5c08] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
           >
-            Restaurant Name
+            {t("beOurPartner.restaurantName")}{" "}
           </label>
 
           <svg
@@ -193,7 +193,7 @@ export default function OurPartners() {
             htmlFor="ownerName"
             className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#cd5c08] peer-required:after:content-['\00a0*'] peer-invalid:text-[#cd5c08] peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-[#cd5c08] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
           >
-            Owner Name
+            {t("beOurPartner.ownerName")}{" "}
           </label>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -228,7 +228,7 @@ export default function OurPartners() {
             htmlFor="email"
             className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#cd5c08] peer-required:after:content-['\00a0*'] peer-invalid:text-[#cd5c08] peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-[#cd5c08] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
           >
-            Your Email
+            {t("beOurPartner.yourEmail")}{" "}
           </label>
 
           <svg
@@ -264,7 +264,7 @@ export default function OurPartners() {
             htmlFor="phone"
             className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#cd5c08] peer-required:after:content-['\00a0*'] peer-invalid:text-[#cd5c08] peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-[#cd5c08] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
           >
-            Your Phone Number
+            {t("beOurPartner.yourPhoneNumber")}{" "}
           </label>
 
           <svg
@@ -300,7 +300,7 @@ export default function OurPartners() {
             htmlFor="address"
             className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-[#cd5c08] peer-required:after:content-['\00a0*'] peer-invalid:text-[#cd5c08] peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-[#cd5c08] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
           >
-            Restaurant Address
+            {t("beOurPartner.restaurantAddress")}{" "}
           </label>
 
           <svg
@@ -340,7 +340,7 @@ export default function OurPartners() {
             htmlFor="message"
             className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-invalid:text-[#cd5c08] peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-[#cd5c08] peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
           >
-            Additional Information or Message
+            {t("beOurPartner.additionalInfo")}{" "}
           </label>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -364,7 +364,7 @@ export default function OurPartners() {
           className="my-6 w-full md:w-7/12 mx-auto flex justify-center bg-[#cd5c08] p-3 rounded text-white font-semibold uppercase"
           onClick={handleSubmit}
         >
-          Submit Application
+          {t("beOurPartner.submitApplication")}{" "}
         </button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { ChevronLeft, House } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,16 @@ export default function Orders() {
   const [savedAddress, setSavedAddress] = useState(null);
   const [isAddressAvailable, setIsAddressAvailable] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const [itemComment, setItemComment] = useState("");
+
+  const addressRef = useRef(null);
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const mobileRef = useRef(null);
+  const emailRef = useRef(null);
+  const paymentMethodRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -125,28 +135,34 @@ export default function Orders() {
     }
   };
 
-  const validateFields = () => {
-    const missingFields = [];
-
-    if (!savedAddress) missingFields.push("Address");
-    if (!formData.firstName) missingFields.push("First Name");
-    if (!formData.lastName) missingFields.push("Last Name");
-    if (!formData.mobile) missingFields.push("Mobile Number");
-    if (!formData.email) missingFields.push("Email");
-    if (!paymentMethod) missingFields.push("Payment Method");
-
-    if (missingFields.length > 0) {
-      Swal.fire(
-        "Missing Fields",
-        `Please fill the following required fields:\n\n• ${missingFields.join(
-          "\n• "
-        )}`,
-        "error"
-      );
-      return false;
+  const scrollToField = (ref) => {
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      ref.current.focus();
     }
+  };
 
-    return true;
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!savedAddress) newErrors.address = true;
+    if (!formData.firstName) newErrors.firstName = true;
+    if (!formData.lastName) newErrors.lastName = true;
+    if (!formData.mobile) newErrors.mobile = true;
+    if (!formData.email) newErrors.email = true;
+    if (!paymentMethod) newErrors.paymentMethod = true;
+
+    setErrors(newErrors);
+
+    // Scroll to the first invalid field
+    if (newErrors.address) scrollToField(addressRef);
+    if (newErrors.firstName) scrollToField(firstNameRef);
+    else if (newErrors.lastName) scrollToField(lastNameRef);
+    else if (newErrors.mobile) scrollToField(mobileRef);
+    else if (newErrors.email) scrollToField(emailRef);
+    else if (newErrors.paymentMethod) scrollToField(paymentMethodRef);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   const handlePayment = async () => {
@@ -248,6 +264,7 @@ export default function Orders() {
           foodCategory: item.refFoodCategoryName,
           foodPrice: item.refPrice,
           ifCambo: true,
+          comment: item.comment || "-",
           subProduct: [],
         };
 
@@ -297,6 +314,7 @@ export default function Orders() {
           foodPrice: item.refPrice,
           foodQuantity: item.count,
           ifCambo: false,
+          comment: item.comment || "-",
         });
       }
     });
@@ -417,7 +435,9 @@ export default function Orders() {
                     )}
 
                     <div className="flex items-center justify-between">
-                      <div className="text-sm text-gray-500">Quantity</div>
+                      <div className="text-sm text-gray-500">
+                        {t("ordersPage.quantity")}
+                      </div>
                       <div className="flex items-center space-x-2">
                         <button
                           className="bg-red-500 text-white rounded-full w-8 h-8"
@@ -438,7 +458,7 @@ export default function Orders() {
                 ))}
               </ul>
             ) : (
-              <p>No orders available.</p>
+              <p>{t("ordersPage.noOrdersAvailable")}</p>
             )}
           </div>
         </div>
@@ -462,51 +482,88 @@ export default function Orders() {
 
           {/* First & Last Name */}
           <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
-            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
-              <input
-                type="text"
-                name="firstName"
-                placeholder={t("ordersPage.firstName")}
-                value={formData.firstName}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-              />
+            <div className="address flex flex-col items-center text-start justify-center lg:mt-0 mt-3 w-full">
+              <div className="newPhoneDiv">
+                <input
+                  type="text"
+                  name="firstName"
+                  ref={firstNameRef}
+                  placeholder={t("ordersPage.firstName") + " *"}
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className={`w-full border rounded-md p-2 ${
+                    errors.firstName ? "border-red-500" : ""
+                  }`}
+                />
+                {errors.firstName && (
+                  <p className="text-red-500 text-start w-full text-sm mt-1">
+                    {t("ordersPage.firstName")} {t("ordersPage.isRequired")}
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
-              <input
-                type="text"
-                name="lastName"
-                placeholder={t("ordersPage.lastName")}
-                value={formData.lastName}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-              />
+            <div className="address flex flex-col items-center text-start justify-center lg:mt-0 mt-3 w-full">
+              <div className="newPhoneDiv">
+                <input
+                  type="text"
+                  name="lastName"
+                  ref={lastNameRef}
+                  placeholder={t("ordersPage.lastName") + " *"}
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className={`w-full border rounded-md p-2 ${
+                    errors.lastName ? "border-red-500" : ""
+                  }`}
+                />
+                {errors.lastName && (
+                  <p className="text-red-500 text-start w-full text-sm mt-1">
+                    {t("ordersPage.lastName")} {t("ordersPage.isRequired")}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Mobile & Email */}
           <div className="flex lg:flex-row flex-col justify-center gap-3 mt-3">
             <div className="address newAddress flex justify-center lg:mt-0 mt-3 w-full">
-              <div className="newPhoneDiv">
+              <div className="newPhoneDiv" ref={mobileRef}>
                 <PhoneInput
                   country={"ch"}
                   value={formData.mobile}
                   onChange={(phone) =>
                     setFormData({ ...formData, mobile: phone })
                   }
-                  className="phoneInput"
+                  className={`w-full phoneInput border rounded-md ${
+                    errors.mobile ? "" : ""
+                  }`}
                 />
+                {errors.mobile && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {t("ordersPage.mobile")} {t("ordersPage.isRequired")}
+                  </p>
+                )}
               </div>
             </div>
-            <div className="address flex justify-center lg:mt-0 mt-3 w-full">
-              <input
-                type="text"
-                name="email"
-                placeholder={t("ordersPage.email")}
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2"
-              />
+            <div className="address flex flex-col items-center text-start justify-center lg:mt-0 mt-3 w-full">
+              <div className="newPhoneDiv">
+                <input
+                  type="text"
+                  name="email"
+                  ref={emailRef}
+                  placeholder={t("ordersPage.email") + " *"}
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full border rounded-md p-2 ${
+                    errors.email ? "border-red-500" : ""
+                  }`}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-start w-full text-sm mt-1">
+                    {t("ordersPage.email")} {t("ordersPage.isRequired")}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -549,49 +606,86 @@ export default function Orders() {
       </div>
 
       <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
-        <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
-          <h3 className="text-lg font-semibold mb-2">
-            {t("ordersPage.paymentMethod")}
-          </h3>
-          <div className="flex flex-col gap-2">
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="online"
-                className="accent-blue-500"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              />
-              <span>{t("ordersPage.online")}</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="offline"
-                className="accent-blue-500"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              />
-              <span>{t("ordersPage.offline")}</span>
-            </label>
+        <div
+          className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground"
+          ref={paymentMethodRef}
+        >
+          <div className="newPhoneDiv">
+            <h3 className="text-lg font-semibold mb-2">
+              {t("ordersPage.paymentMethod") + " *"}
+            </h3>
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="online"
+                  className="accent-blue-500"
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                />
+                <span>{t("ordersPage.online")}</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="offline"
+                  className="accent-blue-500"
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                />
+                <span>{t("ordersPage.offline")}</span>
+              </label>
+            </div>
+            {errors.paymentMethod && (
+              <p className="text-red-500 text-start w-full text-sm mt-1">
+                {t("ordersPage.paymentMethod")} {t("ordersPage.isRequired")}
+              </p>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="addAddressTabCall flex flex-col p-3 w-full md:w-10/12 mx-auto">
+      <div className="flex flex-col p-3 w-full md:w-10/12 mx-auto">
+        <div className="p-3 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
+          <p>{t("ordersPage.additionalNotes")}</p>
+          <textarea
+            rows={4}
+            value={itemComment}
+            onChange={(e) => setItemComment(e.target.value)}
+            className="w-full p-3 rounded-md focus:outline-none resize-none mt-2"
+            style={{ border: "1px solid #0000008f" }}
+            placeholder={t("restroMenu.typeYourComments")}
+          ></textarea>
+        </div>
+      </div>
+
+      <div
+        className="addAddressTabCall flex flex-col p-3 w-full md:w-10/12 mx-auto"
+        ref={addressRef}
+      >
         <div className="p-4 ms-3 me-3 border-2 border-dashed rounded-lg surface-ground">
           {savedAddress ? (
             <>
               <div className="flex gap-3">
                 <House />
                 <div className="address">
-                  <p>Address: {savedAddress.address}</p>
-                  <p>Phone Number: {savedAddress.mobile}</p>
+                  <p>
+                    <span className="font-semibold">
+                      {t("address.address")}
+                    </span>
+                    : {savedAddress.address}
+                  </p>
+                  <p>
+                    <span className="font-semibold">
+                      {t("address.phoneNumber")}
+                    </span>
+                    : {savedAddress.mobile}
+                  </p>
                 </div>
               </div>
               <button
                 onClick={toggleModal}
-                className="useAnotherAddressButton mt-5"
+                className="useAnotherAddressButton mt-5 cursor-pointer"
               >
                 {t("ordersPage.useAnotherAddress")}
               </button>
@@ -603,6 +697,11 @@ export default function Orders() {
           )}
           <AddressBottomModal isOpen={isModalOpen} onClose={toggleModal} />
         </div>
+        {addressRef.paymentMethod && (
+          <p className="text-red-500 text-start w-full px-3 text-sm mt-3">
+            {t("ordersPage.paymentMethod")} {t("ordersPage.isRequired")}
+          </p>
+        )}
       </div>
       <div className="addAddressTabCall flex pb-[15vh] flex-col p-3 w-full md:w-10/12 mx-auto"></div>
 

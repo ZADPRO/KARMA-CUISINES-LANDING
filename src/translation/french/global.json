@@ -40,7 +40,11 @@
   },
   "contact": {
     "welcomeCont": "Nous serions ravis d’avoir de vos nouvelles !",
-    "contactUsCont": "Chez Karma Cuisine, vos retours, questions et suggestions sont très importants pour nous."
+    "contactUsCont": "Chez Karma Cuisine, vos commentaires, questions et suggestions sont très importants pour nous.",
+    "name": "Votre nom",
+    "email": "Votre e-mail",
+    "message": "Votre message",
+    "submitForm": "Soumettre le commentaire"
   },
   "career": {
     "careerIntro": "Êtes-vous prêt à franchir la prochaine étape de votre carrière ?",
@@ -93,7 +97,12 @@
     "foodItems": "Aliments",
     "mainCourses": "Plats principaux",
     "drinks": "Boissons",
-    "placeOrder": "Passer la commande"
+    "placeOrder": "Passer la commande",
+    "itemFound": "L'article a été trouvé dans le panier.",
+    "enterComments": "Saisir des commentaires",
+    "typeYourComments": "Tapez vos commentaires ici...",
+    "addToCart": "Ajouter au panier",
+    "itemAdded": "Article ajouté"
   },
   "ordersPage": {
     "back": "Retour",
@@ -109,7 +118,11 @@
     "useAnotherAddress": "Utiliser une autre adresse",
     "proceedToPay": "Procéder au paiement",
     "guestLogin": "Connexion Invité",
-    "guestName": "Nom de l'invité"
+    "guestName": "Nom de l'invité",
+    "quantity": "Quantité",
+    "noOrdersAvailable": "Aucune commande disponible",
+    "additionalNotes": "Notes supplémentaires",
+    "isRequired": "est requis"
   },
   "address": {
     "selectAddress": "Sélectionner une adresse",
@@ -124,6 +137,18 @@
     "country": "Pays",
     "mobile": "Téléphone portable",
     "clearAll": "Tout effacer",
-    "saveAddress": "Enregistrer l'adresse"
+    "saveAddress": "Enregistrer l'adresse",
+    "address": "Adresse",
+    "phoneNumber": "Numéro de téléphone"
+  },
+  "beOurPartner": {
+    "becomeOurPartner": "Devenez notre partenaire",
+    "restaurantName": "Nom du restaurant",
+    "ownerName": "Nom du propriétaire",
+    "yourEmail": "Votre e-mail",
+    "yourPhoneNumber": "Votre numéro de téléphone",
+    "restaurantAddress": "Adresse du restaurant",
+    "additionalInfo": "Informations supplémentaires ou message",
+    "submitApplication": "Soumettre la candidature"
   }
 }

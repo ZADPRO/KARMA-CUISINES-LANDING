@@ -40,7 +40,11 @@
   },
   "contact": {
     "welcomeCont": "Wir würden uns freuen, von Ihnen zu hören!",
-    "contactUsCont": "Bei Karma Cuisine sind Ihr Feedback, Ihre Fragen und Ihre Anregungen für uns von großer Bedeutung."
+    "contactUsCont": "Bei Karma Cuisine bedeuten uns Ihr Feedback, Ihre Fragen und Anregungen sehr viel.",
+    "name": "Ihr Name",
+    "email": "Ihre E-Mail",
+    "message": "Ihre Nachricht",
+    "submitForm": "Feedback absenden"
   },
   "career": {
     "careerIntro": "Bist du bereit, den nächsten Schritt in deiner Karriere zu machen?",
@@ -93,7 +97,12 @@
     "foodItems": "Lebensmittel",
     "mainCourses": "Hauptgerichte",
     "drinks": "Getränke",
-    "placeOrder": "Bestellung aufgeben"
+    "placeOrder": "Bestellung aufgeben",
+    "itemFound": "Artikel wurde im Warenkorb gefunden.",
+    "enterComments": "Kommentare eingeben",
+    "typeYourComments": "Geben Sie hier Ihre Kommentare ein...",
+    "addToCart": "In den Warenkorb",
+    "itemAdded": "Artikel hinzugefügt"
   },
   "ordersPage": {
     "back": "Zurück",
@@ -109,7 +118,11 @@
     "useAnotherAddress": "Andere Adresse verwenden",
     "proceedToPay": "Zur Zahlung fortfahren",
     "guestLogin": "Gastanmeldung",
-    "guestName": "Name des Gastes"
+    "guestName": "Name des Gastes",
+    "quantity": "Menge",
+    "noOrdersAvailable": "Keine Bestellungen verfügbar",
+    "additionalNotes": "Zusätzliche Hinweise",
+    "isRequired": "ist erforderlich"
   },
   "address": {
     "selectAddress": "Adresse auswählen",
@@ -118,12 +131,24 @@
     "location": "Standort",
     "home": "Zuhause",
     "work": "Arbeit",
-    "roomNo": "Zimmernummer, Straßenname",
-    "postalCode": "Postleitzahl",
-    "zone": "Zone",
+    "roomNo": "Strassename, Nummer",
+    "postalCode": "PLZ",
+    "zone": "Ort",
     "country": "Land",
     "mobile": "Handy",
     "clearAll": "Alles löschen",
-    "saveAddress": "Adresse speichern"
+    "saveAddress": "Adresse speichern",
+    "address": "Adresse",
+    "phoneNumber": "Telefonnummer"
+  },
+  "beOurPartner": {
+    "becomeOurPartner": "Werden Sie unser Partner",
+    "restaurantName": "Name des Restaurants",
+    "ownerName": "Name des Besitzers",
+    "yourEmail": "Ihre E-Mail",
+    "yourPhoneNumber": "Ihre Telefonnummer",
+    "restaurantAddress": "Adresse des Restaurants",
+    "additionalInfo": "Zusätzliche Informationen oder Nachricht",
+    "submitApplication": "Bewerbung absenden"
   }
 }

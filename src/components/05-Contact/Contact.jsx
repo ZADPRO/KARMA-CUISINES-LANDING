@@ -22,6 +22,11 @@ export default function Contact() {
     if (state["id-l11"] && state["id-l12"] && state["id-l13"]) {
       console.log("Success: Data submitted successfully");
       Swal.fire("Success", "Data submitted successfully", "success");
+      setState({
+        "id-l11": "",
+        "id-l12": "",
+        "id-l13": "",
+      });
     } else {
       Swal.fire("Error", "Please fill all fields", "error");
     }
@@ -76,7 +81,7 @@ export default function Contact() {
       <div className="flex lg:flex-row flex-col lg:p-7 overflow-hidden">
         {/* Left Section */}
         <div
-          className="flex-1 homePageCont"
+          className="flex-1 homePageCont p-3"
           data-aos="fade-right"
           data-aos-delay="100"
         >
@@ -94,7 +99,7 @@ export default function Contact() {
               htmlFor="id-l11"
               className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
             >
-              Your name
+              {t("contact.name")}
             </label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +133,7 @@ export default function Contact() {
               htmlFor="id-l12"
               className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
             >
-              Your Email
+              {t("contact.email")}
             </label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +167,7 @@ export default function Contact() {
               htmlFor="id-l13"
               className="absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:left-10 peer-placeholder-shown:text-base peer-autofill:-top-2 peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:left-2 peer-focus:cursor-default peer-focus:text-xs peer-focus:text-[#cd5c08] peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
             >
-              Your Message
+              {t("contact.message")}
             </label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -187,7 +192,7 @@ export default function Contact() {
             onClick={handleSubmit}
           >
             {" "}
-            Submit Feedback
+            {t("contact.submitForm")}
           </button>
         </div>
 

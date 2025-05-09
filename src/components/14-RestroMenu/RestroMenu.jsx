@@ -718,7 +718,7 @@ export default function RestroMenu() {
 
                           {isItemInCart && (
                             <p className="text-green-600 font-semibold mt-2">
-                              Item was found in cart.
+                              {t("restroMenu.itemFound")}
                             </p>
                           )}
                         </div>
@@ -874,7 +874,7 @@ export default function RestroMenu() {
                                           >
                                             {addonCount > 0
                                               ? `Add Again (${addonCount})`
-                                              : "Add to Cart"}
+                                              : t("restroMenu.addToCart")}
                                           </button>
                                         ) : (
                                           <div className="flex items-center gap-2">
@@ -1389,14 +1389,14 @@ export default function RestroMenu() {
                 )}
 
               <label className="block mb-2 text-sm font-medium text-gray-700">
-                Enter Comments
+                {t("restroMenu.enterComments")}
               </label>
               <textarea
                 rows={4}
                 value={itemComment}
                 onChange={(e) => setItemComment(e.target.value)}
                 className="w-full p-3 border-2 rounded-md border-[#cd5c08] focus:outline-none resize-none"
-                placeholder="Type your comments here..."
+                placeholder={t("restroMenu.typeYourComments")}
               ></textarea>
             </div>
             <div className="sticky bottom-0 left-0 bg-white border-t flex w-full z-10">
@@ -1404,7 +1404,9 @@ export default function RestroMenu() {
                 onClick={handleMainAddToCart}
                 className="bg-[#cd5c08] text-white px-6 py-2 w-full rounded-md text-lg font-semibold hover:bg-[#a64500]"
               >
-                {isItemInCart ? "Item Added" : "Add to Cart"}
+                {isItemInCart
+                  ? t("restroMenu.itemAdded")
+                  : t("restroMenu.addToCart")}
               </button>
             </div>
           </div>

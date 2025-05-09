@@ -24,6 +24,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     mode: "",
     room: "",
+    floor: "",
     postalCode: "",
     zone: "",
     country: "",
@@ -86,7 +87,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
   };
 
   const onSaveAddress = () => {
-    const { mode, room, postalCode, zone, country, mobile } = formData;
+    const { mode, room, postalCode, floor, zone, country, mobile } = formData;
 
     if (!mode || !room || !postalCode || !zone || !country || !mobile) {
       Swal.fire({
@@ -102,6 +103,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
       mode,
       room,
       postalCode,
+      floor,
       zone,
       country,
       address,
@@ -126,6 +128,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
     setFormData({
       mode: "",
       room: "",
+      floor: "",
       postalCode: "",
       zone: "",
       country: "",
@@ -137,6 +140,7 @@ export default function AddressBottomModal({ isOpen, onClose }) {
     setFormData({
       mode: "",
       room: "",
+      floor: "",
       postalCode: "",
       zone: "",
       country: "",
@@ -233,6 +237,16 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                       <input
                         id="id-l04"
                         type="text"
+                        name="floor"
+                        placeholder="Floor"
+                        value={formData.floor}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="relative lg:mt-0 mt-3">
+                      <input
+                        id="id-l04"
+                        type="text"
                         name="postalCode"
                         placeholder={t("address.postalCode")}
                         value={formData.postalCode}
@@ -311,8 +325,12 @@ export default function AddressBottomModal({ isOpen, onClose }) {
                           {address.mode.charAt(0).toUpperCase() +
                             address.mode.slice(1)}
                         </p>
-                        <p>Address: {address.address}</p>
-                        <p>Phone Number: {address.mobile}</p>
+                        <p>
+                          {t("address.address")}: {address.address}
+                        </p>
+                        <p>
+                          {t("address.phoneNumber")}: {address.mobile}
+                        </p>
                       </div>
                     </div>
                     {selectedIndex === index && (
