@@ -3,9 +3,16 @@ import logo from "../../assets/logoNew/kcWhite1.png";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { RiTiktokLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const { t } = useTranslation("global");
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div>
@@ -66,32 +73,50 @@ export default function Footer() {
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
-                    <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
+                    <a
+                      onClick={() => handleNavigation("/")}
+                      className="cursor-pointer transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                    >
                       {t("nav.home")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
+                    <a
+                      onClick={() => handleNavigation("/about")}
+                      className="cursor-pointer transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                    >
                       {t("nav.about")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
+                    <a
+                      onClick={() => handleNavigation("/ourBrand")}
+                      className="cursor-pointer transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                    >
                       {t("nav.ourBrand")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
+                    <a
+                      onClick={() => handleNavigation("/beOurPartner")}
+                      className="cursor-pointer transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                    >
                       {t("nav.beOurPartner")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
+                    <a
+                      onClick={() => handleNavigation("/career")}
+                      className="cursor-pointer transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                    >
                       {t("nav.career")}
                     </a>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a className="transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600">
+                    <a
+                      onClick={() => handleNavigation("/contact")}
+                      className="cursor-pointer transition-colors duration-300 text-white text-[18px] hover:text-[#ffffff] hover:font-bold focus:text-emerald-600"
+                    >
                       {t("nav.contact")}
                     </a>
                   </li>
