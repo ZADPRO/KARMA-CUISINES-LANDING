@@ -130,7 +130,10 @@
     "quantity": "Quantity",
     "noOrdersAvailable": "No Orders Available",
     "additionalNotes": "Additional Notes",
-    "isRequired": "is required"
+    "isRequired": "is required",
+    "minOrderAmt": "Minimum Order Amount",
+    "minOrderWarnText": "Minimum order should be above 40 CHF.",
+    "ok": "OK"
   },
   "address": {
     "selectAddress": "Select an Address",

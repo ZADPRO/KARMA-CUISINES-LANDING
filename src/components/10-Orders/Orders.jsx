@@ -169,6 +169,17 @@ export default function Orders() {
     if (!validateFields()) return;
     console.log("validateFields");
 
+    console.log("grandTotal", grandTotal);
+    if (grandTotal < 40) {
+      Swal.fire({
+        title: t("ordersPage.minOrderAmt"),
+        text: t("ordersPage.minOrderWarnText"),
+        icon: "warning",
+        confirmButtonText: t("ordersPage.ok"),
+      });
+      return;
+    }
+
     console.log("paymentMethod", paymentMethod);
     if (paymentMethod === "online") {
       try {
