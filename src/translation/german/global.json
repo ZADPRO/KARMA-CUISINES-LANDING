@@ -59,7 +59,7 @@
     "card4Desc": "Ein lebendiger Arbeitsplatz, an dem Vielfalt, Neuerung und Flexibilität den Erfolg antreiben."
   },
   "ourPartners": {
-    "beOurPartner": "Werde unser Teilhabar !!!",
+    "beOurPartner": "Werde unser Teilhaber !!!",
     "howItWorks": "So funktioniert es",
     "step1": "Schritt 1",
     "step1Head": "Online bewerben",
@@ -161,5 +161,47 @@
     "restaurantAddress": "Adresse des Restaurants",
     "additionalInfo": "Zusätzliche Informationen oder Nachricht",
     "submitApplication": "Bewerbung absenden"
+  },
+  "homePageTags": {
+    "welcomeCont": "Willkommen bei Karma Cuisine",
+    "helmet": {
+      "title": "Karma Cuisine | Indisches Restaurant Luzern, Interlaken & Bar Zürich",
+      "description": "Erleben Sie authentische indische Küche bei Karma Cuisine in Luzern und Interlaken. Genießen Sie aromatische indische Gerichte, einzigartige Thalis und ein lebendiges Ambiente mit stilvoller Bar in Zürich. Perfekt für Liebhaber indischen Essens in Ihrer Nähe."
+    }
+  },
+  "aboutUsTags": {
+    "welcomeCont": "Über Karma Cuisine",
+    "helmet": {
+      "title": "Über Karma Cuisine | Indisches Restaurant Luzern, Interlaken, Zürich",
+      "description": "Entdecken Sie die Geschichte von Karma Cuisine – verwurzelt in authentischen indischen Aromen in Luzern und Interlaken, mit einem modernen Cloud-Kitchen-Modell und einer lebhaften Bar in Zürich. Erfahren Sie mehr über unsere Reise und innovative Gastronomiekonzepte."
+    }
+  },
+  "ourBrandsTags": {
+    "welcomeCont": "Entdecken Sie unsere Marken",
+    "helmet": {
+      "title": "Unsere Marken | Indisch, Thailändisch, Japanisch, Mexikanisch & Momos",
+      "description": "Entdecken Sie die vielfältigen Marken von Karma Cuisine: Kings Kurry (Indisch), Ban Thai (Thailändisch), Sushi Haven (Japanisch), Fajita Friends (Tex-Mex) und O! Momos (Himalayisch). Entdecken Sie internationale Küchen, kreiert in der Schweiz."
+    }
+  },
+  "partnerTags": {
+    "welcomeCont": "Werden Sie unser Partner",
+    "helmet": {
+      "title": "Partnerschaft mit Karma Cuisine | Wachsen mit Restaurants in der Schweiz",
+      "description": "Schließen Sie sich Karma Cuisine an und expandieren Sie in der ganzen Schweiz. Werden Sie Partner einer führenden indischen Restaurantmarke in Luzern, Interlaken und Zürich. Entdecken Sie Wachstumschancen in Restaurants, Cloud-Kitchen und kulinarischen Innovationen."
+    }
+  },
+  "careerTags": {
+    "welcomeCont": "Werden Sie Teil unseres Teams",
+    "helmet": {
+      "title": "Karriere bei Karma Cuisine | Restaurantjobs Zürich, Interlaken",
+      "description": "Gestalten Sie Ihre Karriere mit Karma Cuisine. Bewerben Sie sich für Jobs in Küche, Service, Bar und Gastronomiemanagement in Luzern, Zürich und Interlaken. Erleben Sie Ausbildung, Wachstum und eine lebendige Restaurantkultur."
+    }
+  },
+  "contactTags": {
+    "welcomeCont": "Willkommen auf unserer Kontaktseite",
+    "helmet": {
+      "title": "Kontakt | Indisches Restaurant Luzern, Interlaken & Bar Zürich",
+      "description": "Kontaktieren Sie Karma Cuisine noch heute für Reservierungen, Wegbeschreibungen oder Anfragen. Besuchen Sie unsere indischen Restaurants in Luzern und Interlaken oder genießen Sie einen lebendigen Abend in unserer stilvollen Bar in Zürich. Wir freuen uns auf Sie."
+    }
   }
 }

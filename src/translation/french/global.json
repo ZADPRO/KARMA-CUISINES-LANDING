@@ -161,5 +161,47 @@
     "restaurantAddress": "Adresse du restaurant",
     "additionalInfo": "Informations supplémentaires ou message",
     "submitApplication": "Soumettre la candidature"
+  },
+  "homePageTags": {
+    "welcomeCont": "Bienvenue chez Karma Cuisine",
+    "helmet": {
+      "title": "Karma Cuisine | Restaurant Indien Lucerne, Interlaken & Bar Zurich",
+      "description": "Découvrez la cuisine indienne authentique chez Karma Cuisine à Lucerne et Interlaken. Savourez des plats parfumés, des thalis uniques et une ambiance conviviale avec un bar élégant à Zurich. Parfait pour les amateurs de cuisine indienne près de chez vous."
+    }
+  },
+  "aboutUsTags": {
+    "welcomeCont": "À propos de Karma Cuisine",
+    "helmet": {
+      "title": "À propos de Karma Cuisine | Restaurant Indien Lucerne, Interlaken Zurich",
+      "description": "Découvrez l’histoire de Karma Cuisine – enracinée dans les saveurs indiennes authentiques à Lucerne et Interlaken, avec un modèle moderne de cloud kitchen et un bar animé à Zurich. Apprenez-en plus sur notre parcours et nos concepts innovants."
+    }
+  },
+  "ourBrandsTags": {
+    "welcomeCont": "Découvrez nos marques",
+    "helmet": {
+      "title": "Nos Marques | Indien, Thaï, Japonais, Mexicain & Momos",
+      "description": "Découvrez les différentes marques de Karma Cuisine : Kings Kurry (Indien), Ban Thai (Thaï), Sushi Haven (Japonais), Fajita Friends (Tex-Mex) et O! Momos (Himalayen). Savourez des cuisines du monde en Suisse."
+    }
+  },
+  "partnerTags": {
+    "welcomeCont": "Devenez notre partenaire",
+    "helmet": {
+      "title": "Partenariat avec Karma Cuisine | Développez-vous avec des restaurants en Suisse",
+      "description": "Rejoignez Karma Cuisine et développez-vous à travers toute la Suisse. Collaborez avec une marque de restaurants indiens leader à Lucerne, Interlaken et Zurich. Explorez des opportunités de croissance en restauration, cloud kitchen et innovations culinaires."
+    }
+  },
+  "careerTags": {
+    "welcomeCont": "Rejoignez notre équipe",
+    "helmet": {
+      "title": "Carrières chez Karma Cuisine | Emplois en restauration Zurich, Interlaken",
+      "description": "Construisez votre carrière avec Karma Cuisine. Postulez pour des postes en cuisine, service, bar et gestion hôtelière à Lucerne, Zurich et Interlaken. Profitez d’une formation, d’opportunités de croissance et d’une culture de restaurant dynamique."
+    }
+  },
+  "contactTags": {
+    "welcomeCont": "Bienvenue sur notre page contact",
+    "helmet": {
+      "title": "Contact | Restaurant Indien Lucerne, Interlaken & Bar Zurich",
+      "description": "Contactez Karma Cuisine pour des réservations, directions ou questions. Visitez nos restaurants indiens à Lucerne et Interlaken ou profitez d’une soirée animée dans notre bar élégant à Zurich. Nous serons ravis de vous accueillir."
+    }
   }
 }

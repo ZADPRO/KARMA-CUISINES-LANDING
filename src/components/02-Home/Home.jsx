@@ -7,6 +7,7 @@ import banthai from "../../assets/logoNew/banThai01.png";
 import fajitha from "../../assets/logoNew/fajitha01.png";
 import sushiheaven from "../../assets/logoNew/sushi01.png";
 import momos from "../../assets/logoNew/momos01.png";
+import { Helmet } from "react-helmet-async";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { useTranslation } from "react-i18next";
@@ -136,6 +137,13 @@ export default function Home() {
 
   return (
     <ReactLenis root>
+      <Helmet>
+        <title>{t("homePageTags.helmet.title")}</title>
+        <meta
+          name="description"
+          content={t("homePageTags.helmet.description")}
+        />
+      </Helmet>
       <div className="relative w-full h-screen">
         {/* Background Slider */}
         <div className="absolute inset-0 w-full h-full glide-04">

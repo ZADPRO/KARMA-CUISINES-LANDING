@@ -6,6 +6,7 @@ import career01 from "../../assets/career/career01.jpg";
 import career02 from "../../assets/career/career02.jpg";
 import career03 from "../../assets/career/career03.jpg";
 import career04 from "../../assets/career/career04.jpg";
+import { Helmet } from "react-helmet-async";
 
 export default function Career() {
   const { t } = useTranslation("global");
@@ -44,6 +45,10 @@ export default function Career() {
 
   return (
     <>
+      <Helmet>
+        <title>{t("careerTags.helmet.title")}</title>
+        <meta name="description" content={t("careerTags.helmet.description")} />
+      </Helmet>
       <div className="homePageIntroCont flex lg:flex-row flex-col lg:p-7">
         <div className="flex-1 homePageCont p-4 mt-8">
           <p

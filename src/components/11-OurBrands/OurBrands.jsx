@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 // import mainImage from "../../assets/brands/kingKurry01.jpg";
 // import subImage from "../../assets/brands/kingKurry02.jpg";
 
+import { Helmet } from "react-helmet-async";
+
 import kingsKurry01 from "../../assets/brands/kingsKurry02.jpg";
 import kingsKurry02 from "../../assets/brands/kingsKurry01.jpg";
 
@@ -61,6 +63,10 @@ export default function OurBrands() {
 
   return (
     <div className="bg-[#f9edde]">
+      <Helmet>
+        <title>{t("ourBrandsTags.helmet.title")}</title>
+        <meta name="description" content={t("ourBrandsTags.helmet.description")} />
+      </Helmet>
       <div className="relative w-full h-screen">
         {/* Background Slider */}
         <div className="absolute inset-0 w-full h-full glide-04">

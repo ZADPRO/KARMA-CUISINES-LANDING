@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import "./App.css";
 
 import MainRoutes from "./components/00-MainRoutes/MainRoutes";
+import { HelmetProvider } from "react-helmet-async";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -24,7 +25,9 @@ function App() {
   }, []);
   return (
     <>
-      <MainRoutes />
+      <HelmetProvider>
+        <MainRoutes />
+      </HelmetProvider>
     </>
   );
 }

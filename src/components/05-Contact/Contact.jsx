@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import location from "../../assets/contact/location.png";
 import email from "../../assets/contact/email.png";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 
 export default function Contact() {
   const [state, setState] = useState({
@@ -34,6 +35,13 @@ export default function Contact() {
 
   return (
     <div>
+      <Helmet>
+        <title>{t("contactTags.helmet.title")}</title>
+        <meta
+          name="description"
+          content={t("contactTags.helmet.description")}
+        />
+      </Helmet>
       <div className="contactPageCont flex lg:flex-row flex-col lg:p-7">
         {/* Left Section */}
         <div className="flex-1 homePageCont p-4 mt-8">

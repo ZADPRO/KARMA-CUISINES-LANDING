@@ -3,6 +3,7 @@ import story1 from "../../assets/story/onee.jpg";
 import story2 from "../../assets/story/two.jpg";
 import story3 from "../../assets/story/three.jpg";
 import story4 from "../../assets/story/four.jpg";
+import { Helmet } from "react-helmet-async";
 
 import { useTranslation } from "react-i18next";
 
@@ -19,6 +20,10 @@ export default function About() {
   });
   return (
     <div>
+      <Helmet>
+        <title>{t("aboutUsTags.helmet.title")}</title>
+        <meta name="description" content={t("aboutUsTags.helmet.description")} />
+      </Helmet>
       <div ref={container} className="relative bg-black">
         <Section1 scrollYProgress={scrollYProgress} />
         <Section2 scrollYProgress={scrollYProgress} />

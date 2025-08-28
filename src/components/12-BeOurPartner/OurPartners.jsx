@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
+import { Helmet } from "react-helmet-async";
+
 export default function OurPartners() {
   const { t } = useTranslation("global");
 
@@ -40,6 +42,10 @@ export default function OurPartners() {
   };
   return (
     <div className="">
+      <Helmet>
+        <title>{t("partnerTags.helmet.title")}</title>
+        <meta name="description" content={t("partnerTags.helmet.description")} />
+      </Helmet>
       <div className="ourPartnersIntroCont flex lg:flex-row flex-col lg:p-7">
         <div className="flex-1 homePageCont p-4 mt-8">
           <p
