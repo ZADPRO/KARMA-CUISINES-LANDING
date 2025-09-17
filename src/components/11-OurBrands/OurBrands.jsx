@@ -61,11 +61,76 @@ export default function OurBrands() {
     };
   }, []);
 
+  const keywords = [
+    "piacere wein",
+    "best beer in switzerland",
+    "clio wein",
+    "alion wein",
+    "alto wein",
+    "puro wein",
+    "beer pong tisch",
+    "beer glasses",
+    "aalto wein",
+    "indian restaurant luzern",
+    "thali indian restaurant",
+    "kingfisher beer",
+    "tadka indian restaurant",
+    "restaurant bären zug",
+    "chardonnay wein",
+    "indian restaurants in lugano switzerland",
+    "indian restaurant zug",
+    "indian food takeaway",
+    "chardonnay",
+    "indian restaurant in interlaken",
+    "indian restaurant in grindelwald",
+    "indian restaurants in grindelwald switzerland",
+    "indian restaurant in montreux switzerland",
+    "bar langstrasse zürich",
+    "indian restaurant luzern",
+    "cloud kitchen",
+    "beste bars in zürich",
+    "indian restaurants in lucerne",
+    "best indian restaurant geneva",
+    "bar in zürich",
+    "houdini kino bar badenerstrasse zürich",
+    "äss bar zürich",
+    "best bars in zurich",
+    "bars in zürich",
+    "zürich bar",
+    "switzerland beer",
+    "primitivo",
+    "south indian restaurants in zurich",
+    "tamarind hill indian restaurant",
+    "nearest indian food restaurant",
+    "bars zürich",
+    "restaurant indian summer",
+    "best indian restaurant near me",
+    "indian restaurant royal palace",
+    "south indian restaurant zurich",
+    "indian restaurant near me",
+    "indian restaurant basel",
+    "indian vegetarian restaurants near me",
+    "weisswein coop",
+    "south indian restaurants",
+    "indian restaurant",
+    "indian restaurants in zurich hb",
+    "south indian restaurants near me",
+    "nepalese restaurant",
+    "malabar indian restaurant",
+    "indian restaurants in zurich",
+    "best indian restaurant in zurich",
+    "indian restaurants in zurich near me",
+  ];
+
   return (
     <div className="bg-[#f9edde]">
       <Helmet>
         <title>{t("ourBrandsTags.helmet.title")}</title>
-        <meta name="description" content={t("ourBrandsTags.helmet.description")} />
+        <meta
+          name="description"
+          content={t("ourBrandsTags.helmet.description")}
+        />
+        <meta name="keywords" content={keywords.join(", ")} />
       </Helmet>
       <div className="relative w-full h-screen">
         {/* Background Slider */}
