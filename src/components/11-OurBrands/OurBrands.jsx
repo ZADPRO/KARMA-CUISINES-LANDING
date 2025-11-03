@@ -177,6 +177,7 @@ export default function OurBrands() {
           description: t("ourBrands.kingsKurry"),
           tagline: t("ourBrands.kingsKurryTagLine"),
           routePath: "kingsKurry",
+          routeId: 3,
           desc: "Celebrating Indian Kitchen",
           mainImage: kingsKurry01,
           subImage: kingsKurry02,
@@ -187,6 +188,7 @@ export default function OurBrands() {
           description: t("ourBrands.banThai"),
           tagline: t("ourBrands.banThaiTagLine"),
           routePath: "banThai",
+          routeId: 5,
           desc: "",
           mainImage: banThai01,
           subImage: banThai02,
@@ -197,6 +199,7 @@ export default function OurBrands() {
           description: t("ourBrands.sushiHeaven"),
           tagline: t("ourBrands.sushiHeavenTagLine"),
           routePath: "sushiHeaven",
+          routeId: 6,
           desc: "",
           mainImage: sushi01,
           subImage: sushi02,
@@ -207,6 +210,7 @@ export default function OurBrands() {
           description: t("ourBrands.fajithaFriends"),
           tagline: t("ourBrands.fajithaFriendsTagLine"),
           routePath: "fajithaFriends",
+          routeId: 7,
           desc: "",
           mainImage: fajithaFriends01,
           subImage: fajithaFriends02,
@@ -217,6 +221,7 @@ export default function OurBrands() {
           description: t("ourBrands.omomos"),
           tagline: t("ourBrands.omomosTagLine"),
           routePath: "oMomos",
+          routeId: 4,
           desc: "",
           mainImage: momos01,
           subImage: momos02,
@@ -257,8 +262,10 @@ export default function OurBrands() {
             <button
               className="border-2 border-black px-[20px] py-[10px] rounded-md my-5"
               onClick={() => {
-                if (brand.routePath === "kingsKurry") {
-                  navigate(`/restroMenu?routePath=${brand.routePath}`);
+                if (brand.routeId === 3) {
+                  navigate(`/restroMenu?routePath=${brand.routeId}`);
+                } else if (brand.routeId === 4) {
+                  navigate(`/restroMenu?routePath=${brand.routeId}`);
                 } else {
                   navigate("/comingSoon");
                 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import kingskurryBanner from "../../assets/coverImg.jpg";
+import oMomosBanner from "../../assets/coverImg/oMomos.png";
+import momosLogo from "../../assets/logoNew/momos01.png";
 import axios from "axios";
 import decrypt from "../../helper";
 import kingsKurryLogo from "../../assets/logoNew/kingsKurry.jpg";
@@ -8,12 +10,25 @@ import kingsKurryPng from "../../assets/logoNew/king01.png";
 import { ShoppingCart } from "lucide-react";
 
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
 export default function RestroMenu() {
   const { t } = useTranslation("global");
+
+  const imageConfig = {
+    3: {
+      banner: kingskurryBanner,
+      logo: kingsKurryPng,
+      tagline: "Celebrating Indian Cuisine",
+    },
+    4: {
+      banner: oMomosBanner,
+      logo: momosLogo,
+      tagline: "",
+    },
+  };
 
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [categories, setCategories] = useState([]);
@@ -389,19 +404,28 @@ export default function RestroMenu() {
   const [savedCartItems, setSavedCartItems] = useState(null);
   const [cartItemIds, setCartItemIds] = useState([]);
 
-  const getCategory = () => {
-    return axios
-      .get(import.meta.env.VITE_API_URL + "/userProduct/FoodList", {
-        headers: {
-          Authorization: localStorage.getItem("JWTtoken"),
-        },
-      })
+  const location = useLocation();
+
+  const getCategory = (routePath) => {
+    console.log("routePath", routePath);
+    axios
+      .get(
+        `${
+          import.meta.env.VITE_API_URL
+        }/userProduct/FoodList?routePath=${routePath}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("JWTtoken"),
+          },
+        }
+      )
       .then((res) => {
         const data = decrypt(
           res.data[1],
           res.data[0],
           import.meta.env.VITE_ENCRYPTION_KEY
         );
+        console.log("data", data);
         if (data.success) {
           const categories = data.foodItem;
           const refs = {};
@@ -410,9 +434,7 @@ export default function RestroMenu() {
           });
           refsMap.current = refs;
           setCategories(categories);
-
           const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-          console.log("savedCart", savedCart);
           setSavedCartItems(savedCart);
         }
       })
@@ -421,15 +443,28 @@ export default function RestroMenu() {
       });
   };
 
-  const fetchCategories = async () => {
+  const fetchCategories = async (routePath) => {
+    console.log("routePath", routePath);
     setLoading(true);
-    await getCategory();
+    await getCategory(routePath);
     setLoading(false);
   };
 
+  const [routePathConfig, setRoutePathConfig] = useState(null);
+
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    const params = new URLSearchParams(location.search);
+    const routePath = params.get("routePath");
+    console.log("routePath:", routePath);
+
+    if (routePath) {
+      console.log("routePath", routePath);
+      fetchCategories(routePath);
+      setRoutePathConfig(routePath);
+    }
+  }, [location]);
+
+  const selected = imageConfig[routePathConfig] || imageConfig[3];
 
   useEffect(() => {
     if (savedCartItems) {
@@ -633,12 +668,12 @@ export default function RestroMenu() {
   return (
     <div ref={containerRef}>
       <div className="coverImg">
-        <img src={kingskurryBanner} alt="" />
+        <img src={selected.banner} alt="Restaurant Banner" />
       </div>
 
       <div className="restroIntro text-center my-4 flex flex-col items-center">
-        <img src={kingsKurryPng} alt="" className="w-[200px]" />
-        <p className="text-sm text-gray-500">Celebrating Indian Cuisine</p>
+        <img src={selected.logo} alt="Restaurant Logo" className="w-[200px]" />
+        <p className="text-sm text-gray-500">{selected.tagline}</p>
       </div>
 
       {/* Tabs */}
